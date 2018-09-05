@@ -2,46 +2,47 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import './setup.css';
+import theme from '../utilities/theme';
 
 const ChildrenLayout = styled.section`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0px 1.0875rem 1.45rem;
-  padding-top: 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 function Layout({children}) {
   return (
-    <StaticQuery
-      query={graphql`
-        query SiteTitleQuery {
-          site {
-            siteMetadata {
-              title
+    <ThemeProvider theme={theme}>
+      <StaticQuery
+        query={graphql`
+          query SiteTitleQuery {
+            site {
+              siteMetadata {
+                title
+              }
             }
           }
-        }
-      `}
-      render={data => (
-        <React.Fragment>
-          <Helmet
-            title={data.site.siteMetadata.title}
-            meta={[
-              { name: 'description', content: 'Sample' },
-              { name: 'keywords', content: 'sample, something' },
-            ]}
-          >
-            <html lang="en" />
-          </Helmet>
-          <ChildrenLayout>
-            {children}
-          </ChildrenLayout>
-        </React.Fragment>
-      )}
-    />
+        `}
+        render={data => (
+          <React.Fragment>
+            <Helmet
+              title={data.site.siteMetadata.title}
+              meta={[
+                { name: 'description', content: 'Artesanías Mexicanas New Marias' },
+                { name: 'keywords', content: 'artesanias, mexico' },
+              ]}
+            >
+              <html lang="en" />
+            </Helmet>
+            <ChildrenLayout>
+              {children}
+            </ChildrenLayout>
+          </React.Fragment>
+        )}
+      />
+    </ThemeProvider>
   )
 }
 
