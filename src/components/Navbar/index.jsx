@@ -21,15 +21,10 @@ const List = styled.ul`
 
   li {
     padding-right: ${props => props.itemPadding};
+    color: #626363;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 17.9px;
   }
-`;
-
-const Anchor = styled.a`
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #626363;
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 17.9px;
 `;
 
 function Navbar () {
@@ -37,11 +32,11 @@ function Navbar () {
     <Container>
       <Logo src={headerIcon}/>
       <List itemPadding='1.3em'>
-        <li><Anchor href='#top'>Inicio</Anchor></li>
-        <li><Anchor href='#store'>Nuestra tienda</Anchor></li>
-        <li><Anchor href='#about'>Quiénes somos</Anchor></li>
-        <li><Anchor href='#stories'>Historias</Anchor></li>
-        <li><Anchor href='#contact'>Contacto</Anchor></li>
+        <li href='#top'>Inicio</li>
+        <li href='#store'>Nuestra tienda</li>
+        <li href='#about'>Quiénes somos</li>
+        <li href='#stories'>Historias</li>
+        <li href='#contact'>Contacto</li>
       </List>
     </Container>
   )
