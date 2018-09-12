@@ -11,17 +11,16 @@ const Container = styled.div`
 
 const List = styled.ul`
   list-style: none;
+  color: #626363;
+  font-family: 'Archivo Narrow', sans-serif;
 
   li.title {
-    font-family: 'Archivo Narrow', sans-serif;
     font-size: 28px;
     padding-top: 12.2px;
     padding-bottom: 6px;
   }
 
   li {
-    color: #626363;
-    font-family: 'Archivo Narrow', sans-serif;
     font-size: 18px;
     padding-top: 9px;
   }

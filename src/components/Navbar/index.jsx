@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import headerIcon from './assets/header-icon.svg';
+import facebookIcon from './assets/fb-icon.svg';
+import instagramIcon from './assets/ig-icon.svg';
 
 const Container = styled.div`
   padding: 1.8em 1.5em;
@@ -28,11 +30,16 @@ const List = styled.ul`
 
   li {
     padding-left: ${props => props.itemPadding};
-    padding-right: ${props => props.itemPadding};
+    padding-right: 1.875em;
     color: #626363;
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 17.9px;
+    text-transform: uppercase;
   }
+`;
+
+const Icon = styled.img`
+  padding-right: 31px;
 `;
 
 function Navbar () {
@@ -45,6 +52,8 @@ function Navbar () {
         <li href='#about'>Quiénes somos</li>
         <li href='#stories'>Historias</li>
         <li href='#contact'>Contacto</li>
+        <Icon src={facebookIcon}/>
+        <Icon src={instagramIcon}/>
       </List>
     </Container>
   )

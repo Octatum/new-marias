@@ -8,7 +8,7 @@ const Container = styled.div`
 
   p {
     color: #626363;
-    font-family: ArchivoNarrow;
+    font-family: 'Archivo Narrow', sans-serif;
     font-size: 14px;
   }
 `;
@@ -17,6 +17,7 @@ const Placeholder = styled.div`
   width: 145px;
   height: 145px;
   background-color: #d6d8db;
+  margin-bottom: 5px;
 `;
 
 function Product () {
