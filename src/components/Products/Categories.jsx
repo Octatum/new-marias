@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 
-import Grid from 'react-css-grid';
-
 const Container = styled.div`
   padding-top: 12.2px;
   padding-left: 58px;
@@ -26,12 +24,20 @@ const List = styled.ul`
   }
 `;
 
+const Grid = styled.div`
+  display: grid;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(4, minmax(10em, 20vw));
+  justify-content: space-between;
+  grid-auto-flow: row dense;
+  grid-gap: 1em;
+  padding: 2em;
+`
+
 function Categories () {
   return (
     <Container>
-      <Grid
-        width={100}
-        gap={16}>
+      <Grid>
         <List>
           <li class="title">Categorías</li>
           <li href='#alebrijes'>Alebrijes</li>
@@ -47,10 +53,16 @@ function Categories () {
           <li href='#tortilleros'>Tortilleros</li>
           <li href='#virgenes'>Virgenes</li>
         </List>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        <Grid>
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+          <Product />
+        </Grid>
       </Grid>
     </Container>
   )

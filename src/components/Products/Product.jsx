@@ -18,6 +18,8 @@ const Placeholder = styled.div`
   height: 145px;
   background-color: #d6d8db;
   margin-bottom: 5px;
+  grid-column: span 1;
+  max-width: none;
 `;
 
 function Product () {

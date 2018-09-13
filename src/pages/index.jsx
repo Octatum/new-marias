@@ -11,7 +11,7 @@ const AppLayout = styled.div`
 `;
 
 const Banner = styled.div`
-  width: 1440px;
+  width: 100%;
   height: 217px;
   background-color: #d6d8db;
 `;
