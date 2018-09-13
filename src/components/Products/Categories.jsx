@@ -16,7 +16,6 @@ const List = styled.ul`
 
   li.title {
     font-size: 28px;
-    padding-top: 12.2px;
     padding-bottom: 6px;
   }
 
@@ -56,6 +55,8 @@ function Categories () {
           <li href='#virgenes'>Virgenes</li>
         </List>
         <Grid>
+          <Product />
+          <Product />
           <Product />
           <Product />
           <Product />
