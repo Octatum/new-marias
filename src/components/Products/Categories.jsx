@@ -5,12 +5,14 @@ import Product from './Product';
 const Container = styled.div`
   padding-top: 12.2px;
   padding-left: 58px;
+  display: flex;
 `;
 
 const List = styled.ul`
   list-style: none;
   color: #626363;
   font-family: 'Archivo Narrow', sans-serif;
+  flex: 1;
 
   li.title {
     font-size: 28px;
@@ -31,13 +33,13 @@ const Grid = styled.div`
   justify-content: space-between;
   grid-auto-flow: row dense;
   grid-gap: 1em;
-  padding: 2em;
+  padding: 1em;
+  flex: 3;
 `
 
 function Categories () {
   return (
     <Container>
-      <Grid>
         <List>
           <li class="title">Categorías</li>
           <li href='#alebrijes'>Alebrijes</li>
@@ -63,7 +65,6 @@ function Categories () {
           <Product />
           <Product />
         </Grid>
-      </Grid>
     </Container>
   )
 }

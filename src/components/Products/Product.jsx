@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import Grid from 'react-css-grid';
-
 const Container = styled.div`
   padding-top: 12.2px;
 
