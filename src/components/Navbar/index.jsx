@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import headerIcon from './assets/header-icon.svg';
@@ -23,13 +23,15 @@ const Logo = styled.img`
 
 const List = styled.ul`
   display: flex;
+  padding-top: 0.7em;
+  border-top: 2px solid #d6d8db;
   list-style: none;
   margin-left: auto;
   margin-right: auto;
-  width: 75%;
+  width: 60%;
 
   li {
-    padding-left: ${props => props.itemPadding};
+    padding-left: 1.15em;
     padding-right: 1.875em;
     color: #626363;
     font-family: 'Archivo Narrow', sans-serif;
@@ -39,14 +41,14 @@ const List = styled.ul`
 `;
 
 const Icon = styled.img`
-  padding-right: 31px;
+  padding: 0 31px 10px 0;
 `;
 
 function Navbar () {
   return (
     <Container>
       <Logo src={headerIcon}/>
-      <List itemPadding='1.15em'>
+      <List>
         <li href='#top'>Inicio</li>
         <li href='#store'>Nuestra tienda</li>
         <li href='#about'>Quiénes somos</li>
