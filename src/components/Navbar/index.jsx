@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import headerIcon from './assets/header-icon.svg';
@@ -18,7 +18,6 @@ const Logo = styled.img`
 const List = styled.ul`
   display: flex;
   list-style: none;
-
   li {
     padding-right: ${props => props.itemPadding};
     color: #626363;

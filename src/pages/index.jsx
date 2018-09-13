@@ -11,7 +11,7 @@ const AppLayout = styled.div`
 
 const IndexPage = () => (
   <AppLayout>
-    <Navbar />
+    <Navbar/>
   </AppLayout>
 )
 
