@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
+import { Link } from 'gatsby'
 
 const Container = styled.div`
     min-width: 760px;
@@ -135,7 +136,7 @@ class Gallery extends Component {
                     <Filtro>
                         Todas  >
                     </Filtro>
-                    <BackButton/>
+                    <Link to="/"><BackButton/></Link>
                     <ImagesContainer>
                         {images}
                     </ImagesContainer>
