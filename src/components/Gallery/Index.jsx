@@ -142,8 +142,7 @@ class Gallery extends Component {
                 </BackContainer>
                 <CurrentImageContainer>
                     <PreviousButton onClick={this.previousImage.bind(this)}/>
-                    <CurrentImage 
-                        src={this.state.currentImage}/>
+                    <CurrentImage src={this.state.currentImage}/>
                     <Nextbutton onClick={this.nextImage.bind(this)}/>
                 </CurrentImageContainer>
             </Container>    
