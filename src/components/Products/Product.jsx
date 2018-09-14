@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 
 const Container = styled.div`
   padding-top: 12.2px;
@@ -15,6 +16,10 @@ const Placeholder = styled.div`
   width: 145px;
   height: 145px;
   background-color: #d6d8db;
+  background-image: url(https://ae01.alicdn.com/kf/HTB1ROweKpXXXXbYXpXXq6xXFXXXp/D-a-de-la-cosecha-artesan-as-rojo-chino-artesan-a-linterna-con-vidrio-roto.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   margin-bottom: 5px;
   grid-column: span 1;
   max-width: none;
@@ -23,7 +28,7 @@ const Placeholder = styled.div`
 function Product () {
   return (
     <Container>
-      <Placeholder />
+      <Link to="/producto/"><Placeholder /></Link>
       <p>Jarrón de porcelana china</p>
       <p>$800.00</p>
     </Container>
