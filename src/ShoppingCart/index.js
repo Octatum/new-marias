@@ -8,8 +8,7 @@ class Cart {
 
 decorate(Cart, {
     counter: observable,
-    increment: action,
-    tick: action
+    increment: action
 });
 
 export default new Cart();

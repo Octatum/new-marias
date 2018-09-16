@@ -25,12 +25,12 @@ const Placeholder = styled.div`
   max-width: none;
 `;
 
-function Product () {
+function Product (props) {
   return (
     <Container>
       <Link to="/producto/"><Placeholder /></Link>
-      <p>Jarrón de porcelana china</p>
-      <p>$800.00</p>
+      <p>{props.name}</p>
+      <p>${props.price.toFixed(2)}</p>
     </Container>
   )
 }

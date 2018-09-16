@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
+import {observer} from 'mobx-react';
+import CategoryState from "./../../CategoryState";
 
 const Container = styled.div`
   padding-top: 12.2px;
@@ -23,6 +25,11 @@ const List = styled.ul`
     font-size: 18px;
     padding-top: 9px;
   }
+
+  li:hover {
+    cursor: pointer;
+  }
+
 `;
 
 const Grid = styled.div`
@@ -36,38 +43,30 @@ const Grid = styled.div`
   flex: 3;
 `
 
-function Categories () {
-  return (
-    <Container>
-        <List>
-          <li class="title">Categorías</li>
-          <li href='#alebrijes'>Alebrijes</li>
-          <li href='#bolsas'>Bolsas</li>
-          <li href='#cajas'>Cajas Multiusos</li>
-          <li href='#cruces'>Cruces</li>
-          <li href='#decoracion'>Decoración</li>
-          <li href='#molcajetes'>Molcajetes</li>
-          <li href='#muñecas'>Muñecas Marías</li>
-          <li href='#papel'>Papel Picado</li>
-          <li href='#piñatas'>Piñatas</li>
-          <li href='#tequileros'>Tequileros</li>
-          <li href='#tortilleros'>Tortilleros</li>
-          <li href='#virgenes'>Virgenes</li>
-        </List>
-        <Grid>
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-        </Grid>
-    </Container>
-  )
-}
+const Categories = ({categories, products}) => {
 
-export default Categories;
+      const categoryList = categories.map(c => (
+        <li key={c.id} href={`#${c.id}`} onClick={()=>CategoryState.setCurrent(c.id)} >{c.name}</li>
+      ));
+    
+      const filteredProducts = products
+        .filter((p) => p.category === CategoryState.current || CategoryState.current  === "todas")
+        .map(function(p){
+          return <Product key={p.id} name={p.name} price={p.price}/>
+        });
+
+      return (
+        <Container>
+            <List>
+              <li onClick={()=>CategoryState.setCurrent("todas")} className="title">Categorías</li>
+              {categoryList}
+            </List>
+            <Grid>
+              {filteredProducts}
+            </Grid>
+        </Container>
+      )
+    
+};
+
+export default observer(Categories);

@@ -101,7 +101,6 @@ const Filtro = styled.div`
 `
 
 class Gallery extends Component {
-
     state = {
         currentImage: this.props.images[0]
     }
@@ -134,7 +133,7 @@ class Gallery extends Component {
             <Container>
                 <BackContainer>
                     <Filtro>
-                        Todas  >
+                        {this.props.category}  >
                     </Filtro>
                     <Link to="/"><BackButton/></Link>
                     <ImagesContainer>

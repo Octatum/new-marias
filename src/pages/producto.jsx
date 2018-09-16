@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
 import Detail from '../components/Detail';
+import {observer} from 'mobx-react';
+import CategoryState from "./../CategoryState";
+import {ALEBRIJES, BOLSAS, CAJAS, DECORACION, 
+  MOLCAJETES, TORTILLEROS, categories} from "./../constants/categories.js"
 
 const AppLayout = styled.div`
   display: flex;
@@ -31,6 +35,7 @@ const Producto = () => (
     <Navbar />
     <Container>
       <Gallery 
+        category={categories.find(c => c.id === CategoryState.current).name}
         images={images}/>
       <Detail
         name="Vajilla de cerámica"
@@ -40,4 +45,4 @@ const Producto = () => (
   </AppLayout>
 )
 
-export default Producto;
+export default observer(Producto);

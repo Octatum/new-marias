@@ -1,10 +1,13 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import styled from 'styled-components';
 import Layout from '../components/layout';
 import Navbar from '../components/Navbar';
 import shoppingCartImg from '../components/Detail/assets/shoppingcart.png';
 import Categories from '../components/Products/Categories';
+import CategoryState from "./../CategoryState";
+import {observer} from 'mobx-react';
+import {ALEBRIJES, BOLSAS, CAJAS, DECORACION, 
+    MOLCAJETES, TORTILLEROS, categories} from "./../constants/categories.js"
 
 const AppLayout = styled.div`
   display: flex;
@@ -45,17 +48,31 @@ const Cart = styled.div`;
     float: right;
 `
 
+const products = [
+  {id: 1, name: "Jarrón de porcelana china", price: 800, category: ALEBRIJES},
+  {id: 2, name: "Jarrón de porcelana china", price: 800, category: TORTILLEROS},
+  {id: 3, name: "Jarrón de porcelana china", price: 200, category: DECORACION},
+  {id: 4, name: "Jarrón de porcelana china", price: 800, category: MOLCAJETES},
+  {id: 5, name: "Jarrón de porcelana china", price: 800, category: BOLSAS},
+  {id: 6, name: "Jarrón de porcelana china", price: 800, category: CAJAS},
+  {id: 7, name: "Jarrón de porcelana china", price: 200, category: DECORACION},
+  {id: 8, name: "Jarrón de porcelana china", price: 800, category: CAJAS},
+  {id: 9, name: "Jarrón de porcelana china", price: 200, category: BOLSAS}
+];
+
 const IndexPage = () => (
   <AppLayout>
     <Navbar />
     <Banner />
     <Container>
       <Breadcrumb>
-        <li>Todas   ></li>
+        <li>{categories.find(c => c.id === CategoryState.current).name}></li>
       </Breadcrumb>
     </Container>
-    <Categories />
+    <Categories 
+      categories={categories}
+      products={products} />
   </AppLayout>
 )
 
-export default IndexPage
+export default observer(IndexPage);

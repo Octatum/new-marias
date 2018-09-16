@@ -2,7 +2,7 @@ import React from 'react'
 import shoppingCartImg from './assets/shoppingcart.png';
 import styled from 'styled-components';
 import {observer} from 'mobx-react';
-import CounterStore from "./../../ShoppingCart"
+import CounterStore from "./../../ShoppingCart";
 
 const Container = styled.div`
     display: block;
@@ -139,6 +139,7 @@ const Detail = (props) => (
         <Button onClick={() => CounterStore.increment()}>Agregar al carrito</Button>
         <CartContainer>        
             <Cart quantity={CounterStore.counter}/>
+            <p>{CounterStore.counter}</p>
         </CartContainer>
         <Description>{props.description}</Description>
     </Container>
