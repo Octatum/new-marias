@@ -5,8 +5,9 @@ import {observer} from 'mobx-react';
 import CategoryState from "./../../CategoryState";
 
 const Container = styled.div`
-  padding-top: 12.2px;
+  margin-top: -50px;
   padding-left: 58px;
+  padding-right: 58px;
   display: flex;
 `;
 
@@ -48,7 +49,7 @@ const Categories = ({categories, products}) => {
       const categoryList = categories.map(c => (
         <li key={c.id} href={`#${c.id}`} onClick={()=>CategoryState.setCurrent(c.id)} >{c.name}</li>
       ));
-    
+
       const filteredProducts = products
         .filter((p) => p.category === CategoryState.current || CategoryState.current  === "todas")
         .map(function(p){
@@ -66,7 +67,7 @@ const Categories = ({categories, products}) => {
             </Grid>
         </Container>
       )
-    
+
 };
 
 export default observer(Categories);

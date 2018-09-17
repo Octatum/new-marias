@@ -6,7 +6,7 @@ import shoppingCartImg from '../components/Detail/assets/shoppingcart.png';
 import Categories from '../components/Products/Categories';
 import CategoryState from "./../CategoryState";
 import {observer} from 'mobx-react';
-import {ALEBRIJES, BOLSAS, CAJAS, DECORACION, 
+import {ALEBRIJES, BOLSAS, CAJAS, DECORACION,
     MOLCAJETES, TORTILLEROS, categories} from "./../constants/categories.js"
 
 const AppLayout = styled.div`
@@ -27,7 +27,7 @@ const Banner = styled.div`
 const Container = styled.div`
   padding-top: 12.2px;
   border-bottom: 2px solid #d6d8db;
-  width: 90%;
+  width: 88%;
   margin-left: 58px;
 `;
 
@@ -39,13 +39,19 @@ const Breadcrumb = styled.ul`
   display: inline-block;
 `;
 
+const CartContainer = styled.div`;
+    font-family: 'Archivo Narrow', sans-serif;
+    padding-right: 20px;
+`
+
 const Cart = styled.div`;
     width: 69px;
     height: 60px;
-    font-family: 'Archivo Narrow', sans-serif;
     background-image: url(${shoppingCartImg});
     background-size: cover;
     float: right;
+    position: relative;
+    top: -25px;
 `
 
 const products = [
@@ -69,7 +75,10 @@ const IndexPage = () => (
         <li>{categories.find(c => c.id === CategoryState.current).name}></li>
       </Breadcrumb>
     </Container>
-    <Categories 
+    <CartContainer>
+      <Cart />
+    </CartContainer>
+    <Categories
       categories={categories}
       products={products} />
   </AppLayout>
