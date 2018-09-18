@@ -41,7 +41,6 @@ const BreadcrumbItem = styled.div`
 
 const Breadcrumb = (props) => {
     let children = React.Children.toArray(props.children);
-    console.log(children);
     const breadcrumbs = children.map(function(b){
         return <BreadcrumbItem active={b.props.active}>{b.props.children}</BreadcrumbItem>
     });
