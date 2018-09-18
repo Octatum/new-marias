@@ -4,7 +4,6 @@ import {TODAS} from "./../constants/categories.js"
 class CategoryState {
     current = TODAS;
     setCurrent(current) {
-        console.log(current);
         this.current = current;
     }
 }

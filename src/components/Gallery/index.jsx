@@ -9,7 +9,6 @@ const Container = styled.div`
 `;
 
 const CurrentImageContainer = styled.div`
-    display: block;
     float: left;
     display: flex;
 `;
@@ -84,8 +83,10 @@ const ImagesContainer = styled.div`
 
 const BackContainer = styled.div`
     float: left;
-    padding: 0;
+    padding-top: 18px;
     position: relative;
+    top: -18px;
+    border-top: 1px solid gray;
 `
 
 const Filtro = styled.div`
@@ -132,9 +133,6 @@ class Gallery extends Component {
         return (
             <Container>
                 <BackContainer>
-                    <Filtro>
-                        {this.props.category}  >
-                    </Filtro>
                     <Link to="/"><BackButton/></Link>
                     <ImagesContainer>
                         {images}

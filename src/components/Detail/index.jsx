@@ -139,7 +139,6 @@ const Detail = (props) => (
         <Button onClick={() => CounterStore.increment()}>Agregar al carrito</Button>
         <CartContainer>        
             <Cart quantity={CounterStore.counter}/>
-            <p>{CounterStore.counter}</p>
         </CartContainer>
         <Description>{props.description}</Description>
     </Container>

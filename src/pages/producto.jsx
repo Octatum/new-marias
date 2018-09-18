@@ -5,21 +5,27 @@ import Gallery from '../components/Gallery';
 import Detail from '../components/Detail';
 import {observer} from 'mobx-react';
 import CategoryState from "./../CategoryState";
-import {ALEBRIJES, BOLSAS, CAJAS, DECORACION, 
-  MOLCAJETES, TORTILLEROS, categories} from "./../constants/categories.js"
+import {categories} from "./../constants/categories.js";
+import Breadcrumb from "./../components/Breadcrumb";
+import BreadcrumbItem from "./../components/Breadcrumb/BreadcrumbItem";
 
 const AppLayout = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
+const BreadcrumbContainer = styled.div`
+  margin: 0 auto;
+  width: 1240px;
+`;
+
 const Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  padding: 40px 24px;
-  flex-wrap: wrap;
-`
+  padding: 20px 24px;
+  width: 1240px;
+`;
 
 const images = [
   "https://media-cdn.tripadvisor.com/media/photo-s/0d/cc/c2/a2/las-mejores-piezas-de.jpg",
@@ -33,6 +39,11 @@ const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cr
 const Producto = () => (
   <AppLayout>
     <Navbar />
+    <BreadcrumbContainer>
+      <Breadcrumb>
+        <BreadcrumbItem>{categories.find(c => c.id === CategoryState.current).name}</BreadcrumbItem>   
+      </Breadcrumb>
+    </BreadcrumbContainer>
     <Container>
       <Gallery 
         category={categories.find(c => c.id === CategoryState.current).name}
