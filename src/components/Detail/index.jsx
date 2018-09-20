@@ -1,8 +1,7 @@
 import React from 'react'
 import shoppingCartImg from './assets/shoppingcart.png';
 import styled from 'styled-components';
-import {observer} from 'mobx-react';
-import CounterStore from "./../../ShoppingCart";
+import Gallery from '../Gallery';
 
 const Container = styled.div`
     display: block;
@@ -24,7 +23,7 @@ const Button = styled.button`
     letter-spacing: normal;
     color: #ffffff;
     :hover {
-        cursor: pointer; 
+        cursor: pointer;
     }
 `
 const Cart = styled.div`
@@ -32,10 +31,10 @@ const Cart = styled.div`
     width: 100%;
     font-family: 'Archivo Narrow', sans-serif;
     background-image: url(${shoppingCartImg});
-    background-size: cover;                      
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    position: relative; 
+    position: relative;
     ::after {
         position: absolute;
         left: 34px;
@@ -82,7 +81,7 @@ const Description = styled.p`
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 18px;
     line-height: normal;
-    color: #626363;    
+    color: #626363;
 `
 
 const ColorContainer = styled.div`
@@ -122,10 +121,12 @@ const Detail = (props) => (
         <Price>${props.price.toFixed(2)}</Price>
         <ColorContainer>
             <label>Color:</label>
-            <select>
-                <option>Azul</option>
-                <option>Rojo</option>
-                <option>Amarillo</option>        
+            <select
+              onChange={(e) => props.onChange(e)}
+            >
+                <option value="Azul">Azul</option>
+                <option value="Rojo">Rojo</option>
+                <option value="Amarillo">Amarillo</option>
             </select>
         </ColorContainer>
         <QuantityContainer>
@@ -133,15 +134,15 @@ const Detail = (props) => (
             <select>
                 <option>1</option>
                 <option>2</option>
-                <option>3</option>        
+                <option>3</option>
             </select>
         </QuantityContainer>
-        <Button onClick={() => CounterStore.increment()}>Agregar al carrito</Button>
-        <CartContainer>        
-            <Cart quantity={CounterStore.counter}/>
+        <Button>Agregar al carrito</Button>
+        <CartContainer>
+            <Cart quantity={1}/>
         </CartContainer>
         <Description>{props.description}</Description>
     </Container>
 )
 
-export default observer(Detail);
+export default Detail;

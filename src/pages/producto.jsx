@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
@@ -36,24 +36,50 @@ const images = [
 
 const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida libero risus, eu aliquet mauris pharetra non. Quisque lacinia, felis vitae tempus porttitor, arcu massa aliquam mi, ac volutpat velit arcu eu velit. Curabitur at sodales massa, ut tincidunt nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida libero risus, eu aliquet mauris pharetra non. Quisque lacinia, felis vitae tempus porttitor, arcu massa aliquam mi, ac volutpat velit arcu eu velit. Curabitur at sodales massa, ut tincidunt nunc. ";
 
-const Producto = () => (
-  <AppLayout>
-    <Navbar />
-    <BreadcrumbContainer>
-      <Breadcrumb>
-        <BreadcrumbItem>{categories.find(c => c.id === CategoryState.current).name}</BreadcrumbItem>   
-      </Breadcrumb>
-    </BreadcrumbContainer>
-    <Container>
-      <Gallery 
-        category={categories.find(c => c.id === CategoryState.current).name}
-        images={images}/>
-      <Detail
-        name="Vajilla de cerámica"
-        price={800}
-        description={description}/>
-    </Container>
-  </AppLayout>
-)
+class Producto extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentColor: "Azul"
+    };
+
+    this.handleChangeColor = this.handleChangeColor.bind(this);
+  }
+
+  handleChangeColor (e) {
+    this.setState({
+      currentColor: e.target.value
+    });
+
+    /*this.setState({ boardAddModalShow: true }, () => {
+        console.log("AFTER STATE " + this.state.currentColor);
+    });*/
+  }
+
+  render () {
+    return (
+      <AppLayout>
+        <Navbar />
+        <BreadcrumbContainer>
+          <Breadcrumb>
+            <BreadcrumbItem>{categories.find(c => c.id === CategoryState.current).name}</BreadcrumbItem>
+          </Breadcrumb>
+        </BreadcrumbContainer>
+        <Container>
+          <Gallery
+            category={categories.find(c => c.id === CategoryState.current).name}
+            images={images}/>
+          <Detail
+            name="Vajilla de cerámica"
+            price={800}
+            description={description}
+            onChange={this.handleChangeColor}
+          />
+        </Container>
+      </AppLayout>
+    )
+  }
+}
 
 export default observer(Producto);
