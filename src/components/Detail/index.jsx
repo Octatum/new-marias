@@ -125,9 +125,9 @@ const Detail = (props) => (
             <select
               onChange={(e) => props.onChange(e)}
             >
-              <option value="Azul">Azul</option>
-              <option value="Rojo">Rojo</option>
-              <option value="Amarillo">Amarillo</option>
+              <option value="Blue">Azul</option>
+              <option value="Red">Rojo</option>
+              <option value="Yellow">Amarillo</option>
             </select>
         </ColorContainer>
         <QuantityContainer>

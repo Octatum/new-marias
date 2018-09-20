@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
-import { Link } from 'gatsby'
 
 const Container = styled.div`
     min-width: 760px;
 `;
 
 const CurrentImageContainer = styled.div`
+    display: block;
     float: left;
     display: flex;
 `;
@@ -27,12 +27,12 @@ const BackButton = styled.button`
     margin-right: 25px;
     float: left;
     :hover {
-        cursor: pointer; 
+        cursor: pointer;
     }
     background-image: url(${backButtonImg});
-    background-size: cover;                      
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
     border: none;
 `;
 
@@ -42,12 +42,12 @@ const PreviousButton = styled.button`
     margin: 0 25px;
     align-self: center;
     :hover {
-        cursor: pointer; 
+        cursor: pointer;
     }
     background-image: url(${backButtonImg});
-    background-size: cover;                      
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
     border: none;
 `;
 
@@ -57,12 +57,12 @@ const Nextbutton = styled.button`
     margin: 0 25px;
     align-self: center;
     :hover {
-        cursor: pointer; 
+        cursor: pointer;
     }
     background-image: url(${forwardButtonImg});
-    background-size:     cover;                      
+    background-size:     cover;
     background-repeat:   no-repeat;
-    background-position: center center; 
+    background-position: center center;
     border: none;
 `;
 
@@ -77,16 +77,14 @@ const ImagesContainer = styled.div`
         margin-bottom: 7px;
     }
     img:hover {
-       cursor: pointer; 
+       cursor: pointer;
     }
 `;
 
 const BackContainer = styled.div`
     float: left;
-    padding-top: 18px;
+    padding: 0;
     position: relative;
-    top: -18px;
-    border-top: 1px solid gray;
 `
 
 const Filtro = styled.div`
@@ -102,7 +100,9 @@ const Filtro = styled.div`
 `
 
 class Gallery extends Component {
+
     state = {
+        currentColor: this.props.currentColor,
         currentImage: this.props.images[0]
     }
 
@@ -125,7 +125,7 @@ class Gallery extends Component {
     }
 
     render(){
-        
+
         const images = this.props.images.map(function(source){
             return (<img key={source} onClick={() => this.changeCurrentImage(source)} src={source}/>);
         }, this);
@@ -133,20 +133,24 @@ class Gallery extends Component {
         return (
             <Container>
                 <BackContainer>
-                    <Link to="/"><BackButton/></Link>
+                    <Filtro>
+                        Todas  >
+                    </Filtro>
+                    <BackButton/>
                     <ImagesContainer>
                         {images}
                     </ImagesContainer>
                 </BackContainer>
                 <CurrentImageContainer>
                     <PreviousButton onClick={this.previousImage.bind(this)}/>
-                    <CurrentImage src={this.state.currentImage}/>
+                    <CurrentImage
+                        src={this.state.currentImage}/>
                     <Nextbutton onClick={this.nextImage.bind(this)}/>
                 </CurrentImageContainer>
-            </Container>    
+            </Container>
         )
     }
-   
+
 };
 
 export default Gallery;
