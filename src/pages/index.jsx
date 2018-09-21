@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import {Link} from "gatsby";
 import {observer} from 'mobx-react';
 import Layout from '../components/layout';
 import Navbar from '../components/Navbar';
@@ -65,7 +66,7 @@ const IndexPage = () => {
         </Breadcrumb>
       </Container>
       <CartContainer>
-        <Cart />
+        <Link to="/carrito"> <Cart /> </Link> 
       </CartContainer>
       <Categories
         categories={categories}

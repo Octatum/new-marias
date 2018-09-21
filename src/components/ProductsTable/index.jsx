@@ -6,7 +6,7 @@ const ContentTable = styled.table`
     margin: 0 auto;
     margin-top: 20px;
     font-size: 20px;
-    width: 75%;
+    width: 100%;
     font-family: 'Archivo Narrow', sans-serif;
     color: #ffffff;
 `;
