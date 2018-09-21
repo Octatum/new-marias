@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
+import { Link } from 'gatsby';
 import headerIcon from './assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
+import CategoryState from './../../CategoryState';
+import {TODAS} from "./../../constants/categories";
 
 const Container = styled.div`
   padding: 1.8em 1.5em;
@@ -38,11 +40,19 @@ const List = styled.ul`
     font-size: 17.9px;
     text-transform: uppercase;
   }
+
+  li a {
+    text-decoration: none;
+    color: #626363;
+  }
+
 `;
 
 const Icon = styled.img`
   padding: 0 31px 10px 0;
 `;
+
+const backToStoreHandler = () => CategoryState.setCurrent(TODAS);
 
 function Navbar () {
   return (
@@ -50,7 +60,7 @@ function Navbar () {
       <Logo src={headerIcon}/>
       <List>
         <li href='#top'>Inicio</li>
-        <li href='#store'>Nuestra tienda</li>
+        <li href='#store'><Link onClick={backToStoreHandler} to="/"> Nuestra tienda </Link></li>
         <li href='#about'>Quiénes somos</li>
         <li href='#stories'>Historias</li>
         <li href='#contact'>Contacto</li>

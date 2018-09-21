@@ -1,5 +1,5 @@
 import {ALEBRIJES, BOLSAS, CAJAS, DECORACION,
-    MOLCAJETES, TORTILLEROS} from "./categories";
+    MOLCAJETES, TORTILLEROS, VIRGENES} from "./categories";
 
 export const products = [
     {id: 1, name: "Jarrón de porcelana china 1", price: 800, category: ALEBRIJES},

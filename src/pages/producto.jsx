@@ -65,8 +65,6 @@ class Producto extends Component {
   }
 
   componentWillMount() {
-    console.log("componentwillmount producto id: " + CounterStore.currentProduct);
-
     const currentProduct = products.find(function(p) {
       return p.id === CounterStore.currentProduct
     });
