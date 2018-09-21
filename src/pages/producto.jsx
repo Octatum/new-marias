@@ -5,9 +5,12 @@ import Gallery from '../components/Gallery';
 import Detail from '../components/Detail';
 import {observer} from 'mobx-react';
 import CategoryState from "./../CategoryState";
+import CounterStore from "./../ShoppingCart";
 import {categories} from "./../constants/categories.js";
+import {products} from "./../constants/productsInfo";
 import Breadcrumb from "./../components/Breadcrumb";
 import BreadcrumbItem from "./../components/Breadcrumb/BreadcrumbItem";
+import Product from '../components/Products/Product';
 
 const AppLayout = styled.div`
   display: flex;
@@ -53,13 +56,24 @@ const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cr
 class Producto extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      currentProduct: null,
       currentImages: images,
       currentColor: "Blue"
     };
-
     this.handleChangeColor = this.handleChangeColor.bind(this);
+  }
+
+  componentWillMount() {
+    console.log("componentwillmount producto id: " + CounterStore.currentProduct);
+
+    const currentProduct = products.find(function(p) {
+      return p.id === CounterStore.currentProduct
+    });
+
+    this.setState({
+      currentProduct: currentProduct
+    });
   }
 
   handleChangeColor (e) {
@@ -94,6 +108,7 @@ class Producto extends Component {
     this.setState({ boardAddModalShow: true }, () => {
         console.log("AFTER STATE " + this.state.currentColor);
     });
+    
   }
 
   render () {
@@ -112,8 +127,8 @@ class Producto extends Component {
             color={this.state.currentColor}
           />
           <Detail
-            name="Vajilla de cerámica"
-            price={800}
+            name={this.state.currentProduct.name}
+            price={this.state.currentProduct.price}
             description={description}
             onChange={this.handleChangeColor}
           />

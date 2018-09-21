@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Product from './Product';
 import {observer} from 'mobx-react';
 import CategoryState from "./../../CategoryState";
+import CounterStore from "./../../ShoppingCart";
 
 const Container = styled.div`
   margin-top: -50px;
@@ -43,30 +44,33 @@ const Grid = styled.div`
   padding: 1em;
   flex: 3;
 `
+const onSelectedProductHandler = (id) => {
+  CounterStore.currentProduct = id;
+}
 
 const Categories = ({categories, products}) => {
 
-      const categoryList = categories.map(c => (
-        <li key={c.id} href={`#${c.id}`} onClick={()=>CategoryState.setCurrent(c.id)} >{c.name}</li>
-      ));
+    const categoryList = categories.map(c => (
+      <li key={c.id} href={`#${c.id}`} onClick={()=>CategoryState.setCurrent(c.id)} >{c.name}</li>
+    ));
 
-      const filteredProducts = products
-        .filter((p) => p.category === CategoryState.current || CategoryState.current  === "todas")
-        .map(function(p){
-          return <Product key={p.id} name={p.name} price={p.price}/>
-        });
+    const filteredProducts = products
+      .filter((p) => p.category === CategoryState.current || CategoryState.current  === "todas")
+      .map(function(p){
+        return <Product clicked={() => onSelectedProductHandler(p.id)} key={p.id} name={p.name} price={p.price}/>
+      });
 
-      return (
-        <Container>
-            <List>
-              <li onClick={()=>CategoryState.setCurrent("todas")} className="title">Categorías</li>
-              {categoryList}
-            </List>
-            <Grid>
-              {filteredProducts}
-            </Grid>
-        </Container>
-      )
+    return (
+      <Container>
+          <List>
+            <li onClick={()=>CategoryState.setCurrent("todas")} className="title">Categorías</li>
+            {categoryList}
+          </List>
+          <Grid>
+            {filteredProducts}
+          </Grid>
+      </Container>
+    )
 
 };
 

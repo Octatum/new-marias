@@ -28,7 +28,7 @@ const Placeholder = styled.div`
 function Product (props) {
   return (
     <Container>
-      <Link to="/producto/"><Placeholder /></Link>
+      <Link to="/producto/"><Placeholder onClick={props.clicked} /></Link>
       <p>{props.name}</p>
       <p>${props.price.toFixed(2)}</p>
     </Container>

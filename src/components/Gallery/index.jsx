@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
@@ -133,10 +134,7 @@ class Gallery extends Component {
         return (
             <Container>
                 <BackContainer>
-                    <Filtro>
-                        Todas  >
-                    </Filtro>
-                    <BackButton/>
+                    <Link to="/"> <BackButton/> </Link>
                     <ImagesContainer>
                         {images}
                     </ImagesContainer>
