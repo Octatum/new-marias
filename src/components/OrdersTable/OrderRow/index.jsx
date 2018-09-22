@@ -17,22 +17,22 @@ const Td = styled.td`
     vertical-align: middle;
 `
 
-const ProductRow = (props) => (
+const OrderRow = ({name, price, quantity}) => (
     <tr>
         <Td>
             <Picture></Picture>
         </Td>
         <Td>
-            {props.name}
+            {name}
         </Td>
         <Td>
-            ${props.price.toFixed(2)} MXN
+            ${price.toFixed(2)} MXN
         </Td>
         <Td>
-            <QuantityControls quantity="1"/>
+            <QuantityControls quantity={quantity}/>
         </Td>
         <Td>
-            ${props.price.toFixed(2)} MXN
+            ${price.toFixed(2)} MXN
         </Td>
         <Td>
             x
@@ -40,4 +40,4 @@ const ProductRow = (props) => (
     </tr>
 );
 
-export default ProductRow;
+export default OrderRow;

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Breadcrumb from "./../components/Breadcrumb";
 import BreadcrumbItem from "./../components/Breadcrumb/BreadcrumbItem";
-import ProductsTable from "./../components/ProductsTable";
+import OrdersTable from "./../components/OrdersTable";
+import Cart from "./../ShoppingCart";
+import { products } from "./../constants/productsInfo";
 
 const AppLayout = styled.div`
  
@@ -54,31 +56,42 @@ const ButtonContainer = styled.div`
     }
 `
 
-const Carrito = () => (
-    <AppLayout>
-        <Navbar/>
-        <BreadcrumbContainer>
-            <Breadcrumb>
-                <BreadcrumbItem active>Carrito</BreadcrumbItem>  
-                <BreadcrumbItem>Información del cliente</BreadcrumbItem>  
-                <BreadcrumbItem>Envío</BreadcrumbItem>  
-                <BreadcrumbItem>Pago y facturación</BreadcrumbItem>  
-            </Breadcrumb>
-        </BreadcrumbContainer>
-        <Container>
-            <ProductsTable/>
-            <TotalSummary>
-                <p>SUBTOTAL</p>
-                <p>$800.00 MXN</p>
-            </TotalSummary>
-            <ButtonContainer width={115}>
-                <button>Regresar</button>
-            </ButtonContainer>
-            <ButtonContainer width={156}>
-                <button>Continuar</button>
-            </ButtonContainer>
-        </Container>
-    
-    </AppLayout>
-);
+class Carrito extends Component {
+  
+    componentWillMount() {
+        const elprod = products.find(function(p){
+            return p.id === Cart.orders[0].productId
+        });
+    }
+
+    render() {
+        return (
+            <AppLayout>
+                <Navbar/>
+                <BreadcrumbContainer>
+                    <Breadcrumb>
+                        <BreadcrumbItem active>Carrito</BreadcrumbItem>  
+                        <BreadcrumbItem>Información del cliente</BreadcrumbItem>  
+                        <BreadcrumbItem>Envío</BreadcrumbItem>  
+                        <BreadcrumbItem>Pago y facturación</BreadcrumbItem>  
+                    </Breadcrumb>
+                </BreadcrumbContainer>
+                <Container>
+                    <OrdersTable />
+                    <TotalSummary>
+                        <p>SUBTOTAL</p>
+                        <p>$800.00 MXN</p>
+                    </TotalSummary>
+                    <ButtonContainer width={115}>
+                        <button>Regresar</button>
+                    </ButtonContainer>
+                    <ButtonContainer width={156}>
+                        <button>Continuar</button>
+                    </ButtonContainer>
+                </Container>
+            </AppLayout>
+        );
+    }
+}
+//);
 export default Carrito;
