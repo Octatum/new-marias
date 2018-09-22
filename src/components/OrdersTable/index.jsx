@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import OrderRow from "./OrderRow";
+import Cart from "./../../ShoppingCart";
+import { products } from "./../../constants/productsInfo";
 
 const ContentTable = styled.table`
     margin: 0 auto;
@@ -26,14 +28,23 @@ const TableHead = styled.thead`
     }
 `;
 
-const OrdersTable = ({ orders }) => {
+const OrdersTable = ({deleteOrderHandler, onDecreaseQuantity, onIncreaseQuantity}) => {
 
+    const orders = Cart.orders;
     let prodRows = null;
-    if (orders) {
-        prodRows = orders.map(o => {
-            return (<OrderRow name={o.name} price={o.price} quantity={1}/>);
-        });
-    }
+    prodRows = orders.map((o, index) => {
+        const prod = products.find(p => 
+            o.productId === p.id
+        );
+        return (<OrderRow 
+                    name={prod.name} 
+                    price={prod.price} 
+                    quantity={o.quantity} 
+                    deleteOrderHandler={() => deleteOrderHandler(index)}
+                    onDecreaseQuantity={() => onDecreaseQuantity(index)}
+                    onIncreaseQuantity={() => onIncreaseQuantity(index)}
+                    />);
+    });
 
     return (
         <ContentTable> 

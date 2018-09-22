@@ -6,6 +6,8 @@ import BreadcrumbItem from "./../components/Breadcrumb/BreadcrumbItem";
 import OrdersTable from "./../components/OrdersTable";
 import Cart from "./../ShoppingCart";
 import { products } from "./../constants/productsInfo";
+import {observer} from 'mobx-react';
+
 
 const AppLayout = styled.div`
  
@@ -57,14 +59,32 @@ const ButtonContainer = styled.div`
 `
 
 class Carrito extends Component {
-  
-    componentWillMount() {
-        const elprod = products.find(function(p){
-            return p.id === Cart.orders[0].productId
-        });
+
+    deleteOrder = (index) => {
+        Cart.deleteOrder(index);
+        Cart.decrement();
+    }
+
+    decreaseQuantityHandler(index){
+        Cart.decreaseQuantity(index);
+    }
+
+    increaseQuantityHandler(index){
+        Cart.increaseQuantity(index);
+    }
+
+    getSubtotal = () => {
+        let subTotal = 0.0;
+        const orders = Cart.orders;
+        for (let i = 0; i < orders.length; i++){
+            const price = products.find(p => p.id === orders[i].productId).price;
+            subTotal += price * orders[i].quantity;
+        }
+        return subTotal;
     }
 
     render() {
+        const subTotal = this.getSubtotal();
         return (
             <AppLayout>
                 <Navbar/>
@@ -77,10 +97,13 @@ class Carrito extends Component {
                     </Breadcrumb>
                 </BreadcrumbContainer>
                 <Container>
-                    <OrdersTable />
+                    <OrdersTable 
+                        deleteOrderHandler={this.deleteOrder}
+                        onDecreaseQuantity={this.decreaseQuantityHandler}
+                        onIncreaseQuantity={this.increaseQuantityHandler}/>
                     <TotalSummary>
                         <p>SUBTOTAL</p>
-                        <p>$800.00 MXN</p>
+                        <p>${subTotal.toFixed(2)} MXN</p>
                     </TotalSummary>
                     <ButtonContainer width={115}>
                         <button>Regresar</button>
@@ -94,4 +117,4 @@ class Carrito extends Component {
     }
 }
 //);
-export default Carrito;
+export default observer(Carrito);

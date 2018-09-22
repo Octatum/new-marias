@@ -132,13 +132,14 @@ const Detail = (props) => (
         </ColorContainer>
         <QuantityContainer>
             <label>Cantidad:</label>
-            <select>
+            <select
+                onChange={(e) => props.onChangeQuantity(e)}>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
             </select>
         </QuantityContainer>
-        <Button onClick={() => CounterStore.increment()}>Agregar al carrito</Button>
+        <Button onClick={() => {CounterStore.increment(); props.addingOrderHandler()}}>Agregar al carrito</Button>
         <CartContainer>
             <Cart quantity={CounterStore.counter}/>
         </CartContainer>

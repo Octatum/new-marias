@@ -17,7 +17,16 @@ const Td = styled.td`
     vertical-align: middle;
 `
 
-const OrderRow = ({name, price, quantity}) => (
+const DeleteButton = styled.button`
+    border: none;
+    background: transparent;
+    color: #626363;
+    :hover{
+        cursor: pointer;
+    }
+`
+
+const OrderRow = ({name, price, quantity, deleteOrderHandler, onDecreaseQuantity, onIncreaseQuantity}) => (
     <tr>
         <Td>
             <Picture></Picture>
@@ -29,13 +38,17 @@ const OrderRow = ({name, price, quantity}) => (
             ${price.toFixed(2)} MXN
         </Td>
         <Td>
-            <QuantityControls quantity={quantity}/>
+            <QuantityControls 
+                quantity={quantity}
+                onDecreaseQuantity={onDecreaseQuantity} 
+                onIncreaseQuantity={onIncreaseQuantity}
+                />
         </Td>
         <Td>
-            ${price.toFixed(2)} MXN
+            ${price.toFixed(2) * quantity} MXN
         </Td>
         <Td>
-            x
+            <DeleteButton onClick={() => deleteOrderHandler()}>x</DeleteButton>
         </Td>
     </tr>
 );

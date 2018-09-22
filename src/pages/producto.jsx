@@ -5,12 +5,11 @@ import Gallery from '../components/Gallery';
 import Detail from '../components/Detail';
 import {observer} from 'mobx-react';
 import CategoryState from "./../CategoryState";
-import CounterStore from "./../ShoppingCart";
+import Cart from "./../ShoppingCart";
 import {categories} from "./../constants/categories.js";
 import {products} from "./../constants/productsInfo";
 import Breadcrumb from "./../components/Breadcrumb";
 import BreadcrumbItem from "./../components/Breadcrumb/BreadcrumbItem";
-import Product from '../components/Products/Product';
 
 const AppLayout = styled.div`
   display: flex;
@@ -59,19 +58,29 @@ class Producto extends Component {
     this.state = {
       currentProduct: null,
       currentImages: images,
-      currentColor: "Blue"
+      currentColor: "Blue",
+      quantity: 1
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);
   }
 
   componentWillMount() {
     const currentProduct = products.find(function(p) {
-      return p.id === CounterStore.currentProduct
+      return p.id === Cart.currentProduct
     });
 
     this.setState({
-      currentProduct: currentProduct
+      currentProduct,
+      quantity: 1
     });
+  }
+
+  addOrder = () => {
+    Cart.addOrder(this.state.currentProduct.id, this.state.quantity);
+  }
+
+  changeQuantityHandler = (e) => {
+    this.setState({quantity: e.target.value});
   }
 
   handleChangeColor (e) {
@@ -129,6 +138,8 @@ class Producto extends Component {
             price={this.state.currentProduct.price}
             description={description}
             onChange={this.handleChangeColor}
+            addingOrderHandler={this.addOrder}
+            onChangeQuantity={this.changeQuantityHandler}
           />
         </Container>
       </AppLayout>
