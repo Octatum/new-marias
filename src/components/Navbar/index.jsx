@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import headerIcon from './assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
 import CategoryState from './../../CategoryState';
-import {TODAS} from "./../../constants/categories";
+import { TODAS } from './../../constants/categories';
 
 const Container = styled.div`
   padding: 1.8em 1.5em;
@@ -45,7 +45,6 @@ const List = styled.ul`
     text-decoration: none;
     color: #626363;
   }
-
 `;
 
 const Icon = styled.img`
@@ -54,21 +53,26 @@ const Icon = styled.img`
 
 const backToStoreHandler = () => CategoryState.setCurrent(TODAS);
 
-function Navbar () {
+function Navbar() {
   return (
     <Container>
-      <Logo src={headerIcon}/>
+      <Logo src={headerIcon} />
       <List>
-        <li href='#top'>Inicio</li>
-        <li href='#store'><Link onClick={backToStoreHandler} to="/"> Nuestra tienda </Link></li>
-        <li href='#about'>Quiénes somos</li>
-        <li href='#stories'>Historias</li>
-        <li href='#contact'>Contacto</li>
-        <Icon src={facebookIcon}/>
-        <Icon src={instagramIcon}/>
+        <li href="#top">Inicio</li>
+        <li href="#store">
+          <Link onClick={backToStoreHandler} to="/">
+            {' '}
+            Nuestra tienda{' '}
+          </Link>
+        </li>
+        <li href="#about">Quiénes somos</li>
+        <li href="#stories">Historias</li>
+        <li href="#contact">Contacto</li>
+        <Icon src={facebookIcon} />
+        <Icon src={instagramIcon} />
       </List>
     </Container>
-  )
+  );
 }
 
 export default Navbar;

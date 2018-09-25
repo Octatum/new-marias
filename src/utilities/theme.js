@@ -9,10 +9,10 @@ export default {
     h3: '1.9em',
     h4: '1.6em',
     h5: '1.3em',
-    default: '1em'
+    default: '1em',
   },
   fonts: {
-    main: '\'Roboto\', sans-serif',
-    secondary: '\'Raleway\', sans-serif'
-  }
+    main: "'Roboto', sans-serif",
+    secondary: "'Raleway', sans-serif",
+  },
 };

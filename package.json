@@ -10,9 +10,9 @@
     "gatsby-plugin-react-helmet": "next",
     "mobx": "^5.1.1",
     "mobx-react": "^5.2.8",
-    "react": "^16.4.2",
+    "react": "^16.5.2",
     "react-css-grid": "^2.0.0-0",
-    "react-dom": "^16.4.2",
+    "react-dom": "^16.5.2",
     "react-helmet": "^5.2.0",
     "styled-components": "^3.4.5"
   },
@@ -23,7 +23,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write '**/*.js'",
+    "format": "prettier --write '**/*.jsx'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

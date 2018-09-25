@@ -1,14 +1,13 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import {Link} from "gatsby";
-import {observer} from 'mobx-react';
-import Layout from '../components/layout';
+import { Link } from 'gatsby';
+import { observer } from 'mobx-react';
 import Navbar from '../components/Navbar';
 import shoppingCartImg from '../components/Detail/assets/shoppingcart.png';
 import Categories from '../components/Products/Categories';
-import CategoryState from "./../CategoryState";
-import {categories} from "./../constants/categories.js";
-import {products} from "./../constants/productsInfo";
+import CategoryState from './../CategoryState';
+import { categories } from './../constants/categories.js';
+import { products } from './../constants/productsInfo';
 
 const AppLayout = styled.div`
   display: flex;
@@ -40,20 +39,20 @@ const Breadcrumb = styled.ul`
   display: inline-block;
 `;
 
-const CartContainer = styled.div`;
-    font-family: 'Archivo Narrow', sans-serif;
-    padding-right: 20px;
-`
+const CartContainer = styled.div`
+  font-family: 'Archivo Narrow', sans-serif;
+  padding-right: 20px;
+`;
 
-const Cart = styled.div`;
-    width: 69px;
-    height: 60px;
-    background-image: url(${shoppingCartImg});
-    background-size: cover;
-    float: right;
-    position: relative;
-    top: -25px;
-`
+const Cart = styled.div`
+  width: 69px;
+  height: 60px;
+  background-image: url(${shoppingCartImg});
+  background-size: cover;
+  float: right;
+  position: relative;
+  top: -25px;
+`;
 
 const IndexPage = () => {
   return (
@@ -66,13 +65,14 @@ const IndexPage = () => {
         </Breadcrumb>
       </Container>
       <CartContainer>
-        <Link to="/carrito"> <Cart /> </Link> 
+        <Link to="/carrito">
+          {' '}
+          <Cart />{' '}
+        </Link>
       </CartContainer>
-      <Categories
-        categories={categories}
-        products={products} />
+      <Categories categories={categories} products={products} />
     </AppLayout>
   );
-}
+};
 
 export default observer(IndexPage);

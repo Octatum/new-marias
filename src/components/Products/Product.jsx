@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
@@ -25,14 +25,16 @@ const Placeholder = styled.div`
   max-width: none;
 `;
 
-function Product (props) {
+function Product(props) {
   return (
     <Container>
-      <Link to="/producto/"><Placeholder onClick={props.clicked} /></Link>
+      <Link to="/producto/">
+        <Placeholder onClick={props.clicked} />
+      </Link>
       <p>{props.name}</p>
       <p>${props.price.toFixed(2)}</p>
     </Container>
-  )
+  );
 }
 
 export default Product;

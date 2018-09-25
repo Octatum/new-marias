@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { StaticQuery, graphql } from 'gatsby';
 import styled, { ThemeProvider } from 'styled-components';
 
 import './setup.css';
@@ -12,7 +12,7 @@ const ChildrenLayout = styled.section`
   flex-direction: column;
 `;
 
-function Layout({children}) {
+function Layout({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <StaticQuery
@@ -30,24 +30,24 @@ function Layout({children}) {
             <Helmet
               title={data.site.siteMetadata.title}
               meta={[
-                { name: 'description', content: 'Artesanías Mexicanas New Marias' },
+                {
+                  name: 'description',
+                  content: 'Artesanías Mexicanas New Marias',
+                },
                 { name: 'keywords', content: 'artesanias, mexico' },
-              ]}
-            >
+              ]}>
               <html lang="en" />
             </Helmet>
-            <ChildrenLayout>
-              {children}
-            </ChildrenLayout>
+            <ChildrenLayout>{children}</ChildrenLayout>
           </React.Fragment>
         )}
       />
     </ThemeProvider>
-  )
+  );
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

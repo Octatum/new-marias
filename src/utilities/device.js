@@ -4,7 +4,7 @@ export const screenBreakpoints = {
   laptop: 1024,
   laptopL: 1440,
   desktop: 2560,
-}
+};
 
 const device = Object.keys(screenBreakpoints).reduce((accumulator, label) => {
   // use em in breakpoints to work properly cross-browser and support users

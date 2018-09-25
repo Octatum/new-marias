@@ -1,5 +1,3 @@
 import React from 'react';
-const BreadcrumbItem = (props) => (
-    props.children
-);
+const BreadcrumbItem = props => props.children;
 export default BreadcrumbItem;

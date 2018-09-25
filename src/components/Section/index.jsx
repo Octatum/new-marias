@@ -8,28 +8,28 @@ const tabletHorizontalMargin = '1em';
 const mobileHorizontalMargin = '0.5em';
 
 // Demostracion de como pueden ser usadas las props para renderizar diferentes
-// layouts o estilos dentro de un componente. 
-// Tambien aqui se demuestra como pueden ser usados los media queries haciendo 
+// layouts o estilos dentro de un componente.
+// Tambien aqui se demuestra como pueden ser usados los media queries haciendo
 // uso de utils/device
 const Section = styled.section`
-  margin: 3em ${({fluid}) => fluid ? 0 : defaultHorizontalMargin};
+  margin: 3em ${({ fluid }) => (fluid ? 0 : defaultHorizontalMargin)};
   flex: 1;
 
   ${device.tablet} {
-    margin: 3em ${({fluid}) => fluid ? 0 : tabletHorizontalMargin};
+    margin: 3em ${({ fluid }) => (fluid ? 0 : tabletHorizontalMargin)};
   }
-  
+
   ${device.mobile} {
-    margin: 3em ${({fluid}) => fluid ? 0 : mobileHorizontalMargin};
+    margin: 3em ${({ fluid }) => (fluid ? 0 : mobileHorizontalMargin)};
   }
 `;
 
 Section.propTypes = {
-  fluid: PropTypes.bool
-}
+  fluid: PropTypes.bool,
+};
 
 Section.defaultProps = {
   fluid: false,
-}
+};
 
 export default Section;
