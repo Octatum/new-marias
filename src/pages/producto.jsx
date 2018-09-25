@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
+
 import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
 import Detail from '../components/Detail';
-import { observer } from 'mobx-react';
 import CategoryState from './../CategoryState';
 import Cart from './../ShoppingCart';
 import { categories } from './../constants/categories.js';

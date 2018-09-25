@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { observer } from 'mobx-react';
+
 import Navbar from '../components/Navbar';
 import shoppingCartImg from '../components/Detail/assets/shoppingcart.png';
 import Categories from '../components/Products/Categories';

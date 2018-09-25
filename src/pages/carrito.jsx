@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
+
 import Navbar from '../components/Navbar';
 import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
 import { products } from './../constants/productsInfo';
-import { observer } from 'mobx-react';
 
 const AppLayout = styled.div``;
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Product from './Product';
 import { observer } from 'mobx-react';
+
+import Product from './Product';
 import CategoryState from './../../CategoryState';
 import CounterStore from './../../ShoppingCart';
 
@@ -43,6 +44,7 @@ const Grid = styled.div`
   padding: 1em;
   flex: 3;
 `;
+
 const onSelectedProductHandler = id => {
   CounterStore.currentProduct = id;
 };
