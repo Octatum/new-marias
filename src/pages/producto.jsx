@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-
 import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
+import backButtonImg from './../components/Gallery/assets/backbutton.png';
 import Detail from '../components/Detail';
 import CategoryState from './../CategoryState';
 import Cart from './../ShoppingCart';
@@ -11,15 +11,75 @@ import { categories } from './../constants/categories.js';
 import { products } from './../constants/productsInfo';
 import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import device from './../utilities/device';
+import CartCounter from './../components/Detail/CartCounter';
 
 const AppLayout = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  ${device.mobile} {
+    display:block;
+    padding:0;
+  }
+`;
+
+const MobileHeader = styled.div`
+  ::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 24px;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #626363;
+  display: none;
+
+  ${device.mobile}{
+    display: block;
+    width: 90%;
+    margin: 25px auto;
+
+    > button, > p {
+      float: left;
+    }
+
+    > div {
+      font-size: 11px;
+      float: right;
+    }
+
+    > button {
+      margin-right: 9px;
+      margin-top: 3px;
+    }
+
+  }
+`
+
+const BackButton = styled.button`
+  display: block;
+  width: 13px;
+  height: 29px;
+  :hover {
+    cursor: pointer;
+  }
+  background-image: url(${backButtonImg});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: none;
 `;
 
 const BreadcrumbContainer = styled.div`
   margin: 0 auto;
   width: 1240px;
+  ${device.mobile} {
+    display:none;
+  }
 `;
 
 const Container = styled.div`
@@ -28,6 +88,13 @@ const Container = styled.div`
   flex-direction: row;
   padding: 20px 24px;
   width: 1240px;
+  
+  ${device.mobile} {
+    width: 100%;
+    display: inherit;
+    padding: 0;
+  }
+ 
 `;
 
 const images = [
@@ -66,7 +133,7 @@ class Producto extends Component {
     this.handleChangeColor = this.handleChangeColor.bind(this);
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     const currentProduct = products.find(function(p) {
       return p.id === Cart.currentProduct;
     });
@@ -129,6 +196,15 @@ class Producto extends Component {
             </BreadcrumbItem>
           </Breadcrumb>
         </BreadcrumbContainer>
+       
+        <MobileHeader>
+          <BackButton/>
+          <p>{this.state.currentProduct.name}</p>
+          <CartCounter
+            quantity={Cart.counter}
+            width={41}
+            height={37}/>
+        </MobileHeader>
         <Container>
           <Gallery
             category={categories.find(c => c.id === CategoryState.current).name}

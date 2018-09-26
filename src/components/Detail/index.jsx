@@ -3,6 +3,8 @@ import shoppingCartImg from './assets/shoppingcart.png';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import CounterStore from './../../ShoppingCart';
+import device from './../../utilities/device';
+import CartCounter from './CartCounter';
 
 const Container = styled.div`
   display: block;
@@ -27,6 +29,7 @@ const Button = styled.button`
     cursor: pointer;
   }
 `;
+/*
 const Cart = styled.div`
     height: 100%;
     width: 100%;
@@ -44,6 +47,7 @@ const Cart = styled.div`
         color: #ffffff;
     }
 `;
+*/
 
 const Name = styled.h1`
   font-family: 'Archivo Narrow', sans-serif;
@@ -56,6 +60,9 @@ const Name = styled.h1`
   color: #626363;
   margin: 0;
   padding: 0;
+  ${device.mobile} {
+    display: none;
+  }
 `;
 const Price = styled.h3`
   font-family: 'Archivo Narrow', sans-serif;
@@ -71,8 +78,6 @@ const Price = styled.h3`
 
 const CartContainer = styled.div`
   display: inline-block;
-  width: 69px;
-  height: 60px;
   position: relative;
   left: 40px;
   top: 20px;
@@ -144,8 +149,11 @@ const Detail = props => (
       Agregar al carrito
     </Button>
     <CartContainer>
-      <Cart quantity={CounterStore.counter} />
-    </CartContainer>
+      <CartCounter
+        quantity={CounterStore.counter}
+        width="69"
+        height="61"/>
+      </CartContainer>
     <Description>{props.description}</Description>
   </Container>
 );

@@ -3,15 +3,25 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
+import device from './../../utilities/device';
+import Current from './Current';
 
 const Container = styled.div`
   min-width: 760px;
+  ${device.mobile} {
+    min-width: 100%;
+    margin:0;
+  }
 `;
 
 const CurrentImageContainer = styled.div`
-  display: block;
   float: left;
   display: flex;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  ${device.mobile} {
+    width: 100%;
+  }
 `;
 
 const CurrentImage = styled.img`
@@ -19,6 +29,10 @@ const CurrentImage = styled.img`
   float: left;
   width: 450px;
   height: 450px;
+  ${device.mobile} {
+    width: 248px;
+    height: 248px;
+  }
 `;
 
 const BackButton = styled.button`
@@ -50,6 +64,10 @@ const PreviousButton = styled.button`
   background-repeat: no-repeat;
   background-position: center center;
   border: none;
+  ${device.mobile} {
+    width:7px;
+    height: 16px;
+  }
 `;
 
 const Nextbutton = styled.button`
@@ -65,6 +83,10 @@ const Nextbutton = styled.button`
   background-repeat: no-repeat;
   background-position: center center;
   border: none;
+  ${device.mobile} {
+    width:7px;
+    height: 16px;
+  }
 `;
 
 const ImagesContainer = styled.div`
@@ -80,24 +102,20 @@ const ImagesContainer = styled.div`
   img:hover {
     cursor: pointer;
   }
+
+  ${device.mobile} {
+    display: none;
+  }
+
 `;
 
 const BackContainer = styled.div`
   float: left;
   padding: 0;
   position: relative;
-`;
-
-const Filtro = styled.div`
-  top: -50px;
-  position: absolute;
-  width: 100%;
-  border-bottom: 1px solid #626363;
-  font-family: 'Archivo Narrow', sans-serif;
-  color: #626363;
-  font-size: 20px;
-  padding: 7px 0;
-  margin-bottom: 20px;
+  ${device.mobile} {
+    display:none;
+  }
 `;
 
 class Gallery extends Component {
@@ -125,6 +143,7 @@ class Gallery extends Component {
   };
 
   render() {
+
     const images = this.props.images.map(source => (
       <img
         key={source}
@@ -132,6 +151,10 @@ class Gallery extends Component {
         src={source}
       />
     ));
+
+    const dots = this.props.images.map((image, index) => {
+      return index === this.props.images.indexOf(this.state.currentImage)? true : false;
+    });
 
     return (
       <Container>
@@ -147,6 +170,8 @@ class Gallery extends Component {
           <CurrentImage src={this.state.currentImage} />
           <Nextbutton onClick={this.nextImage.bind(this)} />
         </CurrentImageContainer>
+        <Current 
+          dots={dots}/>
       </Container>
     );
   }
