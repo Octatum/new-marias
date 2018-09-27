@@ -30,7 +30,7 @@ const MobileHeader = styled.div`
     clear: both;
     display: table;
   }
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: sans-serif;
   font-size: 24px;
   font-stretch: normal;
   line-height: normal;

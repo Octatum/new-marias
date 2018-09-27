@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import CounterStore from './../../ShoppingCart';
 import device from './../../utilities/device';
 import CartCounter from './CartCounter';
+import './../setup.css';
 
 const Container = styled.div`
   display: block;
