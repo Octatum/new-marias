@@ -13,6 +13,7 @@ import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
 import CartCounter from './../components/Detail/CartCounter';
+import './../components/setup.css';
 
 const AppLayout = styled.div`
   box-sizing: border-box;
@@ -30,11 +31,8 @@ const MobileHeader = styled.div`
     clear: both;
     display: table;
   }
-  font-family: sans-serif;
+  font-family: 'Archivo Narrow', sans-serif;
   font-size: 24px;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: #626363;
   display: none;
 
@@ -45,6 +43,11 @@ const MobileHeader = styled.div`
 
     > button, > p {
       float: left;
+    }
+
+    > p {
+      margin: 0;
+      padding: 0;
     }
 
     > div {
@@ -153,6 +156,9 @@ class Producto extends Component {
   };
 
   handleChangeColor(e) {
+
+    console.log("omhhhhy");
+
     this.setState({ boardAddModalShow: true }, () => {
       console.log('Current ' + this.state.currentImages);
       if (this.state.currentColor === 'Red') {

@@ -5,15 +5,20 @@ import { observer } from 'mobx-react';
 import CounterStore from './../../ShoppingCart';
 import device from './../../utilities/device';
 import CartCounter from './CartCounter';
+import Select from './Select';
 import './../setup.css';
 
 const Container = styled.div`
   display: block;
   max-width: 352px;
   margin-left: 60px;
+  ${device.mobile} {
+    max-width: 77%;
+    margin: 0 auto;
+  }
 `;
 const Button = styled.button`
-  width: 74%;
+  width: 73%;
   height: 65px;
   background-color: #626363;
   border: none;
@@ -29,26 +34,47 @@ const Button = styled.button`
   :hover {
     cursor: pointer;
   }
-`;
-/*
-const Cart = styled.div`
-    height: 100%;
+  ${device.mobile} {
     width: 100%;
-    font-family: 'Archivo Narrow', sans-serif;
-    background-image: url(${shoppingCartImg});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    position: relative;
-    ::after {
-        position: absolute;
-        left: 34px;
-        top: 20px;
-        content: "${props => props.quantity}";
-        color: #ffffff;
-    }
+  }
 `;
-*/
+
+const SelectsContainer = styled.div`
+
+  ::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  display: block;
+  width: 100%;
+
+  > div {
+    float: left;
+  }
+
+  > div:nth-child(1) {
+    width: 40%;
+  }
+
+  > div:nth-child(2) {
+    width: 20%;
+    margin-left: 70px;
+  }
+
+  ${device.mobile} {
+    display: block;
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      display:block;
+      width: 100%;
+      margin-left: 0px;
+    }
+  }
+
+`
+
 
 const Name = styled.h1`
   font-family: 'Archivo Narrow', sans-serif;
@@ -82,6 +108,9 @@ const CartContainer = styled.div`
   position: relative;
   left: 40px;
   top: 20px;
+  ${device.mobile} {
+    display:none;
+  }
 `;
 
 const Description = styled.p`
@@ -92,6 +121,7 @@ const Description = styled.p`
 `;
 
 const ColorContainer = styled.div`
+  box-sizing: border-box;
   width: 40%;
   font-family: 'Archivo Narrow', sans-serif;
   font-size: 12px;
@@ -104,9 +134,18 @@ const ColorContainer = styled.div`
     margin-top: 7px;
     width: 100%;
   }
+  ${device.mobile} {
+    width:100%;
+    height: 56px;
+    display: block;
+    border: 1px solid #626363;
+    margin: 4px 0;
+    padding: 9px;
+  }
 `;
 
 const QuantityContainer = styled.div`
+  box-sizing: border-box;
   width: 20%;
   font-family: 'Archivo Narrow', sans-serif;
   font-size: 12px;
@@ -120,13 +159,22 @@ const QuantityContainer = styled.div`
     margin-top: 7px;
     width: 100%;
   }
+  ${device.mobile} {
+    width:100%;
+    border: 1px solid #626363;
+    margin: 4px 0;
+    padding: 9px;
+    select {
+      font-size: 24px;
+    }
+  }
 `;
 
 const Detail = props => (
   <Container>
     <Name>{props.name}</Name>
     <Price>${props.price.toFixed(2)}</Price>
-    <ColorContainer>
+{/*    <ColorContainer>
       <label>Color:</label>
       <select onChange={e => props.onChange(e)}>
         <option value="Blue">Azul</option>
@@ -141,7 +189,19 @@ const Detail = props => (
         <option>2</option>
         <option>3</option>
       </select>
-    </QuantityContainer>
+</QuantityContainer>*/}
+    <SelectsContainer>
+      <Select name="Color" onChange={props.onChange}>
+        <option value="Blue">Azul</option>
+        <option value="Red">Rojo</option>
+        <option value="Yellow">Amarillo</option>
+      </Select>
+      <Select name="Cantidad" onChange={props.onChangeQuantity}>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </Select>
+    </SelectsContainer>
     <Button
       onClick={() => {
         CounterStore.increment();
@@ -154,7 +214,7 @@ const Detail = props => (
         quantity={CounterStore.counter}
         width="69"
         height="61"/>
-      </CartContainer>
+    </CartContainer>
     <Description>{props.description}</Description>
   </Container>
 );
