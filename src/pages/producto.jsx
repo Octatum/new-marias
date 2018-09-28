@@ -156,9 +156,6 @@ class Producto extends Component {
   };
 
   handleChangeColor(e) {
-
-    console.log("omhhhhy");
-
     this.setState({ boardAddModalShow: true }, () => {
       console.log('Current ' + this.state.currentImages);
       if (this.state.currentColor === 'Red') {
