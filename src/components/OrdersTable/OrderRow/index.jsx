@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import QuantityControls from './QuantityControls';
+import { observer } from 'mobx-react';
 
 const Picture = styled.div`
   width: 165px;
@@ -54,4 +55,4 @@ const OrderRow = ({
   </tr>
 );
 
-export default OrderRow;
+export default observer(OrderRow);

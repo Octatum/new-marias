@@ -4,25 +4,55 @@ class Cart {
   counter = 0;
   currentProduct = 1;
   orders = [];
+  subtotal = 0;
+
   increment() {
-    this.counter++;
+    const newCounter = this.counter + 1;
+    this.counter = newCounter;
   }
+
   decrement() {
-    this.counter--;
+    const newCounter = this.counter - 1;
+    this.counter = newCounter;
   }
+
   deleteOrder(index) {
-    this.orders.splice(index, 1);
-    console.log(this.orders);
+    let newOrders = this.orders.slice();
+    newOrders.splice(index, 1);
+    this.orders = newOrders;
   }
+
   addOrder(productId, quantity) {
-    this.orders.push({ productId, quantity });
+    let newOrders = this.orders.slice();
+    newOrders.push({ productId, quantity });
+    this.orders = newOrders;
   }
+
   increaseQuantity(index) {
-    this.orders[index].quantity++;
+    let newOrders = this.orders.slice();
+    newOrders = newOrders.map((order, i) => {
+      if (i != index) return order;
+      console.log(order);
+      return {
+        ...order,
+        quantity: order.quantity + 1
+      }
+    });
+    this.orders = newOrders;
   }
+
   decreaseQuantity(index) {
     if (this.orders[index].quantity > 1) {
-      this.orders[index].quantity--;
+      let newOrders = this.orders.slice();
+      newOrders = newOrders.map((order, i) => {
+        if (i != index) return order;
+        console.log(order);
+        return {
+          ...order,
+          quantity: order.quantity - 1
+        }
+      });
+      this.orders = newOrders;
     }
   }
 }
@@ -31,8 +61,12 @@ decorate(Cart, {
   counter: observable,
   currentProduct: observable,
   orders: observable,
+  subtotal: observable,
   increment: action,
   deleteOrder: action,
+  addOrder: action,
+  decreaseQuantity: action,
+  increaseQuantity: action
 });
 
 export default new Cart();

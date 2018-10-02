@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { observer } from 'mobx-react';
-
+import { StaticQuery, graphql } from 'gatsby';
 import Navbar from '../components/Navbar';
 import shoppingCartImg from '../components/Detail/assets/shoppingcart.png';
 import Categories from '../components/Products/Categories';
 import CategoryState from './../CategoryState';
 import { categories } from './../constants/categories.js';
-import { products } from './../constants/productsInfo';
+import './../components/setup.css';
 
 const AppLayout = styled.div`
   display: flex;
@@ -55,25 +55,67 @@ const Cart = styled.div`
   top: -25px;
 `;
 
-const IndexPage = () => {
-  return (
-    <AppLayout>
-      <Navbar />
-      <Banner />
-      <Container>
-        <Breadcrumb>
-          <li>{categories.find(c => c.id === CategoryState.current).name}></li>
-        </Breadcrumb>
-      </Container>
-      <CartContainer>
-        <Link to="/carrito">
-          {' '}
-          <Cart />{' '}
-        </Link>
-      </CartContainer>
-      <Categories categories={categories} products={products} />
-    </AppLayout>
-  );
-};
+const IndexPage = () => (
+
+    <StaticQuery
+      query={graphql`
+        query{
+          allProductsJson {
+            edges {
+              node {
+                id,
+                name, 
+                price,
+                category,
+                path
+              }
+            }
+          }
+        }
+      `}
+      render={data => {  
+          const products = data.allProductsJson.edges.map(edge => edge.node);
+          return(
+            <AppLayout>
+              <Navbar />
+              <Banner />
+              <Container>
+                <Breadcrumb>
+                  <li>{categories.find(c => c.id === CategoryState.current).name}></li>
+                </Breadcrumb>
+              </Container>
+              <CartContainer>
+                <Link to="/carrito">
+                  {' '}
+                  <Cart />{' '}
+                </Link>
+              </CartContainer>
+              <Categories categories={categories} products={products} />
+            </AppLayout>
+          );
+      }}
+    />
+
+/*
+    return (
+      <AppLayout>
+        <Navbar />
+        <Banner />
+        <Container>
+          <Breadcrumb>
+            <li>{categories.find(c => c.id === CategoryState.current).name}></li>
+          </Breadcrumb>
+        </Container>
+        <CartContainer>
+          <Link to="/carrito">
+            {' '}
+            <Cart />{' '}
+          </Link>
+        </CartContainer>
+        <Categories categories={categories} products={products} />
+      </AppLayout>
+    );
+    */
+);
 
 export default observer(IndexPage);

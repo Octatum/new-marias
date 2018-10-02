@@ -72,6 +72,7 @@ const Categories = ({ categories, products }) => {
           key={p.id}
           name={p.name}
           price={p.price}
+          path={p.path}
         />
       );
     });

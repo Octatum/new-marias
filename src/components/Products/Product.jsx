@@ -28,11 +28,11 @@ const Placeholder = styled.div`
 function Product(props) {
   return (
     <Container>
-      <Link to="/producto/">
+      <Link to={props.path}>
         <Placeholder onClick={props.clicked} />
       </Link>
       <p>{props.name}</p>
-      <p>${props.price.toFixed(2)}</p>
+      <p>${parseFloat(props.price).toFixed(2)}</p>
     </Container>
   );
 }

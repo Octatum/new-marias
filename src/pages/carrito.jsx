@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-
 import Navbar from '../components/Navbar';
 import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
-import { products } from './../constants/productsInfo';
+import SubtotalSummary from './../components/SubtotalSummary';
 
 const AppLayout = styled.div``;
 
@@ -57,6 +56,7 @@ const ButtonContainer = styled.div`
 `;
 
 class Carrito extends Component {
+
   deleteOrder = index => {
     Cart.deleteOrder(index);
     Cart.decrement();
@@ -70,14 +70,17 @@ class Carrito extends Component {
     Cart.increaseQuantity(index);
   }
 
-  getSubtotal = () => {
+  getSubtotal = (products) => {
+    /*
     let subTotal = 0.0;
     const orders = Cart.orders;
     for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id === orders[i].productId).price;
+      const price = products.find(p => p.id == orders[i].productId).price;
       subTotal += price * orders[i].quantity;
     }
     return subTotal;
+    */
+   return 9999.9999;
   };
 
   render() {
@@ -95,14 +98,12 @@ class Carrito extends Component {
         </BreadcrumbContainer>
         <Container>
           <OrdersTable
+            orders={Cart.orders}
             deleteOrderHandler={this.deleteOrder}
             onDecreaseQuantity={this.decreaseQuantityHandler}
             onIncreaseQuantity={this.increaseQuantityHandler}
           />
-          <TotalSummary>
-            <p>SUBTOTAL</p>
-            <p>${subTotal.toFixed(2)} MXN</p>
-          </TotalSummary>
+          <SubtotalSummary/>
           <ButtonContainer width={115}>
             <button>Regresar</button>
           </ButtonContainer>
