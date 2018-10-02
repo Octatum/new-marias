@@ -21,17 +21,6 @@ const BreadcrumbContainer = styled.div`
   width: 1240px;
 `;
 
-const TotalSummary = styled.div`
-  font-family: 'Archivo Narrow', sans-serif;
-  text-align: right;
-  font-size: 18px;
-  color: #626363;
-  margin-bottom: 30px;
-  p {
-    margin: 5px 0;
-  }
-`;
-
 const ButtonContainer = styled.div`
   width: 100%;
   display: block;
@@ -70,21 +59,7 @@ class Carrito extends Component {
     Cart.increaseQuantity(index);
   }
 
-  getSubtotal = (products) => {
-    /*
-    let subTotal = 0.0;
-    const orders = Cart.orders;
-    for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id == orders[i].productId).price;
-      subTotal += price * orders[i].quantity;
-    }
-    return subTotal;
-    */
-   return 9999.9999;
-  };
-
   render() {
-    const subTotal = this.getSubtotal();
     return (
       <AppLayout>
         <Navbar />

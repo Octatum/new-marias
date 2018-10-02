@@ -33,9 +33,9 @@ const Button = styled.button`
 
 const QuantityControls = props => (
   <Container>
-    <Button onClick={props.onIncreaseQuantity}>+</Button>
-    <Quantity>{props.quantity}</Quantity>
     <Button onClick={props.onDecreaseQuantity}>-</Button>
+    <Quantity>{props.quantity}</Quantity>
+    <Button onClick={props.onIncreaseQuantity}>+</Button>
   </Container>
 );
 export default QuantityControls;

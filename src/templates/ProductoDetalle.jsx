@@ -122,7 +122,7 @@ class Producto extends Component {
   };
 
   changeQuantityHandler = e => {
-    this.setState({ quantity: e.target.value });
+    this.setState({ quantity: parseInt(e.target.value) });
   };
 
   handleChangeColor(e) {
