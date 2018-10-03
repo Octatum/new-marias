@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { observer } from 'mobx-react';
 import { StaticQuery, graphql } from 'gatsby';
 import Navbar from '../components/Navbar';
-import shoppingCartImg from '../components/Detail/assets/shoppingcart.png';
+import shoppingCartImg from '../components/Detail/assets/shoppingcart.svg';
 import Categories from '../components/Products/Categories';
 import CategoryState from './../CategoryState';
 import { categories } from './../constants/categories.js';
@@ -23,6 +23,7 @@ const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  margin-top: 220px;
 `;
 
 const Container = styled.div`
@@ -64,7 +65,7 @@ const IndexPage = () => (
             edges {
               node {
                 id,
-                name, 
+                name,
                 price,
                 category,
                 path
@@ -73,7 +74,7 @@ const IndexPage = () => (
           }
         }
       `}
-      render={data => {  
+      render={data => {
           const products = data.allProductsJson.edges.map(edge => edge.node);
           return(
             <AppLayout>

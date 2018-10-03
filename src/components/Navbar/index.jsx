@@ -12,6 +12,9 @@ const Container = styled.div`
   background: white;
   z-index: 5;
   text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 
 const Logo = styled.img`

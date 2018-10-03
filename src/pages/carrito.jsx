@@ -8,7 +8,9 @@ import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
 import SubtotalSummary from './../components/SubtotalSummary';
 
-const AppLayout = styled.div``;
+const AppLayout = styled.div`
+  margin-bottom: 220px;
+`;
 
 const Container = styled.div`
   width: 75%;
