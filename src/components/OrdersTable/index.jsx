@@ -5,6 +5,7 @@ import OrderRow from './OrderRow';
 import { observer } from 'mobx-react';
 //import { products } from './../../constants/productsInfo';
 import { StaticQuery, graphql } from 'gatsby';
+import device from './../../utilities/device';
 
 const ContentTable = styled.table`
   margin: 0 auto;
@@ -13,9 +14,14 @@ const ContentTable = styled.table`
   width: 100%;
   font-family: 'Archivo Narrow', sans-serif;
   color: #ffffff;
+  border-collapse:collapse;
+  ${device.mobile} {
+    margin-bottom: 46px;
+  }
 `;
 
 const TableHead = styled.thead`
+  border-collapse:collapse;
   background-color: #d4ad9f;
   width: 100%;
   text-align: center;
@@ -24,9 +30,16 @@ const TableHead = styled.thead`
     height: 47px;
     line-height: 47px;
     border: none;
+    border-collapse:collapse;
   }
   th:last-child {
     width: 5%;
+  }
+  ${device.mobile} {
+    th {
+      font-size: 0;
+      height: 53px;
+    }
   }
 `;
 

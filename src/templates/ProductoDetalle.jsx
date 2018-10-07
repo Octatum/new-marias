@@ -16,12 +16,13 @@ import CartCounter from './../components/Detail/CartCounter';
 import './../components/setup.css';
 
 const AppLayout = styled.div`
+  padding-top: 220px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   ${device.mobile} {
     display:block;
-    padding:0;
+    padding: 220px 0;
   }
 `;
 

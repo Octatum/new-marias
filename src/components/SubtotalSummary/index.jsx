@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Cart from './../../ShoppingCart';
 import { StaticQuery, graphql } from 'gatsby';
+import device from './../../utilities/device';
 
 const Summary = styled.div`
   font-family: 'Archivo Narrow', sans-serif;
@@ -11,6 +12,12 @@ const Summary = styled.div`
   margin-bottom: 30px;
   p {
     margin: 5px 0;
+  }
+  ${device.mobile} {
+    margin-right: 33px;
+    p:nth-child(1) {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -43,7 +50,7 @@ const SubtotalSummary = () => (
         return(
         <Summary>
             <p>SUBTOTAL</p>
-            <p>${getSubtotal(products)} MXN</p>
+            <p>${getSubtotal(products).toFixed(2)} MXN</p>
         </Summary>
         );
     }}

@@ -57,7 +57,6 @@ const Cart = styled.div`
 `;
 
 const IndexPage = () => (
-
     <StaticQuery
       query={graphql`
         query{
@@ -96,27 +95,6 @@ const IndexPage = () => (
           );
       }}
     />
-
-/*
-    return (
-      <AppLayout>
-        <Navbar />
-        <Banner />
-        <Container>
-          <Breadcrumb>
-            <li>{categories.find(c => c.id === CategoryState.current).name}></li>
-          </Breadcrumb>
-        </Container>
-        <CartContainer>
-          <Link to="/carrito">
-            {' '}
-            <Cart />{' '}
-          </Link>
-        </CartContainer>
-        <Categories categories={categories} products={products} />
-      </AppLayout>
-    );
-    */
 );
 
 export default observer(IndexPage);

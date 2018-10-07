@@ -7,15 +7,29 @@ import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
 import SubtotalSummary from './../components/SubtotalSummary';
+import device from './../utilities/device';
 
 const AppLayout = styled.div`
   margin-bottom: 220px;
+  padding-top: 220px;
+  ${device.mobile} {
+    width: 100%;
+  }
 `;
 
 const Container = styled.div`
   width: 75%;
   margin: 0 auto;
   padding-bottom: 40px;
+  ${device.mobile} {
+    width: 100%;
+  }
+`;
+
+const Buttons = styled.div`
+  button:first-child {
+    display: none;
+  }
 `;
 
 const BreadcrumbContainer = styled.div`
@@ -37,6 +51,10 @@ const ButtonContainer = styled.div`
     width: ${props => props.width}px;
     :hover {
       cursor: pointer;
+    }
+    ${device.mobile} {
+      margin-right: 33px;
+      display: ${({ mobileHide }) => (mobileHide ? 'none' : 'block')};
     }
   }
   ::after {
@@ -81,7 +99,7 @@ class Carrito extends Component {
             onIncreaseQuantity={this.increaseQuantityHandler}
           />
           <SubtotalSummary/>
-          <ButtonContainer width={115}>
+          <ButtonContainer width={115} mobileHide>
             <button>Regresar</button>
           </ButtonContainer>
           <ButtonContainer width={156}>

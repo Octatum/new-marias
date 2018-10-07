@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import device from './../../../utilities/device';
 
 const Container = styled.div`
   padding: 0;
@@ -8,6 +9,9 @@ const Container = styled.div`
   height: 33px;
   line-height: 33px;
   margin: 0 auto;
+  ${device.mobile} {
+    margin: inherit;
+  }
 `;
 
 const Quantity = styled.div`
