@@ -9,6 +9,7 @@ import Categories from '../components/Products/Categories';
 import CategoryState from './../CategoryState';
 import { categories } from './../constants/categories.js';
 import './../components/setup.css';
+import device from './../utilities/device';
 
 const AppLayout = styled.div`
   display: flex;
@@ -24,6 +25,9 @@ const Banner = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   margin-top: 220px;
+  ${device.mobile} {
+    margin-top: 83px;
+  }
 `;
 
 const Container = styled.div`

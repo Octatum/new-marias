@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component }from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import headerIcon from './assets/header-icon.svg';
@@ -6,6 +6,8 @@ import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
 import CategoryState from './../../CategoryState';
 import { TODAS } from './../../constants/categories';
+import device from './../../utilities/device';
+import BurgerButton from './BurgerButton';
 
 const Container = styled.div`
   padding: 1.8em 1.5em;
@@ -15,6 +17,9 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
+  ${device.mobile}{
+    padding: 0;
+  }
 `;
 
 const Logo = styled.img`
@@ -24,6 +29,11 @@ const Logo = styled.img`
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  ${device.mobile}{
+    width: 75%;
+    padding: 0;
+    margin: 0 0 0 16px;
+  }
 `;
 
 const List = styled.ul`
@@ -34,7 +44,7 @@ const List = styled.ul`
   margin-left: auto;
   margin-right: auto;
   width: 60%;
-
+  
   li {
     padding-left: 1.15em;
     padding-right: 1.875em;
@@ -48,34 +58,70 @@ const List = styled.ul`
     text-decoration: none;
     color: #626363;
   }
+
+  ${device.mobile}{
+    flex-direction: column;
+    text-align: right;
+    width: 200px;
+    background-color: #ffffff;
+    position: absolute;
+    right: 0;
+    border: none;
+    li {
+      margin-bottom: 23px;
+      padding: 0 17px;
+    }
+    ${device.mobile} {
+      display: ${({ hide }) => (hide ? 'none' : 'block')};
+    }
+  }
+
 `;
 
 const Icon = styled.img`
   padding: 0 31px 10px 0;
+  ${device.mobile}{
+    padding: 0;
+  }
 `;
 
-const backToStoreHandler = () => CategoryState.setCurrent(TODAS);
+class Navbar extends Component {
 
-function Navbar() {
-  return (
-    <Container>
-      <Logo src={headerIcon} />
-      <List>
-        <li href="#top">Inicio</li>
-        <li href="#store">
-          <Link onClick={backToStoreHandler} to="/">
-            {' '}
-            Nuestra tienda{' '}
-          </Link>
-        </li>
-        <li href="#about">Quiénes somos</li>
-        <li href="#stories">Historias</li>
-        <li href="#contact">Contacto</li>
-        <Icon src={facebookIcon} />
-        <Icon src={instagramIcon} />
-      </List>
-    </Container>
-  );
+  state = {
+    visible: false
+  };
+
+  toggleNavbar = () => {
+    let newVisible = this.state.visible;
+    newVisible = !newVisible;
+    this.setState({
+      visible: newVisible
+    });
+  };
+
+  backToStoreHandler = () => CategoryState.setCurrent(TODAS);
+
+  render() {
+    return (
+      <Container>
+        <Logo src={headerIcon}/>
+        <BurgerButton onClick={this.toggleNavbar}/>
+        <List hide={this.state.visible}>
+          <li href="#top">Inicio</li>
+          <li href="#store">
+            <Link onClick={this.backToStoreHandler} to="/">
+              {' '}
+              Nuestra tienda{' '}
+            </Link>
+          </li>
+          <li href="#about">Quiénes somos</li>
+          <li href="#stories">Historias</li>
+          <li href="#contact">Contacto</li>
+          <li><Icon src={facebookIcon} /></li>
+          <li><Icon src={instagramIcon} /></li>
+        </List>
+      </Container>
+    );
+  }
 }
-
 export default Navbar;

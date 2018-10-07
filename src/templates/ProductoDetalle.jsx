@@ -22,7 +22,7 @@ const AppLayout = styled.div`
   flex-direction: column;
   ${device.mobile} {
     display:block;
-    padding: 220px 0;
+    padding: 83px 0;
   }
 `;
 
