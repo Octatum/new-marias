@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component }from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import Product from './Product';
@@ -34,16 +34,32 @@ const List = styled.ul`
     cursor: pointer;
   }
 
+  button {
+    display: none;
+    width: 19px;
+    height: 42px;
+    border: none;
+    :hover {
+      cursor: pointer;
+    }
+  }
+
   ${device.mobile}{
     position: absolute;
     left: 0;
-    background-color: rgba(255,255,255, 0.95);
+    left: ${({ hide }) => (hide ? '-35%' : '0')};
+    background-color: ${({ hide }) => (hide ? 'transparent' : 'rgba(255, 255, 255, 0.95)')};
     width: 100%;
     padding-left: 15px;
     li {
       width: 120px;
     }
-    display:none;
+    button {
+      display: block;
+      position: absolute;
+      left: calc(45% - 20px);
+      top: calc(50% - 20px);
+    }
   }
 `;
 
@@ -69,51 +85,67 @@ const A = styled.a`
   display: block;
 `
 
-const onSelectedProductHandler = id => {
-  CounterStore.currentProduct = id;
-};
+//const Categories = ({ categories, products }) => {
+class Categories extends Component {
+  state  = {
+    categories: this.props.categories,
+    products: this.props.products,
+    menuHidden: false
+  }
 
-const Categories = ({ categories, products }) => {
-  const categoryList = categories.map(c => (
-    <li
-      key={c.id}>
-      <A
-        href={`#${c.id}`}
-        onClick={() => CategoryState.setCurrent(c.id)}>
-        {c.name}
-      </A>
-    </li>
-  ));
+  onSelectedProductHandler = id => {
+    CounterStore.currentProduct = id;
+  };
 
-  const filteredProducts = products
-    .filter(
-      p =>
-        p.category === CategoryState.current ||
-        CategoryState.current === 'todas'
-    )
-    .map(function(p) {
-      return (
-        <Product
-          clicked={() => onSelectedProductHandler(p.id)}
-          key={p.id}
-          name={p.name}
-          price={p.price}
-          path={p.path}
-        />
-      );
-    });
+  menuToggle = () => {
+    let newMenuHidden = this.state.menuHidden;
+    newMenuHidden = !newMenuHidden;
+    this.setState({menuHidden: newMenuHidden});
+  }
 
-  return (
-    <Container>
-      <List>
-        <li className="title">
-          Categorías
-        </li>
-        {categoryList}
-      </List>
-      <Grid>{filteredProducts}</Grid>
-    </Container>
-  );
+  render(){
+    const categoryList = this.state.categories.map(c => (
+      <li
+        key={c.id}>
+        <A
+          href={`#${c.id}`}
+          onClick={() => {CategoryState.setCurrent(c.id); this.menuToggle();}}>
+          {c.name}
+        </A>
+      </li>
+    ));
+
+    const filteredProducts = this.state.products
+      .filter(
+        p =>
+          p.category === CategoryState.current ||
+          CategoryState.current === 'todas'
+      )
+      .map(function(p) {
+        return (
+          <Product
+            clicked={() => this.onSelectedProductHandler(p.id)}
+            key={p.id}
+            name={p.name}
+            price={p.price}
+            path={p.path}
+          />
+        );
+      });
+
+    return (
+      <Container>
+        <List hide={this.state.menuHidden}>
+          <li className="title">
+            Categorías
+          </li>
+          {categoryList}
+          <button onClick={this.menuToggle}></button>
+        </List>
+        <Grid>{filteredProducts}</Grid>
+      </Container>
+    );
+  }
 };
 
 export default observer(Categories);
