@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import device from './../../utilities/device';
 
 const Container = styled.div`
-  padding-top: 12.2px;
-
   p {
     color: #626363;
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 14px;
+  }
+  ${device.mobile} {
+    p {
+      font-size: 13px;
+    }
   }
 `;
 
@@ -23,6 +27,13 @@ const Placeholder = styled.div`
   margin-bottom: 5px;
   grid-column: span 1;
   max-width: none;
+  ${device.mobile}{
+    width: 110px;
+    height: 110px;
+    padding: 0;
+    margin: 0;
+  }
+  display: inline-block;
 `;
 
 function Product(props) {

@@ -88,7 +88,7 @@ const Icon = styled.img`
 class Navbar extends Component {
 
   state = {
-    visible: false
+    visible: true
   };
 
   toggleNavbar = () => {
@@ -107,16 +107,16 @@ class Navbar extends Component {
         <Logo src={headerIcon}/>
         <BurgerButton onClick={this.toggleNavbar}/>
         <List hide={this.state.visible}>
-          <li href="#top">Inicio</li>
+          <li><a href="#top">Inicio</a></li>
           <li href="#store">
             <Link onClick={this.backToStoreHandler} to="/">
               {' '}
               Nuestra tienda{' '}
             </Link>
           </li>
-          <li href="#about">Quiénes somos</li>
-          <li href="#stories">Historias</li>
-          <li href="#contact">Contacto</li>
+          <li><a href="#about">Quiénes somos</a></li>
+          <li><a href="#stories">Historias</a></li>
+          <li><a href="#contact">Contacto</a></li>
           <li><Icon src={facebookIcon} /></li>
           <li><Icon src={instagramIcon} /></li>
         </List>

@@ -6,12 +6,11 @@ import device from './../../utilities/device';
 const Container = styled.div`
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 15px;
   height: 22px;
   font-family: 'Archivo Narrow', sans-serif;
   ${device.mobile} {
     width: 100vw;
-    margin: 0 0 15px 16px;
+    margin: 0;
     height: auto;
   }
 `;

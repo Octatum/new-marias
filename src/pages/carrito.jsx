@@ -14,6 +14,7 @@ const AppLayout = styled.div`
   padding-top: 220px;
   ${device.mobile} {
     width: 100%;
+    padding-top: 95px;
   }
 `;
 
@@ -35,6 +36,9 @@ const Buttons = styled.div`
 const BreadcrumbContainer = styled.div`
   margin: 0 auto;
   width: 1240px;
+  ${device.mobile} {
+    margin-left: 16px;
+  }
 `;
 
 const ButtonContainer = styled.div`

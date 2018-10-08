@@ -5,11 +5,15 @@ import { observer } from 'mobx-react';
 import { StaticQuery, graphql } from 'gatsby';
 import Navbar from '../components/Navbar';
 import shoppingCartImg from '../components/Detail/assets/shoppingcart.svg';
+import shoppingCart from './../ShoppingCart';
 import Categories from '../components/Products/Categories';
 import CategoryState from './../CategoryState';
 import { categories } from './../constants/categories.js';
 import './../components/setup.css';
 import device from './../utilities/device';
+import BreadCrumb from './../components/Breadcrumb';
+import BreadCrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import CartCounter from './../components/Detail/CartCounter';
 
 const AppLayout = styled.div`
   display: flex;
@@ -26,28 +30,48 @@ const Banner = styled.div`
   background-position: center center;
   margin-top: 220px;
   ${device.mobile} {
-    margin-top: 83px;
+    margin-top: 103px;
+    height: 90px;
   }
 `;
 
 const Container = styled.div`
   padding-top: 12.2px;
-  border-bottom: 2px solid #d6d8db;
-  width: 88%;
+  border-bottom: 1px solid #626363;
+  width: calc(100% - 170px);
   margin-left: 58px;
-`;
-
-const Breadcrumb = styled.ul`
-  list-style: none;
-  color: #626363;
-  font-size: 20px;
-  font-family: 'Archivo Narrow', sans-serif;
-  display: inline-block;
+  ${device.mobile} {
+    margin-left: 15px;
+    width: calc(100% - 85px);
+    margin-bottom: 23px;
+  }
 `;
 
 const CartContainer = styled.div`
   font-family: 'Archivo Narrow', sans-serif;
   padding-right: 20px;
+  div {
+    float: right;
+    position: relative;
+    top: -10px;
+  }
+  > a:nth-child(1) {
+    display: block;
+  }
+  > a:nth-child(2) {
+    display: none;
+  }
+  ${device.mobile} {
+    div {
+      top: -20px;
+    }
+    > a:nth-child(1) {
+      display: none;
+    }
+    > a:nth-child(2) {
+      display: block;
+    }
+  }
 `;
 
 const Cart = styled.div`
@@ -84,17 +108,23 @@ const IndexPage = () => (
               <Navbar />
               <Banner />
               <Container>
-                <Breadcrumb>
-                  <li>{categories.find(c => c.id === CategoryState.current).name}></li>
-                </Breadcrumb>
+                <BreadCrumb>
+                  <BreadCrumbItem>
+                    {categories.find(c => c.id === CategoryState.current).name}
+                  </BreadCrumbItem>
+                </BreadCrumb>
               </Container>
               <CartContainer>
                 <Link to="/carrito">
-                  {' '}
-                  <Cart />{' '}
+                  <CartCounter width={69} height={61} quantity={shoppingCart.counter}/>
+                </Link>
+                <Link to="/carrito">
+                  <CartCounter width={36} height={32} quantity={shoppingCart.counter}/>
                 </Link>
               </CartContainer>
-              <Categories categories={categories} products={products} />
+              <Categories 
+                categories={categories}
+                products={products}/>
             </AppLayout>
           );
       }}
