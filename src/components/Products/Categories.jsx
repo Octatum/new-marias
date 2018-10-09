@@ -5,6 +5,8 @@ import Product from './Product';
 import CategoryState from './../../CategoryState';
 import CounterStore from './../../ShoppingCart';
 import device from './../../utilities/device';
+import backButtonImg from './assets/backbutton.png';
+import forwardButtonImg from './assets/forwardbutton.png';
 
 const Container = styled.div`
   margin-top: -45px;
@@ -15,6 +17,7 @@ const Container = styled.div`
     padding-left: 0;
     padding-right: 0;
   }
+  position: relative;
 `;
 
 const List = styled.ul`
@@ -43,25 +46,35 @@ const List = styled.ul`
       cursor: pointer;
     }
   }
-
+  transition: all 0.2s ease-in;
   ${device.mobile}{
     position: absolute;
-    left: 0;
     left: ${({ hide }) => (hide ? '-35%' : '0')};
-    background-color: ${({ hide }) => (hide ? 'transparent' : 'rgba(255, 255, 255, 0.95)')};
-    width: 100%;
     padding-left: 15px;
     li {
       width: 120px;
     }
-    button {
-      display: block;
-      position: absolute;
-      left: calc(45% - 20px);
-      top: calc(50% - 20px);
-    }
   }
 `;
+
+const ButtonHide = styled.div`
+  transition: all 0.2s ease-in;
+  position: absolute;
+  left: ${({ hide }) => (hide ? '15px' : '45%')};
+  top: 175px;
+  border: none;
+  width: 19px;
+  height: 42px;
+  background: url(${({ hide }) => (hide ? forwardButtonImg : backButtonImg)});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+  :hover {
+    cursor: pointer;
+  }
+  z-index: 999;
+`
 
 const Grid = styled.div`
   display: grid;
@@ -85,7 +98,18 @@ const A = styled.a`
   display: block;
 `
 
-//const Categories = ({ categories, products }) => {
+const BackDrop = styled.div`
+  ${device.mobile} {
+    transition: all 0.2s ease-in;
+    background-color: rgba(255, 255, 255, ${({ hide }) => (hide ? '0' : '0.95')});
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: ${({ hide }) => (hide ? '-100%' : '0')};
+    top: 0;
+  }
+`
+
 class Categories extends Component {
   state  = {
     categories: this.props.categories,
@@ -135,14 +159,17 @@ class Categories extends Component {
 
     return (
       <Container>
+        <BackDrop hide={this.state.menuHidden}/>
         <List hide={this.state.menuHidden}>
           <li className="title">
             Categorías
           </li>
           {categoryList}
-          <button onClick={this.menuToggle}></button>
         </List>
         <Grid>{filteredProducts}</Grid>
+        <ButtonHide 
+          onClick={this.menuToggle}
+          hide={this.state.menuHidden}/>
       </Container>
     );
   }
