@@ -74,7 +74,7 @@ const CartContainer = styled.div`
   }
 `;
 
-const Cart = styled.div`
+const Cart = styled.div`ga
   width: 69px;
   height: 60px;
   background-image: url(${shoppingCartImg});

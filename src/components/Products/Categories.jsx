@@ -49,7 +49,7 @@ const List = styled.ul`
   transition: all 0.2s ease-in;
   ${device.mobile}{
     position: absolute;
-    left: ${({ hide }) => (hide ? '-35%' : '0')};
+    left: ${({ hide }) => (hide ? '-45%' : '0')};
     padding-left: 15px;
     li {
       width: 120px;
@@ -74,6 +74,10 @@ const ButtonHide = styled.div`
     cursor: pointer;
   }
   z-index: 999;
+  display: none;
+  ${device.mobile} {
+    display: block;
+  }
 `
 
 const Grid = styled.div`

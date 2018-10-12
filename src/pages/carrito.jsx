@@ -69,7 +69,6 @@ const ButtonContainer = styled.div`
 `;
 
 class Carrito extends Component {
-
   deleteOrder = index => {
     Cart.deleteOrder(index);
     Cart.decrement();
@@ -114,5 +113,4 @@ class Carrito extends Component {
     );
   }
 }
-//);
 export default observer(Carrito);

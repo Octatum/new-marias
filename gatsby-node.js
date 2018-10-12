@@ -16,10 +16,7 @@ const getAllFilesQuery = `
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
     if (node.internal.type === `ProductsJson`) {
-     //   console.log("node path: " + node.path);
-       // console.log(node.path);
-        const slug = `/${node.path}/`;//createFilePath({ node, getNode, basePath: `pages` })
-    //    console.log("slug..." + slug);
+        const slug = `/${node.path}/`;
         createNodeField({
             node,
             name: `slug`,
@@ -32,20 +29,19 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     return new Promise((resolve, reject) => {
       graphql(`
         {
-            allProductsJson {
-                edges {
-                    node {
-                            fields {
-                                slug
-                            }
-                    }
+          allProductsJson {
+            edges {
+              node {
+                fields {
+                  slug
                 }
+              }
             }
+          }
         }
       `
   ).then(result => {
         const { createPage } = actions
-        console.log(JSON.stringify(result, null, 4))
         result.data.allProductsJson.edges.forEach(({ node }) => {
             createPage({
               path: node.fields.slug,
@@ -59,39 +55,3 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       })
     })
   }
-
-/*
-exports.createPages = ({ boundActionCreators, graphql }) => {
-  const { createPage } = boundActionCreators;
-  return graphql(getAllFilesQuery)
-    .then(result => {
-    if (result.errors) {
-      return Promise.reject(result.errors);
-    }
-   // result.data.projects.edges.forEach(({node}) => createProjectPage(node, createPage));
-    });
-
-};
-*/
-/*
-function createProjectPage(node, createPage) {
-  createPage({
-    path: `portfolio/${node.path}`,
-    component: courseTemplate,
-    context: {
-      route: node.path
-    }
-  });
-}
-*/
-/*
-function createCoursePage(node, createPage) {
-  createPage({
-    path: `course/${node.path}`,
-    component: courseTemplate,
-    context: {
-      route: node.path
-    }
-  });
-}
-*/

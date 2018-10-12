@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import shoppingCartImg from './../assets/shoppingcart.png';
+import device from './../../../utilities/device';
 
 const Container = styled.div`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
+  ${device.mobile} {
+      z-index: 999;
+  }
 `;
 
 const Counter = styled.div`
