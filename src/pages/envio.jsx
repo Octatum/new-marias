@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
-import ProductSummary from './../components/ProductSummary';
+import OrderSummary from './../components/OrderSummary';
 
 const AppLayout = styled.div`
     margin-top: 220px;
@@ -62,7 +62,7 @@ class Envio extends Component {
                 </BreadcrumbContainer>
                 <Container>
                     <Info/>
-                    <ProductSummary
+                    <OrderSummary
                         quantity={5}
                         name={"Jarrón"}
                         price={700}
