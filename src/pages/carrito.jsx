@@ -83,6 +83,13 @@ class Carrito extends Component {
   }
 
   render() {
+    fetch('http://localhost/cockpit-master/api/collections/get/Producto')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(myJson) {
+      console.log(myJson);
+    });
     return (
       <AppLayout>
         <Navbar />

@@ -71,11 +71,8 @@ const List = styled.ul`
       margin-bottom: 23px;
       padding: 0 17px;
     }
-    ${device.mobile} {
-      display: ${({ hide }) => (hide ? 'none' : 'block')};
-    }
+    display: ${({ hide }) => (hide ? 'none' : 'block')};
   }
-
 `;
 
 const Icon = styled.img`

@@ -7,7 +7,7 @@ const Container = styled.div`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   ${device.mobile} {
-      z-index: 999;
+      z-index: 99;
   }
 `;
 
