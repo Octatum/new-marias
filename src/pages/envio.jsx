@@ -5,12 +5,18 @@ import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
+import { StaticQuery, graphql } from 'gatsby';
+import Cart from './../ShoppingCart';
+import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
     margin-top: 220px;
     ${device.mobile} {
         margin-top: 95px;
     }
+    font-family: 'Archivo Narrow', sans-serif;
+    color: #626363;
+    font-size: 14px;
 `
 
 const BreadcrumbContainer = styled.div`
@@ -22,7 +28,12 @@ const BreadcrumbContainer = styled.div`
 `;
 
 const AddressContainer = styled.div`
-
+    h1:first-child {
+        font-weight: bold;
+        margin-right: 15px;
+    }
+    display: flex;
+    width: 70%;
 `
 
 const Container = styled.div`
@@ -38,24 +49,126 @@ const Container = styled.div`
     > div:nth-child(2) {
         width: 40%;
     }
-    
+`
+
+const Button = styled.button`
+    height: 50px;
+    width: 37%;
+    border: none;
+    background-color: #d4ad9f;
+    color: #ffffff;
+    float: right;
+    margin-top: 170px; 
+    margin-bottom: 100px;
+    font-size: 18px;
+    :hover {
+        cursor: pointer;
+    }
 `
 
 const Info = styled.div`
     height: 400px;
     border-right: 2px solid #cccccc;
     box-sizing: border-box;
+    padding: 70px 5%;
 `
 
-const order = [
-    {id: 1, name: 'Jarron', quantity: 5, price: 100},
-    {id: 3, name: 'Vasija', quantity: 3, price: 200}
+const Input = styled.input`
+    border: none;
+    background-color: white;
+    height: 22px;
+    width: 22px;
+`
+
+const Field = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 14px 27px 14px 14px;
+    vertical-align: middle;
+    h1 {
+        align-self: center;
+    }
+    border: 1px solid #626363;
+    font-family: 'Archivo Narrow', sans-serif;
+    color: #626363;
+    font-size: 14px;
+    button {
+        border: none;
+        background-color: transparent;
+        color: #626363;
+        align-self: auto;
+        :hover {
+            cursor: pointer;
+        }
+    }
+`
+
+const Envios = styled.div`
+    margin-top: 70px;
+    > div:not(:last-child) {
+        border-bottom: none;
+    }
+`
+
+const BackButton = styled.button`
+    margin-top: 54px;
+    border: none;
+    background: transparent;
+    font-family: 'Archivo Narrow', sans-serif;
+    color: #626363;
+    font-size: 14px;
+    :hover {
+        cursor: pointer;
+    }
+`
+
+const shippingOptions = [
+    {id: 1, price: 800},
+    {id: 2, price: 1000}
 ];
 
 class Envio extends Component {
     render() {
+        const orders = Cart.orders;
         return (
-            <AppLayout>
+        <StaticQuery
+            query={graphql`
+                query{
+                    allProductsJson {
+                        edges {
+                        node {
+                            id,
+                            name,
+                            price,
+                            category,
+                            path
+                        }
+                    }
+                }
+            }
+        `}
+        render={data => {
+            const products = data.allProductsJson.edges.map(edge => edge.node); 
+            const newOrders = orders.map((o, index) => {
+                const prod = products.find(p => o.productId == p.id);
+                return (
+                    //{id: index, name: prod.name, quantity: o., price: prod.price}
+                    {id: index, name: prod.name, quantity: o.quantity, price: prod.price}
+                )
+            });
+            const envios = shippingOptions.map((ship, index) => (
+                <Field key={ship.id}>
+                    <div style={{display:'flex'}}>
+                        <Input type="radio" name="envio"/>
+                        <h1 style={{marginLeft: '20px'}}>Envío {index + 1}</h1>
+                    </div>
+                    <h1>${ship.price.toFixed(2)}</h1>
+                </Field>
+            ));
+        console.log(data);
+            return(
+                <AppLayout>
                 <Navbar/>
                 <BreadcrumbContainer>
                     <Breadcrumb>
@@ -66,16 +179,33 @@ class Envio extends Component {
                     </Breadcrumb>
                 </BreadcrumbContainer>
                 <Container>
-                    <Info/>
+                    <Info>
+                        <Field>
+                            <AddressContainer>
+                                <h1>Direccion de envío</h1>
+                                <h1>Loma Grande #2709, Lomas de San Francisco, Monterrey, N.L., México</h1>
+                            </AddressContainer>
+                            <button>Editar</button>
+                        </Field>
+                        <Envios>
+                            {envios}
+                        </Envios>
+                        <Link to="/Carrito">
+                            <BackButton> {"<"} Volver a información de cliente</BackButton>
+                        </Link>
+                        <Button>Continuar</Button>
+                    </Info>
                     <OrderSummary
-                        order={order}
+                        order={newOrders}
                         quantity={5}
                         name={"Jarrón"}
                         price={700}
                         shipping={0}/>
                 </Container>
             </AppLayout>
-        );
+            );
+        }}/>
+        )
     }
 }
 export default Envio;

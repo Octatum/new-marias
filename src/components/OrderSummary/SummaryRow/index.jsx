@@ -28,7 +28,7 @@ const SummaryRow = (props) => (
             <h1>({props.quantity})</h1>
             <h1>{props.name}</h1>
         </ProductView>
-        <h1>${props.price.toFixed(2)}</h1>
+        <h1>${parseInt(props.price).toFixed(2)}</h1>
     </Container>
 );
 export default SummaryRow;

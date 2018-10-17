@@ -8,6 +8,7 @@ import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
 import SubtotalSummary from './../components/SubtotalSummary';
 import device from './../utilities/device';
+import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
   margin-bottom: 220px;
@@ -83,13 +84,6 @@ class Carrito extends Component {
   }
 
   render() {
-    fetch('http://localhost/cockpit-master/api/collections/get/Producto')
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(myJson) {
-      console.log(myJson);
-    });
     return (
       <AppLayout>
         <Navbar />
@@ -113,7 +107,9 @@ class Carrito extends Component {
             <button>Regresar</button>
           </ButtonContainer>
           <ButtonContainer width={156}>
-            <button>Continuar</button>
+            <Link to="/envio">
+              <button>Continuar</button>
+            </Link>
           </ButtonContainer>
         </Container>
       </AppLayout>
