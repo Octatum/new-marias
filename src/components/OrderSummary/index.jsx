@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import SummaryRow from './SummaryRow';
 
 const Container = styled.div`
     > h1 {
+    margin-top: -30px;
     margin-left: 2%;
     }
     font-family: 'Archivo Narrow', sans-serif;
@@ -47,23 +49,31 @@ const ProductView = styled.div`
     }
 `
 
-const ProductSummary = (props) => (
+const OrderSummary = (props) => {
+
+    const summaryRows = props.order.map(product => (
+        <Field key={product.id}>
+            <SummaryRow
+                quantity={product.quantity}
+                name={product.name}
+                price={product.price}/>
+        </Field>
+    ));
+
+    const subTotal = props.order.reduce((total, o) => (
+        total + o.price * o.quantity
+    ), 0);
+
+    return (
     <Container>
         <h1>Resumen</h1>
         <Section>
-            <Field>
-                <ProductView>
-                    <ProductImage/>
-                    <h1>({props.quantity})</h1>
-                    <h1>{props.name}</h1>
-                </ProductView>
-                <h1>${props.price.toFixed(2)}</h1>
-            </Field>
+           {summaryRows}
         </Section>
         <Section>
             <Field>
                 <h1>Subtotal</h1>
-                <h1>${(props.price * props.quantity).toFixed(2)}</h1>
+                <h1>${subTotal.toFixed(2)}</h1>
             </Field>
             <Field>
                 <h1>Envío</h1>
@@ -73,9 +83,10 @@ const ProductSummary = (props) => (
         <Section>
             <Field>
                 <h1>Total</h1>
-                <Total>${(props.price * props.quantity + props.shipping).toFixed(2)}</Total>
+                <Total>${(subTotal + props.shipping).toFixed(2)}</Total>
             </Field>
         </Section>
     </Container>
-);
-export default ProductSummary;
+    )
+};
+export default OrderSummary;

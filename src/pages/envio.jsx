@@ -43,9 +43,14 @@ const Container = styled.div`
 
 const Info = styled.div`
     height: 400px;
-    border: 2px solid gray;
+    border-right: 2px solid #cccccc;
     box-sizing: border-box;
 `
+
+const order = [
+    {id: 1, name: 'Jarron', quantity: 5, price: 100},
+    {id: 3, name: 'Vasija', quantity: 3, price: 200}
+];
 
 class Envio extends Component {
     render() {
@@ -63,6 +68,7 @@ class Envio extends Component {
                 <Container>
                     <Info/>
                     <OrderSummary
+                        order={order}
                         quantity={5}
                         name={"Jarrón"}
                         price={700}
