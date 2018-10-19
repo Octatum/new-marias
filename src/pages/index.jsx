@@ -28,7 +28,7 @@ const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  margin-top: 220px;
+  margin-top: 158px;
   ${device.mobile} {
     margin-top: 103px;
     height: 90px;

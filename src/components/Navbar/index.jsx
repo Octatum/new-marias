@@ -1,4 +1,4 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import headerIcon from './assets/header-icon.svg';
@@ -10,21 +10,27 @@ import device from './../../utilities/device';
 import BurgerButton from './BurgerButton';
 
 const Container = styled.div`
-  padding: 1.8em 1.5em;
+  box-sizing: border-box;
+  padding: 1.2em 1.5em 0.4em 1.5em;
   background: white;
-  z-index: 5;
+  z-index: 1000;
   text-align: center;
   position: fixed;
   top: 0;
   width: 100%;
+  border-bottom: 2px solid #000000;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 0px 11px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 11px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 11px -2px rgba(0,0,0,0.75);
   ${device.mobile}{
-    padding: 0;
+    padding: 0.4em 0 1em 0;
   }
 `;
 
 const Logo = styled.img`
-  height: 5.175em;
-  padding-bottom: 1.887em;
+  height: 4em;
+  padding-bottom: 1em;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -41,13 +47,12 @@ const List = styled.ul`
   padding-top: 0.7em;
   border-top: 2px solid #d6d8db;
   list-style: none;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  justify-content: center;
   width: 60%;
   
   li {
-    padding-left: 1.15em;
-    padding-right: 1.875em;
+    padding: 0 1.2em;
     color: #626363;
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 18px;
@@ -57,6 +62,10 @@ const List = styled.ul`
   li a {
     text-decoration: none;
     color: #626363;
+  }
+
+  ${device.tablet}{
+    li {font-size: 14px;}
   }
 
   ${device.mobile}{
@@ -76,7 +85,6 @@ const List = styled.ul`
 `;
 
 const Icon = styled.img`
-  padding: 0 31px 10px 0;
   ${device.mobile}{
     padding: 0;
   }

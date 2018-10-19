@@ -50,6 +50,8 @@ const Button = styled.button`
   ${device.mobile} {
     width: 100%;
     margin-top: 56px;
+    height: 65px;
+    font-size: 28px;
   }
 `;
 

@@ -10,8 +10,8 @@ import Cart from './../ShoppingCart';
 import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
-  padding-top: 220px;
-  padding-bottom: 500px;
+    padding-top: 190px;
+    padding-bottom: 500px;
   ${device.mobile} {
     width: 100%;
     padding-top: 95px;

@@ -15,7 +15,7 @@ import CartCounter from './../components/Detail/CartCounter';
 import './../components/setup.css';
 
 const AppLayout = styled.div`
-  padding-top: 220px;
+  padding-top: 170px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,6 @@ const Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
- /* padding: 20px 24px;*/
   margin: 0 auto;
   width: 85%;
   

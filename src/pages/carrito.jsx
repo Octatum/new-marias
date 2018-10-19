@@ -12,7 +12,7 @@ import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
   margin-bottom: 220px;
-  padding-top: 220px;
+  padding-top: 190px;
   ${device.mobile} {
     width: 100%;
     padding-top: 95px;

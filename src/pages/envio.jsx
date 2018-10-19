@@ -9,7 +9,7 @@ import Cart from './../ShoppingCart';
 import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
-    margin-top: 220px;
+    margin-top: 190px;
     ${device.mobile} {
         margin-top: 95px;
     }
