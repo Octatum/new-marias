@@ -19,11 +19,10 @@ const AppLayout = styled.div`
 `;
 
 const BreadcrumbContainer = styled.div`
+  box-sizing: border-box;
+  width: 100%;
   margin: 0 auto;
-  width: 1240px;
-  ${device.mobile} {
-    margin-left: 16px;
-  }
+  padding-left: 0%;
 `;
 
 const Info = styled.div`

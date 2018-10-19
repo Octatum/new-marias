@@ -47,6 +47,18 @@ const Container = styled.div`
   }
 `;
 
+const BreadcrumbContainer = styled.div`
+  padding-top: 12.2px;
+  border-bottom: 1px solid #626363;
+  box-sizing: border-box;
+  width:85%;
+  margin: 0 auto;
+  margin-left: 58px;
+  > div {
+    padding:0;
+  }
+`;
+
 const CartContainer = styled.div`
   font-family: 'Archivo Narrow', sans-serif;
   padding-right: 20px;
@@ -107,13 +119,13 @@ const IndexPage = () => (
             <AppLayout>
               <Navbar />
               <Banner />
-              <Container>
+              <BreadcrumbContainer>
                 <BreadCrumb>
                   <BreadCrumbItem>
                     {categories.find(c => c.id === CategoryState.current).name}
                   </BreadCrumbItem>
                 </BreadCrumb>
-              </Container>
+              </BreadcrumbContainer>
               <CartContainer>
                 <Link to="/carrito">
                   <CartCounter width={69} height={61} quantity={shoppingCart.counter}/>

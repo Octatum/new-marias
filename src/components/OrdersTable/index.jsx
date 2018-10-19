@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import OrderRow from './OrderRow';
-//import Cart from './../../ShoppingCart';
 import { observer } from 'mobx-react';
-//import { products } from './../../constants/productsInfo';
 import { StaticQuery, graphql } from 'gatsby';
 import device from './../../utilities/device';
 
@@ -30,7 +28,7 @@ const TableHead = styled.thead`
     height: 47px;
     line-height: 47px;
     border: none;
-    border-collapse:collapse;
+    border-collapse: collapse;
   }
   th:last-child {
     width: 5%;

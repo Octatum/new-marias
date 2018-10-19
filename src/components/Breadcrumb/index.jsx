@@ -8,6 +8,8 @@ const Container = styled.div`
   margin: 0 auto;
   height: 22px;
   font-family: 'Archivo Narrow', sans-serif;
+  box-sizing: border-box;
+  padding-left: 4%;
   ${device.mobile} {
     width: 100vw;
     margin: 0;
