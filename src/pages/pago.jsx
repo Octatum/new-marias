@@ -41,7 +41,6 @@ const Input = styled.input `
   font-family: 'Archivo Narrow', sans-serif;
   font-size: 18px;
   font-style: italic;
-
   ::placeholder {
     padding-left: 19px;
   }
@@ -72,10 +71,10 @@ const Pago = () => (
         <Navbar/>
         <BreadcrumbContainer>
             <Breadcrumb>
-                <BreadcrumbItem active>Carrito</BreadcrumbItem>
+                <BreadcrumbItem>Carrito</BreadcrumbItem>
                 <BreadcrumbItem>Información del cliente</BreadcrumbItem>
                 <BreadcrumbItem>Envío</BreadcrumbItem>
-                <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
+                <BreadcrumbItem active>Pago y facturación</BreadcrumbItem>
             </Breadcrumb>
         </BreadcrumbContainer>
         <DatosFacturacion>

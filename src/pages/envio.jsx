@@ -5,7 +5,6 @@ import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
-import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
 import { Link } from 'gatsby';
 
@@ -16,7 +15,6 @@ const AppLayout = styled.div`
     }
     font-family: 'Archivo Narrow', sans-serif;
     color: #626363;
-    font-size: 14px;
 `
 
 const BreadcrumbContainer = styled.div`
@@ -67,7 +65,6 @@ const Button = styled.button`
 `
 
 const Info = styled.div`
-    height: 400px;
     border-right: 2px solid #cccccc;
     box-sizing: border-box;
     padding: 70px 5%;
@@ -130,45 +127,17 @@ const shippingOptions = [
 
 class Envio extends Component {
     render() {
-        const orders = Cart.orders;
+        const envios = shippingOptions.map((ship, index) => (
+            <Field key={ship.id}>
+                <div style={{display:'flex'}}>
+                    <Input type="radio" name="envio"/>
+                    <h1 style={{marginLeft: '20px'}}>Envío {index + 1}</h1>
+                </div>
+                <h1>${ship.price.toFixed(2)}</h1>
+            </Field>
+        ));
         return (
-        <StaticQuery
-            query={graphql`
-                query{
-                    allProductsJson {
-                        edges {
-                        node {
-                            id,
-                            name,
-                            price,
-                            category,
-                            path
-                        }
-                    }
-                }
-            }
-        `}
-        render={data => {
-            const products = data.allProductsJson.edges.map(edge => edge.node); 
-            const newOrders = orders.map((o, index) => {
-                const prod = products.find(p => o.productId == p.id);
-                return (
-                    //{id: index, name: prod.name, quantity: o., price: prod.price}
-                    {id: index, name: prod.name, quantity: o.quantity, price: prod.price}
-                )
-            });
-            const envios = shippingOptions.map((ship, index) => (
-                <Field key={ship.id}>
-                    <div style={{display:'flex'}}>
-                        <Input type="radio" name="envio"/>
-                        <h1 style={{marginLeft: '20px'}}>Envío {index + 1}</h1>
-                    </div>
-                    <h1>${ship.price.toFixed(2)}</h1>
-                </Field>
-            ));
-        console.log(data);
-            return(
-                <AppLayout>
+            <AppLayout>
                 <Navbar/>
                 <BreadcrumbContainer>
                     <Breadcrumb>
@@ -190,22 +159,17 @@ class Envio extends Component {
                         <Envios>
                             {envios}
                         </Envios>
-                        <Link to="/Carrito">
+                        <Link to="/cliente">
                             <BackButton> {"<"} Volver a información de cliente</BackButton>
                         </Link>
-                        <Button>Continuar</Button>
+                        <Link to="/pago">
+                            <Button>Continuar</Button>
+                        </Link>
                     </Info>
-                    <OrderSummary
-                        order={newOrders}
-                        quantity={5}
-                        name={"Jarrón"}
-                        price={700}
-                        shipping={0}/>
+                    <OrderSummary/>
                 </Container>
             </AppLayout>
-            );
-        }}/>
-        )
+        );
     }
 }
 export default Envio;

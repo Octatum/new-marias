@@ -107,7 +107,7 @@ class Carrito extends Component {
             <button>Regresar</button>
           </ButtonContainer>
           <ButtonContainer width={156}>
-            <Link to="/envio">
+            <Link to="/cliente">
               <button>Continuar</button>
             </Link>
           </ButtonContainer>

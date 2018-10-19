@@ -50,7 +50,7 @@ const List = styled.ul`
     padding-right: 1.875em;
     color: #626363;
     font-family: 'Archivo Narrow', sans-serif;
-    font-size: 17.9px;
+    font-size: 18px;
     text-transform: uppercase;
   }
 
