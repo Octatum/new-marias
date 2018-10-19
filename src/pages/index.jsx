@@ -51,11 +51,21 @@ const BreadcrumbContainer = styled.div`
   padding-top: 12.2px;
   border-bottom: 1px solid #626363;
   box-sizing: border-box;
-  width:85%;
+  width: 85%;
   margin: 0 auto;
   margin-left: 58px;
+  margin-bottom: 15px;
   > div {
     padding:0;
+  }
+  ${device.mobile} {
+    width: 100%;
+    padding-left: 0;
+      margin-left: 0;
+    > div {
+      padding: 0;
+      margin: 0;
+    }
   }
 `;
 

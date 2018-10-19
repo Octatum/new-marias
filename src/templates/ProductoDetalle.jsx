@@ -8,7 +8,6 @@ import Detail from '../components/Detail';
 import CategoryState from './../CategoryState';
 import Cart from './../ShoppingCart';
 import { categories } from './../constants/categories.js';
-import { products } from './../constants/productsInfo';
 import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
@@ -21,7 +20,7 @@ const AppLayout = styled.div`
   display: flex;
   flex-direction: column;
   ${device.mobile} {
-    display:block;
+    display: block;
     padding: 83px 0;
   }
 `;
@@ -79,9 +78,17 @@ const BackButton = styled.button`
 `;
 
 const BreadcrumbContainer = styled.div`
+  box-sizing: border-box;
+  width: 90%;
   margin: 0 auto;
-  width: 1240px;
-  ${device.mobile} {
+  margin-bottom: 20px;
+  padding-left: 0%;
+  display: block;
+  ${device.mobile}{
+    > div {
+      padding: 0;
+      width: 50vw;
+    }
     display:none;
   }
 `;
@@ -90,15 +97,15 @@ const Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  padding: 20px 24px;
-  width: 1240px;
+ /* padding: 20px 24px;*/
+  margin: 0 auto;
+  width: 85%;
   
   ${device.mobile} {
     width: 100%;
     display: inherit;
     padding: 0;
   }
- 
 `;
 
 class Producto extends Component {
@@ -179,7 +186,7 @@ class Producto extends Component {
             height={37}/>
         </MobileHeader>
         <Container>
-          <Gallery
+          <Gallery 
             category={categories.find(c => c.id === CategoryState.current).name}
             images={this.state.currentImages}
             color={this.state.currentColor}

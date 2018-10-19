@@ -11,7 +11,7 @@ const Container = styled.div`
   box-sizing: border-box;
   padding-left: 4%;
   ${device.mobile} {
-    width: 100vw;
+    width: 95vw;
     margin: 0;
     height: auto;
   }

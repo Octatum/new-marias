@@ -10,23 +10,24 @@ import './../setup.css';
 
 const Container = styled.div`
   display: block;
-  max-width: 352px;
-  margin-left: 60px;
+  width: 30%;
+  margin-left: 5%;
   ${device.mobile} {
-    max-width: 77%;
+    width: 77%;
     margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;
   }
 `;
+
 const Button = styled.button`
-  width: 73%;
-  min-height: 65px;
+  width: 65%;
+  padding: 14px 10px;
   background-color: #626363;
   border: none;
-  margin: 40px 0;
+  margin-right: 25px;
   font-family: 'Archivo Narrow', sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -36,6 +37,16 @@ const Button = styled.button`
   :hover {
     cursor: pointer;
   }
+  ${device.laptop} {
+    font-size: 20px;
+    width: 60%;
+    padding: 10px;
+  }
+  ${device.tablet} {
+    font-size: 17px;
+    width: 60%;
+    padding: 5px;
+  }
   ${device.mobile} {
     width: 100%;
     margin-top: 56px;
@@ -43,26 +54,26 @@ const Button = styled.button`
 `;
 
 const SelectsContainer = styled.div`
+
   ::after {
     content: "";
     clear: both;
     display: table;
   }
 
-  display: block;
+  /*display: block;*/
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
   > div {
-    float: left;
+    flex-grow: 1;
   }
-
-  > div:nth-child(1) {
-    width: 40%;
-  }
-
-  > div:nth-child(2) {
-    width: 20%;
+  
+  > div:last-child {
     margin-left: 70px;
+    flex-grow: 0.2;
   }
 
   ${device.mobile} {
@@ -78,8 +89,9 @@ const SelectsContainer = styled.div`
 `
 
 const Name = styled.h1`
+  width: 110%;
   font-family: 'Archivo Narrow', sans-serif;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -91,6 +103,13 @@ const Name = styled.h1`
   ${device.mobile} {
     display: none;
   }
+  ${device.laptop} {
+    font-size: 30px;
+  }
+  ${device.tablet} {
+    font-size: 25px;
+  }
+
 `;
 const Price = styled.h3`
   font-family: 'Archivo Narrow', sans-serif;
@@ -110,15 +129,8 @@ const Price = styled.h3`
       font-size: 14px;
     }
   }
-`;
-
-const CartContainer = styled.div`
-  display: inline-block;
-  position: relative;
-  left: 40px;
-  top: 20px;
-  ${device.mobile} {
-    display:none;
+  ${device.tablet} {
+    font-size: 20px;
   }
 `;
 
@@ -128,6 +140,31 @@ const Description = styled.p`
   line-height: normal;
   color: #626363;
 `;
+
+const AddToCartContainer = styled.div`
+  width: 110%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  > button, > div {
+    align-self: center;
+  }
+  margin: 30px 0;
+  ${device.tablet}{
+    margin: 20px 0;
+  }
+  ${device.mobile}{
+    width: 93%;
+    margin: 56px auto;
+    > div {
+      display: none;
+    }
+    > button {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+`
 
 const Detail = props => {
   return (
@@ -147,19 +184,19 @@ const Detail = props => {
           <option>3</option>
         </Select>
       </SelectsContainer>
-      <Button
-        onClick={() => {
-          CounterStore.increment();
-          props.addingOrderHandler();
-        }}>
-        Agregar al carrito
-      </Button>
-      <CartContainer>
+      <AddToCartContainer>
+        <Button
+          onClick={() => {
+            CounterStore.increment();
+            props.addingOrderHandler();
+          }}>
+          Agregar al carrito
+        </Button>
         <CartCounter
-          quantity={CounterStore.counter}
-          width="69"
-          height="61"/>
-      </CartContainer>
+            quantity={CounterStore.counter}
+            width="69"
+            height="61"/>
+      </AddToCartContainer>
     </div>
     <div>
       <Description>{props.description}</Description>

@@ -7,7 +7,7 @@ import device from './../../utilities/device';
 import Current from './Current';
 
 const Container = styled.div`
-  min-width: 760px;
+  width: 65%;
   ${device.mobile} {
     min-width: 100%;
     margin:0;
@@ -15,6 +15,8 @@ const Container = styled.div`
 `;
 
 const CurrentImageContainer = styled.div`
+  width: 75%;
+  height: auto;
   float: left;
   display: flex;
   justify-content: space-evenly;
@@ -23,15 +25,34 @@ const CurrentImageContainer = styled.div`
     width: 100%;
   }
 `;
-
+ 
+/*
 const CurrentImage = styled.img`
+  outline: 2px solid rgba(255,0,0,0.4);
   display: block;
   float: left;
   width: 450px;
-  height: 450px;
+  height: 450px; 
   ${device.mobile} {
     width: 248px;
     height: 248px;
+  }
+`;
+*/
+
+const CurrentImage = styled.div`
+  display: block;
+  float: left;
+  width: 80%;
+  padding-bottom: 80%;
+  background-color: #cccccc;
+  background: url(${({ src }) => src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  ${device.mobile} {
+    width: 70%;
+    padding-bottom: 70%;
   }
 `;
 
@@ -52,9 +73,9 @@ const BackButton = styled.button`
 `;
 
 const PreviousButton = styled.button`
-  width: 13px;
+  width: 4%;
   height: 29px;
-  margin: 0 25px;
+  margin: 0 4.25%;
   align-self: center;
   :hover {
     cursor: pointer;
@@ -71,9 +92,9 @@ const PreviousButton = styled.button`
 `;
 
 const Nextbutton = styled.button`
-  width: 13px;
+  width: 4%;
   height: 29px;
-  margin: 0 25px;
+  margin: 0 4.25%;
   align-self: center;
   :hover {
     cursor: pointer;
@@ -91,30 +112,40 @@ const Nextbutton = styled.button`
 
 const ImagesContainer = styled.div`
   float: left;
-  width: 145px;
-  margin-right: 30px;
-  img {
-    display: block;
-    width: 100%;
-    height: 145px;
-    margin-bottom: 7px;
-  }
-  img:hover {
-    cursor: pointer;
-  }
-
+  width: 73%;
   ${device.mobile} {
     display: none;
   }
-
 `;
 
+const ImgPreview = styled.div`
+  background-color: #cccccc;
+  display: block;
+  width: 100%;
+  padding-bottom: 100%;
+  margin-bottom: 7px;
+  background: url(${({ src }) => src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  :hover {
+    cursor: pointer;
+  }
+`
+
 const BackContainer = styled.div`
-  float: left;
+  width: 25%;
+ /* float: left;*/
+  display: flex:
+  flex-direction: row;
   padding: 0;
   position: relative;
+  button {
+    width: 10%;
+    margin-right: 10%;
+  }
   ${device.mobile} {
-    display:none;
+    display: none;
   }
 `;
 
@@ -145,11 +176,10 @@ class Gallery extends Component {
   render() {
 
     const images = this.props.images.map(source => (
-      <img
+      <ImgPreview
         key={source}
         onClick={() => this.changeCurrentImage(source)}
-        src={source}
-      />
+        src={source}/>
     ));
 
     const dots = this.props.images.map((image, index) => {
