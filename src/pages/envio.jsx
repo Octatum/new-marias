@@ -6,6 +6,7 @@ import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
 import Cart from './../ShoppingCart';
+import Client from './../ClientInfo';
 import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
@@ -151,7 +152,7 @@ class Envio extends Component {
                         <Field>
                             <AddressContainer>
                                 <h1>Direccion de envío</h1>
-                                <h1>Loma Grande #2709, Lomas de San Francisco, Monterrey, N.L., México</h1>
+                                <h1>{Client.streetAndNumber}, {Client.neighborhood}, {Client.city}, {Client.state}, {Client.country}</h1>
                             </AddressContainer>
                             <button>Editar</button>
                         </Field>

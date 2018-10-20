@@ -7,6 +7,7 @@ import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
 import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
+import Client from './../ClientInfo';
 import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
@@ -118,6 +119,19 @@ const BackButton = styled.button`
     }
 `
 
+const saveCustomerInfo = () => {
+    Client.names = document.getElementById('names').value;
+    Client.lastNames = document.getElementById('lastNames').value;
+    Client.email = document.getElementById('email').value;
+    Client.streetAndNumber = document.getElementById('streetAndNumber').value;
+    Client.neighborhood = document.getElementById('neighborhood').value;
+    Client.city = document.getElementById('city').value;
+    Client.country = document.getElementById('country').value;
+    Client.state = document.getElementById('state').value;
+    Client.postalCode = document.getElementById('postalCode').value;
+    Client.tel = document.getElementById('tel').value;
+};
+
 const Cliente = () => (
     <AppLayout>
         <Navbar />
@@ -134,42 +148,47 @@ const Cliente = () => (
                 <Label>Información de contacto</Label>
                 <Fieldset style={{marginBottom: '30px'}}>
                     <InputRow>
-                        <input placeholder="Correo electrónico"/>
+                        <input id="email" placeholder="Correo electrónico"/>
                     </InputRow>
                 </Fieldset>
                 <Label>Dirección de envío</Label>
                 <Fieldset>
                     <InputRow>
-                        <input placeholder="Nombre (s)"/>
-                        <input placeholder="Apellidos" />
+                        <input id="names" placeholder="Nombre (s)"/>
+                        <input id="lastNames" placeholder="Apellidos"/>
                     </InputRow>
                     <InputRow>
-                        <input placeholder="Calle y número"/>
+                        <input id="streetAndNumber" placeholder="Calle y número"/>
                     </InputRow>
                     <InputRow>
-                        <input placeholder="Colonia"/>
+                        <input id="neighborhood" placeholder="Colonia"/>
                     </InputRow>
                     <InputRow>
-                        <input placeholder="Ciudad"/>
+                        <input id="city" placeholder="Ciudad"/>
                     </InputRow>
                     <InputRow>
-                        <select style={{marginLeft: '0'}}>
+                        <select id="country" style={{marginLeft: '0'}}>
                             <option>Pais</option>
+                            <option>México</option>
+                            <option>EU</option>
                         </select>
-                        <select>
+                        <select id="state">
                             <option>Estado</option>
+                            <option>Nuevo León</option>
+                            <option>Sonora</option>   
                         </select>
-                        <input placeholder="Código Postal"/>
+                        <input id="postalCode" placeholder="Código Postal"/>
                     </InputRow>
                     <InputRow>
-                        <input placeholder="Teléfono"/>
+                        <input id="tel" placeholder="Teléfono"/>
                     </InputRow>
                 </Fieldset>
                 <Link to="/carrito">
                     <BackButton> {"<"} Volver a carrito</BackButton>
                 </Link>
                 <Link to="/envio">
-                    <Button>Continuar</Button>
+                    <Button
+                        onClick={saveCustomerInfo}>Continuar</Button>
                 </Link>
             </Info>
             <OrderSummary/>

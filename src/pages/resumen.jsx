@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import device from './../utilities/device';
 import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
+import Client from './../ClientInfo';
 
 const AppLayout = styled.div`
     margin-top: 190px;
@@ -217,7 +218,11 @@ const Resumen = () => {
                                 <tbody>
                                     <tr>
                                         <td>${getSubtotal(products).toFixed(2)} MXN</td>
-                                        <td>Nombre de usuario y dirección</td>
+                                        <td>
+                                            <p>{Client.names} {Client.lastNames}</p>
+                                            <p>{Client.streetAndNumber}, {Client.neighborhood} </p>
+                                            <p>{Client.postalCode}, {Client.state}, {Client.city}, {Client.country}</p>
+                                        </td>
                                         <td>############</td>
                                         <td>00/00/0000</td>
                                     </tr>
@@ -228,9 +233,9 @@ const Resumen = () => {
                         <OrderDetails>
                             <div>
                                 <p>Dirección de envío</p>
-                                <p>María Elisa Rios cantú</p>
-                                <p>Cerrada del Acueducto #5312, Col Del
-                                    Paseo Residencial, Monterrey, N.L., México</p>
+                                <p>{Client.names} {Client.lastNames}</p>
+                                <p>{Client.streetAndNumber}, {Client.neighborhood} </p>
+                                <p>{Client.postalCode}, {Client.state}, {Client.city}, {Client.country}</p>
                             </div>
                             <div>
                                 <p>Método de pago</p>
@@ -264,86 +269,3 @@ const Resumen = () => {
     );
 }
 export default Resumen;
-
-
-/**
- 
-  <AppLayout>
-            <Navbar />
-            <Container>
-                <Title>Tu pedido con New Marías</Title>
-                <OrderSummary>
-                    <Products>
-                        <ProductoPreview>
-                            <Img/>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>(1) Vasija</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </ProductoPreview>
-                    </Products>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Precio</th>
-                                <th>Enviar a</th>
-                                <th>Número de orden</th>
-                                <th>Fecha de pedido</th>
-                            </tr>     
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>$1,600.00 MXN</td>
-                                <td>Nombre de usuario y dirección</td>
-                                <td>############</td>
-                                <td>00/00/0000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </OrderSummary>
-                <Label>Detalles del pedido</Label>
-                <OrderDetails>
-                    <div>
-                        <p>Dirección de envío</p>
-                        <p>María Elisa Rios cantú
-                            Cerrada del Acueducto #5312, Col Del
-                            Paseo Residencial, Monterrey, N.L., México </p>
-                    </div>
-                    <div>
-                        <p>Método de pago</p>
-                        <p>##############</p>
-                    </div>
-                    <div>
-                        <p>Resumen del pedido</p>   
-                        <SummaryField>
-                            <p>Productos:</p>
-                            <p>$800.00</p>   
-                        </SummaryField> 
-                        <SummaryField>
-                            <p>Envío:</p>
-                            <p>$800.00</p>   
-                        </SummaryField> 
-                        <SummaryField>
-                            <p>Subtotal:</p>
-                            <p>$1,600.00</p>   
-                        </SummaryField> 
-                        <SummaryField>
-                            <p>Total:</p>
-                            <p>$1,600.00</p>   
-                        </SummaryField> 
-                    </div>   
-                </OrderDetails>
-                <Button>Descargar Resumen</Button>
-            </Container>
-        </AppLayout>
-
-
- */
