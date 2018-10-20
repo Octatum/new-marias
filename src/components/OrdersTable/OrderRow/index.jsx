@@ -47,6 +47,10 @@ const Picture = styled.div`
   width: 165px;
   height: 165px;
   background-color: #c4c4c4;
+  background: url(${({ src }) => src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   margin: 0 auto;
   ${device.mobile}{
     width: 100px;
@@ -75,13 +79,15 @@ const OrderRow = ({
   name,
   price,
   quantity,
+  src,
   deleteOrderHandler,
   onDecreaseQuantity,
   onIncreaseQuantity,
 }) => (
   <Tr>
     <Td>
-      <Picture />
+      <Picture 
+        src={src}/>
     </Td>
     <Td>{name}</Td>
     <Td>${price.toFixed(2)} MXN</Td>

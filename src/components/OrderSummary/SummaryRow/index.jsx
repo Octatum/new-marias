@@ -11,6 +11,10 @@ const ProductImage = styled.div`
     width: 65px;
     height: 65px;
     background: #c4c4c4;
+    background: url(${({ src }) => src});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 `
 
 const ProductView = styled.div`
@@ -24,7 +28,8 @@ const ProductView = styled.div`
 const SummaryRow = (props) => (
     <Container>
         <ProductView>
-            <ProductImage/>
+            <ProductImage
+                src={props.src}/>
             <h1>({props.quantity})</h1>
             <h1>{props.name}</h1>
         </ProductView>

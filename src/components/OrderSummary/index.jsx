@@ -60,7 +60,8 @@ const query = graphql`
                 name,
                 price,
                 category,
-                path
+                path,
+                imagesBlue
             }
         }
     }
@@ -78,7 +79,7 @@ const OrderSummary = () => {
                 const newOrders = orders.map((o, index) => {
                     const prod = products.find(p => o.productId == p.id);
                     return (
-                        {id: index, name: prod.name, quantity: o.quantity, price: prod.price}
+                        {id: index, name: prod.name, quantity: o.quantity, price: prod.price, src: prod.imagesBlue[0]}
                     )
                 });
                 const summaryRows = newOrders.map(product => (
@@ -86,10 +87,10 @@ const OrderSummary = () => {
                         <SummaryRow
                             quantity={product.quantity}
                             name={product.name}
-                            price={product.price}/>
+                            price={product.price}
+                            src={product.src}/>
                     </Field>
                 ));
-            
                 const subTotal = newOrders.reduce((total, o) => (
                     total + o.price * o.quantity
                 ), 0);

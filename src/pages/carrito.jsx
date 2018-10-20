@@ -103,7 +103,9 @@ class Carrito extends Component {
           />
           <SubtotalSummary/>
           <ButtonContainer width={115} mobileHide>
-            <button>Regresar</button>
+            <Link to="/">
+              <button>Regresar</button>
+            </Link>
           </ButtonContainer>
           <ButtonContainer width={156}>
             <Link to="/cliente">

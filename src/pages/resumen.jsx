@@ -3,6 +3,8 @@ import './../components/setup.css';
 import Navbar from './../components/Navbar';
 import styled from 'styled-components';
 import device from './../utilities/device';
+import { StaticQuery, graphql } from 'gatsby';
+import Cart from './../ShoppingCart';
 
 const AppLayout = styled.div`
     margin-top: 190px;
@@ -72,6 +74,10 @@ const Img = styled.div`
     height: 90px;
     background-color: #c4c4c4;
     display: block;
+    background: url(${({ src }) => src});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 `
 
 const Products = styled.div`
@@ -136,9 +142,133 @@ const Button = styled.button`
     }
 `
 
+const query = graphql`
+    query{
+        allProductsJson {
+            edges {
+                node {
+                    price,
+                    name,
+                    id,
+                    imagesBlue
+                }
+            }
+        }
+    }
+`
+
+const getSubtotal = (products) => {
+    let subTotal = 0.0;
+    const orders = Cart.orders;
+    for (let i = 0; i < orders.length; i++) {
+      const price = products.find(p => p.id == orders[i].productId).price;
+      subTotal += price * orders[i].quantity;
+    }
+    return subTotal;
+}
+
+const shippingCost = 0;
+
 const Resumen = () => {
     return (
-        <AppLayout>
+        <StaticQuery
+            query={query}
+            render={data => {
+                const products = data.allProductsJson.edges.map(edge => edge.node);
+                const prodRows = Cart.orders.map((o, index) => {
+                    const prod = products.find(p => o.productId == p.id);
+                    return (
+                        <ProductoPreview>
+                            <Img
+                                src={prod.imagesBlue[0]}/>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>({o.quantity}) {prod.name}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ProductoPreview>
+                    );
+                });
+                return (
+                    <AppLayout>
+                    <Navbar />
+                    <Container>
+                        <Title>Tu pedido con New Marías</Title>
+                        <OrderSummary>
+                            <Products>
+                               {prodRows}
+                            </Products>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Precio</th>
+                                        <th>Enviar a</th>
+                                        <th>Número de orden</th>
+                                        <th>Fecha de pedido</th>
+                                    </tr>     
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${getSubtotal(products).toFixed(2)} MXN</td>
+                                        <td>Nombre de usuario y dirección</td>
+                                        <td>############</td>
+                                        <td>00/00/0000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </OrderSummary>
+                        <Label>Detalles del pedido</Label>
+                        <OrderDetails>
+                            <div>
+                                <p>Dirección de envío</p>
+                                <p>María Elisa Rios cantú</p>
+                                <p>Cerrada del Acueducto #5312, Col Del
+                                    Paseo Residencial, Monterrey, N.L., México</p>
+                            </div>
+                            <div>
+                                <p>Método de pago</p>
+                                <p>##############</p>
+                            </div>
+                            <div>
+                                <p>Resumen del pedido</p>   
+                                <SummaryField>
+                                    <p>Productos:</p>
+                                    <p>${getSubtotal(products).toFixed(2)}</p>   
+                                </SummaryField> 
+                                <SummaryField>
+                                    <p>Envío:</p>
+                                    <p>${shippingCost.toFixed(2)}</p>   
+                                </SummaryField> 
+                                <SummaryField>
+                                    <p>Subtotal:</p>
+                                    <p>${(getSubtotal(products) + shippingCost).toFixed(2)}</p>   
+                                </SummaryField> 
+                                <SummaryField>
+                                    <p>Total:</p>
+                                    <p>${(getSubtotal(products) + shippingCost).toFixed(2)}</p>   
+                                </SummaryField> 
+                            </div>   
+                        </OrderDetails>
+                        <Button>Descargar Resumen</Button>
+                    </Container>
+                </AppLayout>
+             );
+        }}/>
+    );
+}
+export default Resumen;
+
+
+/**
+ 
+  <AppLayout>
             <Navbar />
             <Container>
                 <Title>Tu pedido con New Marías</Title>
@@ -214,6 +344,6 @@ const Resumen = () => {
                 <Button>Descargar Resumen</Button>
             </Container>
         </AppLayout>
-    );
-}
-export default Resumen;
+
+
+ */
