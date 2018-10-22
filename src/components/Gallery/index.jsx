@@ -174,7 +174,6 @@ class Gallery extends Component {
   };
 
   render() {
-
     const images = this.props.images.map(source => (
       <ImgPreview
         key={source}

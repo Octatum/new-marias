@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './../components/setup.css';
 import Navbar from './../components/Navbar';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import device from './../utilities/device';
 import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
 import Client from './../ClientInfo';
+import SummaryGallery from './../components/SummaryGallery';
 import './../components/setup.css';
 
 const AppLayout = styled.div`
@@ -35,7 +36,6 @@ const OrderSummary = styled.div`
     box-sizing: border-box;
 
     padding: 15px 32px;
-
     display: flex;
     flex-direction: row;
 
@@ -58,6 +58,29 @@ const OrderSummary = styled.div`
         padding: 20px 20px 20px 0;
     }
 
+    ${device.mobile} {
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        flex-direction: column;
+        padding: 11px;
+    }
+`
+
+const MobileSummary = styled.div`
+    width: 100%!important;
+    > div:not(:last-child){
+        margin-bottom: 15px;
+    }
+    display: none;
+    ${device.mobile}{
+        display: block;
+    }
+`
+const MobileField = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 `
 
 const ProductoPreview = styled.div`
@@ -88,6 +111,9 @@ const Products = styled.div`
     > div:not(:last-child) {
         margin-bottom: 20px;
     }
+    ${device.mobile} {
+        display: none;
+    }
 `
 
 const OrderDetails = styled.div`
@@ -114,6 +140,16 @@ const OrderDetails = styled.div`
     > div > p:first-child {
         margin-bottom: 5px;  
     }
+    ${device.mobile} {
+        flex-direction: column;
+        > div {
+            width: 100%!important;
+            margin: 7px 0;
+        }
+        > div:nth-child(2) {
+            order: -1;
+        }
+    }
 `
 
 const SummaryField = styled.div`
@@ -121,6 +157,9 @@ const SummaryField = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 60%;
+    ${device.mobile} {
+        width: 75%;
+    }
 `
 
 const Label = styled.h2`
@@ -142,6 +181,15 @@ const Button = styled.button`
     :hover {
         cursor: pointer;
     }
+    ${device.mobile} {
+        width: 70%; 
+    }
+`
+
+const Table = styled.table`
+    ${device.mobile}{
+        display: none;
+    }
 `
 
 const query = graphql`
@@ -159,19 +207,39 @@ const query = graphql`
     }
 `
 
-const getSubtotal = (products) => {
-    let subTotal = 0.0;
-    const orders = Cart.orders;
-    for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id === orders[i].productId).price;
-      subTotal += price * orders[i].quantity;
-    }
-    return subTotal;
-}
-
 const shippingCost = 0;
 
-const Resumen = () => {
+class Resumen extends Component {
+
+    state = {
+        currentOrder: 0,
+    }
+
+    nextOrderHandler = () => {
+        if (this.state.currentOrder < Cart.orders.length - 1) {
+            let currentOrder = this.state.currentOrder + 1;
+            this.setState({currentOrder: currentOrder});
+        }
+    }
+    
+    previousOrderHandler = () => {
+        if (this.state.currentOrder > 0) {
+            let currentOrder = this.state.currentOrder - 1;
+            this.setState({currentOrder: currentOrder});
+        }
+    }
+
+    getSubtotal = (products) => {
+        let subTotal = 0.0;
+        const orders = Cart.orders;
+        for (let i = 0; i < orders.length; i++) {
+          const price = products.find(p => p.id === orders[i].productId).price;
+          subTotal += price * orders[i].quantity;
+        }
+        return subTotal;
+    }
+
+    render () {
     return (
         <StaticQuery
             query={query}
@@ -198,6 +266,16 @@ const Resumen = () => {
                         </ProductoPreview>
                     );
                 });
+
+                const productPerOrder = Cart.orders.map(o => {
+                    const prod = products.find(p => o.productId === p.id);
+                    return ({
+                        displayImage: prod.imagesBlue[0],
+                        name: prod.name,
+                        price: prod.price
+                    });
+                });
+
                 return (
                     <AppLayout>
                     <Navbar />
@@ -207,7 +285,7 @@ const Resumen = () => {
                             <Products>
                                {prodRows}
                             </Products>
-                            <table>
+                            <Table>
                                 <thead>
                                     <tr>
                                         <th>Precio</th>
@@ -218,7 +296,7 @@ const Resumen = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${getSubtotal(products).toFixed(2)} MXN</td>
+                                        <td>${(this.getSubtotal(products)).toFixed(2)} MXN</td>
                                         <td>
                                             <p>{Client.names} {Client.lastNames}</p>
                                             <p>{Client.streetAndNumber}, {Client.neighborhood} </p>
@@ -228,7 +306,42 @@ const Resumen = () => {
                                         <td>00/00/0000</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
+                            <MobileSummary>
+                                <SummaryGallery 
+                                    images={productPerOrder.map(p => p.displayImage)}
+                                    nextHandler={this.nextOrderHandler.bind(this)}
+                                    previousHandler={this.previousOrderHandler.bind(this)}/>
+                                <MobileField>
+                                    <div>
+                                        <p>Producto</p>
+                                        <p>({Cart.orders[this.state.currentOrder].quantity}) 
+                                        {productPerOrder[this.state.currentOrder].name}</p>
+                                    </div>
+                                    <div>
+                                        <p>Precio</p>
+                                        <p>${this.getSubtotal(products).toFixed(2)} MXN</p>
+                                    </div>
+                                </MobileField>
+                                <MobileField>
+                                    <div>
+                                        <p>Enviar a</p>
+                                        <p>{Client.names} {Client.lastNames}</p>
+                                        <p>{Client.streetAndNumber}, {Client.neighborhood} </p>
+                                        <p>{Client.postalCode}, {Client.state}, {Client.city}, {Client.country}</p>
+                                    </div>
+                                </MobileField>
+                                <MobileField>
+                                    <div>
+                                        <p>Fecha de pedido</p>
+                                        <p>00/00/00000</p>
+                                    </div>
+                                    <div>
+                                        <p>Número de orden</p>
+                                        <p>###############</p>
+                                    </div>
+                                </MobileField>
+                            </MobileSummary>
                         </OrderSummary>
                         <Label>Detalles del pedido</Label>
                         <OrderDetails>
@@ -246,7 +359,7 @@ const Resumen = () => {
                                 <p>Resumen del pedido</p>   
                                 <SummaryField>
                                     <p>Productos:</p>
-                                    <p>${getSubtotal(products).toFixed(2)}</p>   
+                                    <p>${this.getSubtotal(products).toFixed(2)}</p>   
                                 </SummaryField> 
                                 <SummaryField>
                                     <p>Envío:</p>
@@ -254,11 +367,11 @@ const Resumen = () => {
                                 </SummaryField> 
                                 <SummaryField>
                                     <p>Subtotal:</p>
-                                    <p>${(getSubtotal(products) + shippingCost).toFixed(2)}</p>   
+                                    <p>${(this.getSubtotal(products) + shippingCost).toFixed(2)}</p>   
                                 </SummaryField> 
                                 <SummaryField>
                                     <p>Total:</p>
-                                    <p>${(getSubtotal(products) + shippingCost).toFixed(2)}</p>   
+                                    <p>${(this.getSubtotal(products) + shippingCost).toFixed(2)}</p>   
                                 </SummaryField> 
                             </div>   
                         </OrderDetails>
@@ -268,5 +381,6 @@ const Resumen = () => {
              );
         }}/>
     );
+    }
 }
 export default Resumen;

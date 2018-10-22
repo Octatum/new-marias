@@ -4,6 +4,7 @@ import OrderRow from './OrderRow';
 import { observer } from 'mobx-react';
 import { StaticQuery, graphql } from 'gatsby';
 import device from './../../utilities/device';
+import Cart from './../../ShoppingCart';
 
 const ContentTable = styled.table`
   margin: 0 auto;
@@ -42,7 +43,7 @@ const TableHead = styled.thead`
 `;
 
 const OrdersTable = (props) => {
-  const { deleteOrderHandler, onDecreaseQuantity, onIncreaseQuantity, orders } = props;
+  const { deleteOrderHandler, onDecreaseQuantity, onIncreaseQuantity } = props;
   let prodRows = null;
   return (
   <StaticQuery
@@ -62,7 +63,7 @@ const OrdersTable = (props) => {
     `}
     render={data => {  
      const products = data.allProductsJson.edges.map(edge => edge.node);
-     prodRows = orders.map((o, index) => {
+     prodRows = Cart.orders.map((o, index) => {
        const prod = products.find(p => o.productId == p.id);
        return (
           <OrderRow

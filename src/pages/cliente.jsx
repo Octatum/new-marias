@@ -145,80 +145,102 @@ const BackButton = styled.button`
     }
 `
 
-const saveCustomerInfo = () => {
-    Client.names = document.getElementById('names').value;
-    Client.lastNames = document.getElementById('lastNames').value;
-    Client.email = document.getElementById('email').value;
-    Client.streetAndNumber = document.getElementById('streetAndNumber').value;
-    Client.neighborhood = document.getElementById('neighborhood').value;
-    Client.city = document.getElementById('city').value;
-    Client.country = document.getElementById('country').value;
-    Client.state = document.getElementById('state').value;
-    Client.postalCode = document.getElementById('postalCode').value;
-    Client.tel = document.getElementById('tel').value;
-};
+class Cliente extends Component {
 
-const Cliente = () => (
-    <AppLayout>
-        <Navbar />
-        <BreadcrumbContainer>
-          <Breadcrumb>
-            <BreadcrumbItem>Carrito</BreadcrumbItem>
-            <BreadcrumbItem active>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
-          </Breadcrumb>
-        </BreadcrumbContainer>
-        <Container>
-            <Info>
-                <Label>Información de contacto</Label>
-                <Fieldset style={{marginBottom: '30px'}}>
-                    <InputRow>
-                        <input id="email" placeholder="Correo electrónico"/>
-                    </InputRow>
-                </Fieldset>
-                <Label>Dirección de envío</Label>
-                <Fieldset>
-                    <InputRow breakdown>
-                        <input id="names" placeholder="Nombre (s)"/>
-                        <input id="lastNames" placeholder="Apellidos"/>
-                    </InputRow>
-                    <InputRow>
-                        <input id="streetAndNumber" placeholder="Calle y número"/>
-                    </InputRow>
-                    <InputRow>
-                        <input id="neighborhood" placeholder="Colonia"/>
-                    </InputRow>
-                    <InputRow>
-                        <input id="city" placeholder="Ciudad"/>
-                    </InputRow>
-                    <InputRow>
-                        <select id="country" style={{marginLeft: '0'}}>
-                            <option>Pais</option>
-                            <option>México</option>
-                            <option>EU</option>
-                        </select>
-                        <select id="state">
-                            <option>Estado</option>
-                            <option>Nuevo León</option>
-                            <option>Sonora</option>   
-                        </select>
-                        <input id="postalCode" placeholder="Código Postal"/>
-                    </InputRow>
-                    <InputRow>
-                        <input id="tel" placeholder="Teléfono"/>
-                    </InputRow>
-                </Fieldset>
-                <Link to="/carrito">
-                    <BackButton> {"<"} Volver a carrito</BackButton>
-                </Link>
-                <Link to="/envio">
-                    <Button
-                        onClick={saveCustomerInfo}>Continuar</Button>
-                </Link>
-            </Info>
-            <OrderSummary mobileHide/>
-        </Container>
-    </AppLayout>
-);
+    componentDidMount() {
+        this.renderCustomerInfo();
+    }
+
+    saveCustomerInfo = () => {
+        Client.names = document.getElementById('names').value;
+        Client.lastNames = document.getElementById('lastNames').value;
+        Client.email = document.getElementById('email').value;
+        Client.streetAndNumber = document.getElementById('streetAndNumber').value;
+        Client.neighborhood = document.getElementById('neighborhood').value;
+        Client.city = document.getElementById('city').value;
+        Client.country = document.getElementById('country').value;
+        Client.state = document.getElementById('state').value;
+        Client.postalCode = document.getElementById('postalCode').value;
+        Client.tel = document.getElementById('tel').value;
+    };
+
+    renderCustomerInfo = () => {
+        document.getElementById('names').value = Client.names;
+        document.getElementById('lastNames').value = Client.lastNames;
+        document.getElementById('email').value = Client.email;
+        document.getElementById('streetAndNumber').value = Client.streetAndNumber;
+        document.getElementById('neighborhood').value = Client.neighborhood;
+        document.getElementById('city').value = Client.city;
+        document.getElementById('country').value = Client.country;
+        document.getElementById('state').value = Client.state;
+        document.getElementById('postalCode').value = Client.postalCode;
+        document.getElementById('tel').value = Client.tel;
+    }
+
+    render () {
+        return(
+            <AppLayout>
+                <Navbar />
+                <BreadcrumbContainer>
+                <Breadcrumb>
+                    <BreadcrumbItem>Carrito</BreadcrumbItem>
+                    <BreadcrumbItem active>Información del cliente</BreadcrumbItem>
+                    <BreadcrumbItem>Envío</BreadcrumbItem>
+                    <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
+                </Breadcrumb>
+                </BreadcrumbContainer>
+                <Container>
+                    <Info>
+                        <Label>Información de contacto</Label>
+                        <Fieldset style={{marginBottom: '30px'}}>
+                            <InputRow>
+                                <input id="email" placeholder="Correo electrónico"/>
+                            </InputRow>
+                        </Fieldset>
+                        <Label>Dirección de envío</Label>
+                        <Fieldset>
+                            <InputRow breakdown>
+                                <input id="names" placeholder="Nombre (s)"/>
+                                <input id="lastNames" placeholder="Apellidos"/>
+                            </InputRow>
+                            <InputRow>
+                                <input id="streetAndNumber" placeholder="Calle y número"/>
+                            </InputRow>
+                            <InputRow>
+                                <input id="neighborhood" placeholder="Colonia"/>
+                            </InputRow>
+                            <InputRow>
+                                <input id="city" placeholder="Ciudad"/>
+                            </InputRow>
+                            <InputRow>
+                                <select id="country" style={{marginLeft: '0'}}>
+                                    <option>Pais</option>
+                                    <option>México</option>
+                                    <option>EU</option>
+                                </select>
+                                <select id="state">
+                                    <option>Estado</option>
+                                    <option>Nuevo León</option>
+                                    <option>Sonora</option>   
+                                </select>
+                                <input id="postalCode" placeholder="Código Postal"/>
+                            </InputRow>
+                            <InputRow>
+                                <input id="tel" placeholder="Teléfono"/>
+                            </InputRow>
+                        </Fieldset>
+                        <Link to="/carrito">
+                            <BackButton> {"<"} Volver a carrito</BackButton>
+                        </Link>
+                        <Link to="/envio">
+                            <Button
+                                onClick={this.saveCustomerInfo}>Continuar</Button>
+                        </Link>
+                    </Info>
+                    <OrderSummary mobileHide/>
+                </Container>
+            </AppLayout>
+        )
+    }
+};
 export default Cliente;

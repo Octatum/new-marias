@@ -152,14 +152,14 @@ class Categories extends Component {
       .map(function(p) {
         return (
           <Product
-            clicked={() => this.onSelectedProductHandler(p.id)}
+            clicked={this.onSelectedProductHandler.bind(this, p.id)}
             key={p.id}
             name={p.name}
             price={p.price}
             path={p.path}
           />
         );
-      });
+      }, this);
 
     return (
       <Container>
