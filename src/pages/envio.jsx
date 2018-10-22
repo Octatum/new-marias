@@ -119,6 +119,9 @@ const Envios = styled.div`
     > div:not(:last-child) {
         border-bottom: none;
     }
+    ${device.mobile} {
+        margin-top: 37px;
+    }
 `
 
 const BackButton = styled.button`
@@ -130,6 +133,9 @@ const BackButton = styled.button`
     font-size: 14px;
     :hover {
         cursor: pointer;
+    }
+    ${device.mobile} {
+        margin-top: 18px;
     }
 `
 
