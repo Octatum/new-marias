@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SummaryRow from './SummaryRow';
 import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../../ShoppingCart';
+import device from './../../utilities/device';
 
 const Container = styled.div`
     > h1 {
@@ -16,6 +17,9 @@ const Container = styled.div`
     padding: 15px;
     > div:last-child {
         border-bottom: none;
+    }
+    ${device.mobile}{
+        display: ${({mobileHide}) => (mobileHide? 'none' : 'block')};
     }
 `
 
@@ -69,7 +73,7 @@ const query = graphql`
 `
 
 const shippingCost = 0.0;
-const OrderSummary = () => {
+const OrderSummary = (props) => {
     return (
         <StaticQuery
             query={query}
@@ -96,7 +100,7 @@ const OrderSummary = () => {
                 ), 0);
             
                 return (
-                <Container>
+                <Container mobileHide={props.mobileHide}>
                     <h1>Resumen</h1>
                     <Section>
                        {summaryRows}
@@ -124,47 +128,4 @@ const OrderSummary = () => {
     );
 }
 
- /*
-const OrderSummary = (props) => {
-
-    const summaryRows = props.order.map(product => (
-        <Field key={product.id}>
-            <SummaryRow
-                quantity={product.quantity}
-                name={product.name}
-                price={product.price}/>
-        </Field>
-    ));
-
-    const subTotal = props.order.reduce((total, o) => (
-        total + o.price * o.quantity
-    ), 0);
-
-    return (
-    <Container>
-        <h1>Resumen</h1>
-        <Section>
-           {summaryRows}
-        </Section>
-        <Section>
-            <Field>
-                <h1>Subtotal</h1>
-                <h1>${subTotal.toFixed(2)}</h1>
-            </Field>
-            <Field>
-                <h1>Envío</h1>
-                <h1>${props.shipping.toFixed(2)}</h1>
-            </Field>
-        </Section>
-        <Section>
-            <Field>
-                <h1>Total</h1>
-                <Total>${(subTotal + props.shipping).toFixed(2)}</Total>
-            </Field>
-        </Section>
-    </Container>
-    )
-}; 
-
-*/
 export default OrderSummary;

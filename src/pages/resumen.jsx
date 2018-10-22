@@ -162,7 +162,7 @@ const getSubtotal = (products) => {
     let subTotal = 0.0;
     const orders = Cart.orders;
     for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id == orders[i].productId).price;
+      const price = products.find(p => p.id === orders[i].productId).price;
       subTotal += price * orders[i].quantity;
     }
     return subTotal;
@@ -177,7 +177,7 @@ const Resumen = () => {
             render={data => {
                 const products = data.allProductsJson.edges.map(edge => edge.node);
                 const prodRows = Cart.orders.map((o, index) => {
-                    const prod = products.find(p => o.productId == p.id);
+                    const prod = products.find(p => o.productId === p.id);
                     return (
                         <ProductoPreview>
                             <Img

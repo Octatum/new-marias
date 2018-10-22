@@ -45,6 +45,18 @@ const Container = styled.div`
     > div:nth-child(2) {
         width: 40%;
     }
+    ${device.mobile} {
+        width: 95%;
+        > div:nth-child(1) {
+            width: 100%;
+            border:none;
+        }
+        > div:nth-child(2) {
+            width: 0%;
+        } 
+    }
+    
+}
 `
 
 const Label = styled.label`
@@ -75,16 +87,29 @@ const InputRow = styled.div`
     > select {
         flex-grow: 10;
         width: auto;
-        display: block;
-        option {
-            display: 10px!important;
-        }
+        display: block;s
     }
     > input:first-child {
         margin-left: 0;
     }
     > input:last-child {
         margin-right: 0;
+    }
+    ${device.mobile} {
+        flex-wrap: ${({ breakdown }) => (breakdown ? 'wrap' : 'no-wrap')}; 
+        > input, > select {
+            width: ${({ breakdown }) => (breakdown ? '100%' : '33%')};
+        }
+        > input {
+            margin: 0;
+        }
+        > input:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        > select {
+            margin-bottom: ${({ breakdown }) => (breakdown ? '9px' : '0px')};
+        }
+        margin-bottom: ${({ breakdown }) => (breakdown ? '47px' : '10px')};
     }
 `
 
@@ -153,7 +178,7 @@ const Cliente = () => (
                 </Fieldset>
                 <Label>Dirección de envío</Label>
                 <Fieldset>
-                    <InputRow>
+                    <InputRow breakdown>
                         <input id="names" placeholder="Nombre (s)"/>
                         <input id="lastNames" placeholder="Apellidos"/>
                     </InputRow>
@@ -191,7 +216,7 @@ const Cliente = () => (
                         onClick={saveCustomerInfo}>Continuar</Button>
                 </Link>
             </Info>
-            <OrderSummary/>
+            <OrderSummary mobileHide/>
         </Container>
     </AppLayout>
 );
