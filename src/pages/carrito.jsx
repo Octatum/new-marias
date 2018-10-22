@@ -9,6 +9,7 @@ import Cart from './../ShoppingCart';
 import SubtotalSummary from './../components/SubtotalSummary';
 import device from './../utilities/device';
 import { Link } from 'gatsby';
+import './../components/setup.css';
 
 const AppLayout = styled.div`
   margin-bottom: 220px;

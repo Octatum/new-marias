@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './../components/setup.css';
 import Navbar from './../components/Navbar';
 import styled from 'styled-components';
 import Breadcrumb from './../components/Breadcrumb';
@@ -9,6 +10,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
 import Client from './../ClientInfo';
 import { Link } from 'gatsby';
+import './../components/setup.css';
 
 const AppLayout = styled.div`
     padding-top: 190px;
@@ -55,7 +57,6 @@ const Container = styled.div`
             width: 0%;
         } 
     }
-    
 }
 `
 

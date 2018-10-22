@@ -47,6 +47,16 @@ const Container = styled.div`
     > div:nth-child(2) {
         width: 40%;
     }
+    ${device.mobile} {
+        width: 95%;
+        > div:nth-child(1) {
+            width: 100%;
+            border:none;
+        }
+        > div:nth-child(2) {
+            width: 0%;
+        } 
+    }
 `
 
 const Button = styled.button`
@@ -68,6 +78,9 @@ const Info = styled.div`
     border-right: 2px solid #cccccc;
     box-sizing: border-box;
     padding: 70px 5%;
+    ${device.mobile} {
+        padding: 54px 5%;
+    }
 `
 
 const Input = styled.input`
@@ -166,7 +179,7 @@ class Envio extends Component {
                             <Button>Continuar</Button>
                         </Link>
                     </Info>
-                    <OrderSummary/>
+                    <OrderSummary mobileHide/>
                 </Container>
             </AppLayout>
         );

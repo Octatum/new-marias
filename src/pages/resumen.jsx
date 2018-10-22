@@ -6,6 +6,7 @@ import device from './../utilities/device';
 import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
 import Client from './../ClientInfo';
+import './../components/setup.css';
 
 const AppLayout = styled.div`
     margin-top: 190px;
