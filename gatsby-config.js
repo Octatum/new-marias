@@ -5,8 +5,7 @@ module.exports = {
   plugins: [
     {
       resolve: `gatsby-plugin-styled-components`,
-      options: {
-      },
+      options: {},
     },
     `gatsby-transformer-json`,
     {
@@ -30,12 +29,12 @@ module.exports = {
     },
     'gatsby-plugin-offline',
     {
-      resolve: "gatsby-source-cockpit",
+      resolve: 'gatsby-source-cockpit',
       options: {
-          host: "https://admin.newmarias.com",
-          accessToken: "69171f847c92cd3fa589d8e87b89cb",
-          collectionName: ["Product"]
-      }
-    }
+        host: 'https://admin.newmarias.com',
+        accessToken: '69171f847c92cd3fa589d8e87b89cb',
+        collectionName: ['Product'],
+      },
+    },
   ],
 };

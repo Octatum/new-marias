@@ -21,38 +21,38 @@ const Summary = styled.div`
   }
 `;
 
-const getSubtotal = (products) => {
-    let subTotal = 0.0;
-    const orders = Cart.orders;
-    for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id == orders[i].productId).price;
-      subTotal += price * orders[i].quantity;
-    }
-    return subTotal;
-}
+const getSubtotal = products => {
+  let subTotal = 0.0;
+  const orders = Cart.orders;
+  for (let i = 0; i < orders.length; i++) {
+    const price = products.find(p => p.id == orders[i].productId).price;
+    subTotal += price * orders[i].quantity;
+  }
+  return subTotal;
+};
 
 const SubtotalSummary = () => (
-    <StaticQuery
+  <StaticQuery
     query={graphql`
-      query{
+      query {
         allProductsJson {
           edges {
             node {
-              price,
+              price
               id
             }
           }
         }
       }
     `}
-    render={data => {  
-        const products = data.allProductsJson.edges.map(edge => edge.node);
-        return(
+    render={data => {
+      const products = data.allProductsJson.edges.map(edge => edge.node);
+      return (
         <Summary>
-            <p>SUBTOTAL</p>
-            <p>${getSubtotal(products).toFixed(2)} MXN</p>
+          <p>SUBTOTAL</p>
+          <p>${getSubtotal(products).toFixed(2)} MXN</p>
         </Summary>
-        );
+      );
     }}
   />
 );

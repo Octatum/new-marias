@@ -5,12 +5,12 @@ import { observer } from 'mobx-react';
 import device from './../../../utilities/device';
 
 const Tr = styled.tr`
-  ${device.mobile}{
+  ${device.mobile} {
     td {
       width: 40%;
       padding: 16px 0;
     }
-    td:nth-child(6){
+    td:nth-child(6) {
       width: 20%;
     }
     td:nth-child(2),
@@ -22,7 +22,7 @@ const Tr = styled.tr`
       margin: 0;
     }
   }
-`
+`;
 
 const MobileResume = styled.div`
   display: none;
@@ -41,7 +41,7 @@ const MobileResume = styled.div`
   ${device.mobile} {
     display: block;
   }
-`
+`;
 
 const Picture = styled.div`
   width: 165px;
@@ -52,7 +52,7 @@ const Picture = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   margin: 0 auto;
-  ${device.mobile}{
+  ${device.mobile} {
     width: 100px;
     height: 100px;
   }
@@ -86,15 +86,16 @@ const OrderRow = ({
 }) => (
   <Tr>
     <Td>
-      <Picture 
-        src={src}/>
+      <Picture src={src} />
     </Td>
     <Td>{name}</Td>
     <Td>${price.toFixed(2)} MXN</Td>
     <Td>
       <MobileResume>
         <p>{name}</p>
-        <p>${price.toFixed(2) * quantity} <span>MXN</span></p>
+        <p>
+          ${price.toFixed(2) * quantity} <span>MXN</span>
+        </p>
       </MobileResume>
       <QuantityControls
         quantity={quantity}
@@ -102,9 +103,7 @@ const OrderRow = ({
         onIncreaseQuantity={onIncreaseQuantity}
       />
     </Td>
-    <Td>
-      ${price.toFixed(2) * quantity} MXN
-    </Td>
+    <Td>${price.toFixed(2) * quantity} MXN</Td>
     <Td>
       <DeleteButton onClick={() => deleteOrderHandler()}>x</DeleteButton>
     </Td>

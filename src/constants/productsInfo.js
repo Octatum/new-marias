@@ -33,15 +33,17 @@ export const products = [
     price: 800,
     category: MOLCAJETES,
   },
-  { id: 5, 
+  {
+    id: 5,
     name: 'Jarrón de porcelana china 5',
     price: 800,
-    category: BOLSAS 
+    category: BOLSAS,
   },
-  { id: 6, 
-    name: 'Jarrón de porcelana china 6', 
-    price: 800, 
-    category: CAJAS 
+  {
+    id: 6,
+    name: 'Jarrón de porcelana china 6',
+    price: 800,
+    category: CAJAS,
   },
   {
     id: 7,
@@ -49,14 +51,17 @@ export const products = [
     price: 200,
     category: DECORACION,
   },
-  { id: 8, 
-    name: 'Jarrón de porcelana china 8', 
-    price: 800, 
-    category: CAJAS },
-  { id: 9, 
-    name: 'Jarrón de porcelana china 9', 
-    price: 200, 
-    category: BOLSAS 
+  {
+    id: 8,
+    name: 'Jarrón de porcelana china 8',
+    price: 800,
+    category: CAJAS,
+  },
+  {
+    id: 9,
+    name: 'Jarrón de porcelana china 9',
+    price: 200,
+    category: BOLSAS,
   },
   {
     id: 10,

@@ -32,11 +32,11 @@ class Cart {
     let newOrders = this.orders.slice();
     newOrders = newOrders.map((order, i) => {
       if (i != index) return order;
-    //  console.log(order);
+      //  console.log(order);
       return {
         ...order,
-        quantity: order.quantity + 1
-      }
+        quantity: order.quantity + 1,
+      };
     });
     this.orders = newOrders;
   }
@@ -46,11 +46,11 @@ class Cart {
       let newOrders = this.orders.slice();
       newOrders = newOrders.map((order, i) => {
         if (i != index) return order;
-   //     console.log(order);
+        //     console.log(order);
         return {
           ...order,
-          quantity: order.quantity - 1
-        }
+          quantity: order.quantity - 1,
+        };
       });
       this.orders = newOrders;
     }
@@ -66,7 +66,7 @@ decorate(Cart, {
   deleteOrder: action,
   addOrder: action,
   decreaseQuantity: action,
-  increaseQuantity: action
+  increaseQuantity: action,
 });
 
 export default new Cart();

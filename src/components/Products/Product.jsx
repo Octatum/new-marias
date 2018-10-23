@@ -27,7 +27,7 @@ const Placeholder = styled.div`
   margin-bottom: 5px;
   grid-column: span 1;
   max-width: none;
-  ${device.mobile}{
+  ${device.mobile} {
     width: 110px;
     height: 110px;
     padding: 0;

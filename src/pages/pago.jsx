@@ -1,109 +1,214 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Navbar from './../components/Navbar';
 import styled from 'styled-components';
-import Navbar from '../components/Navbar';
-import Breadcrumb from "./../components/Breadcrumb";
-import BreadcrumbItem from "./../components/Breadcrumb/BreadcrumbItem";
+import Breadcrumb from './../components/Breadcrumb';
+import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import device from './../utilities/device';
+import OrderSummary from './../components/OrderSummary';
+import Client from './../ClientInfo';
+import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
-  padding-top: 220px;
-  display: flex;
-  flex-direction: column;
+  margin-top: 190px;
+  ${device.mobile} {
+    margin-top: 95px;
+  }
+  font-family: 'Archivo Narrow', sans-serif;
+  color: #626363;
 `;
 
 const BreadcrumbContainer = styled.div`
+  box-sizing: border-box;
+  width: 100%;
   margin: 0 auto;
-  width: 1240px;
-  /*margin-top: 220px;*/
+  padding-left: 0%;
 `;
 
-const DatosFacturacion = styled.div`
-  width: 50%;
+const AddressContainer = styled.div`
+  h1:first-child {
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  display: flex;
+  width: 70%;
 `;
 
 const Container = styled.div`
-  margin-left: 11%;
+  width: 80%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  > div {
+    float: left;
+  }
+  > div:nth-child(1) {
+    width: 60%;
+  }
+  > div:nth-child(2) {
+    width: 40%;
+  }
+  ${device.mobile} {
+    width: 95%;
+    > div:nth-child(1) {
+      width: 100%;
+      border: none;
+    }
+    > div:nth-child(2) {
+      width: 0%;
+    }
+  }
 `;
 
-const Table = styled.table`
-
+const Button = styled.button`
+  height: 50px;
+  width: 37%;
+  border: none;
+  background-color: #d4ad9f;
+  color: #ffffff;
+  float: right;
+  margin-top: 70px;
+  margin-bottom: 100px;
+  font-size: 18px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
-const H4 = styled.div `
+const Info = styled.div`
+  border-right: 2px solid #cccccc;
+  box-sizing: border-box;
+  padding: 70px 5%;
+  ${device.mobile} {
+    padding: 54px 5%;
+  }
+`;
+
+const Field = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 14px 27px 14px 14px;
+  vertical-align: middle;
+  h1 {
+    align-self: center;
+  }
+  border: 1px solid #626363;
+  font-family: 'Archivo Narrow', sans-serif;
+  color: #626363;
+  font-size: 14px;
+  button {
+    border: none;
+    background-color: transparent;
+    color: #626363;
+    align-self: auto;
+    :hover {
+      cursor: pointer;
+    }
+  }
+`;
+
+const BackButton = styled.button`
+  margin-top: 54px;
+  border: none;
+  background: transparent;
+  font-family: 'Archivo Narrow', sans-serif;
+  color: #626363;
+  font-size: 14px;
+  :hover {
+    cursor: pointer;
+  }
+  ${device.mobile} {
+    margin-top: 18px;
+  }
+`;
+
+const H4 = styled.div`
+  margin: 14px 0;
   font-size: 20px;
   color: #626363;
   font-family: 'Archivo Narrow', sans-serif;
 `;
 
-const Input = styled.input `
-  width: 575px;
-  height: 47px;
-  border: solid 1px #626363;
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  ::placeholder {
-    padding-left: 19px;
-  }
-`;
-
-const InputContainer = styled.div `
+const Input = styled.input`
   width: 100%;
-  float: left;
+  height: 47px;
+  border: solid 1px #626363;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  padding-left: 19px;
+  margin: 9px 0;
 `;
 
-const InputSmall = styled.input `
-  width: 210px;
+const InputSmall = styled.input`
+  width: 26%;
   height: 47px;
   border: solid 1px #626363;
   font-family: 'Archivo Narrow', sans-serif;
   font-size: 18px;
   font-style: italic;
   float: left;
-  margin: 0 5px 0 0;
-
-  ::placeholder {
-    padding-left: 19px;
-  }
+  padding-left: 19px;
+  margin: 0 5px;
 `;
 
-const Pago = () => (
-    <AppLayout>
-        <Navbar/>
+class Pago extends Component {
+  render() {
+    return (
+      <AppLayout>
+        <Navbar />
         <BreadcrumbContainer>
-            <Breadcrumb>
-                <BreadcrumbItem>Carrito</BreadcrumbItem>
-                <BreadcrumbItem>Información del cliente</BreadcrumbItem>
-                <BreadcrumbItem>Envío</BreadcrumbItem>
-                <BreadcrumbItem active>Pago y facturación</BreadcrumbItem>
-            </Breadcrumb>
+          <Breadcrumb>
+            <BreadcrumbItem>Carrito</BreadcrumbItem>
+            <BreadcrumbItem>Información del cliente</BreadcrumbItem>
+            <BreadcrumbItem>Envío</BreadcrumbItem>
+            <BreadcrumbItem active>Pago y facturación</BreadcrumbItem>
+          </Breadcrumb>
         </BreadcrumbContainer>
-        <DatosFacturacion>
-          <Container>
-            <Table>
-              <tr>
-                <td>Dirección de envío</td>
-                <td>Loma Grande #2709, Lomas de San Francisco, Monterrey, N.L., México</td>
-                <td>Editar</td>
-              </tr>
-              <tr>
-                <td>Envío</td>
-                <td>Estándar</td>
-                <td>Editar</td>
-              </tr>
-            </Table>
+        <Container>
+          <Info>
+            <Field>
+              <AddressContainer>
+                <h1>Direccion de envío</h1>
+                <h1>
+                  {Client.streetAndNumber}, {Client.neighborhood}, {Client.city}
+                  , {Client.state}, {Client.country}
+                </h1>
+              </AddressContainer>
+              <button>Editar</button>
+            </Field>
+            <Field>
+              <AddressContainer>
+                <h1>Envío</h1>
+                <h1>Estándar</h1>
+              </AddressContainer>
+              <button>Editar</button>
+            </Field>
+
             <H4>Pagos y facturación</H4>
-            <Input placeholder="Tarjeta de crédito" name="card"></Input>
-            <Input placeholder="Número de tarjeta" name="cardNumber"></Input>
-            <InputContainer>
-              <InputSmall placeholder="Nombre titular de la tarjeta" name="cardName"></InputSmall>
-              <InputSmall placeholder="MM/AA" name="cardDate"></InputSmall>
-              <InputSmall placeholder="CVV" name="cardCVV"></InputSmall>
-            </InputContainer>
+            <Input placeholder="Tarjeta de crédito" name="card" />
+            <Input placeholder="Número de tarjeta" name="cardNumber" />
+
+            <InputSmall
+              placeholder="Nombre titular de la tarjeta"
+              name="cardName"
+            />
+            <InputSmall placeholder="MM/AA" name="cardDate" />
+            <InputSmall placeholder="CVV" name="cardCVV" />
+
             <H4>Dirección de facturación</H4>
-            <Input name="facturacion"></Input>
-            <Input name="facturacion2"></Input>
-            </Container>
-          </DatosFacturacion>
-    </AppLayout>
-);
+            <Input name="facturacion" />
+            <Input name="facturacion2" />
+            <Link to="/envio">
+              <BackButton> {'<'} Volver a Envío </BackButton>
+            </Link>
+            <Link to="/resumen">
+              <Button>Finalizar Pedido</Button>
+            </Link>
+          </Info>
+          <OrderSummary mobileHide />
+        </Container>
+      </AppLayout>
+    );
+  }
+}
 export default Pago;

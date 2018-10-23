@@ -56,12 +56,12 @@ const BreadcrumbContainer = styled.div`
   margin-left: 58px;
   margin-bottom: 15px;
   > div {
-    padding:0;
+    padding: 0;
   }
   ${device.mobile} {
     width: 100%;
     padding-left: 0;
-      margin-left: 0;
+    margin-left: 0;
     > div {
       padding: 0;
       margin: 0;
@@ -96,8 +96,8 @@ const CartContainer = styled.div`
   }
 `;
 
-const Cart = styled.div`ga
-  width: 69px;
+const Cart = styled.div`
+  gawidth: 69px;
   height: 60px;
   background-image: url(${shoppingCartImg});
   background-size: cover;
@@ -107,50 +107,56 @@ const Cart = styled.div`ga
 `;
 
 const IndexPage = () => (
-    <StaticQuery
-      query={graphql`
-        query{
-          allProductsJson {
-            edges {
-              node {
-                id,
-                name,
-                price,
-                category,
-                path
-              }
+  <StaticQuery
+    query={graphql`
+      query {
+        allProductsJson {
+          edges {
+            node {
+              id
+              name
+              price
+              category
+              path
             }
           }
         }
-      `}
-      render={data => {
-          const products = data.allProductsJson.edges.map(edge => edge.node);
-          return(
-            <AppLayout>
-              <Navbar />
-              <Banner />
-              <BreadcrumbContainer>
-                <BreadCrumb>
-                  <BreadCrumbItem>
-                    {categories.find(c => c.id === CategoryState.current).name}
-                  </BreadCrumbItem>
-                </BreadCrumb>
-              </BreadcrumbContainer>
-              <CartContainer>
-                <Link to="/carrito">
-                  <CartCounter width={69} height={61} quantity={shoppingCart.counter}/>
-                </Link>
-                <Link to="/carrito">
-                  <CartCounter width={36} height={32} quantity={shoppingCart.counter}/>
-                </Link>
-              </CartContainer>
-              <Categories 
-                categories={categories}
-                products={products}/>
-            </AppLayout>
-          );
-      }}
-    />
+      }
+    `}
+    render={data => {
+      const products = data.allProductsJson.edges.map(edge => edge.node);
+      return (
+        <AppLayout>
+          <Navbar />
+          <Banner />
+          <BreadcrumbContainer>
+            <BreadCrumb>
+              <BreadCrumbItem>
+                {categories.find(c => c.id === CategoryState.current).name}
+              </BreadCrumbItem>
+            </BreadCrumb>
+          </BreadcrumbContainer>
+          <CartContainer>
+            <Link to="/carrito">
+              <CartCounter
+                width={69}
+                height={61}
+                quantity={shoppingCart.counter}
+              />
+            </Link>
+            <Link to="/carrito">
+              <CartCounter
+                width={36}
+                height={32}
+                quantity={shoppingCart.counter}
+              />
+            </Link>
+          </CartContainer>
+          <Categories categories={categories} products={products} />
+        </AppLayout>
+      );
+    }}
+  />
 );
 
 export default observer(IndexPage);

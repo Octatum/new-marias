@@ -27,7 +27,7 @@ const AppLayout = styled.div`
 
 const MobileHeader = styled.div`
   ::after {
-    content: "";
+    content: '';
     clear: both;
     display: table;
   }
@@ -36,12 +36,13 @@ const MobileHeader = styled.div`
   color: #626363;
   display: none;
 
-  ${device.mobile}{
+  ${device.mobile} {
     display: block;
     width: 90%;
     margin: 25px auto;
 
-    > button, > p {
+    > button,
+    > p {
       float: left;
     }
 
@@ -59,9 +60,8 @@ const MobileHeader = styled.div`
       margin-right: 9px;
       margin-top: 3px;
     }
-
   }
-`
+`;
 
 const BackButton = styled.button`
   display: block;
@@ -84,12 +84,12 @@ const BreadcrumbContainer = styled.div`
   margin-bottom: 20px;
   padding-left: 0%;
   display: block;
-  ${device.mobile}{
+  ${device.mobile} {
     > div {
       padding: 0;
       width: 50vw;
     }
-    display:none;
+    display: none;
   }
 `;
 
@@ -99,7 +99,7 @@ const Container = styled.div`
   flex-direction: row;
   margin: 0 auto;
   width: 85%;
-  
+
   ${device.mobile} {
     width: 100%;
     display: inherit;
@@ -177,15 +177,12 @@ class Producto extends Component {
           </Breadcrumb>
         </BreadcrumbContainer>
         <MobileHeader>
-          <BackButton/>
+          <BackButton />
           <p>{this.props.data.productsJson.name}</p>
-          <CartCounter
-            quantity={Cart.counter}
-            width={41}
-            height={37}/>
+          <CartCounter quantity={Cart.counter} width={41} height={37} />
         </MobileHeader>
         <Container>
-          <Gallery 
+          <Gallery
             category={categories.find(c => c.id === CategoryState.current).name}
             images={this.state.currentImages}
             color={this.state.currentColor}
@@ -209,13 +206,13 @@ export default observer(Producto);
 export const query = graphql`
   query($slug: String!) {
     productsJson(fields: { slug: { eq: $slug } }) {
-      name,
-      price,
-      description,
-      id,
-      imagesBlue,
-      imagesRed,
+      name
+      price
+      description
+      id
+      imagesBlue
+      imagesRed
       imagesYellow
     }
   }
-`
+`;

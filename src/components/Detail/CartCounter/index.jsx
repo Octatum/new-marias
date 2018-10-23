@@ -7,7 +7,7 @@ const Container = styled.div`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   ${device.mobile} {
-      z-index: 99;
+    z-index: 99;
   }
 `;
 
@@ -29,9 +29,9 @@ const Counter = styled.div`
     }
 `;
 
-const CartCounter = ({height, width, quantity}) => (
-    <Container height={height} width={width}>
-        <Counter quantity={quantity} height={10}/>
-    </Container>
+const CartCounter = ({ height, width, quantity }) => (
+  <Container height={height} width={width}>
+    <Counter quantity={quantity} height={10} />
+  </Container>
 );
 export default CartCounter;

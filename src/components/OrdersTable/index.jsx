@@ -13,14 +13,14 @@ const ContentTable = styled.table`
   width: 100%;
   font-family: 'Archivo Narrow', sans-serif;
   color: #ffffff;
-  border-collapse:collapse;
+  border-collapse: collapse;
   ${device.mobile} {
     margin-bottom: 46px;
   }
 `;
 
 const TableHead = styled.thead`
-  border-collapse:collapse;
+  border-collapse: collapse;
   background-color: #d4ad9f;
   width: 100%;
   text-align: center;
@@ -42,57 +42,58 @@ const TableHead = styled.thead`
   }
 `;
 
-const OrdersTable = (props) => {
+const OrdersTable = props => {
   const { deleteOrderHandler, onDecreaseQuantity, onIncreaseQuantity } = props;
   let prodRows = null;
   return (
-  <StaticQuery
-    query={graphql`
-      query{
-        allProductsJson {
-          edges {
-            node {
-              price,
-              name,
-              id,
-              imagesBlue
+    <StaticQuery
+      query={graphql`
+        query {
+          allProductsJson {
+            edges {
+              node {
+                price
+                name
+                id
+                imagesBlue
+              }
             }
           }
         }
-      }
-    `}
-    render={data => {  
-     const products = data.allProductsJson.edges.map(edge => edge.node);
-     prodRows = Cart.orders.map((o, index) => {
-       const prod = products.find(p => o.productId == p.id);
-       return (
-          <OrderRow
-            name={prod.name}
-            price={parseFloat(prod.price)}
-            quantity={o.quantity}
-            src={prod.imagesBlue[0]}
-            deleteOrderHandler={() => deleteOrderHandler(index)}
-            onDecreaseQuantity={() => onDecreaseQuantity(index)}
-            onIncreaseQuantity={() => onIncreaseQuantity(index)}
-          />
-       );
-     });
-      return(
-        <ContentTable>
-          <TableHead>
-            <tr>
-              <th>Producto</th>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Cantidad</th>
-              <th>Total</th>
-              <th />
-            </tr>
-          </TableHead>
-          <tbody>{prodRows}</tbody>
-        </ContentTable>
-      );
-    }}
-  />);
+      `}
+      render={data => {
+        const products = data.allProductsJson.edges.map(edge => edge.node);
+        prodRows = Cart.orders.map((o, index) => {
+          const prod = products.find(p => o.productId == p.id);
+          return (
+            <OrderRow
+              name={prod.name}
+              price={parseFloat(prod.price)}
+              quantity={o.quantity}
+              src={prod.imagesBlue[0]}
+              deleteOrderHandler={() => deleteOrderHandler(index)}
+              onDecreaseQuantity={() => onDecreaseQuantity(index)}
+              onIncreaseQuantity={() => onIncreaseQuantity(index)}
+            />
+          );
+        });
+        return (
+          <ContentTable>
+            <TableHead>
+              <tr>
+                <th>Producto</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th />
+              </tr>
+            </TableHead>
+            <tbody>{prodRows}</tbody>
+          </ContentTable>
+        );
+      }}
+    />
+  );
 };
 export default observer(OrdersTable);

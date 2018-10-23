@@ -19,11 +19,11 @@ const Container = styled.div`
   top: 0;
   width: 100%;
   border-bottom: 2px solid #000000;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  -webkit-box-shadow: 0px 0px 11px -2px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 11px -2px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 11px -2px rgba(0,0,0,0.75);
-  ${device.mobile}{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
+  ${device.mobile} {
     padding: 0.4em 0 1em 0;
   }
 `;
@@ -35,7 +35,7 @@ const Logo = styled.img`
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  ${device.mobile}{
+  ${device.mobile} {
     width: 75%;
     padding: 0;
     margin: 0 0 0 16px;
@@ -50,7 +50,7 @@ const List = styled.ul`
   margin: 0 auto;
   justify-content: center;
   width: 60%;
-  
+
   li {
     padding: 0 1.2em;
     color: #626363;
@@ -64,11 +64,13 @@ const List = styled.ul`
     color: #626363;
   }
 
-  ${device.tablet}{
-    li {font-size: 14px;}
+  ${device.tablet} {
+    li {
+      font-size: 14px;
+    }
   }
 
-  ${device.mobile}{
+  ${device.mobile} {
     flex-direction: column;
     text-align: right;
     width: 200px;
@@ -85,22 +87,21 @@ const List = styled.ul`
 `;
 
 const Icon = styled.img`
-  ${device.mobile}{
+  ${device.mobile} {
     padding: 0;
   }
 `;
 
 class Navbar extends Component {
-
   state = {
-    visible: true
+    visible: true,
   };
 
   toggleNavbar = () => {
     let newVisible = this.state.visible;
     newVisible = !newVisible;
     this.setState({
-      visible: newVisible
+      visible: newVisible,
     });
   };
 
@@ -109,21 +110,33 @@ class Navbar extends Component {
   render() {
     return (
       <Container>
-        <Logo src={headerIcon}/>
-        <BurgerButton onClick={this.toggleNavbar}/>
+        <Logo src={headerIcon} />
+        <BurgerButton onClick={this.toggleNavbar} />
         <List hide={this.state.visible}>
-          <li><a href="#top">Inicio</a></li>
+          <li>
+            <a href="#top">Inicio</a>
+          </li>
           <li href="#store">
             <Link onClick={this.backToStoreHandler} to="/">
               {' '}
               Nuestra tienda{' '}
             </Link>
           </li>
-          <li><a href="#about">Quiénes somos</a></li>
-          <li><a href="#stories">Historias</a></li>
-          <li><a href="#contact">Contacto</a></li>
-          <li><Icon src={facebookIcon} /></li>
-          <li><Icon src={instagramIcon} /></li>
+          <li>
+            <a href="#about">Quiénes somos</a>
+          </li>
+          <li>
+            <a href="#stories">Historias</a>
+          </li>
+          <li>
+            <a href="#contact">Contacto</a>
+          </li>
+          <li>
+            <Icon src={facebookIcon} />
+          </li>
+          <li>
+            <Icon src={instagramIcon} />
+          </li>
         </List>
       </Container>
     );

@@ -10,7 +10,7 @@ const Container = styled.div`
   width: 65%;
   ${device.mobile} {
     min-width: 100%;
-    margin:0;
+    margin: 0;
   }
 `;
 
@@ -25,7 +25,7 @@ const CurrentImageContainer = styled.div`
     width: 100%;
   }
 `;
- 
+
 /*
 const CurrentImage = styled.img`
   outline: 2px solid rgba(255,0,0,0.4);
@@ -86,7 +86,7 @@ const PreviousButton = styled.button`
   background-position: center center;
   border: none;
   ${device.mobile} {
-    width:7px;
+    width: 7px;
     height: 16px;
   }
 `;
@@ -105,7 +105,7 @@ const Nextbutton = styled.button`
   background-position: center center;
   border: none;
   ${device.mobile} {
-    width:7px;
+    width: 7px;
     height: 16px;
   }
 `;
@@ -131,7 +131,7 @@ const ImgPreview = styled.div`
   :hover {
     cursor: pointer;
   }
-`
+`;
 
 const BackContainer = styled.div`
   width: 25%;
@@ -178,11 +178,14 @@ class Gallery extends Component {
       <ImgPreview
         key={source}
         onClick={() => this.changeCurrentImage(source)}
-        src={source}/>
+        src={source}
+      />
     ));
 
     const dots = this.props.images.map((image, index) => {
-      return index === this.props.images.indexOf(this.state.currentImage)? true : false;
+      return index === this.props.images.indexOf(this.state.currentImage)
+        ? true
+        : false;
     });
 
     return (
@@ -199,8 +202,7 @@ class Gallery extends Component {
           <CurrentImage src={this.state.currentImage} />
           <Nextbutton onClick={this.nextImage.bind(this)} />
         </CurrentImageContainer>
-        <Current 
-          dots={dots}/>
+        <Current dots={dots} />
       </Container>
     );
   }

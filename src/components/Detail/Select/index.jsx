@@ -50,13 +50,11 @@ const Container = styled.div`
         } */
 
     }
-`
-const Select = ({name, children, onChange}) => (
-    <Container name={name}>
-        <label>{name}</label>
-        <select onChange={e => onChange(e)}>
-            {children}
-        </select>
-    </Container>
+`;
+const Select = ({ name, children, onChange }) => (
+  <Container name={name}>
+    <label>{name}</label>
+    <select onChange={e => onChange(e)}>{children}</select>
+  </Container>
 );
 export default Select;

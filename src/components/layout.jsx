@@ -35,7 +35,8 @@ function Layout({ children }) {
                   content: 'Artesanías Mexicanas New Marias',
                 },
                 { name: 'keywords', content: 'artesanias, mexico' },
-              ]}>
+              ]}
+            >
               <html lang="en" />
             </Helmet>
             <ChildrenLayout>{children}</ChildrenLayout>

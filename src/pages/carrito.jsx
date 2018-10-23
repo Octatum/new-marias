@@ -102,7 +102,7 @@ class Carrito extends Component {
             onDecreaseQuantity={this.decreaseQuantityHandler}
             onIncreaseQuantity={this.increaseQuantityHandler}
           />
-          <SubtotalSummary/>
+          <SubtotalSummary />
           <ButtonContainer width={115} mobileHide>
             <Link to="/">
               <button>Regresar</button>

@@ -1,4 +1,4 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import Product from './Product';
@@ -13,7 +13,7 @@ const Container = styled.div`
   padding-left: 58px;
   padding-right: 58px;
   display: flex;
-  ${device.mobile}{
+  ${device.mobile} {
     padding-left: 0;
     padding-right: 0;
   }
@@ -47,7 +47,7 @@ const List = styled.ul`
     }
   }
   transition: all 0.2s ease-in;
-  ${device.mobile}{
+  ${device.mobile} {
     position: absolute;
     left: ${({ hide }) => (hide ? '-45%' : '0')};
     padding-left: 15px;
@@ -78,7 +78,7 @@ const ButtonHide = styled.div`
   ${device.mobile} {
     display: block;
   }
-`
+`;
 
 const Grid = styled.div`
   display: grid;
@@ -89,7 +89,7 @@ const Grid = styled.div`
   grid-gap: 1em;
   padding: 1em;
   flex: 3;
-  ${device.mobile}{
+  ${device.mobile} {
     grid-template-columns: repeat(2, minmax(5em, 20vw));
     padding: 20px 20%;
     grid-gap: 2.5em;
@@ -100,26 +100,31 @@ const A = styled.a`
   text-decoration: none;
   color: inherit;
   display: block;
-`
+`;
 
 const BackDrop = styled.div`
   ${device.mobile} {
     transition: all 0.2s ease-in;
-    background-color: rgba(255, 255, 255, ${({ hide }) => (hide ? '0' : '0.95')});
+    background-color: rgba(
+      255,
+      255,
+      255,
+      ${({ hide }) => (hide ? '0' : '0.95')}
+    );
     width: 100%;
     height: 100%;
     position: absolute;
     left: ${({ hide }) => (hide ? '-100%' : '0')};
     top: 0;
   }
-`
+`;
 
 class Categories extends Component {
-  state  = {
+  state = {
     categories: this.props.categories,
     products: this.props.products,
-    menuHidden: false
-  }
+    menuHidden: false,
+  };
 
   onSelectedProductHandler = id => {
     CounterStore.currentProduct = id;
@@ -128,16 +133,19 @@ class Categories extends Component {
   menuToggle = () => {
     let newMenuHidden = this.state.menuHidden;
     newMenuHidden = !newMenuHidden;
-    this.setState({menuHidden: newMenuHidden});
-  }
+    this.setState({ menuHidden: newMenuHidden });
+  };
 
-  render(){
+  render() {
     const categoryList = this.state.categories.map(c => (
-      <li
-        key={c.id}>
+      <li key={c.id}>
         <A
           href={`#${c.id}`}
-          onClick={() => {CategoryState.setCurrent(c.id); this.menuToggle();}}>
+          onClick={() => {
+            CategoryState.setCurrent(c.id);
+            this.menuToggle();
+          }}
+        >
           {c.name}
         </A>
       </li>
@@ -163,20 +171,16 @@ class Categories extends Component {
 
     return (
       <Container>
-        <BackDrop hide={this.state.menuHidden}/>
+        <BackDrop hide={this.state.menuHidden} />
         <List hide={this.state.menuHidden}>
-          <li className="title">
-            Categorías
-          </li>
+          <li className="title">Categorías</li>
           {categoryList}
         </List>
         <Grid>{filteredProducts}</Grid>
-        <ButtonHide 
-          onClick={this.menuToggle}
-          hide={this.state.menuHidden}/>
+        <ButtonHide onClick={this.menuToggle} hide={this.state.menuHidden} />
       </Container>
     );
   }
-};
+}
 
 export default observer(Categories);

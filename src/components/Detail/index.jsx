@@ -56,9 +56,8 @@ const Button = styled.button`
 `;
 
 const SelectsContainer = styled.div`
-
   ::after {
-    content: "";
+    content: '';
     clear: both;
     display: table;
   }
@@ -72,7 +71,7 @@ const SelectsContainer = styled.div`
   > div {
     flex-grow: 1;
   }
-  
+
   > div:last-child {
     margin-left: 70px;
     flex-grow: 0.2;
@@ -82,13 +81,12 @@ const SelectsContainer = styled.div`
     display: block;
     > div:nth-child(1),
     > div:nth-child(2) {
-      display:block;
+      display: block;
       width: 100%;
       margin-left: 0px;
     }
   }
-
-`
+`;
 
 const Name = styled.h1`
   width: 110%;
@@ -111,7 +109,6 @@ const Name = styled.h1`
   ${device.tablet} {
     font-size: 25px;
   }
-
 `;
 const Price = styled.h3`
   font-family: 'Archivo Narrow', sans-serif;
@@ -126,7 +123,7 @@ const Price = styled.h3`
   ${device.mobile} {
     color: #d4ad9f;
     ::before {
-      content: "Precio:\00a0\00a0\00a0";
+      content: 'Precio:\00a0\00a0\00a0';
       color: #626363;
       font-size: 14px;
     }
@@ -148,14 +145,15 @@ const AddToCartContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  > button, > div {
+  > button,
+  > div {
     align-self: center;
   }
   margin: 30px 0;
-  ${device.tablet}{
+  ${device.tablet} {
     margin: 20px 0;
   }
-  ${device.mobile}{
+  ${device.mobile} {
     width: 93%;
     margin: 56px auto;
     > div {
@@ -166,44 +164,43 @@ const AddToCartContainer = styled.div`
       margin: 0 auto;
     }
   }
-`
+`;
 
 const Detail = props => {
   return (
-  <Container>
-    <div>
-      <Name>{props.name}</Name>
-      <Price>${props.price.toFixed(2)}</Price>
-      <SelectsContainer>
-        <Select name="Color" onChange={props.onChange}>
-          <option value="Blue">Azul</option>
-          <option value="Red">Rojo</option>
-          <option value="Yellow">Amarillo</option>
-        </Select>
-        <Select name="Cantidad" onChange={props.onChangeQuantity}>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </Select>
-      </SelectsContainer>
-      <AddToCartContainer>
-        <Button
-          onClick={() => {
-            CounterStore.increment();
-            props.addingOrderHandler();
-          }}>
-          Agregar al carrito
-        </Button>
-        <CartCounter
-            quantity={CounterStore.counter}
-            width="69"
-            height="61"/>
-      </AddToCartContainer>
-    </div>
-    <div>
-      <Description>{props.description}</Description>
-    </div>
-  </Container>
-)};
+    <Container>
+      <div>
+        <Name>{props.name}</Name>
+        <Price>${props.price.toFixed(2)}</Price>
+        <SelectsContainer>
+          <Select name="Color" onChange={props.onChange}>
+            <option value="Blue">Azul</option>
+            <option value="Red">Rojo</option>
+            <option value="Yellow">Amarillo</option>
+          </Select>
+          <Select name="Cantidad" onChange={props.onChangeQuantity}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </Select>
+        </SelectsContainer>
+        <AddToCartContainer>
+          <Button
+            onClick={() => {
+              CounterStore.increment();
+              props.addingOrderHandler();
+            }}
+          >
+            Agregar al carrito
+          </Button>
+          <CartCounter quantity={CounterStore.counter} width="69" height="61" />
+        </AddToCartContainer>
+      </div>
+      <div>
+        <Description>{props.description}</Description>
+      </div>
+    </Container>
+  );
+};
 
 export default observer(Detail);
