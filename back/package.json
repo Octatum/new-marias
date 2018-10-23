@@ -1,0 +1,22 @@
+{
+  "name": "new_marias_backend",
+  "version": "1.0.0",
+  "description": "Backend for new marias ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/new_marias.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Octatum <contacto@octatum.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/github.com/new_marias/issues"
+  },
+  "homepage": "https://github.com/github.com/new_marias#readme"
+}
