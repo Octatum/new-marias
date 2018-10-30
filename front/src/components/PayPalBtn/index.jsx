@@ -37,20 +37,16 @@ export default MyCartComponent;
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import PaypalBtn from 'react-paypal-checkout';
- 
+
 export default class MyApp extends Component {
-    render() {
-        const client = {
-            sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-            production: '<insert production client id>',
-        }	
-        return (
-            <PaypalBtn 
-                client={client}
-                currency={'MXN'}
-                total={550.00}/>
-        );
-    }
+  render() {
+    const client = {
+      sandbox:
+        'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+      production: '<insert production client id>',
+    };
+    return <PaypalBtn client={client} currency={'MXN'} total={550.0} />;
+  }
 }
 
 /* https://www.npmjs.com/package/react-paypal-checkout */

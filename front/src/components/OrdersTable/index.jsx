@@ -57,7 +57,7 @@ const OrdersTable = props => {
                 id
                 thumbnail
                 images {
-                  color 
+                  color
                   src
                 }
               }

@@ -40,9 +40,7 @@ function Product(props) {
   return (
     <Container>
       <Link to={props.path}>
-        <Placeholder 
-          onClick={props.clicked}
-          src={props.thumbnail}/>
+        <Placeholder onClick={props.clicked} src={props.thumbnail} />
       </Link>
       <p>{props.name}</p>
       <p>${parseFloat(props.price).toFixed(2)}</p>

@@ -54,7 +54,7 @@ const query = graphql`
           path
           thumbnail
           images {
-            color 
+            color
             src
           }
         }

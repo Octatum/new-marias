@@ -166,9 +166,11 @@ const AddToCartContainer = styled.div`
 `;
 
 const Detail = props => {
-  const colors = props.colors.map(
-    c => <option key={c} value={c}>{c}</option>
-  );
+  const colors = props.colors.map(c => (
+    <option key={c} value={c}>
+      {c}
+    </option>
+  ));
   return (
     <Container>
       <div>

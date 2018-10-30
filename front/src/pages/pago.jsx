@@ -206,8 +206,8 @@ class Pago extends Component {
               <Button>Finalizar Pedido</Button>
             </Link>
           </Info>
-          <OrderSummary mobileHide/>
-          <PayPalBtn/>
+          <OrderSummary mobileHide />
+          <PayPalBtn />
         </Container>
       </AppLayout>
     );
