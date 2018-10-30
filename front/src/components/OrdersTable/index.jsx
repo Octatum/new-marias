@@ -48,39 +48,56 @@ const OrdersTable = props => {
   return (
     <StaticQuery
       query={graphql`
-        query {
-          allProductsJson {
-            edges {
-              node {
-                price
-                name
-                id
-                thumbnail
-                images {
-                  color 
-                  src
+          query {
+            allCockpitProduct {
+              edges {
+                node {
+                  fields {
+                    slug
+                  }
+                  id
+                  entry {
+                    description
+                    price
+                    name
+                    thumbnail {
+                      path
+                    }
+                    gallery {
+                      value {
+                        color
+                        images {
+                          path
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           }
-        }
+        
       `}
       render={data => {
-        const products = data.allProductsJson.edges.map(edge => edge.node);
+        
+        const products = data.allCockpitProduct.edges.map(edge => edge.node);
+        console.log("orders:", Cart.orders[0]);
+
         prodRows = Cart.orders.map((o, index) => {
           const prod = products.find(p => o.productId === p.id);
           return (
             <OrderRow
-              name={prod.name}
-              price={parseFloat(prod.price)}
+              name={prod.entry.name}
+              price={prod.entry.price}
               quantity={o.quantity}
-              src={prod.thumbnail}
+              src={prod.entry.thumbnail.path}
               deleteOrderHandler={() => deleteOrderHandler(index)}
               onDecreaseQuantity={() => onDecreaseQuantity(index)}
               onIncreaseQuantity={() => onIncreaseQuantity(index)}
             />
           );
         });
+
         return (
           <ContentTable>
             <TableHead>
@@ -96,6 +113,7 @@ const OrdersTable = props => {
             <tbody>{prodRows}</tbody>
           </ContentTable>
         );
+
       }}
     />
   );

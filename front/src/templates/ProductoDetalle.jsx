@@ -125,7 +125,7 @@ class Producto extends Component {
   }
 
   addOrder = () => {
-    Cart.addOrder(this.props.data.cockpitProduct.entry.id, this.state.quantity);
+    Cart.addOrder(this.props.data.cockpitProduct.id, this.state.quantity);
   };
 
   changeQuantityHandler = e => {
@@ -188,6 +188,7 @@ export default observer(Producto);
 export const query = graphql`
 query ($slug: String!){
     cockpitProduct (fields: { slug: { eq: $slug } }){
+        id
         entry {
             name
             price

@@ -47,7 +47,7 @@ const Picture = styled.div`
   width: 165px;
   height: 165px;
   background-color: #c4c4c4;
-  background: url(${({ src }) => src});
+  background: url(https://admin.newmarias.com/${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

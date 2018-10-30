@@ -25,7 +25,7 @@ const getSubtotal = products => {
   let subTotal = 0.0;
   const orders = Cart.orders;
   for (let i = 0; i < orders.length; i++) {
-    const price = products.find(p => p.id === orders[i].productId).price;
+    const price = products.find(p => p.id === orders[i].productId).entry.price;
     subTotal += price * orders[i].quantity;
   }
   return subTotal;
@@ -34,19 +34,21 @@ const getSubtotal = products => {
 const SubtotalSummary = () => (
   <StaticQuery
     query={graphql`
-      query {
-        allProductsJson {
-          edges {
-            node {
+    query {
+      allCockpitProduct {
+        edges {
+          node {
+            id
+            entry {
               price
-              id
             }
           }
         }
       }
+    }
     `}
     render={data => {
-      const products = data.allProductsJson.edges.map(edge => edge.node);
+      const products = data.allCockpitProduct.edges.map(edge => edge.node);
       return (
         <Summary>
           <p>SUBTOTAL</p>
