@@ -133,11 +133,10 @@ class Producto extends Component {
   };
 
   handleChangeColor(e) {
-
+    console.log(e.target.value)
     this.setState({ boardAddModalShow: true }, () => {
-      const color = this.state.currentColr;
+      const color = this.state.currentColor;
       this.setState({
-      //  currentImages: this.props.data.productsJson.images.find(i => i.color === color).src,
         currentImages: this.props.data.cockpitProduct.entry.gallery.find(g => g.value.color === color).value.images.map(i => i.path)
       });
 
@@ -149,7 +148,6 @@ class Producto extends Component {
   }
 
   render() {
-    console.log(this.state.currentImages);
     return (
       <AppLayout>
         <Navbar />
