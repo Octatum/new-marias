@@ -68,7 +68,7 @@ const OrdersTable = props => {
       render={data => {
         const products = data.allProductsJson.edges.map(edge => edge.node);
         prodRows = Cart.orders.map((o, index) => {
-          const prod = products.find(p => o.productId == p.id);
+          const prod = products.find(p => o.productId === p.id);
           return (
             <OrderRow
               name={prod.name}

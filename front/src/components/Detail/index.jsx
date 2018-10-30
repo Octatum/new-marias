@@ -1,5 +1,4 @@
 import React from 'react';
-import shoppingCartImg from './assets/shoppingcart.png';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import CounterStore from './../../ShoppingCart';

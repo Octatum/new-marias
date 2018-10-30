@@ -25,7 +25,7 @@ const getSubtotal = products => {
   let subTotal = 0.0;
   const orders = Cart.orders;
   for (let i = 0; i < orders.length; i++) {
-    const price = products.find(p => p.id == orders[i].productId).price;
+    const price = products.find(p => p.id === orders[i].productId).price;
     subTotal += price * orders[i].quantity;
   }
   return subTotal;

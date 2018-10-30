@@ -32,7 +32,7 @@ const CurrentImage = styled.div`
   width: 80%;
   padding-bottom: 80%;
   background-color: #cccccc;
-  background: url(${({ src }) => src});
+  background: url(https://admin.newmarias.com/${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -110,7 +110,7 @@ const ImgPreview = styled.div`
   width: 100%;
   padding-bottom: 100%;
   margin-bottom: 7px;
-  background: url(${({ src }) => src});
+  background: url(https://admin.newmarias.com/${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -136,7 +136,6 @@ const BackContainer = styled.div`
 `;
 
 class Gallery extends Component {
-
   state = {
     currentImage: this.props.images[0],
   };
@@ -159,7 +158,7 @@ class Gallery extends Component {
     this.setState({ currentImage: source });
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({currentImage: nextProps.images[0]});
   }
 
