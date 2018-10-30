@@ -65,7 +65,11 @@ const query = graphql`
           price
           category
           path
-          imagesBlue
+          thumbnail
+          images {
+            color 
+            src
+          }
         }
       }
     }
@@ -87,7 +91,7 @@ const OrderSummary = props => {
             name: prod.name,
             quantity: o.quantity,
             price: prod.price,
-            src: prod.imagesBlue[0],
+            src: prod.thumbnail,
           };
         });
         const summaryRows = newOrders.map(product => (

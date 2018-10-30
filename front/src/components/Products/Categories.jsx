@@ -155,7 +155,7 @@ class Categories extends Component {
       .filter(
         p =>
           p.category === CategoryState.current ||
-          CategoryState.current === 'todas'
+          CategoryState.current === 1
       )
       .map(function(p) {
         return (
@@ -165,6 +165,7 @@ class Categories extends Component {
             name={p.name}
             price={p.price}
             path={p.path}
+            thumbnail={p.thumbnail}
           />
         );
       }, this);

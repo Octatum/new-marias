@@ -118,6 +118,7 @@ const IndexPage = () => (
               price
               category
               path
+              thumbnail
             }
           }
         }

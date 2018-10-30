@@ -1,4 +1,4 @@
-export const TODAS = 'todas';
+/*export const TODAS = 'todas';
 export const ALEBRIJES = 'alebrijes';
 export const BOLSAS = 'bolsas';
 export const CAJAS = 'cajas';
@@ -10,7 +10,21 @@ export const PAPEL = 'papel';
 export const PINATAS = 'pinatas';
 export const TEQUILEROS = 'tequileros';
 export const TORTILLEROS = 'tortilleros';
-export const VIRGENES = 'virgenes';
+export const VIRGENES = 'virgenes';*/
+
+export const TODAS = 1;
+export const ALEBRIJES = 2;
+export const BOLSAS = 3;
+export const CAJAS = 4;
+export const CRUCES = 5;
+export const DECORACION = 6;
+export const MOLCAJETES = 7;
+export const MUNECAS = 8;
+export const PAPEL = 9;
+export const PINATAS = 10;
+export const TEQUILEROS = 11;
+export const TORTILLEROS = 12;
+export const VIRGENES = 13;
 
 export const categories = [
   { id: TODAS, name: 'Todas' },

@@ -7,6 +7,7 @@ import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
 import Client from './../ClientInfo';
 import { Link } from 'gatsby';
+import PayPalBtn from './../components/PayPalBtn';
 
 const AppLayout = styled.div`
   margin-top: 190px;
@@ -205,7 +206,8 @@ class Pago extends Component {
               <Button>Finalizar Pedido</Button>
             </Link>
           </Info>
-          <OrderSummary mobileHide />
+          <OrderSummary mobileHide/>
+          <PayPalBtn/>
         </Container>
       </AppLayout>
     );

@@ -55,7 +55,11 @@ const OrdersTable = props => {
                 price
                 name
                 id
-                imagesBlue
+                thumbnail
+                images {
+                  color 
+                  src
+                }
               }
             }
           }
@@ -70,7 +74,7 @@ const OrdersTable = props => {
               name={prod.name}
               price={parseFloat(prod.price)}
               quantity={o.quantity}
-              src={prod.imagesBlue[0]}
+              src={prod.thumbnail}
               deleteOrderHandler={() => deleteOrderHandler(index)}
               onDecreaseQuantity={() => onDecreaseQuantity(index)}
               onIncreaseQuantity={() => onIncreaseQuantity(index)}

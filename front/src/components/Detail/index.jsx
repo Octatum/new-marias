@@ -167,6 +167,9 @@ const AddToCartContainer = styled.div`
 `;
 
 const Detail = props => {
+  const colors = props.colors.map(
+    c => <option key={c} value={c}>{c}</option>
+  );
   return (
     <Container>
       <div>
@@ -174,9 +177,7 @@ const Detail = props => {
         <Price>${props.price.toFixed(2)}</Price>
         <SelectsContainer>
           <Select name="Color" onChange={props.onChange}>
-            <option value="Blue">Azul</option>
-            <option value="Red">Rojo</option>
-            <option value="Yellow">Amarillo</option>
+            {colors}
           </Select>
           <Select name="Cantidad" onChange={props.onChangeQuantity}>
             <option>1</option>

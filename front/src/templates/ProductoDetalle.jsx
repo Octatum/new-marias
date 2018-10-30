@@ -111,8 +111,8 @@ class Producto extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentImages: props.data.productsJson.imagesBlue,
-      currentColor: 'Blue',
+      currentImages: props.data.productsJson.images[0].src,
+      currentColor: props.data.productsJson.images[0].color,
       quantity: 1,
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);
@@ -133,35 +133,17 @@ class Producto extends Component {
   };
 
   handleChangeColor(e) {
+
     this.setState({ boardAddModalShow: true }, () => {
-      console.log('Current ' + this.state.currentImages);
-      if (this.state.currentColor === 'Red') {
-        this.setState({
-          currentImages: this.props.data.productsJson.imagesRed,
-        });
-      } else if (this.state.currentColor === 'Yellow') {
-        this.setState({
-          currentImages: this.props.data.productsJson.imagesYellow,
-        });
-      } else {
-        this.setState({
-          currentImages: this.props.data.productsJson.imagesBlue,
-        });
-      }
+      const color = this.state.currentColor;
+      this.setState({
+        currentImages: this.props.data.productsJson.images.find(i => i.color === color).src,
+      });
+
     });
 
     this.setState({
       currentColor: e.target.value,
-    });
-
-    if (this.state.currentColor === 'Red') {
-      this.setState({
-        currentImages: this.props.data.productsJson.imagesBlue,
-      });
-    }
-
-    this.setState({ boardAddModalShow: true }, () => {
-      console.log('AFTER STATE ' + this.state.currentColor);
     });
   }
 
@@ -185,7 +167,6 @@ class Producto extends Component {
           <Gallery
             category={categories.find(c => c.id === CategoryState.current).name}
             images={this.state.currentImages}
-            color={this.state.currentColor}
           />
           <Detail
             name={this.props.data.productsJson.name}
@@ -194,6 +175,7 @@ class Producto extends Component {
             onChange={this.handleChangeColor}
             addingOrderHandler={this.addOrder}
             onChangeQuantity={this.changeQuantityHandler}
+            colors={this.props.data.productsJson.images.map(i => i.color)}
           />
         </Container>
       </AppLayout>
@@ -210,9 +192,10 @@ export const query = graphql`
       price
       description
       id
-      imagesBlue
-      imagesRed
-      imagesYellow
+      images {
+        color
+        src
+      }
     }
   }
 `;

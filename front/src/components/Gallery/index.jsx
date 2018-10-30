@@ -26,20 +26,6 @@ const CurrentImageContainer = styled.div`
   }
 `;
 
-/*
-const CurrentImage = styled.img`
-  outline: 2px solid rgba(255,0,0,0.4);
-  display: block;
-  float: left;
-  width: 450px;
-  height: 450px; 
-  ${device.mobile} {
-    width: 248px;
-    height: 248px;
-  }
-`;
-*/
-
 const CurrentImage = styled.div`
   display: block;
   float: left;
@@ -150,8 +136,8 @@ const BackContainer = styled.div`
 `;
 
 class Gallery extends Component {
+
   state = {
-    currentColor: this.props.currentColor,
     currentImage: this.props.images[0],
   };
 
@@ -165,7 +151,7 @@ class Gallery extends Component {
   previousImage = () => {
     const currentIndex = this.props.images.indexOf(this.state.currentImage);
     if (currentIndex > 0) {
-      this.setState({ currentImage: this.props.images[currentIndex - 1] });
+      this.setState({ currentImage: this.props.images[currentIndex - 1]});
     }
   };
 
@@ -173,7 +159,12 @@ class Gallery extends Component {
     this.setState({ currentImage: source });
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({currentImage: nextProps.images[0]});
+  }
+
   render() {
+
     const images = this.props.images.map(source => (
       <ImgPreview
         key={source}
@@ -184,8 +175,7 @@ class Gallery extends Component {
 
     const dots = this.props.images.map((image, index) => {
       return index === this.props.images.indexOf(this.state.currentImage)
-        ? true
-        : false;
+        ? true : false;
     });
 
     return (
