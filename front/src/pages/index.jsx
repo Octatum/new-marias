@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import { observer } from 'mobx-react';
 import { StaticQuery, graphql } from 'gatsby';
 import Navbar from '../components/Navbar';
-import shoppingCartImg from '../components/Detail/assets/shoppingcart.svg';
 import shoppingCart from './../ShoppingCart';
 import Categories from '../components/Products/Categories';
 import CategoryState from './../CategoryState';
@@ -35,6 +34,7 @@ const Banner = styled.div`
   }
 `;
 
+/*
 const Container = styled.div`
   padding-top: 12.2px;
   border-bottom: 1px solid #626363;
@@ -46,6 +46,7 @@ const Container = styled.div`
     margin-bottom: 23px;
   }
 `;
+*/
 
 const BreadcrumbContainer = styled.div`
   padding-top: 12.2px;
@@ -96,16 +97,6 @@ const CartContainer = styled.div`
   }
 `;
 
-const Cart = styled.div`
-  gawidth: 69px;
-  height: 60px;
-  background-image: url(${shoppingCartImg});
-  background-size: cover;
-  float: right;
-  position: relative;
-  top: -25px;
-`;
-
 const IndexPage = () => (
   <StaticQuery
     query={graphql`
@@ -118,6 +109,7 @@ const IndexPage = () => (
               price
               category
               path
+              thumbnail
             }
           }
         }

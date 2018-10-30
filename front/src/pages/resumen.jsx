@@ -200,7 +200,11 @@ const query = graphql`
           price
           name
           id
-          imagesBlue
+          thumbnail
+          images {
+            color
+            src
+          }
         }
       }
     }
@@ -248,7 +252,7 @@ class Resumen extends Component {
             const prod = products.find(p => o.productId === p.id);
             return (
               <ProductoPreview>
-                <Img src={prod.imagesBlue[0]} />
+                <Img src={prod.thumbnail} />
                 <table>
                   <thead>
                     <tr>
@@ -270,7 +274,7 @@ class Resumen extends Component {
           const productPerOrder = Cart.orders.map(o => {
             const prod = products.find(p => o.productId === p.id);
             return {
-              displayImage: prod.imagesBlue[0],
+              displayImage: prod.thumbnail,
               name: prod.name,
               price: prod.price,
             };

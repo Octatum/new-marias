@@ -31,8 +31,7 @@ class Cart {
   increaseQuantity(index) {
     let newOrders = this.orders.slice();
     newOrders = newOrders.map((order, i) => {
-      if (i != index) return order;
-      //  console.log(order);
+      if (i !== index) return order;
       return {
         ...order,
         quantity: order.quantity + 1,
@@ -45,7 +44,7 @@ class Cart {
     if (this.orders[index].quantity > 1) {
       let newOrders = this.orders.slice();
       newOrders = newOrders.map((order, i) => {
-        if (i != index) return order;
+        if (i !== index) return order;
         //     console.log(order);
         return {
           ...order,

@@ -6,8 +6,6 @@ import Breadcrumb from './../components/Breadcrumb';
 import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
 import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
-import { StaticQuery, graphql } from 'gatsby';
-import Cart from './../ShoppingCart';
 import Client from './../ClientInfo';
 import { Link } from 'gatsby';
 import './../components/setup.css';

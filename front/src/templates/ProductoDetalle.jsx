@@ -111,8 +111,8 @@ class Producto extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentImages: props.data.productsJson.imagesBlue,
-      currentColor: 'Blue',
+      currentImages: props.data.cockpitProduct.entry.gallery[0].value.images.map(i => i.path),// props.data.productsJson.images[0].src,
+      currentColor: props.data.cockpitProduct.entry.gallery[0].value.color,//props.data.productsJson.images[0].color,
       quantity: 1,
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);
@@ -125,7 +125,7 @@ class Producto extends Component {
   }
 
   addOrder = () => {
-    Cart.addOrder(this.props.data.productsJson.id, this.state.quantity);
+    Cart.addOrder(this.props.data.cockpitProduct.entry.id, this.state.quantity);
   };
 
   changeQuantityHandler = e => {
@@ -133,39 +133,23 @@ class Producto extends Component {
   };
 
   handleChangeColor(e) {
+
     this.setState({ boardAddModalShow: true }, () => {
-      console.log('Current ' + this.state.currentImages);
-      if (this.state.currentColor === 'Red') {
-        this.setState({
-          currentImages: this.props.data.productsJson.imagesRed,
-        });
-      } else if (this.state.currentColor === 'Yellow') {
-        this.setState({
-          currentImages: this.props.data.productsJson.imagesYellow,
-        });
-      } else {
-        this.setState({
-          currentImages: this.props.data.productsJson.imagesBlue,
-        });
-      }
+      const color = this.state.currentColr;
+      this.setState({
+      //  currentImages: this.props.data.productsJson.images.find(i => i.color === color).src,
+        currentImages: this.props.data.cockpitProduct.entry.gallery.find(g => g.value.color === color).value.images.map(i => i.path)
+      });
+
     });
 
     this.setState({
       currentColor: e.target.value,
     });
-
-    if (this.state.currentColor === 'Red') {
-      this.setState({
-        currentImages: this.props.data.productsJson.imagesBlue,
-      });
-    }
-
-    this.setState({ boardAddModalShow: true }, () => {
-      console.log('AFTER STATE ' + this.state.currentColor);
-    });
   }
 
   render() {
+    console.log(this.state.currentImages);
     return (
       <AppLayout>
         <Navbar />
@@ -178,22 +162,22 @@ class Producto extends Component {
         </BreadcrumbContainer>
         <MobileHeader>
           <BackButton />
-          <p>{this.props.data.productsJson.name}</p>
+          <p>{this.props.data.cockpitProduct.entry.name}</p>
           <CartCounter quantity={Cart.counter} width={41} height={37} />
         </MobileHeader>
         <Container>
           <Gallery
             category={categories.find(c => c.id === CategoryState.current).name}
             images={this.state.currentImages}
-            color={this.state.currentColor}
           />
           <Detail
-            name={this.props.data.productsJson.name}
-            price={parseFloat(this.props.data.productsJson.price)}
-            description={this.props.data.productsJson.description}
+            name={this.props.data.cockpitProduct.entry.name}
+            price={parseFloat(this.props.data.cockpitProduct.entry.price)}
+            description={this.props.data.cockpitProduct.entry.description}
             onChange={this.handleChangeColor}
             addingOrderHandler={this.addOrder}
             onChangeQuantity={this.changeQuantityHandler}
+            colors={this.props.data.cockpitProduct.entry.gallery.map(g => g.value.color)}
           />
         </Container>
       </AppLayout>
@@ -204,15 +188,27 @@ class Producto extends Component {
 export default observer(Producto);
 
 export const query = graphql`
-  query($slug: String!) {
-    productsJson(fields: { slug: { eq: $slug } }) {
-      name
-      price
-      description
-      id
-      imagesBlue
-      imagesRed
-      imagesYellow
+query ($slug: String!){
+    cockpitProduct (fields: { slug: { eq: $slug } }){
+        entry {
+            name
+            price
+            description
+            category_id {
+              display
+            }
+            thumbnail {
+              path
+            }
+            gallery {
+              value {
+                color
+                images {
+                  path
+                }
+              }
+            }
+        }
     }
-  }
-`;
+}
+`

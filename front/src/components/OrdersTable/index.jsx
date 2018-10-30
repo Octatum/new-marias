@@ -55,7 +55,11 @@ const OrdersTable = props => {
                 price
                 name
                 id
-                imagesBlue
+                thumbnail
+                images {
+                  color 
+                  src
+                }
               }
             }
           }
@@ -64,13 +68,13 @@ const OrdersTable = props => {
       render={data => {
         const products = data.allProductsJson.edges.map(edge => edge.node);
         prodRows = Cart.orders.map((o, index) => {
-          const prod = products.find(p => o.productId == p.id);
+          const prod = products.find(p => o.productId === p.id);
           return (
             <OrderRow
               name={prod.name}
               price={parseFloat(prod.price)}
               quantity={o.quantity}
-              src={prod.imagesBlue[0]}
+              src={prod.thumbnail}
               deleteOrderHandler={() => deleteOrderHandler(index)}
               onDecreaseQuantity={() => onDecreaseQuantity(index)}
               onIncreaseQuantity={() => onIncreaseQuantity(index)}

@@ -42,19 +42,6 @@ const Total = styled.h1`
   font-size: 24px;
 `;
 
-const ProductImage = styled.div`
-  width: 65px;
-  height: 65px;
-  background: #c4c4c4;
-`;
-const ProductView = styled.div`
-  display: flex;
-  flex-direction: row;
-  h1 {
-    margin-left: 15px;
-  }
-`;
-
 const query = graphql`
   query {
     allProductsJson {
@@ -65,7 +52,11 @@ const query = graphql`
           price
           category
           path
-          imagesBlue
+          thumbnail
+          images {
+            color 
+            src
+          }
         }
       }
     }
@@ -81,13 +72,13 @@ const OrderSummary = props => {
         const orders = Cart.orders;
         const products = data.allProductsJson.edges.map(edge => edge.node);
         const newOrders = orders.map((o, index) => {
-          const prod = products.find(p => o.productId == p.id);
+          const prod = products.find(p => o.productId === p.id);
           return {
             id: index,
             name: prod.name,
             quantity: o.quantity,
             price: prod.price,
-            src: prod.imagesBlue[0],
+            src: prod.thumbnail,
           };
         });
         const summaryRows = newOrders.map(product => (

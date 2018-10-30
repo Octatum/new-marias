@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
-import Current from '../Gallery/Current';
 
 const Container = styled.div`
   display: flex;

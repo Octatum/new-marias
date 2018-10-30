@@ -29,12 +29,6 @@ const Container = styled.div`
   }
 `;
 
-const Buttons = styled.div`
-  button:first-child {
-    display: none;
-  }
-`;
-
 const BreadcrumbContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
