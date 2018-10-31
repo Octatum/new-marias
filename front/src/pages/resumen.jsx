@@ -251,7 +251,6 @@ class Resumen extends Component {
       const price = products.find(p => p.id === orders[i].productId).entry.price;
       subTotal += price * orders[i].quantity;
     }
-    console.log(subTotal)
     return subTotal;
   };
 

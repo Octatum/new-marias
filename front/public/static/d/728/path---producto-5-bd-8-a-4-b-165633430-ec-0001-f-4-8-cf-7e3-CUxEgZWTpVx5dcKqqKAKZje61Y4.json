@@ -1,1 +1,0 @@
-{"errors":[{"message":"String cannot represent an array value: []","locations":[{"line":8,"column":7}],"path":["cockpitProduct","entry","thumbnail"]}],"data":{"cockpitProduct":{"id":"5bd8a4b165633430ec0001f4","entry":{"price":4400,"thumbnail":null,"name":"OLLA HUICHOL SERPENTINA MEDIANA"}}},"pageContext":{"slug":"/producto-5bd8a4b165633430ec0001f4/"}}

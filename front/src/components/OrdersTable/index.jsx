@@ -79,6 +79,7 @@ const OrdersTable = props => {
       `}
       render={data => {
         const products = data.allCockpitProduct.edges.map(edge => edge.node);
+        console.log("orders: ", Cart.orders);
         prodRows = Cart.orders.map((o, index) => {
           const prod = products.find(p => o.productId === p.id);
           return (

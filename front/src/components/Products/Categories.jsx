@@ -153,9 +153,7 @@ class Categories extends Component {
 
     const filteredProducts = this.state.products
       .filter(
-        p =>
-          p.category === CategoryState.current ||
-          CategoryState.current === 1
+        p => p.category === CategoryState.current || CategoryState.current === 1
       )
       .map(function(p) {
         return (

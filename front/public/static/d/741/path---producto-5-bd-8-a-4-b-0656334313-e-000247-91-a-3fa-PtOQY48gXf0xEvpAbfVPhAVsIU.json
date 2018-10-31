@@ -1,1 +1,0 @@
-{"errors":[{"message":"String cannot represent an array value: []","locations":[{"line":8,"column":7}],"path":["cockpitProduct","entry","thumbnail"]}],"data":{"cockpitProduct":{"id":"5bd8a4b0656334313e000247","entry":{"price":2540,"thumbnail":null,"name":"ESPEJO SERPENTINAS CHICO"}}},"pageContext":{"slug":"/producto-5bd8a4b0656334313e000247/"}}

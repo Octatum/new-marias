@@ -111,8 +111,10 @@ class Producto extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentImages: props.data.cockpitProduct.entry.gallery[0].value.images.map(i => i.path),// props.data.productsJson.images[0].src,
-      currentColor: props.data.cockpitProduct.entry.gallery[0].value.color,//props.data.productsJson.images[0].color,
+      currentImages: props.data.cockpitProduct.entry.gallery[0].value.images.map(
+        i => i.path
+      ), // props.data.productsJson.images[0].src,
+      currentColor: props.data.cockpitProduct.entry.gallery[0].value.color, //props.data.productsJson.images[0].color,
       quantity: 1,
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);
@@ -125,6 +127,7 @@ class Producto extends Component {
   }
 
   addOrder = () => {
+    console.log(this.props.data.cockpitProduct.id);
     Cart.addOrder(this.props.data.cockpitProduct.id, this.state.quantity);
   };
 
@@ -133,13 +136,14 @@ class Producto extends Component {
   };
 
   handleChangeColor(e) {
-    console.log(e.target.value)
     this.setState({ boardAddModalShow: true }, () => {
       const color = this.state.currentColor;
       this.setState({
-        currentImages: this.props.data.cockpitProduct.entry.gallery.find(g => g.value.color === color).value.images.map(i => i.path)
+        //  currentImages: this.props.data.productsJson.images.find(i => i.color === color).src,
+        currentImages: this.props.data.cockpitProduct.entry.gallery
+          .find(g => g.value.color === color)
+          .value.images.map(i => i.path),
       });
-
     });
 
     this.setState({
@@ -175,7 +179,9 @@ class Producto extends Component {
             onChange={this.handleChangeColor}
             addingOrderHandler={this.addOrder}
             onChangeQuantity={this.changeQuantityHandler}
-            colors={this.props.data.cockpitProduct.entry.gallery.map(g => g.value.color)}
+            colors={this.props.data.cockpitProduct.entry.gallery.map(
+              g => g.value.color
+            )}
           />
         </Container>
       </AppLayout>
@@ -186,28 +192,28 @@ class Producto extends Component {
 export default observer(Producto);
 
 export const query = graphql`
-query ($slug: String!){
-    cockpitProduct (fields: { slug: { eq: $slug } }){
-        id
-        entry {
-            name
-            price
-            description
-            category_id {
-              display
-            }
-            thumbnail {
+  query($slug: String!) {
+    cockpitProduct(fields: { slug: { eq: $slug } }) {
+      id
+      entry {
+        name
+        price
+        description
+        category_id {
+          display
+        }
+        thumbnail {
+          path
+        }
+        gallery {
+          value {
+            color
+            images {
               path
             }
-            gallery {
-              value {
-                color
-                images {
-                  path
-                }
-              }
-            }
+          }
         }
+      }
     }
-}
-`
+  }
+`;

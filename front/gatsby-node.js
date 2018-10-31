@@ -80,13 +80,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `CockpitProduct`) {
     const slug = `/producto-${node.id}/`;
-  //  console.log("before::node: ", node);
+    //  console.log("before::node: ", node);
     createNodeField({
       node,
       name: `slug`,
       value: slug,
     });
-   // console.log("after::node: ", node);
+    // console.log("after::node: ", node);
   }
 };
 
@@ -106,9 +106,9 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       const { createPage } = actions;
-     // console.log(result.data.allCockpitProduct.edges);
+      // console.log(result.data.allCockpitProduct.edges);
       result.data.allCockpitProduct.edges.forEach(({ node }) => {
-     //   console.log("slug:", node.fields.slug);
+        //   console.log("slug:", node.fields.slug);
         createPage({
           path: node.fields.slug,
           component: productTemplate,

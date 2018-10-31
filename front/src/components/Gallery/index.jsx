@@ -150,7 +150,7 @@ class Gallery extends Component {
   previousImage = () => {
     const currentIndex = this.props.images.indexOf(this.state.currentImage);
     if (currentIndex > 0) {
-      this.setState({ currentImage: this.props.images[currentIndex - 1]});
+      this.setState({ currentImage: this.props.images[currentIndex - 1] });
     }
   };
 
@@ -159,11 +159,10 @@ class Gallery extends Component {
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({currentImage: nextProps.images[0]});
+    this.setState({ currentImage: nextProps.images[0] });
   }
 
   render() {
-
     const images = this.props.images.map(source => (
       <ImgPreview
         key={source}
@@ -174,7 +173,8 @@ class Gallery extends Component {
 
     const dots = this.props.images.map((image, index) => {
       return index === this.props.images.indexOf(this.state.currentImage)
-        ? true : false;
+        ? true
+        : false;
     });
 
     return (
