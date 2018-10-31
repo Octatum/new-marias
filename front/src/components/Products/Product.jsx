@@ -20,7 +20,7 @@ const Placeholder = styled.div`
   width: 145px;
   height: 145px;
   background-color: #d6d8db;
-  background-image: url(${({ src }) => src});
+  background-image: url('https://admin.newmarias.com${({ src }) => src}');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -40,7 +40,7 @@ function Product(props) {
   return (
     <Container>
       <Link to={props.path}>
-        <Placeholder onClick={props.clicked} src={props.thumbnail} />
+        <Placeholder src={props.thumbnail.path} />
       </Link>
       <p>{props.name}</p>
       <p>${parseFloat(props.price).toFixed(2)}</p>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import { graphql } from 'gatsby';
 import CategoryDisplay from '../components/Products/CategoryDisplay';
 
-const IndexPage = ({ data }) => {
+const ProductsByCategory = ({data}) => {
   const products = data.products.edges.map(({ node }) => ({
     slug: node.fields.slug,
     thumbnail: node.entry.thumbnail.path,
@@ -13,19 +12,26 @@ const IndexPage = ({ data }) => {
   const breadcrumbItems = [{
     to: "/",
     name: "Todo"
+  }, {
+    to: `/categoria/${data.category.fields.cleanName}`,
+    name: data.category.entry.name
   }];
 
-  return <CategoryDisplay
-    breadcrumbItems={breadcrumbItems} 
-    products={products} 
-  />;
+  return (
+    <CategoryDisplay 
+      breadcrumbItems={breadcrumbItems} 
+      products={products} 
+    />
+  );
 };
 
-export default observer(IndexPage);
+export default ProductsByCategory;
 
 export const query = graphql`
-  query {
-    products: allCockpitProduct {
+  query ProductsByCategoryId($categoryId: String!) {
+    products: allCockpitProduct (
+      filter: {entry: {category_id: {_id: {eq: $categoryId}}}}
+    ) {
       edges {
         node {
           id
@@ -35,11 +41,21 @@ export const query = graphql`
           entry {
             name
             price
+            description 
             thumbnail {
               path
             }
           }
         }
+      }
+    }
+
+    category: cockpitCategory (id: {eq: $categoryId}) {
+      fields {
+        cleanName
+      }
+      entry {
+        name
       }
     }
   }

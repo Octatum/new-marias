@@ -1,67 +1,8 @@
-/*
-const path = require('path');
-const { createFilePath } = require(`gatsby-source-filesystem`);
-const productTemplate = path.resolve('src/templates/ProductoDetalle.jsx');
-
-const getAllFilesQuery = `
-  query GetAllContentFiles {
-    products: allProductsJson {
-        edges {
-          node {
-            path
-          }
-        }
-      }
-`;
-
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
-  if (node.internal.type === `ProductsJson`) {
-    const slug = `/${node.path}/`;
-    createNodeField({
-      node,
-      name: `slug`,
-      value: slug,
-    });
-  }
-};
-
-exports.createPages = ({ graphql, actions }) => {
-  return new Promise((resolve, reject) => {
-    graphql(`
-      {
-        allProductsJson {
-          edges {
-            node {
-              fields {
-                slug
-              }
-            }
-          }
-        }
-      }
-    `).then(result => {
-      const { createPage } = actions;
-      result.data.allProductsJson.edges.forEach(({ node }) => {
-        createPage({
-          path: node.fields.slug,
-          component: productTemplate,
-          context: {
-            slug: node.fields.slug,
-          },
-        });
-      });
-      resolve();
-    });
-  });
-};
-
-*/
-
 const path = require('path');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 //const productTemplate = path.resolve('src/templates/prod.jsx');
 const productTemplate = path.resolve('src/templates/ProductoDetalle.jsx');
+const productGridView = path.resolve('src/templates/ProductsByCategory.jsx')
 
 /*
 const getAllFilesQuery = `
@@ -76,25 +17,31 @@ const getAllFilesQuery = `
 `;
 */
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `CockpitProduct`) {
     const slug = `/producto-${node.id}/`;
-    //  console.log("before::node: ", node);
     createNodeField({
       node,
       name: `slug`,
       value: slug,
     });
-    // console.log("after::node: ", node);
+  }
+  if (node.internal.type === `CockpitCategory`) {
+    const cleanName = node.entry.name.replace(/\W/g, '');
+    createNodeField({
+      node,
+      name: `cleanName`,
+      value: cleanName,
+    });
   }
 };
 
 exports.createPages = ({ graphql, actions }) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     graphql(`
       {
-        allCockpitProduct {
+        products: allCockpitProduct {
           edges {
             node {
               fields {
@@ -103,12 +50,21 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
+
+        categories: allCockpitCategory {
+          edges {
+            node {
+              id
+              fields {
+                cleanName
+              }
+            }
+          }
+        }
       }
     `).then(result => {
       const { createPage } = actions;
-      // console.log(result.data.allCockpitProduct.edges);
-      result.data.allCockpitProduct.edges.forEach(({ node }) => {
-        //   console.log("slug:", node.fields.slug);
+      result.data.products.edges.forEach(({ node }) => {
         createPage({
           path: node.fields.slug,
           component: productTemplate,
@@ -117,6 +73,17 @@ exports.createPages = ({ graphql, actions }) => {
           },
         });
       });
+
+      result.data.categories.edges.forEach(({ node }) => {
+        createPage({
+          path: `/categoria/${node.fields.cleanName}`,
+          component: productGridView,
+          context: {
+            categoryId: node.id
+          }
+        })
+      });
+
       resolve();
     });
   });
