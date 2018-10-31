@@ -90,16 +90,15 @@ class Carrito extends Component {
           </Breadcrumb>
         </BreadcrumbContainer>
         <Container>
-          
           <OrdersTable
             orders={Cart.orders}
             deleteOrderHandler={this.deleteOrder}
             onDecreaseQuantity={this.decreaseQuantityHandler}
             onIncreaseQuantity={this.increaseQuantityHandler}
           />
-          
+
           <SubtotalSummary />
-          
+
           <ButtonContainer width={115} mobileHide>
             <Link to="/">
               <button>Regresar</button>

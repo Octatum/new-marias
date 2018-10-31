@@ -193,26 +193,27 @@ const Table = styled.table`
 `;
 
 const query = graphql`
-query {
-  allCockpitProduct {
-    edges {
-      node {
-        fields {
-          slug
-        }
-        id
-        entry {
-          description
-          price
-          name
-          thumbnail {
-            path
+  query {
+    allCockpitProduct {
+      edges {
+        node {
+          fields {
+            slug
           }
-          gallery {
-            value {
-              color
-              images {
-                path
+          id
+          entry {
+            description
+            price
+            name
+            thumbnail {
+              path
+            }
+            gallery {
+              value {
+                color
+                images {
+                  path
+                }
               }
             }
           }
@@ -220,7 +221,6 @@ query {
       }
     }
   }
-}
 `;
 
 const shippingCost = 0;
@@ -248,7 +248,8 @@ class Resumen extends Component {
     let subTotal = 0.0;
     const orders = Cart.orders;
     for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id === orders[i].productId).entry.price;
+      const price = products.find(p => p.id === orders[i].productId).entry
+        .price;
       subTotal += price * orders[i].quantity;
     }
     return subTotal;

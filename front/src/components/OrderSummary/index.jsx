@@ -43,26 +43,27 @@ const Total = styled.h1`
 `;
 
 const query = graphql`
-query {
-  allCockpitProduct {
-    edges {
-      node {
-        fields {
-          slug
-        }
-        id
-        entry {
-          description
-          price
-          name
-          thumbnail {
-            path
+  query {
+    allCockpitProduct {
+      edges {
+        node {
+          fields {
+            slug
           }
-          gallery {
-            value {
-              color
-              images {
-                path
+          id
+          entry {
+            description
+            price
+            name
+            thumbnail {
+              path
+            }
+            gallery {
+              value {
+                color
+                images {
+                  path
+                }
               }
             }
           }
@@ -70,7 +71,6 @@ query {
       }
     }
   }
-}
 `;
 
 const shippingCost = 0.0;
@@ -90,7 +90,7 @@ const OrderSummary = props => {
             price: prod.entry.price,
             src: prod.entry.thumbnail.path,
           };
-        }); 
+        });
         const summaryRows = newOrders.map(order => (
           <Field key={order.id}>
             <SummaryRow
@@ -105,7 +105,7 @@ const OrderSummary = props => {
           (total, o) => total + o.price * o.quantity,
           0
         );
-        
+
         return (
           <Container mobileHide={props.mobileHide}>
             <h1>Resumen</h1>

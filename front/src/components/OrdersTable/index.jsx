@@ -48,27 +48,26 @@ const OrdersTable = props => {
   return (
     <StaticQuery
       query={graphql`
-          query {
-            allCockpitProduct {
-              edges {
-                node {
-                  fields {
-                    slug
+        query {
+          allCockpitProduct {
+            edges {
+              node {
+                fields {
+                  slug
+                }
+                id
+                entry {
+                  description
+                  price
+                  name
+                  thumbnail {
+                    path
                   }
-                  id
-                  entry {
-                    description
-                    price
-                    name
-                    thumbnail {
-                      path
-                    }
-                    gallery {
-                      value {
-                        color
-                        images {
-                          path
-                        }
+                  gallery {
+                    value {
+                      color
+                      images {
+                        path
                       }
                     }
                   }
@@ -76,10 +75,11 @@ const OrdersTable = props => {
               }
             }
           }
+        }
       `}
       render={data => {
         const products = data.allCockpitProduct.edges.map(edge => edge.node);
-        console.log("orders: ", Cart.orders);
+        console.log('orders: ', Cart.orders);
         prodRows = Cart.orders.map((o, index) => {
           const prod = products.find(p => o.productId === p.id);
           return (
@@ -110,7 +110,6 @@ const OrdersTable = props => {
             <tbody>{prodRows}</tbody>
           </ContentTable>
         );
-
       }}
     />
   );
