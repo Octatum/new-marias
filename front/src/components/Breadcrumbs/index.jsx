@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import forwardButtonImg from './assets/forwardbutton.png';
 import device from './../../utilities/device';
+import GatsbyLink from 'gatsby-link';
 
 const Container = styled.div`
   width: 100%;
@@ -17,7 +18,7 @@ const Container = styled.div`
   }
 `;
 
-const BreadcrumbItem = styled.div`
+const BreadcrumbItem = styled.span`
   font-size: 20px;
   display: inline-block;
   margin-right: 40px;
@@ -26,6 +27,9 @@ const BreadcrumbItem = styled.div`
   font-size: 20px;
   font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
   color: #626363;
+  text-decoration: none;
+  text-transform: capitalize;
+
   ::after {
     color: black;
     position: absolute;
@@ -42,15 +46,15 @@ const BreadcrumbItem = styled.div`
   }
 `;
 
-const Breadcrumb = props => {
-  let children = React.Children.toArray(props.children);
-  const breadcrumbs = children.map(function(b) {
-    return (
-      <BreadcrumbItem active={b.props.active}>
-        {b}
-      </BreadcrumbItem>
-    );
-  });
-  return <Container>{breadcrumbs}</Container>;
+const Breadcrumbs = (props) => {
+  const { links } = props;
+
+  return (
+    <Container>
+      {links.map(link => (
+        <BreadcrumbItem to={link.to} as={link.to ? GatsbyLink:'span'}>{link.name.toLowerCase()}</BreadcrumbItem>
+      ))}
+    </Container>
+  );
 };
-export default Breadcrumb;
+export default Breadcrumbs;

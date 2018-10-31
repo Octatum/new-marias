@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './../components/Navbar';
 import styled from 'styled-components';
-import Breadcrumb from './../components/Breadcrumb';
-import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import Breadcrumbs from './../components/Breadcrumbs';
 import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
 import Client from './../ClientInfo';
@@ -158,12 +157,12 @@ class Pago extends Component {
       <AppLayout>
         <Navbar />
         <BreadcrumbContainer>
-          <Breadcrumb>
-            <BreadcrumbItem>Carrito</BreadcrumbItem>
-            <BreadcrumbItem>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem active>Pago y facturación</BreadcrumbItem>
-          </Breadcrumb>
+          <Breadcrumbs>
+            <div>Carrito</div>
+            <div>Información del cliente</div>
+            <div>Envío</div>
+            <div active>Pago y facturación</div>
+          </Breadcrumbs>
         </BreadcrumbContainer>
         <Container>
           <Info>

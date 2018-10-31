@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import Navbar from '../components/Navbar';
-import Breadcrumb from './../components/Breadcrumb';
-import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import Breadcrumbs from './../components/Breadcrumbs';
 import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
 import SubtotalSummary from './../components/SubtotalSummary';
@@ -82,12 +81,12 @@ class Carrito extends Component {
       <AppLayout>
         <Navbar />
         <BreadcrumbContainer>
-          <Breadcrumb>
-            <BreadcrumbItem active>Carrito</BreadcrumbItem>
-            <BreadcrumbItem>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
-          </Breadcrumb>
+          <Breadcrumbs items={[]}>
+            <div active>Carrito</div>
+            <div>Información del cliente</div>
+            <div>Envío</div>
+            <div>Pago y facturación</div>
+          </Breadcrumbs>
         </BreadcrumbContainer>
         <Container>
           <OrdersTable

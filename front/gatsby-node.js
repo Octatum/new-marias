@@ -1,21 +1,6 @@
 const path = require('path');
-const { createFilePath } = require(`gatsby-source-filesystem`);
-//const productTemplate = path.resolve('src/templates/prod.jsx');
 const productTemplate = path.resolve('src/templates/ProductoDetalle.jsx');
 const productGridView = path.resolve('src/templates/ProductsByCategory.jsx')
-
-/*
-const getAllFilesQuery = `
-  query GetAllContentFiles {
-    products: allProductsJson {
-        edges {
-          node {
-            path
-          }
-        }
-      }
-`;
-*/
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;

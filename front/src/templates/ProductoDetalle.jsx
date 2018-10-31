@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
+import Helmet from 'react-helmet';
 import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
 import backButtonImg from './../components/Gallery/assets/backbutton.png';
@@ -8,8 +9,7 @@ import Detail from '../components/Detail';
 import CategoryState from './../CategoryState';
 import Cart from './../ShoppingCart';
 import { categories } from './../constants/categories.js';
-import Breadcrumb from './../components/Breadcrumb';
-import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import Breadcrumbs from './../components/Breadcrumbs';
 import device from './../utilities/device';
 import CartCounter from './../components/Detail/CartCounter';
 import './../components/setup.css';
@@ -107,6 +107,14 @@ const Container = styled.div`
   }
 `;
 
+function toTitleCase (str) {
+	str = str.toLowerCase().split(' ');
+	for (var i = 0; i < str.length; i++) {
+		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+	}
+	return str.join(' ');
+};
+
 class Producto extends Component {
   constructor(props) {
     super(props);
@@ -152,19 +160,34 @@ class Producto extends Component {
   }
 
   render() {
+    const categoryName = this.props.data.cockpitProduct.entry.category_id
+      .display;
+    const cleanCategoryName = categoryName.replace(/\W/g, '');
+    const productName = this.props.data.cockpitProduct.entry.name.toLowerCase();
+    const breadcrumbItems = [
+      {
+        to: '/',
+        name: 'Todo',
+      },
+      {
+        to: `/categoria/${cleanCategoryName}`,
+        name: categoryName.toLowerCase(),
+      },
+      {
+        name: productName,
+      },
+    ];
+
     return (
       <AppLayout>
+        <Helmet title={toTitleCase(productName)}/>
         <Navbar />
         <BreadcrumbContainer>
-          <Breadcrumb>
-            <BreadcrumbItem>
-              {categories.find(c => c.id === CategoryState.current).name}
-            </BreadcrumbItem>
-          </Breadcrumb>
+          <Breadcrumbs links={breadcrumbItems} />
         </BreadcrumbContainer>
         <MobileHeader>
           <BackButton />
-          <p>{this.props.data.cockpitProduct.entry.name}</p>
+          <p>{productName}</p>
           <CartCounter quantity={Cart.counter} width={41} height={37} />
         </MobileHeader>
         <Container>

@@ -12,9 +12,7 @@ import CategoryList from '../CategoryList';
 import shoppingCart from '../../ShoppingCart';
 import CartCounter from '../Detail/CartCounter';
 import ShopLayout from '../ShopLayout';
-import BreadCrumb from '../Breadcrumb';
-import BreadCrumbItem from '../Breadcrumb/BreadcrumbItem';
-import BreadcrumbItem from '../Breadcrumb/BreadcrumbItem';
+import Breadcrumbs from '../Breadcrumbs';
 
 const BreadcrumbContainer = styled.div`
   padding-top: 12.2px;
@@ -166,17 +164,13 @@ class CategoryDisplay extends Component {
   };
 
   render() {
-    const { products } = this.props;
+    const { products, breadcrumbItems } = this.props;
 
     return (
       <ShopLayout>
         <Banner />
         <BreadcrumbContainer>
-          <BreadCrumb>
-            {this.props.breadcrumbItems.map(item => (
-              <BreadcrumbItem key={item.name} item={item} />
-            ))}
-          </BreadCrumb>
+          <Breadcrumbs links={breadcrumbItems} />
         </BreadcrumbContainer>
         <CartContainer>
           <Link to="/carrito">

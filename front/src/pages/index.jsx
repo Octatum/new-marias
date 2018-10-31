@@ -1,6 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { graphql } from 'gatsby';
+import Helmet from 'react-helmet';
+
 import CategoryDisplay from '../components/Products/CategoryDisplay';
 
 const IndexPage = ({ data }) => {
@@ -10,15 +12,19 @@ const IndexPage = ({ data }) => {
     ...node.entry,
     ...node,
   }));
-  const breadcrumbItems = [{
-    to: "/",
-    name: "Todo"
-  }];
+  const breadcrumbItems = [
+    {
+      to: '/',
+      name: 'Todo',
+    },
+  ];
 
-  return <CategoryDisplay
-    breadcrumbItems={breadcrumbItems} 
-    products={products} 
-  />;
+  return (
+    <React.Fragment>
+      <Helmet title="Todos los productos" />
+      <CategoryDisplay breadcrumbItems={breadcrumbItems} products={products} />
+    </React.Fragment>
+  );
 };
 
 export default observer(IndexPage);

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import './../components/setup.css';
 import Navbar from './../components/Navbar';
 import styled from 'styled-components';
-import Breadcrumb from './../components/Breadcrumb';
-import BreadcrumbItem from './../components/Breadcrumb/BreadcrumbItem';
+import Breadcrumbs from './../components/Breadcrumbs';
 import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
 import Client from './../ClientInfo';
 import { Link } from 'gatsby';
-import './../components/setup.css';
 
 const AppLayout = styled.div`
   padding-top: 190px;
@@ -67,49 +65,53 @@ const Label = styled.label`
 `;
 
 const InputRow = styled.div`
-    width: 100%;
-    height: 35px;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 9px;
-    > input, > select {
-        flex-grow: 1;
-        margin: 0 5px;
-        min-width: 0;
-        font-family: 'Archivo Narrow', sans-serif;
-        font-size: 18px;
-        padding-left: 19px;
-        ::placeholder {
-            font-style: italic;
-        }
+  width: 100%;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 9px;
+  > input,
+  > select {
+    flex-grow: 1;
+    margin: 0 5px;
+    min-width: 0;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 18px;
+    padding-left: 19px;
+    ::placeholder {
+      font-style: italic;
+    }
+  }
+
+  > select {
+    flex-grow: 10;
+    width: auto;
+    display: block;
+  }
+
+  > input:first-child {
+    margin-left: 0;
+  }
+  > input:last-child {
+    margin-right: 0;
+  }
+  ${device.mobile} {
+    flex-wrap: ${({ breakdown }) => (breakdown ? 'wrap' : 'no-wrap')};
+    > input,
+    > select {
+      width: ${({ breakdown }) => (breakdown ? '100%' : '33%')};
+    }
+    > input {
+      margin: 0;
+    }
+    > input:not(:last-child) {
+      margin-bottom: 10px;
     }
     > select {
-        flex-grow: 10;
-        width: auto;
-        display: block;s
+      margin-bottom: ${({ breakdown }) => (breakdown ? '9px' : '0px')};
     }
-    > input:first-child {
-        margin-left: 0;
-    }
-    > input:last-child {
-        margin-right: 0;
-    }
-    ${device.mobile} {
-        flex-wrap: ${({ breakdown }) => (breakdown ? 'wrap' : 'no-wrap')}; 
-        > input, > select {
-            width: ${({ breakdown }) => (breakdown ? '100%' : '33%')};
-        }
-        > input {
-            margin: 0;
-        }
-        > input:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        > select {
-            margin-bottom: ${({ breakdown }) => (breakdown ? '9px' : '0px')};
-        }
-        margin-bottom: ${({ breakdown }) => (breakdown ? '47px' : '10px')};
-    }
+    margin-bottom: ${({ breakdown }) => (breakdown ? '47px' : '10px')};
+  }
 `;
 
 const Fieldset = styled.div`
@@ -179,12 +181,12 @@ class Cliente extends Component {
       <AppLayout>
         <Navbar />
         <BreadcrumbContainer>
-          <Breadcrumb>
-            <BreadcrumbItem>Carrito</BreadcrumbItem>
-            <BreadcrumbItem active>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
-          </Breadcrumb>
+          <Breadcrumbs>
+            <div>Carrito</div>
+            <div active>Información del cliente</div>
+            <div>Envío</div>
+            <div>Pago y facturación</div>
+          </Breadcrumbs>
         </BreadcrumbContainer>
         <Container>
           <Info>
