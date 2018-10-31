@@ -28,7 +28,7 @@ function Layout({ children }) {
         render={data => (
           <React.Fragment>
             <Helmet
-              title={data.site.siteMetadata.title}
+              titleTemplate={`%s - New Marias`}
               meta={[
                 {
                   name: 'description',
