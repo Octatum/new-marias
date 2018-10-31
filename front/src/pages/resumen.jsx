@@ -99,7 +99,7 @@ const Img = styled.div`
   height: 90px;
   background-color: #c4c4c4;
   display: block;
-  background: url(${({ src }) => src});
+  background: url(https://admin.newmarias.com/${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -193,22 +193,34 @@ const Table = styled.table`
 `;
 
 const query = graphql`
-  query {
-    allProductsJson {
-      edges {
-        node {
+query {
+  allCockpitProduct {
+    edges {
+      node {
+        fields {
+          slug
+        }
+        id
+        entry {
+          description
           price
           name
-          id
-          thumbnail
-          images {
-            color
-            src
+          thumbnail {
+            path
+          }
+          gallery {
+            value {
+              color
+              images {
+                path
+              }
+            }
           }
         }
       }
     }
   }
+}
 `;
 
 const shippingCost = 0;
@@ -236,9 +248,10 @@ class Resumen extends Component {
     let subTotal = 0.0;
     const orders = Cart.orders;
     for (let i = 0; i < orders.length; i++) {
-      const price = products.find(p => p.id === orders[i].productId).price;
+      const price = products.find(p => p.id === orders[i].productId).entry.price;
       subTotal += price * orders[i].quantity;
     }
+    console.log(subTotal)
     return subTotal;
   };
 
@@ -247,12 +260,12 @@ class Resumen extends Component {
       <StaticQuery
         query={query}
         render={data => {
-          const products = data.allProductsJson.edges.map(edge => edge.node);
+          const products = data.allCockpitProduct.edges.map(edge => edge.node);
           const prodRows = Cart.orders.map((o, index) => {
             const prod = products.find(p => o.productId === p.id);
             return (
               <ProductoPreview>
-                <Img src={prod.thumbnail} />
+                <Img src={prod.entry.thumbnail.path} />
                 <table>
                   <thead>
                     <tr>
@@ -262,7 +275,7 @@ class Resumen extends Component {
                   <tbody>
                     <tr>
                       <td>
-                        ({o.quantity}) {prod.name}
+                        ({o.quantity}) {prod.entry.name}
                       </td>
                     </tr>
                   </tbody>
@@ -274,9 +287,9 @@ class Resumen extends Component {
           const productPerOrder = Cart.orders.map(o => {
             const prod = products.find(p => o.productId === p.id);
             return {
-              displayImage: prod.thumbnail,
-              name: prod.name,
-              price: prod.price,
+              displayImage: prod.entry.thumbnail.path,
+              name: prod.entry.name,
+              price: prod.entry.price,
             };
           });
 

@@ -43,24 +43,34 @@ const Total = styled.h1`
 `;
 
 const query = graphql`
-  query {
-    allProductsJson {
-      edges {
-        node {
-          id
-          name
+query {
+  allCockpitProduct {
+    edges {
+      node {
+        fields {
+          slug
+        }
+        id
+        entry {
+          description
           price
-          category
-          path
-          thumbnail
-          images {
-            color 
-            src
+          name
+          thumbnail {
+            path
+          }
+          gallery {
+            value {
+              color
+              images {
+                path
+              }
+            }
           }
         }
       }
     }
   }
+}
 `;
 
 const shippingCost = 0.0;
@@ -70,24 +80,24 @@ const OrderSummary = props => {
       query={query}
       render={data => {
         const orders = Cart.orders;
-        const products = data.allProductsJson.edges.map(edge => edge.node);
+        const products = data.allCockpitProduct.edges.map(edge => edge.node);
         const newOrders = orders.map((o, index) => {
           const prod = products.find(p => o.productId === p.id);
           return {
             id: index,
-            name: prod.name,
+            name: prod.entry.name,
             quantity: o.quantity,
-            price: prod.price,
-            src: prod.thumbnail,
+            price: prod.entry.price,
+            src: prod.entry.thumbnail.path,
           };
-        });
-        const summaryRows = newOrders.map(product => (
-          <Field key={product.id}>
+        }); 
+        const summaryRows = newOrders.map(order => (
+          <Field key={order.id}>
             <SummaryRow
-              quantity={product.quantity}
-              name={product.name}
-              price={product.price}
-              src={product.src}
+              quantity={order.quantity}
+              name={order.name}
+              price={order.price}
+              src={order.src}
             />
           </Field>
         ));
@@ -95,7 +105,7 @@ const OrderSummary = props => {
           (total, o) => total + o.price * o.quantity,
           0
         );
-
+        
         return (
           <Container mobileHide={props.mobileHide}>
             <h1>Resumen</h1>
