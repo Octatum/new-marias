@@ -9,7 +9,10 @@ const ProductsByCategory = ({data}) => {
     ...node.entry,
     ...node,
   }));
+<<<<<<< HEAD
   
+=======
+>>>>>>> ad9cc4ee6184354521015e812d749eb4b00d0fa2
   const breadcrumbItems = [{
     to: "/",
     name: "Todo"
