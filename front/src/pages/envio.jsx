@@ -178,7 +178,7 @@ class Envio extends Component {
             <Link to="/cliente">
               <BackButton> {'<'} Volver a información de cliente</BackButton>
             </Link>
-            <Link to="/resumen">
+            <Link to="/pago">
               <Button>Continuar</Button>
             </Link>
           </Info>

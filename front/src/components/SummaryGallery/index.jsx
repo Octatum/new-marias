@@ -25,7 +25,7 @@ const Button = styled.button`
 `;
 
 const Image = styled.div`
-  background-image: url(${({ src }) => src});
+  background-image: url(https://admin.newmarias.com/${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -50,14 +50,14 @@ class SummaryGallery extends Component {
   previousImageHandler = () => {
     if (this.state.currentImageIndex > 0) {
       let currentImageIndex = this.state.currentImageIndex - 1;
-      this.setState({ currentImageIndex: currentImageIndex });
+      this.setState({ currentImageIndex });
     }
   };
 
   nextImageHandler = () => {
     if (this.state.currentImageIndex < this.props.images.length - 1) {
       let currentImageIndex = this.state.currentImageIndex + 1;
-      this.setState({ currentImageIndex: currentImageIndex });
+      this.setState({ currentImageIndex });
     }
   };
 

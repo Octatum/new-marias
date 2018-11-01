@@ -29,6 +29,12 @@ const AddressContainer = styled.div`
   h1:first-child {
     font-weight: bold;
     margin-right: 15px;
+    width: 20%;
+    max-width: 80px;
+    flex-shrink: 0;
+  }
+  h1:last-child {
+    flex-grow: 0;
   }
   display: flex;
   width: 70%;
@@ -96,6 +102,9 @@ const Field = styled.div`
   font-family: 'Archivo Narrow', sans-serif;
   color: #626363;
   font-size: 14px;
+  > div {
+    flex-grow: 5;
+  }
   button {
     border: none;
     background-color: transparent;
@@ -104,6 +113,7 @@ const Field = styled.div`
     :hover {
       cursor: pointer;
     }
+    flex-shrink: 5;
   }
 `;
 
@@ -167,7 +177,7 @@ class Pago extends Component {
         </BreadcrumbContainer>
         <Container>
           <Info>
-            <Field>
+            <Field style={{borderBottom: "none"}}>
               <AddressContainer>
                 <h1>Direccion de envío</h1>
                 <h1>

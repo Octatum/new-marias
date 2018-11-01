@@ -87,10 +87,11 @@ const ProductoPreview = styled.div`
   display: flex;
   flex-direction: row;
   > div:first-child {
-    flex-grow: 0;
+    flex-grow: 2;
   }
   > table {
     margin-left: 25px;
+    flex-shrink: 2;
   }
 `;
 
