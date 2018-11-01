@@ -83,23 +83,20 @@ class Carrito extends Component {
         <Navbar />
         <BreadcrumbContainer>
           <Breadcrumb>
-            <BreadcrumbItem active>Carrito</BreadcrumbItem>
-            <BreadcrumbItem>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
+            <BreadcrumbItem item = {{name: "Carrito", to: "/carrito"}} active/>
+            <BreadcrumbItem item = {{name: "Información del cliente", to: "/cliente"}}/>
+            <BreadcrumbItem item = {{name: "Envío", to: "/envio"}}/>
+            <BreadcrumbItem item = {{name: "Pago y facturación", to: "/pago"}}/>
           </Breadcrumb>
         </BreadcrumbContainer>
         <Container>
-          
           <OrdersTable
             orders={Cart.orders}
             deleteOrderHandler={this.deleteOrder}
             onDecreaseQuantity={this.decreaseQuantityHandler}
             onIncreaseQuantity={this.increaseQuantityHandler}
           />
-          
           <SubtotalSummary />
-          
           <ButtonContainer width={115} mobileHide>
             <Link to="/">
               <button>Regresar</button>

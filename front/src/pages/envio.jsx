@@ -156,10 +156,10 @@ class Envio extends Component {
         <Navbar />
         <BreadcrumbContainer>
           <Breadcrumb>
-            <BreadcrumbItem>Carrito</BreadcrumbItem>
-            <BreadcrumbItem>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem active>Envío</BreadcrumbItem>
-            <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
+            <BreadcrumbItem item = {{name: "Carrito", to: "/carrito"}}/>
+            <BreadcrumbItem item = {{name: "Información del cliente", to: "/cliente"}}/>
+            <BreadcrumbItem item = {{name: "Envío", to: "/envio"}} active/>
+            <BreadcrumbItem item = {{name: "Pago y facturación", to: "/pago"}}/>
           </Breadcrumb>
         </BreadcrumbContainer>
         <Container>

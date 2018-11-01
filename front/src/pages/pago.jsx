@@ -168,11 +168,11 @@ class Pago extends Component {
       <AppLayout>
         <Navbar />
         <BreadcrumbContainer>
-          <Breadcrumb>
-            <BreadcrumbItem>Carrito</BreadcrumbItem>
-            <BreadcrumbItem>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem active>Pago y facturación</BreadcrumbItem>
+         <Breadcrumb>
+            <BreadcrumbItem item = {{name: "Carrito", to: "/carrito"}}/>
+            <BreadcrumbItem item = {{name: "Información del cliente", to: "/cliente"}}/>
+            <BreadcrumbItem item = {{name: "Envío", to: "/envio"}}/>
+            <BreadcrumbItem item = {{name: "Pago y facturación", to: "/pago"}} active/>
           </Breadcrumb>
         </BreadcrumbContainer>
         <Container>

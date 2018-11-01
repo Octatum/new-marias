@@ -157,9 +157,7 @@ class Producto extends Component {
         <Navbar />
         <BreadcrumbContainer>
           <Breadcrumb>
-            <BreadcrumbItem>
-              {categories.find(c => c.id === CategoryState.current).name}
-            </BreadcrumbItem>
+            <BreadcrumbItem item = {{to: "/", name: categories.find(c => c.id === CategoryState.current).name}}/>
           </Breadcrumb>
         </BreadcrumbContainer>
         <MobileHeader>

@@ -180,10 +180,10 @@ class Cliente extends Component {
         <Navbar />
         <BreadcrumbContainer>
           <Breadcrumb>
-            <BreadcrumbItem>Carrito</BreadcrumbItem>
-            <BreadcrumbItem active>Información del cliente</BreadcrumbItem>
-            <BreadcrumbItem>Envío</BreadcrumbItem>
-            <BreadcrumbItem>Pago y facturación</BreadcrumbItem>
+            <BreadcrumbItem item = {{name: "Carrito", to: "/carrito"}}/>
+            <BreadcrumbItem item = {{name: "Información del cliente", to: "/cliente"}} active/>
+            <BreadcrumbItem item = {{name: "Envío", to: "/envio"}}/>
+            <BreadcrumbItem item = {{name: "Pago y facturación", to: "/pago"}}/>
           </Breadcrumb>
         </BreadcrumbContainer>
         <Container>

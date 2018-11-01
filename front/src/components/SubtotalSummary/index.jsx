@@ -34,18 +34,18 @@ const getSubtotal = products => {
 const SubtotalSummary = () => (
   <StaticQuery
     query={graphql`
-    query {
-      allCockpitProduct {
-        edges {
-          node {
-            id
-            entry {
-              price
+      query {
+        allCockpitProduct {
+          edges {
+            node {
+              id
+              entry {
+                price
+              }
             }
           }
         }
       }
-    }
     `}
     render={data => {
       const products = data.allCockpitProduct.edges.map(edge => edge.node);
