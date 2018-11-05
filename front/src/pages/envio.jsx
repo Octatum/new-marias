@@ -145,7 +145,7 @@ class Envio extends Component {
     const envios = shippingOptions.map((ship, index) => (
       <Field key={ship.id}>
         <div style={{ display: 'flex' }}>
-          <RadioButton name="envio"/>
+          <RadioButton name="envio" />
           <h1 style={{ marginLeft: '20px' }}>Envío {index + 1}</h1>
         </div>
         <h1>${ship.price.toFixed(2)}</h1>

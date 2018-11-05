@@ -122,7 +122,7 @@ const Field = styled.div`
     flex-shrink: 5;
   }
 
-  input[type="radio"] {
+  input[type='radio'] {
     width: 22px;
     height: 22px;
     border: none;
@@ -162,7 +162,7 @@ const PayPalImage = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-`
+`;
 
 class Pago extends Component {
   render() {
@@ -179,7 +179,7 @@ class Pago extends Component {
         </BreadcrumbContainer>
         <Container>
           <Info>
-            <Field style={{borderBottom: "none"}}>
+            <Field style={{ borderBottom: 'none' }}>
               <AddressContainer>
                 <h1>Direccion de envío</h1>
                 <h1>
@@ -189,7 +189,7 @@ class Pago extends Component {
               </AddressContainer>
               <button>Editar</button>
             </Field>
-            <Field style={{paddingBottom: "25px"}}>
+            <Field style={{ paddingBottom: '25px' }}>
               <AddressContainer>
                 <h1>Envío</h1>
                 <h1>Estándar</h1>
@@ -198,9 +198,9 @@ class Pago extends Component {
             </Field>
             <H4>Pagos y facturación</H4>
             <Field>
-              <span style={{display: "flex"}}>
-                <RadioButton name="pago"/>
-                <PayPalImage style={{marginLeft: "15px"}}/>
+              <span style={{ display: 'flex' }}>
+                <RadioButton name="pago" />
+                <PayPalImage style={{ marginLeft: '15px' }} />
               </span>
             </Field>
 
@@ -220,10 +220,10 @@ class Pago extends Component {
               <Input name="facturacion2" />
             */}
             <Field>
-              <RadioButton name="direccion_fact"/>
+              <RadioButton name="direccion_fact" />
             </Field>
-            <Field style={{marginTop: "9px"}}>
-              <RadioButton name="direccion_fact"/>
+            <Field style={{ marginTop: '9px' }}>
+              <RadioButton name="direccion_fact" />
             </Field>
             <Link to="/envio">
               <BackButton> {'<'} Volver a Envío </BackButton>
@@ -232,8 +232,8 @@ class Pago extends Component {
               <Button>Finalizar Pedido</Button>
             </Link>
           </Info>
-          <OrderSummary mobileHide/>
-          <PayPalBtn/>
+          <OrderSummary mobileHide />
+          <PayPalBtn />
         </Container>
       </AppLayout>
     );

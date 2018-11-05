@@ -101,7 +101,7 @@ const OrderSummary = props => {
             />
           </Field>
         ));
-        
+
         const subTotal = newOrders.reduce(
           (total, o) => total + o.price * o.quantity,
           0

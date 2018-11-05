@@ -46,14 +46,17 @@ const BreadcrumbItem = styled.span`
   }
 `;
 
-const Breadcrumbs = (props) => {
+const Breadcrumbs = props => {
   const { links } = props;
 
   return (
     <Container>
-      {links.map(link => (
-        <BreadcrumbItem to={link.to} as={link.to ? GatsbyLink:'span'}>{link.name.toLowerCase()}</BreadcrumbItem>
-      ))}
+      {links &&
+        links.map(link => (
+          <BreadcrumbItem to={link.to} as={link.to ? GatsbyLink : 'span'}>
+            {link.name.toLowerCase()}
+          </BreadcrumbItem>
+        ))}
     </Container>
   );
 };

@@ -3,13 +3,13 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import CategoryDisplay from '../components/Products/CategoryDisplay';
 
-function toTitleCase (str) {
-	str = str.toLowerCase().split(' ');
-	for (var i = 0; i < str.length; i++) {
-		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-	}
-	return str.join(' ');
-};
+function toTitleCase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+  }
+  return str.join(' ');
+}
 
 const ProductsByCategory = ({ data }) => {
   const products = data.products.edges.map(({ node }) => ({

@@ -24,7 +24,9 @@ const Dot = styled.span`
 `;
 
 const Current = ({ dots, style }) => {
-  let dotsList = dots.map((active, index) => <Dot key={index} active={active} />);
+  let dotsList = dots.map((active, index) => (
+    <Dot key={index} active={active} />
+  ));
   return <Container style={style}>{dotsList}</Container>;
 };
 export default Current;

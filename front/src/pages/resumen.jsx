@@ -339,8 +339,8 @@ class Resumen extends Component {
                       <div>
                         <p>Producto</p>
                         <p>
-                          ({Cart.orders[this.state.currentOrder].quantity})
-                          {productPerOrder[this.state.currentOrder].name}
+                          ({ Cart.orders.length > 0 && Cart.orders[this.state.currentOrder].quantity })
+                          {productPerOrder.length > 0 && productPerOrder[this.state.currentOrder].name}
                         </p>
                       </div>
                       <div>
