@@ -6,11 +6,12 @@ import device from './../utilities/device';
 import OrderSummary from './../components/OrderSummary';
 import Client from './../ClientInfo';
 import { Link } from 'gatsby';
+import RadioButton from '../components/RadioButton';
 
 const AppLayout = styled.div`
   margin-top: 190px;
   ${device.mobile} {
-    margin-top: 95px;
+    margin-top: 110px;
   }
   font-family: 'Archivo Narrow', sans-serif;
   color: #626363;
@@ -144,7 +145,7 @@ class Envio extends Component {
     const envios = shippingOptions.map((ship, index) => (
       <Field key={ship.id}>
         <div style={{ display: 'flex' }}>
-          <Input type="radio" name="envio" />
+          <RadioButton name="envio"/>
           <h1 style={{ marginLeft: '20px' }}>Envío {index + 1}</h1>
         </div>
         <h1>${ship.price.toFixed(2)}</h1>
@@ -177,7 +178,7 @@ class Envio extends Component {
             <Link to="/cliente">
               <BackButton> {'<'} Volver a información de cliente</BackButton>
             </Link>
-            <Link to="/resumen">
+            <Link to="/pago">
               <Button>Continuar</Button>
             </Link>
           </Info>

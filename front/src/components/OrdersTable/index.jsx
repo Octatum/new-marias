@@ -94,7 +94,6 @@ const OrdersTable = props => {
             />
           );
         });
-
         return (
           <ContentTable>
             <TableHead>

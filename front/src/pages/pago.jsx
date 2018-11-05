@@ -7,11 +7,13 @@ import OrderSummary from './../components/OrderSummary';
 import Client from './../ClientInfo';
 import { Link } from 'gatsby';
 import PayPalBtn from './../components/PayPalBtn';
+import PayPalImg from './../components/assets/paypal.png';
+import RadioButton from './../components/RadioButton';
 
 const AppLayout = styled.div`
   margin-top: 190px;
   ${device.mobile} {
-    margin-top: 95px;
+    margin-top: 110px;
   }
   font-family: 'Archivo Narrow', sans-serif;
   color: #626363;
@@ -28,6 +30,12 @@ const AddressContainer = styled.div`
   h1:first-child {
     font-weight: bold;
     margin-right: 15px;
+    width: 20%;
+    max-width: 80px;
+    flex-shrink: 0;
+  }
+  h1:last-child {
+    flex-grow: 0;
   }
   display: flex;
   width: 70%;
@@ -87,6 +95,9 @@ const Field = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 14px 27px 14px 14px;
+  ${device.mobile} {
+    padding: 5px 27px 5px 14px;
+  }
   vertical-align: middle;
   h1 {
     align-self: center;
@@ -95,6 +106,11 @@ const Field = styled.div`
   font-family: 'Archivo Narrow', sans-serif;
   color: #626363;
   font-size: 14px;
+  /*
+  > div {
+    flex-grow: 5;
+  }
+  */
   button {
     border: none;
     background-color: transparent;
@@ -103,6 +119,13 @@ const Field = styled.div`
     :hover {
       cursor: pointer;
     }
+    flex-shrink: 5;
+  }
+
+  input[type="radio"] {
+    width: 22px;
+    height: 22px;
+    border: none;
   }
 `;
 
@@ -126,30 +149,20 @@ const H4 = styled.div`
   font-size: 20px;
   color: #626363;
   font-family: 'Archivo Narrow', sans-serif;
+  font-weight: bold;
+  ${device.mobile} {
+    margin-top: 30px;
+  }
 `;
 
-const Input = styled.input`
-  width: 100%;
-  height: 47px;
-  border: solid 1px #626363;
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  padding-left: 19px;
-  margin: 9px 0;
-`;
-
-const InputSmall = styled.input`
-  width: 26%;
-  height: 47px;
-  border: solid 1px #626363;
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  float: left;
-  padding-left: 19px;
-  margin: 0 5px;
-`;
+const PayPalImage = styled.div`
+  width: 123.6px;
+  height: 30.2px;
+  background-image: url(${PayPalImg});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+`
 
 class Pago extends Component {
   render() {
@@ -166,7 +179,7 @@ class Pago extends Component {
         </BreadcrumbContainer>
         <Container>
           <Info>
-            <Field>
+            <Field style={{borderBottom: "none"}}>
               <AddressContainer>
                 <h1>Direccion de envío</h1>
                 <h1>
@@ -176,28 +189,42 @@ class Pago extends Component {
               </AddressContainer>
               <button>Editar</button>
             </Field>
-            <Field>
+            <Field style={{paddingBottom: "25px"}}>
               <AddressContainer>
                 <h1>Envío</h1>
                 <h1>Estándar</h1>
               </AddressContainer>
               <button>Editar</button>
             </Field>
-
             <H4>Pagos y facturación</H4>
+            <Field>
+              <span style={{display: "flex"}}>
+                <RadioButton name="pago"/>
+                <PayPalImage style={{marginLeft: "15px"}}/>
+              </span>
+            </Field>
+
+            {/* 
             <Input placeholder="Tarjeta de crédito" name="card" />
             <Input placeholder="Número de tarjeta" name="cardNumber" />
-
             <InputSmall
               placeholder="Nombre titular de la tarjeta"
               name="cardName"
             />
             <InputSmall placeholder="MM/AA" name="cardDate" />
             <InputSmall placeholder="CVV" name="cardCVV" />
-
+            */}
             <H4>Dirección de facturación</H4>
-            <Input name="facturacion" />
-            <Input name="facturacion2" />
+            {/** 
+              <Input name="facturacion" />
+              <Input name="facturacion2" />
+            */}
+            <Field>
+              <RadioButton name="direccion_fact"/>
+            </Field>
+            <Field style={{marginTop: "9px"}}>
+              <RadioButton name="direccion_fact"/>
+            </Field>
             <Link to="/envio">
               <BackButton> {'<'} Volver a Envío </BackButton>
             </Link>
@@ -205,8 +232,8 @@ class Pago extends Component {
               <Button>Finalizar Pedido</Button>
             </Link>
           </Info>
-          <OrderSummary mobileHide />
-          <PayPalBtn />
+          <OrderSummary mobileHide/>
+          <PayPalBtn/>
         </Container>
       </AppLayout>
     );

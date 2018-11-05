@@ -15,7 +15,7 @@ const AppLayout = styled.div`
   padding-top: 190px;
   ${device.mobile} {
     width: 100%;
-    padding-top: 95px;
+    padding-top: 110px;
   }
 `;
 
