@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import shoppingCartImg from './../assets/shoppingcart.png';
-import device from './../../../utilities/device';
+import shoppingCartImg from './assets/shoppingcart.svg';
+import device from '../../utilities/device';
 import GatsbyLink from 'gatsby-link';
 
 const Container = styled(GatsbyLink)`

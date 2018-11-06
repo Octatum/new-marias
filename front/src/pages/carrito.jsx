@@ -7,7 +7,6 @@ import Cart from './../ShoppingCart';
 import SubtotalSummary from './../components/SubtotalSummary';
 import device from './../utilities/device';
 import { Link } from 'gatsby';
-import './../components/setup.css';
 import AppLayout from '../components/AppLayout';
 
 const Container = styled.div`

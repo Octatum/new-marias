@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import CounterStore from './../../ShoppingCart';
-import device from './../../utilities/device';
+import CounterStore from '../ShoppingCart';
+import device from '../utilities/device';
 import CartCounter from './CartCounter';
 import Select from './Select';
-import './../setup.css';
 
 const Container = styled.div`
   display: block;

@@ -121,8 +121,7 @@ const ImgPreview = styled.div`
 
 const BackContainer = styled.div`
   width: 25%;
- /* float: left;*/
-  display: flex:
+  display: flex;
   flex-direction: row;
   padding: 0;
   position: relative;

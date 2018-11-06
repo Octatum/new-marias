@@ -1,49 +1,43 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import forwardButtonImg from './assets/forwardbutton.png';
 import device from './../../utilities/device';
 import GatsbyLink from 'gatsby-link';
+import Text from '../Text';
 
 const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
-  height: 22px;
   font-family: 'Archivo Narrow', sans-serif;
   box-sizing: border-box;
-  padding-left: 4%;
+  border-bottom: 1px solid ${({theme}) => theme.colors.darkgray};
+  
   ${device.mobile} {
-    width: 95vw;
     margin: 0;
-    height: auto;
   }
 `;
 
 const BreadcrumbItem = styled.span`
-  font-size: 20px;
   display: inline-block;
-  margin-right: 40px;
   margin-bottom: 4px;
   position: relative;
   font-size: 20px;
   font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
-  color: #626363;
   text-decoration: none;
   text-transform: capitalize;
 
-  ::after {
-    color: black;
-    position: absolute;
-    right: -24px;
-    top: 7px;
-    width: 10px;
-    height: 10px;
-    content: '';
-    background-image: url(${forwardButtonImg});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    display: block;
+  > * {
+    margin-right: 1rem;
   }
+`;
+
+const Img = styled('img')`
+  max-height: 100%;
+  color: black;
+  height: 0.5em;
+`;
+
+const TextLink = styled(Text)`
+  text-decoration: none;
 `;
 
 const Breadcrumbs = props => {
@@ -53,8 +47,9 @@ const Breadcrumbs = props => {
     <Container>
       {links &&
         links.map(link => (
-          <BreadcrumbItem to={link.to} as={link.to ? GatsbyLink : 'span'}>
-            {link.name.toLowerCase()}
+          <BreadcrumbItem key={link.name}>
+            <TextLink to={link.to} as={link.to ? GatsbyLink : 'p'}>{link.name.toLowerCase()}</TextLink>
+            <Img src={forwardButtonImg} />
           </BreadcrumbItem>
         ))}
     </Container>

@@ -4,8 +4,6 @@ import { Link } from 'gatsby';
 import headerIcon from './assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
-import CategoryState from './../../CategoryState';
-import { TODAS } from './../../constants/categories';
 import device from './../../utilities/device';
 import BurgerButton from './BurgerButton';
 
@@ -103,8 +101,6 @@ class Navbar extends Component {
       visible: newVisible,
     });
   };
-
-  backToStoreHandler = () => CategoryState.setCurrent(TODAS);
 
   render() {
     return (

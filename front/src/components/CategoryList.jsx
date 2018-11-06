@@ -2,24 +2,16 @@ import React from 'react';
 import Link from 'gatsby-link';
 import { StaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
+import Text from './Text';
 
 import device from '../utilities/device';
 
 const Ul = styled.ul`
   list-style: none;
-  color: #626363;
-  font-family: 'Archivo Narrow', sans-serif;
   flex: 1;
-  li.title {
-    font-size: 28px;
-    padding-bottom: 6px;
-  }
-  li {
-    font-size: 18px;
-    padding-top: 9px;
-  }
-  li:hover {
-    cursor: pointer;
+  
+  > :not(:first-child) {
+    padding-top: 0.5rem;
   }
 
   button {
@@ -42,6 +34,10 @@ const Ul = styled.ul`
   }
 `;
 
+const TitleLi = styled(Text)`
+  padding-bottom: 0.5rem;
+`;
+
 const CategoryLink = styled(Link)`
   text-decoration: none;
   color: inherit;
@@ -53,7 +49,7 @@ const CategoryList = props => {
   const { hidden } = props;
   return (
     <Ul hide={hidden}>
-      <li className="title">Categorías</li>
+      <TitleLi as="li" size={4} className="title">Categorías</TitleLi>
       <StaticQuery
         query={graphql`
           query {
@@ -80,11 +76,11 @@ const CategoryList = props => {
           }));
 
           return categories.map(category => (
-            <li key={category.id}>
+            <Text as="li" key={category.id}>
               <CategoryLink to={`/categoria/${category.cleanName}`}>
                 {category.name.toLowerCase()}
               </CategoryLink>
-            </li>
+            </Text>
           ));
         }}
       />

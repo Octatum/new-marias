@@ -1,4 +1,6 @@
 import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
+
 import device from '../utilities/device';
 
 const defaultSize = 1;
@@ -67,5 +69,11 @@ const Text = styled.div`
     font-size: ${props => setFontSize(props, increments.mobile)};
   }
 `;
+
+Text.propTypes = {
+  // Por cuestiones de accesibilidad, no es conveniente usar textos directamente en un div
+  // por lo que hay que especificar el tipo de tag de html que se usará en el componente.
+  as: PropTypes.string.isRequired,
+};
 
 export default Text;

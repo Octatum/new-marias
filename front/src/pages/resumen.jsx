@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import './../components/setup.css';
-import Navbar from './../components/Navbar';
 import styled from 'styled-components';
 import device from './../utilities/device';
 import { StaticQuery, graphql } from 'gatsby';
 import Cart from './../ShoppingCart';
-import Client from './../ClientInfo';
-import SummaryGallery from './../components/SummaryGallery';
-import './../components/setup.css';
-import ShopLayout from '../components/ShopLayout';
 import Text from '../components/Text';
+import AppLayout from '../components/AppLayout';
 
 const Img = styled.div`
   width: 90px;
@@ -33,12 +28,6 @@ const Button = styled.button`
   }
   ${device.mobile} {
     width: 70%;
-  }
-`;
-
-const Table = styled.table`
-  ${device.mobile} {
-    display: none;
   }
 `;
 
@@ -72,8 +61,6 @@ const query = graphql`
     }
   }
 `;
-
-const shippingCost = 0;
 
 const Layout = styled.div`
   display: flex;
@@ -132,7 +119,7 @@ const Summary = function() {
   const formattedDated = todayDate.toLocaleDateString('es-MX');
 
   return (
-    <ShopLayout>
+    <AppLayout>
       <Layout>
         <Text as="h2" size={4}>
           Tu pedido con New Marías
@@ -211,7 +198,7 @@ const Summary = function() {
           </Button>
         </ButtonLayout>
       </Layout>
-    </ShopLayout>
+    </AppLayout>
   );
 };
 

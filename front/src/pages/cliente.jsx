@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './../components/setup.css';
 import Navbar from './../components/Navbar';
 import styled from 'styled-components';
 import Breadcrumbs from './../components/Breadcrumbs';
@@ -9,11 +8,8 @@ import Client from './../ClientInfo';
 import { Link } from 'gatsby';
 
 const AppLayout = styled.div`
-  padding-top: 190px;
-  padding-bottom: 500px;
   ${device.mobile} {
     width: 100%;
-    padding-top: 110px;
   }
 `;
 

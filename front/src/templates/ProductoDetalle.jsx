@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import Helmet from 'react-helmet';
-import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
 import backButtonImg from './../components/Gallery/assets/backbutton.png';
 import Detail from '../components/Detail';
-import CategoryState from './../CategoryState';
 import Cart from './../ShoppingCart';
-import { categories } from './../constants/categories.js';
 import Breadcrumbs from './../components/Breadcrumbs';
 import device from './../utilities/device';
-import CartCounter from './../components/Detail/CartCounter';
-import './../components/setup.css';
+import CartCounter from '../components/CartCounter';
 import AppLayout from '../components/AppLayout';
 
 const Layout = styled.div`
@@ -97,10 +93,12 @@ const BreadcrumbContainer = styled.div`
 
 const Container = styled.div`
   margin: 0 auto;
+  padding: 0 3.5rem;
   display: flex;
   flex-direction: row;
   margin: 0 auto;
-  width: 85%;
+  width: 100%;
+  box-sizing: border-box;
 
   ${device.mobile} {
     width: 100%;
@@ -187,9 +185,6 @@ class Producto extends Component {
           </MobileHeader>
           <Container>
             <Gallery
-              category={
-                categories.find(c => c.id === CategoryState.current).name
-              }
               images={this.state.currentImages}
             />
             <Detail

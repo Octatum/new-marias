@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled, { ThemeProvider } from 'styled-components';
 
-import './setup.css';
 import theme from '../utilities/theme';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import './setup.css';
 
 const ChildrenLayout = styled.div`
   display: flex;

@@ -9,32 +9,10 @@ import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
 import CategoryList from '../CategoryList';
 import shoppingCart from '../../ShoppingCart';
-import CartCounter from '../Detail/CartCounter';
 import Breadcrumbs from '../Breadcrumbs';
 import banner from './assets/banner.jpg';
 import AppLayout from '../AppLayout';
-
-const BreadcrumbContainer = styled.div`
-  padding-top: 12.2px;
-  border-bottom: 1px solid #626363;
-  box-sizing: border-box;
-  width: 85%;
-  margin: 0 auto;
-  margin-left: 58px;
-  margin-bottom: 15px;
-  > div {
-    padding: 0;
-  }
-  ${device.mobile} {
-    width: 100%;
-    padding-left: 0;
-    margin-left: 0;
-    > div {
-      padding: 0;
-      margin: 0;
-    }
-  }
-`;
+import CartCounter from '../CartCounter';
 
 const Banner = styled.div`
   width: 100%;
@@ -50,43 +28,27 @@ const Banner = styled.div`
   }
 `;
 
-const CartContainer = styled.div`
-  font-family: 'Archivo Narrow', sans-serif;
-  padding-right: 20px;
-  > * {
-    float: right;
-    position: relative;
-    top: -10px;
-  }
-  > :nth-child(1) {
-    display: block;
-  }
-  > :nth-child(2) {
-    display: none;
-  }
-  ${device.mobile} {
-    div {
-      top: -20px;
-    }
-    > :nth-child(1) {
-      display: none;
-    }
-    > :nth-child(2) {
-      display: block;
-    }
-  }
+const GridCell = styled('div')`
+  grid-area: ${({area}) => area};
 `;
 
 const Container = styled.div`
   padding-left: 3.5rem;
   padding-right: 3.5rem;
   padding-bottom: 3rem;
-  display: flex;
+  margin-top: 0.5rem;
+  display: grid;
+  width: 100%;
+  box-sizing: border-box;  
+  grid-template: 2rem min-content / 1fr 4fr 1fr 0.5fr;
+  grid-row-gap: 1rem;
+  grid-template-areas:
+    "breadcrumbs breadcrumbs breadcrumbs breadcrumbs cart"
+    "categories content content content cart";
   ${device.mobile} {
     padding-left: 0;
     padding-right: 0;
   }
-  position: relative;
 `;
 
 const ButtonHide = styled.div`
@@ -119,7 +81,7 @@ const ProductList = styled.div`
   justify-content: space-between;
   grid-auto-flow: row dense;
   grid-gap: 1em;
-  padding: 1em;
+  padding-top: 0.5rem;
   flex: 3;
   ${device.mobile} {
     grid-template-columns: repeat(2, minmax(5em, 20vw));
@@ -168,27 +130,29 @@ class CategoryDisplay extends Component {
     return (
       <AppLayout>
         <Banner />
-        <BreadcrumbContainer>
-          <Breadcrumbs links={breadcrumbItems} />
-        </BreadcrumbContainer>
-        <CartContainer>
-          <CartCounter width={69} height={61} quantity={shoppingCart.counter} />
-          <CartCounter width={36} height={32} quantity={shoppingCart.counter} />
-        </CartContainer>
-
         <Container>
+          <GridCell area="categories">
+            <CategoryList hidden={this.state.menuHidden} />
+          </GridCell>
+          <GridCell area="breadcrumbs">
+            <Breadcrumbs links={breadcrumbItems} />
+          </GridCell>
+          <GridCell area="cart">
+            <CartCounter width={69} height={61} quantity={shoppingCart.counter} />
+          </GridCell>
           <BackDrop hide={this.state.menuHidden} />
-          <CategoryList hidden={this.state.menuHidden} />
-          <ProductList>
-            {products.map(product => (
-              <Product
-                path={`/producto-${product.id}`}
-                thumbnail={product.entry.thumbnail}
-                price={product.price}
-                name={product.name}
-              />
-            ))}
-          </ProductList>
+          <GridCell area="content">
+            <ProductList>
+              {products.map(product => (
+                <Product
+                  path={`/producto-${product.id}`}
+                  thumbnail={product.entry.thumbnail}
+                  price={product.price}
+                  name={product.name}
+                />
+              ))}
+            </ProductList>
+          </GridCell>
           <ButtonHide onClick={this.menuToggle} hide={this.state.menuHidden} />
         </Container>
       </AppLayout>
