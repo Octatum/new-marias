@@ -193,39 +193,78 @@ class Cliente extends Component {
             <Label>Información de contacto</Label>
             <Fieldset style={{ marginBottom: '30px' }}>
               <InputRow>
-                <input id="email" placeholder="Correo electrónico" />
+                <input
+                  name="email"
+                  id="email"
+                  placeholder="Correo electrónico"
+                />
               </InputRow>
             </Fieldset>
             <Label>Dirección de envío</Label>
             <Fieldset>
               <InputRow breakdown>
-                <input id="names" placeholder="Nombre (s)" />
-                <input id="lastNames" placeholder="Apellidos" />
+                <input
+                  autoComplete="given-name"
+                  id="names"
+                  placeholder="Nombre (s)"
+                />
+                <input
+                  autoComplete="family-name"
+                  id="lastNames"
+                  placeholder="Apellidos"
+                />
               </InputRow>
               <InputRow>
-                <input id="streetAndNumber" placeholder="Calle y número" />
+                <input
+                  autoComplete="street-address"
+                  id="streetAndNumber"
+                  placeholder="Calle y número"
+                />
               </InputRow>
               <InputRow>
-                <input id="neighborhood" placeholder="Colonia" />
+                <input
+                  autoComplete="address-line3"
+                  id="neighborhood"
+                  placeholder="Colonia"
+                />
               </InputRow>
               <InputRow>
-                <input id="city" placeholder="Ciudad" />
+                <input
+                  autoComplete="address-line2"
+                  id="city"
+                  placeholder="Ciudad"
+                />
               </InputRow>
               <InputRow>
-                <select id="country" style={{ marginLeft: '0' }}>
-                  <option>Pais</option>
+                <select
+                  autoComplete="country"
+                  name="country"
+                  id="country"
+                  style={{ marginLeft: '0' }}
+                >
+                  <option disabled>Pais</option>
                   <option>México</option>
                   <option>EU</option>
                 </select>
-                <select id="state">
-                  <option>Estado</option>
+                <select autoComplete="address-line1" name="state" id="state">
+                  <option disabled>Estado</option>
                   <option>Nuevo León</option>
                   <option>Sonora</option>
                 </select>
-                <input id="postalCode" placeholder="Código Postal" />
+                <input
+                  autoComplete="postal-code"
+                  name="zipcode"
+                  id="postalCode"
+                  placeholder="Código Postal"
+                />
               </InputRow>
               <InputRow>
-                <input id="tel" placeholder="Teléfono" />
+                <input
+                  autoComplete="tel-national"
+                  name="phone"
+                  id="tel"
+                  placeholder="Teléfono"
+                />
               </InputRow>
             </Fieldset>
             <Link to="/carrito">

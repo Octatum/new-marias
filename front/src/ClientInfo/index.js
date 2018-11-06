@@ -24,17 +24,6 @@ decorate(Client, {
   state: observable,
   postalCode: observable,
   tel: observable,
-  /*
-  counter: observable,
-  currentProduct: observable,
-  orders: observable,
-  subtotal: observable,
-  increment: action,
-  deleteOrder: action,
-  addOrder: action,
-  decreaseQuantity: action,
-  increaseQuantity: action
-  */
 });
 
 export default new Client();

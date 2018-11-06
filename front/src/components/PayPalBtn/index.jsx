@@ -17,7 +17,9 @@ export default class MyApp extends Component {
 
     return (
       <React.Fragment>
-        {PaypalButton && <PaypalButton client={client} currency={'MXN'} total={550.0} />}
+        {PaypalButton && (
+          <PaypalButton client={client} currency={'MXN'} total={550.0} />
+        )}
       </React.Fragment>
     );
   }

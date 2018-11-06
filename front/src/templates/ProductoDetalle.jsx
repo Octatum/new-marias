@@ -13,12 +13,14 @@ import Breadcrumbs from './../components/Breadcrumbs';
 import device from './../utilities/device';
 import CartCounter from './../components/Detail/CartCounter';
 import './../components/setup.css';
+import AppLayout from '../components/AppLayout';
 
-const AppLayout = styled.div`
-  padding-top: 170px;
+const Layout = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  padding: 2rem 0;
+
   ${device.mobile} {
     display: block;
     padding: 83px 0;
@@ -128,14 +130,7 @@ class Producto extends Component {
     this.handleChangeColor = this.handleChangeColor.bind(this);
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({
-      quantity: 1,
-    });
-  }
-
   addOrder = () => {
-    console.log(this.props.data.cockpitProduct.id);
     Cart.addOrder(this.props.data.cockpitProduct.id, this.state.quantity);
   };
 
@@ -180,33 +175,36 @@ class Producto extends Component {
 
     return (
       <AppLayout>
-        <Helmet title={toTitleCase(productName)} />
-        <Navbar />
-        <BreadcrumbContainer>
-          <Breadcrumbs links={breadcrumbItems} />
-        </BreadcrumbContainer>
-        <MobileHeader>
-          <BackButton />
-          <p>{productName}</p>
-          <CartCounter quantity={Cart.counter} width={41} height={37} />
-        </MobileHeader>
-        <Container>
-          <Gallery
-            category={categories.find(c => c.id === CategoryState.current).name}
-            images={this.state.currentImages}
-          />
-          <Detail
-            name={this.props.data.cockpitProduct.entry.name}
-            price={parseFloat(this.props.data.cockpitProduct.entry.price)}
-            description={this.props.data.cockpitProduct.entry.description}
-            onChange={this.handleChangeColor}
-            addingOrderHandler={this.addOrder}
-            onChangeQuantity={this.changeQuantityHandler}
-            colors={this.props.data.cockpitProduct.entry.gallery.map(
-              g => g.value.color
-            )}
-          />
-        </Container>
+        <Layout>
+          <Helmet title={toTitleCase(productName)} />
+          <BreadcrumbContainer>
+            <Breadcrumbs links={breadcrumbItems} />
+          </BreadcrumbContainer>
+          <MobileHeader>
+            <BackButton />
+            <p>{productName}</p>
+            <CartCounter quantity={Cart.counter} width={41} height={37} />
+          </MobileHeader>
+          <Container>
+            <Gallery
+              category={
+                categories.find(c => c.id === CategoryState.current).name
+              }
+              images={this.state.currentImages}
+            />
+            <Detail
+              name={this.props.data.cockpitProduct.entry.name}
+              price={parseFloat(this.props.data.cockpitProduct.entry.price)}
+              description={this.props.data.cockpitProduct.entry.description}
+              onChange={this.handleChangeColor}
+              addingOrderHandler={this.addOrder}
+              onChangeQuantity={this.changeQuantityHandler}
+              colors={this.props.data.cockpitProduct.entry.gallery.map(
+                g => g.value.color
+              )}
+            />
+          </Container>
+        </Layout>
       </AppLayout>
     );
   }

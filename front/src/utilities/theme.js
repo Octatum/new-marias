@@ -2,6 +2,11 @@ export default {
   colors: {
     black: '#111',
     red: 'darkred',
+    darkgray: '#626363',
+    palebrown: '#d4ad9f',
+    gray: '#d6d8db',
+    white: 'white',
+    lightgray: '#f2f3f5',
   },
   sizes: {
     h1: '2.5em',
@@ -12,7 +17,7 @@ export default {
     default: '1em',
   },
   fonts: {
-    main: "'Roboto', sans-serif",
+    main: "'Archivo Narrow', sans-serif",
     secondary: "'Raleway', sans-serif",
   },
 };

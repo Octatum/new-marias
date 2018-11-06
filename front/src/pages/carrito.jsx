@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import Navbar from '../components/Navbar';
 import Breadcrumbs from './../components/Breadcrumbs';
 import OrdersTable from './../components/OrdersTable';
 import Cart from './../ShoppingCart';
@@ -9,15 +8,7 @@ import SubtotalSummary from './../components/SubtotalSummary';
 import device from './../utilities/device';
 import { Link } from 'gatsby';
 import './../components/setup.css';
-
-const AppLayout = styled.div`
-  margin-bottom: 220px;
-  padding-top: 190px;
-  ${device.mobile} {
-    width: 100%;
-    padding-top: 110px;
-  }
-`;
+import AppLayout from '../components/AppLayout';
 
 const Container = styled.div`
   width: 75%;
@@ -79,7 +70,6 @@ class Carrito extends Component {
   render() {
     return (
       <AppLayout>
-        <Navbar />
         <BreadcrumbContainer>
           <Breadcrumbs items={[]}>
             <div active>Carrito</div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import Link from 'gatsby-link';
 
 import Product from './Product';
 import CounterStore from '../../ShoppingCart';
@@ -11,8 +10,9 @@ import forwardButtonImg from './assets/forwardbutton.png';
 import CategoryList from '../CategoryList';
 import shoppingCart from '../../ShoppingCart';
 import CartCounter from '../Detail/CartCounter';
-import ShopLayout from '../ShopLayout';
 import Breadcrumbs from '../Breadcrumbs';
+import banner from './assets/banner.jpg';
+import AppLayout from '../AppLayout';
 
 const BreadcrumbContainer = styled.div`
   padding-top: 12.2px;
@@ -40,11 +40,10 @@ const Banner = styled.div`
   width: 100%;
   height: 217px;
   background-color: #d6d8db;
-  background-image: url(http://placekitten.com/g/1200/217);
+  background-image: url('${banner}');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  margin-top: 158px;
   ${device.mobile} {
     margin-top: 103px;
     height: 90px;
@@ -54,34 +53,34 @@ const Banner = styled.div`
 const CartContainer = styled.div`
   font-family: 'Archivo Narrow', sans-serif;
   padding-right: 20px;
-  div {
+  > * {
     float: right;
     position: relative;
     top: -10px;
   }
-  > a:nth-child(1) {
+  > :nth-child(1) {
     display: block;
   }
-  > a:nth-child(2) {
+  > :nth-child(2) {
     display: none;
   }
   ${device.mobile} {
     div {
       top: -20px;
     }
-    > a:nth-child(1) {
+    > :nth-child(1) {
       display: none;
     }
-    > a:nth-child(2) {
+    > :nth-child(2) {
       display: block;
     }
   }
 `;
 
 const Container = styled.div`
-  margin-top: -45px;
-  padding-left: 58px;
-  padding-right: 58px;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  padding-bottom: 3rem;
   display: flex;
   ${device.mobile} {
     padding-left: 0;
@@ -167,26 +166,14 @@ class CategoryDisplay extends Component {
     const { products, breadcrumbItems } = this.props;
 
     return (
-      <ShopLayout>
+      <AppLayout>
         <Banner />
         <BreadcrumbContainer>
           <Breadcrumbs links={breadcrumbItems} />
         </BreadcrumbContainer>
         <CartContainer>
-          <Link to="/carrito">
-            <CartCounter
-              width={69}
-              height={61}
-              quantity={shoppingCart.counter}
-            />
-          </Link>
-          <Link to="/carrito">
-            <CartCounter
-              width={36}
-              height={32}
-              quantity={shoppingCart.counter}
-            />
-          </Link>
+          <CartCounter width={69} height={61} quantity={shoppingCart.counter} />
+          <CartCounter width={36} height={32} quantity={shoppingCart.counter} />
         </CartContainer>
 
         <Container>
@@ -204,7 +191,7 @@ class CategoryDisplay extends Component {
           </ProductList>
           <ButtonHide onClick={this.menuToggle} hide={this.state.menuHidden} />
         </Container>
-      </ShopLayout>
+      </AppLayout>
     );
   }
 }

@@ -1,14 +1,8 @@
 import React from 'react';
-import AppLayout from './layout';
-import Navbar from './Navbar';
+import AppLayout from './AppLayout';
 
 const ShopLayout = ({ children }) => {
-  return (
-    <AppLayout>
-      <Navbar />
-      {children}
-    </AppLayout>
-  );
+  return <AppLayout>{children}</AppLayout>;
 };
 
 export default ShopLayout;

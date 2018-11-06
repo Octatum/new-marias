@@ -5,10 +5,20 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import './setup.css';
 import theme from '../utilities/theme';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
-const ChildrenLayout = styled.section`
+const ChildrenLayout = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const Container = styled.div`
+  flex: 3;
+  overflow-y: scroll;
 `;
 
 function AppLayout({ children }) {
@@ -27,7 +37,13 @@ function AppLayout({ children }) {
         >
           <html lang="en" />
         </Helmet>
-        <ChildrenLayout>{children}</ChildrenLayout>
+        <ChildrenLayout>
+          <Navbar />
+          <Container>
+            {children}
+            <Footer />
+          </Container>
+        </ChildrenLayout>
       </React.Fragment>
     </ThemeProvider>
   );
