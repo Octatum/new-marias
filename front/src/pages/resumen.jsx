@@ -187,12 +187,12 @@ const Summary = function() {
         <DetailTable>
           <TableRow>
             <FlexCell flex={1}>
-              <FlexCellHeader>Dirección de facturación</FlexCellHeader>
-              <Text>Dirección</Text>
-            </FlexCell>
-            <FlexCell flex={2}>
               <FlexCellHeader>Método de pago</FlexCellHeader>
               <Text>###########</Text>
+            </FlexCell>
+            <FlexCell flex={2}>
+              <FlexCellHeader>Dirección de facturación</FlexCellHeader>
+              <Text>Dirección</Text>
             </FlexCell>
             <FlexCell flex={1}>
               <FlexCellHeader>Resumen de pago</FlexCellHeader>
