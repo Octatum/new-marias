@@ -17,12 +17,12 @@ const Pictures = styled.div`
     position: relative;
     ::before {
         position: absolute;
-        left: calc(50% - 35px);
+        left: calc(45.5%);
         top: calc(50% - 41px);
         display: block;
         content: '';
-        width: 69px;
-        height: 82.8px;
+        width: 9%;
+        padding-bottom: 11%;
         background-image: url('${MunecaImage}');
         background-size: cover;
         background-repeat: no-repeat;
@@ -33,7 +33,7 @@ const Pictures = styled.div`
 const Picture = styled.div`
     display: block;
     width: 44%;
-    padding-bottom: 40%;
+    padding-bottom: 44%;
     background-color: #c4c4c4;
     background-image: url(${({src}) => src});
     background-size: cover;
@@ -52,7 +52,7 @@ const NuestraTienda = () => {
             <H2>Visita nuestra tienda en línea y conoce los productos que tenemos para ti</H2>
             <Pictures>
                 <Picture />
-                <Picture/>
+                <Picture />
             </Pictures>
         </Section>
     );

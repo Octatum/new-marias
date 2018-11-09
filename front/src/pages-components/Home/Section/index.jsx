@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.section`
+    overflow: visible!important;
     border-top: 1px solid #626363;
     width: 90%;
     padding-top: 30px;
@@ -12,6 +13,11 @@ const Container = styled.section`
         font-size: 30px;
         color: #626363;
         font-family: 'Archivo Narrow', sans-serif;
+    }
+    p {
+        font-family: 'Archivo Narrow', sans-serif;
+        color: #626363;
+        font-size: 20px;
     }
     ::before {
         position: absolute;
