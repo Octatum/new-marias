@@ -5,6 +5,7 @@ import ContactoImage from './../assets/contacto.png';
 import Sucursal from './Sucursal';
 import FacebookIcon from './../assets/fb.png';
 import InstagramIcon from './../assets/instagram.png';
+import ContactForm from './../ContactForm';
 
 const Sucursales = styled.div`
     display: flex;
@@ -62,6 +63,7 @@ const Contacto = () => {
                     del Campestre, 66265, SPGG. Local L-102-A"
                     telephone="81 1766 5090"/>
             </Sucursales>
+            <ContactForm />
         </Section>
     );
 }
