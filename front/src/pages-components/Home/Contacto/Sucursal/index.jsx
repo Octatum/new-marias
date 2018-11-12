@@ -10,7 +10,7 @@ const H3 = styled.h3`
   ${device.mobile} {
     font-size: 16px;
   }
-`
+`;
 
 const P = styled.p`
   font-size: 22px;
@@ -20,40 +20,40 @@ const P = styled.p`
   width: 85%;
   margin: 0 auto;
   ${device.mobile} {
-    font-size: 14px!important;
+    font-size: 14px !important;
   }
-`
+`;
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   font-family: 'Archivo Narrow', sans-serif;
-`
+`;
 
 const Picture = styled.div`
-    display: block;
-    width: 100%;
-    padding-bottom: 90%;
-    margin-top: 10px;
-    background-color: #c4c4c4;
-    background-image: url(${({src}) => src});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    :hover {
-        cursor: pointer;
-    }
-`
+  display: block;
+  width: 100%;
+  padding-bottom: 90%;
+  margin-top: 10px;
+  background-color: #c4c4c4;
+  background-image: url(${({ src }) => src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  :hover {
+    cursor: pointer;
+  }
+`;
 
-const Sucursal = (props) => {
-    return(
-        <Container>
-          <H3>{props.name}</H3>
-          <P>{props.address}</P>
-          <P>Tel. {props.telephone}</P>
-          <Picture />
-        </Container>
-    );
-}
+const Sucursal = props => {
+  return (
+    <Container>
+      <H3>{props.name}</H3>
+      <P>{props.address}</P>
+      <P>Tel. {props.telephone}</P>
+      <Picture />
+    </Container>
+  );
+};
 export default Sucursal;

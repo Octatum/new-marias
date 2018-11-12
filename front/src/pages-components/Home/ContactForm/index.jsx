@@ -12,7 +12,7 @@ const Container = styled.div`
   ${device.mobile} {
     width: 100%;
   }
-`
+`;
 
 const NameAndEmailContainer = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const NameAndEmailContainer = styled.div`
   margin-top: 15px;
   width: 100%;
   > input {
-      width: 47.5%;
+    width: 47.5%;
   }
   ${device.mobile} {
     flex-direction: column;
@@ -32,7 +32,7 @@ const NameAndEmailContainer = styled.div`
       margin-bottom: 12px;
     }
   }
-`
+`;
 
 const Input = styled.input`
   box-sizing: border-box;
@@ -44,7 +44,7 @@ const Input = styled.input`
     padding: 12px;
     font-size: 16px;
   }
-`
+`;
 
 const H2 = styled.h2`
   text-align: center;
@@ -53,10 +53,10 @@ const H2 = styled.h2`
   ${device.mobile} {
     width: 40%;
     text-align: left;
-    font-size: 16px!important;
+    font-size: 16px !important;
     align-self: flex-start;
   }
-`
+`;
 
 const TextAreaContainer = styled.div`
   height: 263px;
@@ -84,7 +84,7 @@ const TextAreaContainer = styled.div`
   ${device.mobile} {
     height: 144px;
   }
-`
+`;
 
 const TextArea = styled.textarea`
   height: 100%;
@@ -99,7 +99,7 @@ const TextArea = styled.textarea`
     padding: 12px;
     font-size: 16px;
   }
-`
+`;
 
 const Button = styled.button`
   background-color: #82928c;
@@ -110,7 +110,7 @@ const Button = styled.button`
   color: #ffffff;
   margin-top: 46px;
   :hover {
-      cursor: pointer;
+    cursor: pointer;
   }
   ${device.mobile} {
     margin-top: 16px;
@@ -118,21 +118,21 @@ const Button = styled.button`
     height: 33px;
     font-size: 14px;
   }
-`
+`;
 
 const ContactForm = () => {
-    return(
-        <Container>
-            <H2>Queremos escucharte, déjanos tu mensaje:</H2>
-            <NameAndEmailContainer>
-                <Input placeholder="Nombre" type="text"/>
-                <Input placeholder="Correo electrónico" type="text"/>  
-            </NameAndEmailContainer>
-            <TextAreaContainer>
-                <TextArea placeholder="Mensaje" />
-            </TextAreaContainer>
-            <Button>Enviar</Button>
-        </Container>
-    );
-}
+  return (
+    <Container>
+      <H2>Queremos escucharte, déjanos tu mensaje:</H2>
+      <NameAndEmailContainer>
+        <Input placeholder="Nombre" type="text" />
+        <Input placeholder="Correo electrónico" type="text" />
+      </NameAndEmailContainer>
+      <TextAreaContainer>
+        <TextArea placeholder="Mensaje" />
+      </TextAreaContainer>
+      <Button>Enviar</Button>
+    </Container>
+  );
+};
 export default ContactForm;

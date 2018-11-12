@@ -13,14 +13,14 @@ const Img = styled.img`
   height: 35vw;
 `;
 
-const CustomSlide = (props) => {
+const CustomSlide = props => {
   const { backgroundImage } = props;
   return (
     <Layout backgroundImage={backgroundImage}>
       <Img src={backgroundImage} />
     </Layout>
   );
-}
+};
 
 /*
 CustomSlide.propTypes = {

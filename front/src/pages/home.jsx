@@ -6,13 +6,13 @@ import QuienesSomos from './../pages-components/Home/QuienesSomos';
 import Contacto from './../pages-components/Home/Contacto';
 
 const Home = () => {
-    return (
-        <AppLayout>
-            <SlideShow />
-            <NuestraTienda />
-            <QuienesSomos />
-            <Contacto />
-        </AppLayout>
-    );
-}
+  return (
+    <AppLayout>
+      <SlideShow />
+      <NuestraTienda />
+      <QuienesSomos />
+      <Contacto />
+    </AppLayout>
+  );
+};
 export default Home;

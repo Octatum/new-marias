@@ -12,17 +12,17 @@ const Label = styled.label`
     display: flex;
     flex-direction: column;
     padding: 0.5em;
-    border: 1px solid ${({theme}) => theme.colors.darkgray};
+    border: 1px solid ${({ theme }) => theme.colors.darkgray};
   }
 `;
 
 const SelectInput = styled('select')`
-  color: ${({theme}) => theme.colors.darkgray};
+  color: ${({ theme }) => theme.colors.darkgray};
   width: 100%;
   margin-top: 7px;
   font-size: 12px;
 
-  ${device.mobile} {    
+  ${device.mobile} {
     appearance: none;
     border: none;
     font-size: 1.5em;

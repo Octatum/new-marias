@@ -9,15 +9,17 @@ const Container = styled.div`
   width: 100%;
   font-family: 'Archivo Narrow', sans-serif;
   box-sizing: border-box;
-  border-bottom: 1px solid ${({theme}) => theme.colors.darkgray};
-  
+  border-bottom: 1px solid ${({ theme }) => theme.colors.darkgray};
+
   ${device.mobile} {
     margin: 0;
   }
 `;
 
 const BreadcrumbItem = styled.span`
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+
   margin-bottom: 4px;
   position: relative;
   font-size: 20px;
@@ -48,7 +50,9 @@ const Breadcrumbs = props => {
       {links &&
         links.map(link => (
           <BreadcrumbItem key={link.name}>
-            <TextLink to={link.to} as={link.to ? GatsbyLink : 'p'}>{link.name.toLowerCase()}</TextLink>
+            <TextLink to={link.to} as={link.to ? GatsbyLink : 'p'}>
+              {link.name.toLowerCase()}
+            </TextLink>
             <Img src={forwardButtonImg} />
           </BreadcrumbItem>
         ))}

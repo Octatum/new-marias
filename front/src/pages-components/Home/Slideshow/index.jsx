@@ -7,7 +7,7 @@ import SlideshowPresentation from './SlideshowPresentation';
 const Slideshow = () => {
   // To-do. Corregir query y pasar datos a la vista correspondiente
   return (
-    <StaticQuery 
+    <StaticQuery
       query={graphql`
         {
           site {
@@ -19,10 +19,10 @@ const Slideshow = () => {
         // To-do
         const processedData = data;
 
-        return <SlideshowPresentation data={processedData} />
+        return <SlideshowPresentation data={processedData} />;
       }}
     />
   );
-}
+};
 
 export default Slideshow;

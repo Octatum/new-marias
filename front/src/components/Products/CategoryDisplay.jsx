@@ -29,7 +29,7 @@ const Banner = styled.div`
 `;
 
 const GridCell = styled('div')`
-  grid-area: ${({area}) => area};
+  grid-area: ${({ area }) => area};
 `;
 
 const Container = styled.div`
@@ -39,12 +39,12 @@ const Container = styled.div`
   margin-top: 0.5rem;
   display: grid;
   width: 100%;
-  box-sizing: border-box;  
+  box-sizing: border-box;
   grid-template: 2rem min-content / 1fr 4fr 1fr 0.5fr;
   grid-row-gap: 1rem;
   grid-template-areas:
-    "breadcrumbs breadcrumbs breadcrumbs breadcrumbs cart"
-    "categories content content content cart";
+    'breadcrumbs breadcrumbs breadcrumbs breadcrumbs cart'
+    'categories content content content cart';
   ${device.mobile} {
     padding-left: 0;
     padding-right: 0;
@@ -138,7 +138,11 @@ class CategoryDisplay extends Component {
             <Breadcrumbs links={breadcrumbItems} />
           </GridCell>
           <GridCell area="cart">
-            <CartCounter width={69} height={61} quantity={shoppingCart.counter} />
+            <CartCounter
+              width={69}
+              height={61}
+              quantity={shoppingCart.counter}
+            />
           </GridCell>
           <BackDrop hide={this.state.menuHidden} />
           <GridCell area="content">

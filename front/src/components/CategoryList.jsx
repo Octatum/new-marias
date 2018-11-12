@@ -9,7 +9,7 @@ import device from '../utilities/device';
 const Ul = styled.ul`
   list-style: none;
   flex: 1;
-  
+
   > :not(:first-child) {
     padding-top: 0.5rem;
   }
@@ -49,7 +49,9 @@ const CategoryList = props => {
   const { hidden } = props;
   return (
     <Ul hide={hidden}>
-      <TitleLi as="li" size={4} className="title">Categorías</TitleLi>
+      <TitleLi as="li" size={4} className="title">
+        Categorías
+      </TitleLi>
       <StaticQuery
         query={graphql`
           query {

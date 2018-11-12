@@ -34,7 +34,7 @@ const Counter = styled.div`
 
 const CartCounter = ({ quantity, ...props }) => (
   <Container to={'/carrito'} {...props}>
-    <Counter quantity={quantity} height={10} />
+    <Counter quantity={0} height={10} />
   </Container>
 );
 export default CartCounter;

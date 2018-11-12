@@ -1,79 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import CounterStore from '../ShoppingCart';
 import device from '../utilities/device';
 import CartCounter from './CartCounter';
 import Select from './Select';
+import Button from './Button';
 
 const Container = styled.div`
-  display: block;
-  width: 30%;
-  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
   ${device.mobile} {
-    width: 77%;
-    margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;
   }
 `;
 
-const Button = styled.button`
-  width: 65%;
-  padding: 14px 10px;
-  background-color: #626363;
-  border: none;
-  margin-right: 25px;
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 24px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
-  :hover {
-    cursor: pointer;
-  }
-  ${device.laptop} {
-    font-size: 20px;
-    width: 60%;
-    padding: 10px;
-  }
-  ${device.tablet} {
-    font-size: 17px;
-    width: 60%;
-    padding: 5px;
-  }
-  ${device.mobile} {
-    width: 100%;
-    margin-top: 56px;
-    height: 65px;
-    font-size: 28px;
-  }
-`;
-
 const SelectsContainer = styled.div`
-  ::after {
-    content: '';
-    clear: both;
-    display: table;
-  }
-
   /*display: block;*/
   width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-
-  > div {
-    flex-grow: 1;
-  }
-
-  > div:last-child {
-    margin-left: 70px;
-    flex-grow: 0.2;
-  }
 
   ${device.mobile} {
     display: block;
@@ -139,18 +85,15 @@ const Description = styled.p`
 `;
 
 const AddToCartContainer = styled.div`
-  width: 110%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  > button,
-  > div {
-    align-self: center;
-  }
+  align-items: center;
   margin: 30px 0;
+
   ${device.tablet} {
     margin: 20px 0;
   }
+
   ${device.mobile} {
     width: 93%;
     margin: 56px auto;
@@ -164,22 +107,45 @@ const AddToCartContainer = styled.div`
   }
 `;
 
+const AmountContainer = styled('div')`
+  flex: 1;
+  margin-right: 10%;
+`;
+
+const ColorContainer = styled('div')`
+  flex: 3;
+  margin-right: 20%;
+`;
+
 const Detail = props => {
-  const colors = props.colors.map(c => (
-    <option key={c} value={c}>
-      {c}
-    </option>
-  ));
+  const { product, onColorChange, onQuantityChange, addToCartHandler } = props;
+
+  const {
+    name: productName,
+    description: productDescription,
+    price: productPrice,
+    gallery,
+  } = product.entry;
+
+  const colors = gallery.map(g => g.value.color);
+
   return (
     <Container>
-      <div>
-        <Name>{props.name}</Name>
-        <Price>${props.price.toFixed(2)}</Price>
-        <SelectsContainer>
-          <Select name="Color" onChange={props.onChange}>
-            {colors}
+      <Name>{productName}</Name>
+      <Price>${parseFloat(productPrice).toFixed(2)}</Price>
+      <SelectsContainer>
+        <ColorContainer>
+          <Select name="Color o tipo" onChange={onColorChange}>
+            {colors.map(c => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </Select>
-          <Select name="Cantidad" onChange={props.onChangeQuantity}>
+        </ColorContainer>
+
+        <AmountContainer>
+          <Select name="Cantidad" onChange={onQuantityChange}>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -187,22 +153,15 @@ const Detail = props => {
             <option>5</option>
             <option>6</option>
           </Select>
-        </SelectsContainer>
-        <AddToCartContainer>
-          <Button
-            onClick={() => {
-              CounterStore.increment();
-              props.addingOrderHandler();
-            }}
-          >
-            Agregar al carrito
-          </Button>
-          <CartCounter quantity={CounterStore.counter} width="69" height="61" />
-        </AddToCartContainer>
-      </div>
-      <div>
-        <Description>{props.description}</Description>
-      </div>
+        </AmountContainer>
+      </SelectsContainer>
+      <AddToCartContainer>
+        <Button fontSize="1.5em" onClick={addToCartHandler}>
+          Agregar al carrito
+        </Button>
+        <CartCounter width="69" height="61" />
+      </AddToCartContainer>
+      <Description>{productDescription}</Description>
     </Container>
   );
 };
