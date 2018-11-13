@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import shoppingCartImg from './assets/shoppingcart.svg';
 import device from '../../utilities/device';
 import GatsbyLink from 'gatsby-link';
+import { CartConsumer } from '../CartContext';
 
 const Container = styled(GatsbyLink)`
   display: block;
@@ -33,8 +34,23 @@ const Counter = styled.div`
 `;
 
 const CartCounter = ({ quantity, ...props }) => (
-  <Container to={'/carrito'} {...props}>
-    <Counter quantity={0} height={10} />
-  </Container>
+  <CartConsumer>
+    {({ products }) => {
+      const amount = products.reduce(
+        (accum, product) => accum + product.quantity,
+        0
+      );
+
+      return (
+        <Container to={'/carrito'} {...props}>
+          <Counter
+            quantity={amount}
+            height={10}
+            aria-label={`hay ${amount} productos en el carrito.`}
+          />
+        </Container>
+      );
+    }}
+  </CartConsumer>
 );
 export default CartCounter;

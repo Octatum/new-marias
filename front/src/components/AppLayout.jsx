@@ -7,6 +7,7 @@ import theme from '../utilities/theme';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import './setup.css';
+import { CartProvider } from './CartContext';
 
 const ChildrenLayout = styled.div`
   display: flex;
@@ -24,27 +25,29 @@ const Container = styled.div`
 function AppLayout({ children }) {
   return (
     <ThemeProvider theme={theme}>
-      <React.Fragment>
-        <Helmet
-          titleTemplate={`%s - New Marias`}
-          meta={[
-            {
-              name: 'description',
-              content: 'Artesanías Mexicanas New Marias',
-            },
-            { name: 'keywords', content: 'artesanias, mexico' },
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <ChildrenLayout>
-          <Navbar />
-          <Container>
-            {children}
-            <Footer />
-          </Container>
-        </ChildrenLayout>
-      </React.Fragment>
+      <CartProvider>
+        <React.Fragment>
+          <Helmet
+            titleTemplate={`%s - New Marias`}
+            meta={[
+              {
+                name: 'description',
+                content: 'Artesanías Mexicanas New Marias',
+              },
+              { name: 'keywords', content: 'artesanias, mexico' },
+            ]}
+          >
+            <html lang="en" />
+          </Helmet>
+          <ChildrenLayout>
+            <Navbar />
+            <Container>
+              {children}
+              <Footer />
+            </Container>
+          </ChildrenLayout>
+        </React.Fragment>
+      </CartProvider>
     </ThemeProvider>
   );
 }

@@ -10,6 +10,7 @@ import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
 import Gallery from '../../components/Gallery';
 import backButtonImg from './assets/backbutton.png';
+import CartContext, { CartConsumer } from '../../components/CartContext';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -113,14 +114,25 @@ class ProductDetailContainer extends React.PureComponent {
     this.state = {
       currentImages: props.data.cockpitProduct.entry.gallery[0].value.images.map(
         i => i.path
-      ), // props.data.productsJson.images[0].src,
+      ),
       currentColor: props.data.cockpitProduct.entry.gallery[0].value.color, //props.data.productsJson.images[0].color,
       quantity: 1,
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);
   }
 
-  addOrder = () => {};
+  addProduct = (cbAddProduct) => {
+    const { cockpitProduct } = this.props.data;
+
+    cbAddProduct({
+      id: cockpitProduct.id,
+      name: cockpitProduct.entry.name,
+      price: cockpitProduct.entry.price,
+      color: this.state.currentColor,
+      thumbnail: this.state.currentImages[0],
+      quantity: this.state.quantity,
+    });
+  };
 
   changeQuantityHandler = e => {
     this.setState({ quantity: parseInt(e.target.value) });
@@ -130,7 +142,6 @@ class ProductDetailContainer extends React.PureComponent {
     this.setState({ boardAddModalShow: true }, () => {
       const color = this.state.currentColor;
       this.setState({
-        //  currentImages: this.props.data.productsJson.images.find(i => i.color === color).src,
         currentImages: this.props.data.cockpitProduct.entry.gallery
           .find(g => g.value.color === color)
           .value.images.map(i => i.path),
@@ -177,17 +188,25 @@ class ProductDetailContainer extends React.PureComponent {
           </MobileHeader>
           <Container>
             <Gallery images={this.state.currentImages} />
-            <Detail
-              product={cockpitProduct}
-              onColorChange={this.handleChangeColor}
-              onQuantityChange={this.changeQuantityHandler}
-              addToCartHandler={this.addOrder}
-            />
+            <CartConsumer>
+              {
+                ({addProduct}) => (
+                  <Detail
+                    product={cockpitProduct}
+                    onColorChange={this.handleChangeColor}
+                    onQuantityChange={this.changeQuantityHandler}
+                    addToCartHandler={() => this.addProduct(addProduct)}
+                  />
+                )
+              }
+            </CartConsumer>
           </Container>
         </Layout>
       </AppLayout>
     );
   }
 }
+
+ProductDetailContainer.contextType = CartContext;
 
 export default ProductDetailContainer;
