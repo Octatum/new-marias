@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import MunecaImage from './../assets/muneca.png';
+import device from './../../../utilities/device';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 67%;
+  width: 72%;
   margin: 0 auto;
   align-items: center;
+  ${device.mobile} {
+    width: 100%;
+  }
 `
 
 const NameAndEmailContainer = styled.div`
@@ -19,6 +23,15 @@ const NameAndEmailContainer = styled.div`
   > input {
       width: 47.5%;
   }
+  ${device.mobile} {
+    flex-direction: column;
+    > input {
+      width: 100%;
+    }
+    > input:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
 `
 
 const Input = styled.input`
@@ -27,12 +40,22 @@ const Input = styled.input`
   padding-left: 20px;
   font-family: 'Archivo Narrow', sans-serif;
   font-size: 20px;
+  ${device.mobile} {
+    padding: 12px;
+    font-size: 16px;
+  }
 `
 
 const H2 = styled.h2`
   text-align: center;
   margin-top: 40px;
   color: #626363;
+  ${device.mobile} {
+    width: 40%;
+    text-align: left;
+    font-size: 16px!important;
+    align-self: flex-start;
+  }
 `
 
 const TextAreaContainer = styled.div`
@@ -40,7 +63,7 @@ const TextAreaContainer = styled.div`
   width: 100%;
   margin-top: 15px;
   position: relative;
-  overflow:hidden;
+  overflow: hidden;
   ::before {
     position: absolute;
     content: '';
@@ -53,6 +76,13 @@ const TextAreaContainer = styled.div`
     width: 205px;
     height: 243px;
     z-index: -99;
+    ${device.mobile} {
+      width: 114px;
+      height: 130px;
+    }
+  }
+  ${device.mobile} {
+    height: 144px;
   }
 `
 
@@ -65,6 +95,10 @@ const TextArea = styled.textarea`
   font-size: 20px;
   background: none;
   resize: none;
+  ${device.mobile} {
+    padding: 12px;
+    font-size: 16px;
+  }
 `
 
 const Button = styled.button`
@@ -77,6 +111,12 @@ const Button = styled.button`
   margin-top: 46px;
   :hover {
       cursor: pointer;
+  }
+  ${device.mobile} {
+    margin-top: 16px;
+    width: 152px;
+    height: 33px;
+    font-size: 14px;
   }
 `
 

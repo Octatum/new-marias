@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import device from './../../../../utilities/device';
 
 const H3 = styled.h3`
   font-size: 29px;
   color: #82928c;
   text-align: center;
   margin-bottom: 10px;
+  ${device.mobile} {
+    font-size: 16px;
+  }
 `
 
 const P = styled.p`
@@ -15,13 +19,16 @@ const P = styled.p`
   line-height: 1.64;
   width: 85%;
   margin: 0 auto;
+  ${device.mobile} {
+    font-size: 14px!important;
+  }
 `
 
 const Container = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Archivo Narrow', sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Archivo Narrow', sans-serif;
 `
 
 const Picture = styled.div`

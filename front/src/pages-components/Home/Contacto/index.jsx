@@ -6,6 +6,7 @@ import Sucursal from './Sucursal';
 import FacebookIcon from './../assets/fb.png';
 import InstagramIcon from './../assets/instagram.png';
 import ContactForm from './../ContactForm';
+import device from './../../../utilities/device';
 
 const Sucursales = styled.div`
     display: flex;
@@ -17,6 +18,13 @@ const Sucursales = styled.div`
     > div {
         width: 41%;
     }
+    ${device.mobile} {
+        flex-direction: column;  
+        > div {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+    }
 `
 
 const Icons = styled.div`
@@ -26,6 +34,9 @@ const Icons = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    ${device.mobile} {
+        display: none;
+    }
 `
 
 const Icon = styled.div`

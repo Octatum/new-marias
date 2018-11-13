@@ -3,6 +3,7 @@ import Section from './../Section';
 import NuestraTiendaImage from './../assets/nuestra-tienda.png';
 import styled from 'styled-components';
 import MunecaImage from './../assets/muneca.png';
+import device from './../../../utilities/device';
 
 const H2 = styled.h2`
     margin-top: 25px;
@@ -28,6 +29,14 @@ const Pictures = styled.div`
         background-repeat: no-repeat;
         background-position: center center;
         z-index: -1;
+        ${device.mobile} {
+            display: none;
+        }
+    }
+    ${device.mobile} {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
     }
 `
 const Picture = styled.div`
@@ -41,6 +50,11 @@ const Picture = styled.div`
     background-position: center center;
     :hover {
         cursor: pointer;
+    }
+    ${device.mobile} {
+        width: 95%;
+        padding-bottom: 95%;
+        margin-bottom: 11px;
     }
 `
 
