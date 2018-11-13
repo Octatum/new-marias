@@ -20,27 +20,35 @@ const Container = styled.section`
     color: #626363;
     font-size: 20px;
   }
-  ::before {
-    position: absolute;
-    top: -30px;
-    height: 50px;
-    width: ${({ titleWidth }) => titleWidth};
-    content: '';
-    background-color: #ffffff;
-    background-image: url(${({ titleSrc }) => titleSrc});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
   ${device.mobile} {
     margin-bottom: 60px;
+    padding-top: 15px;
+    h2 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    p {
+      font-size: 16px;
+    }
   }
 `;
 
+const Title = styled.img`
+  position: absolute;
+  left: 0;
+  top: -30px;
+  background-color: #ffffff;
+  height: 50px;
+  ${device.mobile} {
+    height: 25px;
+    top: -17px;
+  }
+`
+
 const Section = props => {
-  console.log(props.children);
   return (
-    <Container titleSrc={props.titleSrc} titleWidth={props.titleWidth}>
+    <Container>
+      <Title src={props.titleSrc} alt={props.title}/>
       {props.children}
     </Container>
   );

@@ -7,6 +7,9 @@ import device from './../../../utilities/device';
 
 const H2 = styled.h2`
   margin-top: 25px;
+  ${device.mobile} {
+    margin-top: 10px;
+  }
 `;
 
 const Pictures = styled.div`
@@ -36,7 +39,7 @@ const Pictures = styled.div`
     ${device.mobile} {
         flex-direction: column;
         align-items: center;
-        margin-bottom: 0;
+        margin: 20px auto;
     }
 `;
 const Picture = styled.div`
@@ -60,7 +63,7 @@ const Picture = styled.div`
 
 const NuestraTienda = () => {
   return (
-    <Section titleSrc={NuestraTiendaImage} titleWidth={'286px'}>
+    <Section titleSrc={NuestraTiendaImage} title="Nuestra Tienda">
       <H2>
         Visita nuestra tienda en línea y conoce los productos que tenemos para
         ti
