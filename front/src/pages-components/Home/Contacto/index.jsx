@@ -54,7 +54,7 @@ const Icon = styled.div`
 
 const Contacto = () => {
   return (
-    <Section titleSrc={ContactoImage} titleWidth={'180px'}>
+    <Section titleSrc={ContactoImage} title="Contacto">
       <h2>Sucursales</h2>
       <Sucursales>
         <Sucursal

@@ -2,6 +2,7 @@ import React from 'react';
 import Section from './../Section';
 import styled from 'styled-components';
 import QuienesSomosImage from './../assets/quienes-somos.png';
+import device from './../../../utilities/device';
 
 const Banner = styled.div`
   width: 100vw;
@@ -13,12 +14,15 @@ const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  ${device.mobile} {
+    margin-bottom: 10px;
+  }
 `;
 
 const QuienesSomos = () => {
   return (
     <div>
-      <Section titleSrc={QuienesSomosImage} titleWidth={'247px'}>
+      <Section titleSrc={QuienesSomosImage} title="Quienes Somos">
         <Banner />
         <p>
           Somos una tienda que ofrece productos mexicanos con valor agregado,
