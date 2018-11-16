@@ -11,64 +11,42 @@ import device from '../../utilities/device';
 import Gallery from '../../components/Gallery';
 import backButtonImg from './assets/backbutton.png';
 import CartContext, { CartConsumer } from '../../components/CartContext';
+import GatsbyLink from 'gatsby-link';
 
 const Layout = styled.div`
   box-sizing: border-box;
   display: flex;
+  width: 100%;
   flex-direction: column;
-  padding: 2rem 0;
+  padding: 2rem 3rem;
 
-  ${device.mobile} {
-    display: block;
-    padding: 83px 0;
+  ${device.tablet} {
+    padding: 2rem 1rem;
   }
 `;
 
 const MobileHeader = styled.div`
-  ::after {
-    content: '';
-    clear: both;
-    display: table;
-  }
   font-family: 'Archivo Narrow', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   color: #626363;
   display: none;
 
-  ${device.mobile} {
-    display: block;
-    width: 90%;
-    margin: 25px auto;
-
-    > button,
-    > p {
-      float: left;
-    }
-
-    > p {
-      margin: 0;
-      padding: 0;
-    }
-
-    > div {
-      font-size: 11px;
-      float: right;
-    }
-
-    > button {
-      margin-right: 9px;
-      margin-top: 3px;
-    }
+  ${device.tablet} {
+    display: flex;
+    align-items: center;
   }
 `;
 
-const BackButton = styled.button`
+const Par = styled('p')`
+  flex: 1;
+  padding-left: 1rem;
+`;
+
+const BackButton = styled(GatsbyLink)`
   display: block;
   width: 13px;
   height: 29px;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
   background-image: url(${backButtonImg});
   background-size: cover;
   background-repeat: no-repeat;
@@ -77,35 +55,33 @@ const BackButton = styled.button`
 `;
 
 const BreadcrumbContainer = styled.div`
-  box-sizing: border-box;
-  width: 90%;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  padding-left: 0%;
-  display: block;
-  ${device.mobile} {
-    > div {
-      padding: 0;
-      width: 50vw;
-    }
+  margin-bottom: 2rem;
+
+  ${device.tablet} {
     display: none;
   }
 `;
 
 const Container = styled.div`
-  margin: 0 auto;
-  padding: 0 3.5rem;
   display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  width: 100%;
+
+  ${device.tablet} {
+    flex-direction: column;
+  }
+`;
+
+const StyledGallery = styled(Gallery)`
+  flex: 4;
+  padding-right: 2rem;
   box-sizing: border-box;
 
-  ${device.mobile} {
-    width: 100%;
-    display: inherit;
+  ${device.tablet} {
     padding: 0;
   }
+`;
+
+const StyledDetail = styled(Detail)`
+  flex: 2;
 `;
 
 class ProductDetailContainer extends React.PureComponent {
@@ -130,7 +106,7 @@ class ProductDetailContainer extends React.PureComponent {
       price: cockpitProduct.entry.price,
       color: this.state.currentColor,
       thumbnail: this.state.currentImages[0],
-      quantity: this.state.quantity,
+      amount: this.state.quantity,
     });
   };
 
@@ -182,15 +158,15 @@ class ProductDetailContainer extends React.PureComponent {
             <Breadcrumbs links={breadcrumbItems} />
           </BreadcrumbContainer>
           <MobileHeader>
-            <BackButton />
-            <p>{productName}</p>
-            <CartCounter width={41} height={37} />
+            <BackButton to="tienda" />
+            <Par>{productName}</Par>
+            <CartCounter width={50} height={40} />
           </MobileHeader>
           <Container>
-            <Gallery images={this.state.currentImages} />
+            <StyledGallery images={this.state.currentImages} />
             <CartConsumer>
               {({ addProduct }) => (
-                <Detail
+                <StyledDetail
                   product={cockpitProduct}
                   onColorChange={this.handleChangeColor}
                   onQuantityChange={this.changeQuantityHandler}

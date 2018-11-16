@@ -7,50 +7,32 @@ import device from './../../utilities/device';
 import Current from './Current';
 
 const Container = styled.div`
-  width: 65%;
-  ${device.mobile} {
-    min-width: 100%;
-    margin: 0;
-  }
-`;
-
-const CurrentImageContainer = styled.div`
-  width: 75%;
-  height: auto;
-  float: left;
   display: flex;
-  justify-content: space-evenly;
+`;
+
+const CurrentImageLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
-  ${device.mobile} {
-    width: 100%;
+
+  ${device.tablet} {
+    padding: 0 1rem;
   }
 `;
 
-const CurrentImage = styled.div`
-  display: block;
-  float: left;
-  width: 80%;
-  padding-bottom: 80%;
-  background-color: #cccccc;
-  background: url(https://admin.newmarias.com/${({ src }) => src});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  ${device.mobile} {
-    width: 70%;
-    padding-bottom: 70%;
-  }
+const CurrentImage = styled.img`
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const BackButton = styled.button`
   display: block;
-  width: 13px;
-  height: 29px;
-  margin-right: 25px;
-  float: left;
-  :hover {
-    cursor: pointer;
-  }
+  width: 1em;
+  height: 2em;
+  cursor: pointer;
   background-image: url(${backButtonImg});
   background-size: cover;
   background-repeat: no-repeat;
@@ -59,13 +41,10 @@ const BackButton = styled.button`
 `;
 
 const PreviousButton = styled.button`
-  width: 4%;
+  grid-area: prev;
   height: 29px;
-  margin: 0 4.25%;
   align-self: center;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
   background-image: url(${backButtonImg});
   background-size: cover;
   background-repeat: no-repeat;
@@ -77,120 +56,118 @@ const PreviousButton = styled.button`
   }
 `;
 
-const Nextbutton = styled.button`
-  width: 4%;
-  height: 29px;
-  margin: 0 4.25%;
-  align-self: center;
-  :hover {
-    cursor: pointer;
-  }
+const Nextbutton = styled(PreviousButton)`
+  grid-area: next;
   background-image: url(${forwardButtonImg});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  border: none;
-  ${device.mobile} {
-    width: 7px;
-    height: 16px;
-  }
 `;
 
 const ImagesContainer = styled.div`
-  float: left;
-  width: 73%;
-  ${device.mobile} {
+  flex: 5;
+  ${device.tablet} {
     display: none;
   }
 `;
 
-const ImgPreview = styled.div`
+const ImgPreview = styled('img')`
+  cursor: pointer;
   background-color: #cccccc;
-  display: block;
-  width: 100%;
-  padding-bottom: 100%;
-  margin-bottom: 7px;
-  background: url(https://admin.newmarias.com/${({ src }) => src});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  :hover {
-    cursor: pointer;
+  width: 15vw;
+  max-width: 10rem;
+  max-height: 10rem;
+  margin-bottom: 1em;
+`;
+
+const CurrentImageContainer = styled('div')`
+  display: grid;
+  flex: 15;
+  margin: 0 1rem;
+  grid-column-gap: 1rem;
+  grid-template: minmax(188px, 40vmax) 3rem / 1rem auto 1rem;
+  align-items: flex-start;
+  grid-template-areas:
+    'prev current next'
+    'dots dots dots';
+
+  ${device.tablet} {
+    grid-template: minmax(min-content, 20rem) 3rem / 1rem auto 1rem;
   }
 `;
 
-const BackContainer = styled.div`
-  width: 25%;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  position: relative;
-  button {
-    width: 10%;
-    margin-right: 10%;
-  }
-  ${device.mobile} {
+const BackButtonLayout = styled(Link)`
+  flex: 1;
+
+  ${device.tablet} {
     display: none;
   }
 `;
 
 class Gallery extends Component {
   state = {
-    currentImage: this.props.images[0],
+    currentImageIndex: 0,
   };
 
   nextImage = () => {
-    const currentIndex = this.props.images.indexOf(this.state.currentImage);
-    if (currentIndex < this.props.images.length - 1) {
-      this.setState({ currentImage: this.props.images[currentIndex + 1] });
-    }
+    const imagesLength = this.props.images.length;
+
+    this.setState(prevState => ({
+      currentImageIndex: (prevState.currentImageIndex + 1) % imagesLength,
+    }));
   };
 
   previousImage = () => {
-    const currentIndex = this.props.images.indexOf(this.state.currentImage);
-    if (currentIndex > 0) {
-      this.setState({ currentImage: this.props.images[currentIndex - 1] });
+    const imagesLength = this.props.images.length;
+
+    this.setState(prevState => ({
+      currentImageIndex:
+        (prevState.currentImageIndex + imagesLength - 1) % imagesLength,
+    }));
+  };
+
+  changeCurrentImage = index => {
+    this.setState(() => ({ currentImageIndex: index }));
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.currentImageIndex >= props.images.length) {
+      return {
+        currentImageIndex: 0,
+      };
     }
-  };
-
-  changeCurrentImage = source => {
-    this.setState({ currentImage: source });
-  };
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({ currentImage: nextProps.images[0] });
   }
 
   render() {
-    const images = this.props.images.map(source => (
+    const images = this.props.images.map((source, index) => (
       <ImgPreview
         key={source}
-        onClick={() => this.changeCurrentImage(source)}
-        src={source}
+        onClick={() => this.changeCurrentImage(index)}
+        src={`https://admin.newmarias.com/${source}`}
       />
     ));
 
-    const dots = this.props.images.map((image, index) => {
-      return index === this.props.images.indexOf(this.state.currentImage)
-        ? true
-        : false;
+    const dots = this.props.images.map((_, index) => {
+      return index === this.state.currentImageIndex;
     });
 
+    const { className } = this.props;
+
     return (
-      <Container>
-        <BackContainer>
-          <Link to="/">
-            {' '}
-            <BackButton />{' '}
-          </Link>
-          <ImagesContainer>{images}</ImagesContainer>
-        </BackContainer>
+      <Container {...{ className }}>
+        <BackButtonLayout to="/tienda">
+          <BackButton />
+        </BackButtonLayout>
+        <ImagesContainer>{images}</ImagesContainer>
         <CurrentImageContainer>
-          <PreviousButton onClick={this.previousImage.bind(this)} />
-          <CurrentImage src={this.state.currentImage} />
-          <Nextbutton onClick={this.nextImage.bind(this)} />
+          <PreviousButton onClick={this.previousImage} />
+          <CurrentImageLayout>
+            <CurrentImage
+              src={`https://admin.newmarias.com/${
+                this.props.images[this.state.currentImageIndex]
+              }`}
+            />
+          </CurrentImageLayout>
+          <Nextbutton onClick={this.nextImage} />
+          <Current dots={dots} />
         </CurrentImageContainer>
-        <Current dots={dots} />
       </Container>
     );
   }

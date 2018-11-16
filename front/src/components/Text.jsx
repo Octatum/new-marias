@@ -50,7 +50,7 @@ const setFontFamily = ({ theme, secondaryFont = false }) => {
 };
 
 const Text = styled.div`
-  line-height: 1.2em;
+  line-height: ${({ lineHeight }) => lineHeight || '1.2em'};
   font-family: ${setFontFamily};
   color: ${setColor};
   font-size: ${props => setFontSize(props, increments.default)};
@@ -73,10 +73,7 @@ const Text = styled.div`
 Text.propTypes = {
   // Por cuestiones de accesibilidad, no es conveniente usar textos directamente en un div
   // por lo que hay que especificar el tipo de tag de html que se usará en el componente.
-  as: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]).isRequired,
+  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 };
 
 export default Text;

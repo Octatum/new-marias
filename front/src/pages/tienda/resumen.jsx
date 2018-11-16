@@ -24,9 +24,6 @@ const Button = styled.button`
   border: none;
   background-color: #d4ad9f;
   color: #ffffff;
-  :hover {
-    cursor: pointer;
-  }
   ${device.mobile} {
     width: 70%;
   }
@@ -156,7 +153,7 @@ const Summary = function() {
                     <FlexCell flex={2}>
                       <FlexCellHeader>Producto</FlexCellHeader>
                       <Text>
-                        ({o.quantity}) {prod.entry.name}
+                        ({o.amount}) {prod.entry.name}
                       </Text>
                     </FlexCell>
                     <FlexCell flex={1}>

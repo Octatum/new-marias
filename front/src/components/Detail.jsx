@@ -5,30 +5,29 @@ import device from '../utilities/device';
 import CartCounter from './CartCounter';
 import Select from './Select';
 import Button from './Button';
+import Text from './Text';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  ${device.mobile} {
-    display: flex;
-    flex-direction: column-reverse;
+
+  ${device.tablet} {
+    & > ${Description} {
+      order: 1;
+      background: red;
+    }
   }
 `;
 
 const SelectsContainer = styled.div`
-  /*display: block;*/
   width: 100%;
   display: flex;
   justify-content: space-between;
 
-  ${device.mobile} {
-    display: block;
-    > div:nth-child(1),
-    > div:nth-child(2) {
-      display: block;
-      width: 100%;
-      margin-left: 0px;
-    }
+  ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    order: 3;
   }
 `;
 
@@ -44,36 +43,19 @@ const Name = styled.h1`
   color: #626363;
   margin: 0;
   padding: 0;
-  ${device.mobile} {
-    display: none;
-  }
   ${device.laptop} {
     font-size: 30px;
   }
   ${device.tablet} {
+    display: none;
     font-size: 25px;
   }
 `;
-const Price = styled.h3`
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #626363;
-  margin: 7px 0;
-  ${device.mobile} {
-    color: #d4ad9f;
-    ::before {
-      content: 'Precio:\00a0\00a0\00a0';
-      color: #626363;
-      font-size: 14px;
-    }
-  }
+
+const Price = styled(Text)`
   ${device.tablet} {
-    font-size: 20px;
+    order: 2;
+    margin: 1em 0;
   }
 `;
 
@@ -82,6 +64,10 @@ const Description = styled.p`
   font-size: 18px;
   line-height: normal;
   color: #626363;
+
+  ${device.tablet} {
+    order: 1;
+  }
 `;
 
 const AddToCartContainer = styled.div`
@@ -92,16 +78,12 @@ const AddToCartContainer = styled.div`
 
   ${device.tablet} {
     margin: 20px 0;
-  }
-
-  ${device.mobile} {
-    width: 93%;
-    margin: 56px auto;
-    > div {
+    order: 4;
+    > :not(button) {
       display: none;
     }
     > button {
-      width: 100%;
+      flex: 1;
       margin: 0 auto;
     }
   }
@@ -110,15 +92,29 @@ const AddToCartContainer = styled.div`
 const AmountContainer = styled('div')`
   flex: 1;
   margin-right: 10%;
+
+  ${device.tablet} {
+    margin: 0;
+  }
 `;
 
 const ColorContainer = styled('div')`
   flex: 3;
   margin-right: 20%;
+
+  ${device.tablet} {
+    margin: 0;
+  }
 `;
 
 const Detail = props => {
-  const { product, onColorChange, onQuantityChange, addToCartHandler } = props;
+  const {
+    product,
+    onColorChange,
+    onQuantityChange,
+    addToCartHandler,
+    className,
+  } = props;
 
   const {
     name: productName,
@@ -130,9 +126,14 @@ const Detail = props => {
   const colors = gallery.map(g => g.value.color);
 
   return (
-    <Container>
+    <Container {...{ className }}>
       <Name>{productName}</Name>
-      <Price>${parseFloat(productPrice).toFixed(2)}</Price>
+      <Price as="h3" size={2}>
+        Price:{' '}
+        <Text color="palebrown" size={2} as="span">
+          ${parseFloat(productPrice).toFixed(2)}
+        </Text>
+      </Price>
       <SelectsContainer>
         <ColorContainer>
           <Select name="Color o tipo" onChange={onColorChange}>

@@ -263,7 +263,7 @@ class Cliente extends Component {
                 />
               </InputRow>
             </Fieldset>
-            <Link to="/carrito">
+            <Link to="/tienda/carrito">
               <BackButton> {'<'} Volver a carrito</BackButton>
             </Link>
             <Link to="/envio">

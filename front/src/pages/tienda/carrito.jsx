@@ -9,6 +9,7 @@ import Cart from '../../ShoppingCart';
 import SubtotalSummary from '../../components/SubtotalSummary';
 import device from '../../utilities/device';
 import AppLayout from '../../components/AppLayout';
+import { CartConsumer } from '../../components/CartContext';
 
 const Container = styled.div`
   width: 75%;
@@ -53,54 +54,31 @@ const ButtonContainer = styled.div`
   }
 `;
 
-class Carrito extends Component {
-  deleteOrder = index => {
-    Cart.deleteOrder(index);
-    Cart.decrement();
-  };
+const Carrito = () => {
+  return (
+    <AppLayout>
+      <CartConsumer>
+        {({ addProduct, products, ...rest }) => (
+          <Container>
+            <OrdersTable products={products} {...rest} />
 
-  decreaseQuantityHandler(index) {
-    Cart.decreaseQuantity(index);
-  }
+            <SubtotalSummary products={products} />
 
-  increaseQuantityHandler(index) {
-    Cart.increaseQuantity(index);
-  }
+            <ButtonContainer width={115} mobileHide>
+              <Link to="/">
+                <button>Regresar</button>
+              </Link>
+            </ButtonContainer>
+            <ButtonContainer width={156}>
+              <Link to="/tienda/cliente">
+                <button>Continuar</button>
+              </Link>
+            </ButtonContainer>
+          </Container>
+        )}
+      </CartConsumer>
+    </AppLayout>
+  );
+};
 
-  render() {
-    return (
-      <AppLayout>
-        <BreadcrumbContainer>
-          <Breadcrumbs items={[]}>
-            <div active>Carrito</div>
-            <div>Información del cliente</div>
-            <div>Envío</div>
-            <div>Pago y facturación</div>
-          </Breadcrumbs>
-        </BreadcrumbContainer>
-        <Container>
-          <OrdersTable
-            orders={Cart.orders}
-            deleteOrderHandler={this.deleteOrder}
-            onDecreaseQuantity={this.decreaseQuantityHandler}
-            onIncreaseQuantity={this.increaseQuantityHandler}
-          />
-
-          <SubtotalSummary />
-
-          <ButtonContainer width={115} mobileHide>
-            <Link to="/">
-              <button>Regresar</button>
-            </Link>
-          </ButtonContainer>
-          <ButtonContainer width={156}>
-            <Link to="/cliente">
-              <button>Continuar</button>
-            </Link>
-          </ButtonContainer>
-        </Container>
-      </AppLayout>
-    );
-  }
-}
-export default observer(Carrito);
+export default Carrito;

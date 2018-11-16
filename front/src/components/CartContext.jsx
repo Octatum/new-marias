@@ -30,8 +30,8 @@ class CartProvider extends Component {
 
   componentDidMount() {
     this.setState(() => ({
-      products: this.retrieveFromLocalStorage()
-    }))
+      products: this.retrieveFromLocalStorage(),
+    }));
   }
 
   commitToLocalStorage(products) {
@@ -51,6 +51,14 @@ class CartProvider extends Component {
   }
 
   addProduct(product) {
+    // Check if product is in list
+    const productInList = this.state.products.find(p => p.id === product.id);
+
+    if (productInList) {
+      this.increaseProductAmount(productInList.id);
+      return;
+    }
+
     this.setState(prevState => {
       const newProducts = [...prevState.products, product];
 
@@ -75,6 +83,7 @@ class CartProvider extends Component {
   }
 
   increaseProductAmount(productId) {
+    console.log('Increase');
     this.setState(prevState => {
       const newProducts = prevState.products.map(p => {
         if (p.id === productId) {

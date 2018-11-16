@@ -6,7 +6,9 @@ const Container = styled.div`
   padding: 7px 0;
   border: 1px solid transparent;
   display: none;
-  ${device.mobile} {
+
+  ${device.tablet} {
+    grid-area: dots;
     display: flex;
     flex-direction: row;
     justify-content: center;

@@ -7,7 +7,7 @@ import Text from '../Text';
 const Label = styled.label`
   margin: 4px 0;
 
-  ${device.mobile} {
+  ${device.tablet} {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@ const SelectInput = styled('select')`
   margin-top: 7px;
   font-size: 12px;
 
-  ${device.mobile} {
+  ${device.tablet} {
     appearance: none;
     border: none;
     font-size: 1.5em;
