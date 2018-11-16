@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Navbar from './../components/Navbar';
-import styled from 'styled-components';
-import Breadcrumbs from './../components/Breadcrumbs';
-import device from './../utilities/device';
-import OrderSummary from './../components/OrderSummary';
-import Client from './../ClientInfo';
 import { Link } from 'gatsby';
+
+import Navbar from '../../components/Navbar';
+import styled from 'styled-components';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import device from '../../utilities/device';
+import OrderSummary from '../../components/OrderSummary';
+import Client from '../../ClientInfo';
 
 const AppLayout = styled.div`
   ${device.mobile} {
@@ -27,29 +28,28 @@ const Info = styled.div`
 `;
 
 const Container = styled.div`
-    width: 80%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    > div {
-        float: left;
-    }
+  width: 80%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  > div {
+    float: left;
+  }
+  > div:nth-child(1) {
+    width: 60%;
+  }
+  > div:nth-child(2) {
+    width: 40%;
+  }
+  ${device.mobile} {
+    width: 95%;
     > div:nth-child(1) {
-        width: 60%;
+      width: 100%;
+      border:none;
     }
     > div:nth-child(2) {
-        width: 40%;
-    }
-    ${device.mobile} {
-        width: 95%;
-        > div:nth-child(1) {
-            width: 100%;
-            border:none;
-        }
-        > div:nth-child(2) {
-            width: 0%;
-        } 
-    }
-}
+      width: 0%;
+    } 
+  }
 `;
 
 const Label = styled.label`

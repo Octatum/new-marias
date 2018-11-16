@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import Breadcrumbs from './../components/Breadcrumbs';
-import OrdersTable from './../components/OrdersTable';
-import Cart from './../ShoppingCart';
-import SubtotalSummary from './../components/SubtotalSummary';
-import device from './../utilities/device';
 import { Link } from 'gatsby';
-import AppLayout from '../components/AppLayout';
+
+import Breadcrumbs from '../../components/Breadcrumbs';
+import OrdersTable from '../../components/OrdersTable';
+import Cart from '../../ShoppingCart';
+import SubtotalSummary from '../../components/SubtotalSummary';
+import device from '../../utilities/device';
+import AppLayout from '../../components/AppLayout';
 
 const Container = styled.div`
   width: 75%;

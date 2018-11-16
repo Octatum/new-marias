@@ -5,7 +5,7 @@ const productGridView = path.resolve('src/templates/ProductsByCategory.jsx')
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `CockpitProduct`) {
-    const slug = `/producto-${node.id}/`;
+    const slug = `/tienda/producto-${node.id}`;
     createNodeField({
       node,
       name: `slug`,
@@ -61,7 +61,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       result.data.categories.edges.forEach(({ node }) => {
         createPage({
-          path: `/categoria/${node.fields.cleanName}`,
+          path: `/tienda/categoria/${node.fields.cleanName}`,
           component: productGridView,
           context: {
             categoryId: node.id

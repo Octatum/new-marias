@@ -20,11 +20,11 @@ const ProductsByCategory = ({ data }) => {
   }));
   const breadcrumbItems = [
     {
-      to: '/',
+      to: '/tienda',
       name: 'Todo',
     },
     {
-      to: `/categoria/${data.category.fields.cleanName}`,
+      to: `/tienda/categoria/${data.category.fields.cleanName}`,
       name: data.category.entry.name,
     },
   ];

@@ -162,11 +162,11 @@ class ProductDetailContainer extends React.PureComponent {
 
     const breadcrumbItems = [
       {
-        to: '/',
+        to: '/tienda',
         name: 'Todo',
       },
       {
-        to: `/categoria/${cleanCategoryName}`,
+        to: `/tienda/categoria/${cleanCategoryName}`,
         name: categoryName.toLowerCase(),
       },
       {

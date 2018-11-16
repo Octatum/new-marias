@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import Navbar from './../components/Navbar';
 import styled from 'styled-components';
-import Breadcrumbs from './../components/Breadcrumbs';
-import device from './../utilities/device';
-import OrderSummary from './../components/OrderSummary';
-import Client from './../ClientInfo';
 import { Link } from 'gatsby';
-import PayPalBtn from './../components/PayPalBtn';
-import PayPalImg from './../components/assets/paypal.png';
-import RadioButton from './../components/RadioButton';
+
+import Navbar from '../../components/Navbar';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import device from '../../utilities/device';
+import OrderSummary from '../../components/OrderSummary';
+import Client from '../../ClientInfo';
+import PayPalBtn from '../../components/PayPalBtn';
+import PayPalImg from '../../components/assets/paypal.png';
+import RadioButton from '../../components/RadioButton';
 
 const AppLayout = styled.div`
   margin-top: 190px;

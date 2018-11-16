@@ -20,8 +20,10 @@ const Container = styled.div`
   -webkit-box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
+  
   ${device.mobile} {
-    padding: 0.4em 0 1em 0;
+    padding-top: 0.4em;
+    padding-bottom: 1em;
   }
 `;
 
@@ -35,7 +37,7 @@ const Logo = styled.img`
   ${device.mobile} {
     width: 75%;
     padding: 0;
-    margin: 0 0 0 16px;
+    margin-left: 1rem;
   }
 `;
 
@@ -109,10 +111,10 @@ class Navbar extends Component {
         <BurgerButton onClick={this.toggleNavbar} />
         <List hide={this.state.visible}>
           <li>
-            <a href="#top">Inicio</a>
+            <Link to="/">Inicio</Link>
           </li>
-          <li href="#store">
-            <Link onClick={this.backToStoreHandler} to="/">
+          <li>
+            <Link onClick={this.backToStoreHandler} to="/tienda">
               {' '}
               Nuestra tienda{' '}
             </Link>

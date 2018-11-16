@@ -79,7 +79,7 @@ const CategoryList = props => {
 
           return categories.map(category => (
             <Text as="li" key={category.id}>
-              <CategoryLink to={`/categoria/${category.cleanName}`}>
+              <CategoryLink to={`/tienda/categoria/${category.cleanName}`}>
                 {category.name.toLowerCase()}
               </CategoryLink>
             </Text>

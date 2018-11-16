@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Navbar from './../components/Navbar';
-import styled from 'styled-components';
-import Breadcrumbs from './../components/Breadcrumbs';
-import device from './../utilities/device';
-import OrderSummary from './../components/OrderSummary';
-import Client from './../ClientInfo';
 import { Link } from 'gatsby';
-import RadioButton from '../components/RadioButton';
+import styled from 'styled-components';
+
+import Navbar from '../../components/Navbar';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import device from '../../utilities/device';
+import OrderSummary from '../../components/OrderSummary';
+import Client from '../../ClientInfo';
+import RadioButton from '../../components/RadioButton';
 
 const AppLayout = styled.div`
   margin-top: 190px;

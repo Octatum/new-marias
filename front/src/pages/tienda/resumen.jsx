@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import device from './../utilities/device';
 import { StaticQuery, graphql } from 'gatsby';
-import Cart from './../ShoppingCart';
-import Text from '../components/Text';
-import AppLayout from '../components/AppLayout';
+
+import device from '../../utilities/device';
+import Cart from '../../ShoppingCart';
+import Text from '../../components/Text';
+import AppLayout from '../../components/AppLayout';
 
 const Img = styled.div`
   width: 90px;

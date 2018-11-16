@@ -1,52 +1,18 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { graphql } from 'gatsby';
-import Helmet from 'react-helmet';
+import SlideShow from '../pages-components/Home/SlideShow';
+import AppLayout from '../components/AppLayout';
+import NuestraTienda from '../pages-components/Home/NuestraTienda';
+import QuienesSomos from '../pages-components/Home/QuienesSomos';
+import Contacto from '../pages-components/Home/Contacto';
 
-import CategoryDisplay from '../components/Products/CategoryDisplay';
-
-const IndexPage = ({ data }) => {
-  const products = data.products.edges.map(({ node }) => ({
-    slug: node.fields.slug,
-    thumbnail: node.entry.thumbnail.path,
-    ...node.entry,
-    ...node,
-  }));
-  const breadcrumbItems = [
-    {
-      to: '/',
-      name: 'Todo',
-    },
-  ];
-
+const Home = () => {
   return (
-    <React.Fragment>
-      <Helmet title="Todos los productos" />
-      <CategoryDisplay breadcrumbItems={breadcrumbItems} products={products} />
-    </React.Fragment>
+    <AppLayout>
+      <SlideShow />
+      <NuestraTienda />
+      <QuienesSomos />
+      <Contacto />
+    </AppLayout>
   );
 };
-
-export default observer(IndexPage);
-
-export const query = graphql`
-  query {
-    products: allCockpitProduct {
-      edges {
-        node {
-          id
-          fields {
-            slug
-          }
-          entry {
-            name
-            price
-            thumbnail {
-              path
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+export default Home;
