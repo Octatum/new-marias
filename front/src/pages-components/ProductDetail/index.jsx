@@ -121,7 +121,7 @@ class ProductDetailContainer extends React.PureComponent {
     this.handleChangeColor = this.handleChangeColor.bind(this);
   }
 
-  addProduct = (cbAddProduct) => {
+  addProduct = cbAddProduct => {
     const { cockpitProduct } = this.props.data;
 
     cbAddProduct({
@@ -189,16 +189,14 @@ class ProductDetailContainer extends React.PureComponent {
           <Container>
             <Gallery images={this.state.currentImages} />
             <CartConsumer>
-              {
-                ({addProduct}) => (
-                  <Detail
-                    product={cockpitProduct}
-                    onColorChange={this.handleChangeColor}
-                    onQuantityChange={this.changeQuantityHandler}
-                    addToCartHandler={() => this.addProduct(addProduct)}
-                  />
-                )
-              }
+              {({ addProduct }) => (
+                <Detail
+                  product={cockpitProduct}
+                  onColorChange={this.handleChangeColor}
+                  onQuantityChange={this.changeQuantityHandler}
+                  addToCartHandler={() => this.addProduct(addProduct)}
+                />
+              )}
             </CartConsumer>
           </Container>
         </Layout>

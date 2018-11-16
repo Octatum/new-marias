@@ -20,7 +20,7 @@ const Container = styled.div`
   -webkit-box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 11px -2px rgba(0, 0, 0, 0.75);
-  
+
   ${device.mobile} {
     padding-top: 0.4em;
     padding-bottom: 1em;

@@ -24,8 +24,8 @@ const Container = styled.section`
     margin-bottom: 60px;
     padding-top: 15px;
     h2 {
-        font-size: 16px;
-        font-weight: bold;
+      font-size: 16px;
+      font-weight: bold;
     }
     p {
       font-size: 16px;
@@ -43,12 +43,12 @@ const Title = styled.img`
     height: 25px;
     top: -17px;
   }
-`
+`;
 
 const Section = props => {
   return (
     <Container>
-      <Title src={props.titleSrc} alt={props.title}/>
+      <Title src={props.titleSrc} alt={props.title} />
       {props.children}
     </Container>
   );

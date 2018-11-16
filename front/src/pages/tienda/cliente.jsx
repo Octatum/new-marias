@@ -44,11 +44,11 @@ const Container = styled.div`
     width: 95%;
     > div:nth-child(1) {
       width: 100%;
-      border:none;
+      border: none;
     }
     > div:nth-child(2) {
       width: 0%;
-    } 
+    }
   }
 `;
 

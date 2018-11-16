@@ -53,7 +53,7 @@ const H2 = styled.h2`
   ${device.mobile} {
     width: 40%;
     text-align: left;
-    font-size: 16px!important;
+    font-size: 16px !important;
     align-self: flex-start;
     margin-top: 10px;
     font-weight: normal;

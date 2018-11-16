@@ -8,7 +8,7 @@ const CartContext = React.createContext({
   decreaseProductAmount: () => {},
 });
 
-const LOCAL_STORAGE_ID = "cart_products";
+const LOCAL_STORAGE_ID = 'cart_products';
 
 class CartProvider extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class CartProvider extends Component {
   }
 
   commitToLocalStorage(products) {
-    if(typeof window === undefined) return;
+    if (typeof window === undefined) return;
 
     const productsJson = JSON.stringify(products);
 
@@ -37,8 +37,8 @@ class CartProvider extends Component {
   }
 
   retrieveFromLocalStorage() {
-    if(typeof window === undefined) return [];
-    
+    if (typeof window === undefined) return [];
+
     const products = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_ID));
 
     return products || [];
@@ -122,8 +122,4 @@ class CartProvider extends Component {
 
 const Consumer = CartContext.Consumer;
 
-export {
-  CartContext as default,
-  CartProvider,
-  Consumer as CartConsumer,
-};
+export { CartContext as default, CartProvider, Consumer as CartConsumer };
