@@ -42,7 +42,7 @@ const SlideshowSection = React.forwardRef((props, forwardedRef) => {
     {
       title: 'ok',
       backgroundImage:
-        'http://definicionde.hugex.net/wp-content/uploads/2015/07/e1001e86903d5fccba2a7e83a0547bd4.jpg',
+        'https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg',
     },
     {
       title: 'ok2',
