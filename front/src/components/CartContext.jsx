@@ -24,8 +24,14 @@ class CartProvider extends Component {
       addProduct: this.addProduct,
       increaseProductAmount: this.increaseProductAmount,
       decreaseProductAmount: this.decreaseProductAmount,
-      products: this.retrieveFromLocalStorage(),
+      products: [],
     };
+  }
+
+  componentDidMount() {
+    this.setState(() => ({
+      products: this.retrieveFromLocalStorage()
+    }))
   }
 
   commitToLocalStorage(products) {

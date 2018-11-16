@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import forwardButtonImg from './assets/forwardbutton.png';
 import device from './../../utilities/device';
@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 100%;
   font-family: 'Archivo Narrow', sans-serif;
   box-sizing: border-box;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.darkgray};
+  border-bottom: 1px solid #626363;
 
   ${device.mobile} {
     margin: 0;
@@ -50,7 +50,7 @@ const Breadcrumbs = props => {
       {links &&
         links.map(link => (
           <BreadcrumbItem key={link.name}>
-            <TextLink to={link.to} as={link.to ? GatsbyLink : 'p'}>
+            <TextLink to={link.to || null} as={link.to ? GatsbyLink : 'p'}>
               {link.name.toLowerCase()}
             </TextLink>
             <Img src={forwardButtonImg} />

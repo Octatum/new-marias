@@ -73,7 +73,10 @@ const Text = styled.div`
 Text.propTypes = {
   // Por cuestiones de accesibilidad, no es conveniente usar textos directamente en un div
   // por lo que hay que especificar el tipo de tag de html que se usará en el componente.
-  as: PropTypes.string.isRequired,
+  as: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]).isRequired,
 };
 
 export default Text;
