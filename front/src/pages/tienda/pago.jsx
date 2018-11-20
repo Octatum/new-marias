@@ -204,32 +204,17 @@ class Pago extends Component {
                 <PayPalImage style={{ marginLeft: '15px' }} />
               </span>
             </Field>
-
-            {/* 
-            <Input placeholder="Tarjeta de crédito" name="card" />
-            <Input placeholder="Número de tarjeta" name="cardNumber" />
-            <InputSmall
-              placeholder="Nombre titular de la tarjeta"
-              name="cardName"
-            />
-            <InputSmall placeholder="MM/AA" name="cardDate" />
-            <InputSmall placeholder="CVV" name="cardCVV" />
-            */}
             <H4>Dirección de facturación</H4>
-            {/** 
-              <Input name="facturacion" />
-              <Input name="facturacion2" />
-            */}
             <Field>
               <RadioButton name="direccion_fact" />
             </Field>
             <Field style={{ marginTop: '9px' }}>
               <RadioButton name="direccion_fact" />
             </Field>
-            <Link to="/envio">
+            <Link to="/tienda/envio">
               <BackButton> {'<'} Volver a Envío </BackButton>
             </Link>
-            <Link to="/resumen">
+            <Link to="/tienda/resumen">
               <Button>Finalizar Pedido</Button>
             </Link>
           </Info>

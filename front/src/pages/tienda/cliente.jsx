@@ -266,7 +266,7 @@ class Cliente extends Component {
             <Link to="/tienda/carrito">
               <BackButton> {'<'} Volver a carrito</BackButton>
             </Link>
-            <Link to="/envio">
+            <Link to="/tienda/envio">
               <Button onClick={this.saveCustomerInfo}>Continuar</Button>
             </Link>
           </Info>

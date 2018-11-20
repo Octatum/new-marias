@@ -176,10 +176,10 @@ class Envio extends Component {
               <button>Editar</button>
             </Field>
             <Envios>{envios}</Envios>
-            <Link to="/cliente">
+            <Link to="/tienda/cliente">
               <BackButton> {'<'} Volver a información de cliente</BackButton>
             </Link>
-            <Link to="/pago">
+            <Link to="/tienda/pago">
               <Button>Continuar</Button>
             </Link>
           </Info>
