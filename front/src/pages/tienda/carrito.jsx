@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { observer } from 'mobx-react';
 import { Link } from 'gatsby';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
 import OrdersTable from '../../components/OrdersTable';
-import Cart from '../../ShoppingCart';
 import SubtotalSummary from '../../components/SubtotalSummary';
 import device from '../../utilities/device';
 import AppLayout from '../../components/AppLayout';
@@ -18,13 +15,6 @@ const Container = styled.div`
   ${device.mobile} {
     width: 100%;
   }
-`;
-
-const BreadcrumbContainer = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 auto;
-  padding-left: 0%;
 `;
 
 const ButtonContainer = styled.div`
@@ -70,7 +60,7 @@ const Carrito = () => {
               </Link>
             </ButtonContainer>
             <ButtonContainer width={156}>
-              <Link to="/tienda/cliente">
+              <Link to="/tienda/checkout/cliente">
                 <button>Continuar</button>
               </Link>
             </ButtonContainer>

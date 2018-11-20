@@ -22,6 +22,14 @@ exports.onCreateNode = ({ node, actions }) => {
   }
 };
 
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions
+  if (page.path.match(/^\/tienda\/checkout/)) {
+    page.matchPath = "/tienda/checkout/*"
+    createPage(page)
+  }
+}
+
 exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve) => {
     graphql(`

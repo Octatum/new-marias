@@ -154,7 +154,6 @@ class Envio extends Component {
     ));
     return (
       <AppLayout>
-        <Navbar />
         <BreadcrumbContainer>
           <Breadcrumbs>
             <div>Carrito</div>

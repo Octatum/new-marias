@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Octatum <contacto@octatum.com>",
   "dependencies": {
+    "@loadable/component": "^5.1.2",
     "babel-plugin-styled-components": "^1.8.0",
     "formik": "^1.3.2",
     "gatsby": "^2.0.50",
