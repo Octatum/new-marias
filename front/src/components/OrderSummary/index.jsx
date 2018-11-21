@@ -52,7 +52,7 @@ const Total = styled.h1`
 `;
 
 const OrderSummary = props => {
-  const { children, shippingCost } = props;
+  const { children, shippingData } = props;
 
   return (
     <CartConsumer>
@@ -76,13 +76,13 @@ const OrderSummary = props => {
                 </Field>
                 <Field>
                   <h3>Envío</h3>
-                  <h1>${shippingCost.toFixed(2)}</h1>
+                  <h1>${shippingData && shippingData.price.toFixed(2)}</h1>
                 </Field>
               </Section>
               <Section>
                 <Field>
                   <h3>Total</h3>
-                  <Total>${(subTotal + shippingCost).toFixed(2)}</Total>
+                  <Total>${shippingData && (subTotal + shippingData.price).toFixed(2)}</Total>
                 </Field>
               </Section>
             </SummaryContainer>
@@ -94,7 +94,6 @@ const OrderSummary = props => {
 };
 
 OrderSummary.defaultProps = {
-  shippingCost: 0,
   products: [],
 };
 

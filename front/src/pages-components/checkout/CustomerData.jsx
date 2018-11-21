@@ -8,7 +8,6 @@ import Text from '../../components/Text';
 import Input from '../../components/Input';
 import validationSchema from './formValidation';
 import Select from '../../components/Select';
-import getInitialState from './getInitialState';
 
 const Info = styled.div`
   box-sizing: border-box;
@@ -108,12 +107,12 @@ const BackButton = styled.button`
 `;
 
 const CustomerData = props => {
-  const { onSubmit } = props;
-  
+  const { onSubmit, initialValues } = props;
+
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={getInitialState()}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       render={({ setFieldValue }) => (
         <Container>

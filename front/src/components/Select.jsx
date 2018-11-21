@@ -52,7 +52,7 @@ const Select = props => {
         <PlaceholderOption value="" disabled>
           {placeholder}
         </PlaceholderOption>
-        {options.map(option => (
+        {options && options.map(option => (
           <Option key={option} value={option}>
             {option}
           </Option>

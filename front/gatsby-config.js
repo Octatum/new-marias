@@ -27,6 +27,10 @@ module.exports = {
         // icon: '', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/tienda/checkout/*`] },
+    },
     'gatsby-plugin-offline',
     {
       resolve: 'gatsby-source-cockpit',

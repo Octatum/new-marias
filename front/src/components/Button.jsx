@@ -11,8 +11,15 @@ const Button = styled.button`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
+  text-decoration: none;
   color: #ffffff;
   font-size: ${({ fontSize }) => fontSize};
+
+  ${({ theme, color }) =>
+    color === 'palebrown' &&
+    `
+    background-color: ${theme.colors.palebrown};
+  `}
 `;
 
 export default Button;
