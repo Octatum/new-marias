@@ -1,31 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import device from '../utilities/device';
+import Text from './Text';
 
 const Summary = styled.div`
-  font-family: 'Archivo Narrow', sans-serif;
-  text-align: right;
-  font-size: 18px;
-  color: #626363;
-  margin-bottom: 30px;
-  p {
-    margin: 5px 0;
-  }
-  ${device.mobile} {
-    margin-right: 33px;
-    p:nth-child(1) {
-      font-size: 16px;
-    }
-  }
+  margin-right: 1rem;  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 const SubtotalSummary = props => {
   const { products } = props;
+  const productsSubtotal = products.reduce((accum, product) => product.price * product.amount + accum, 0);
 
   return (
     <Summary>
-      <p>SUBTOTAL</p>
-      <p>${(0.0).toFixed(2)} MXN</p>
+      <Text>SUBTOTAL</Text>
+      <Text>${(productsSubtotal).toFixed(2)} MXN</Text>
     </Summary>
   );
 };

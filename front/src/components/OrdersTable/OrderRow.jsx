@@ -46,8 +46,9 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.palebrown};
   color: #ffffff;
   width: 1rem;
-  ${device.mobile} {
-    width: 70%;
+  ${device.tablet} {
+    width: 2rem;
+    height: 3rem;
   }
 `;
 
@@ -66,6 +67,16 @@ const CustomFlexCell = styled(FlexCell)`
   }
 `;
 
+const NumberDisplay = styled(Text)`
+  background: ${({theme}) => theme.colors.palebrown};
+  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem; 
+  height: 3rem;
+`;
+
 const ResponsiveText = styled(Text)`
   text-align: center;
   width: 100%;
@@ -80,6 +91,7 @@ const ResponsiveFlexCell = styled(FlexCell)`
   ${device.tablet} {
     flex-direction: column;
     justify-content: space-between;
+    margin-left: 0.5rem;
   }
 `;
 
@@ -93,7 +105,14 @@ const TabletFlexCell = styled(FlexCell)`
 
   ${device.tablet} {
     display: flex;
+    padding: 0;
   }
+`;
+
+const OtherFlexCell = styled(FlexCell)`
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 0;
 `;
 
 function OrderRow(props) {
@@ -120,13 +139,13 @@ function OrderRow(props) {
         </ResponsiveText>
         <TabletFlexCell flex={9}>
           <Text color="palebrown" size={4}>${parseFloat(price * amount).toFixed(2)}</Text>
-          <FlexCell>
+          <OtherFlexCell>
             <Button onClick={() => decreaseProductAmount(product)}>-</Button>
-            <Text color="white" size={DEFAULT_SIZE} align="center">
+            <NumberDisplay color="white" size={DEFAULT_SIZE} align="center">
               {amount}
-            </Text>
+            </NumberDisplay>
             <Button onClick={() => increaseProductAmount(product)}>+</Button>
-          </FlexCell>
+          </OtherFlexCell>
         </TabletFlexCell>
       </ResponsiveFlexCell>
       <FlexCell hideTablet>

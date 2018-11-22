@@ -7,6 +7,7 @@ import SubtotalSummary from '../../components/SubtotalSummary';
 import device from '../../utilities/device';
 import AppLayout from '../../components/AppLayout';
 import { CartConsumer } from '../../components/CartContext';
+import Button from '../../components/Button';
 
 const Container = styled.div`
   width: 75%;
@@ -18,30 +19,14 @@ const Container = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 100%;
-  display: block;
-  button {
-    background-color: #d4ad9f;
-    border: none;
-    height: 40px;
-    margin: 5px 0;
-    color: #ffffff;
-    font-size: 18px;
-    float: right;
-    width: ${props => props.width}px;
-    :hover {
-      cursor: pointer;
-    }
-    ${device.mobile} {
-      margin-right: 33px;
-      display: ${({ mobileHide }) => (mobileHide ? 'none' : 'block')};
-    }
-  }
-  ::after {
-    content: '';
-    clear: both;
-    display: table;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+const CustomButton = styled(Button)`
+  font-size: 1.2em;
+  margin-top: 0.5rem;
 `;
 
 const Carrito = () => {
@@ -55,14 +40,12 @@ const Carrito = () => {
             <SubtotalSummary products={products} />
 
             <ButtonContainer width={115} mobileHide>
-              <Link to="/">
-                <button>Regresar</button>
-              </Link>
-            </ButtonContainer>
-            <ButtonContainer width={156}>
-              <Link to="/tienda/checkout/cliente">
-                <button>Continuar</button>
-              </Link>
+              <CustomButton color="palebrown" as={Link} to="/tienda">
+                Regresar
+              </CustomButton>
+              <CustomButton color="palebrown" as={Link} to="/tienda/checkout/cliente">
+                Continuar
+              </CustomButton>
             </ButtonContainer>
           </Container>
         )}
