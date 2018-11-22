@@ -9,6 +9,7 @@ import device from '../utilities/device';
 const Ul = styled.ul`
   list-style: none;
   flex: 1;
+  position: relative;
 
   > :not(:first-child) {
     padding-top: 0.5rem;
@@ -19,14 +20,18 @@ const Ul = styled.ul`
     width: 19px;
     height: 42px;
     border: none;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
   transition: all 0.2s ease-in;
   ${device.mobile} {
     position: absolute;
-    left: ${({ hide }) => (hide ? '-45%' : '0')};
+    top: 0;
+    left: ${({hide}) => hide ? '-100%':0 };
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: white;
+    box-sizing: border-box;
     padding-left: 15px;
     li {
       width: 120px;

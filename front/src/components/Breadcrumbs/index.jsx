@@ -12,7 +12,12 @@ const Container = styled.div`
   border-bottom: 1px solid #626363;
 
   ${device.mobile} {
-    margin: 0;
+    margin: 0 0.5rem;
+
+    > :first-child {
+      padding-left: 1rem;
+      
+    }
   }
 `;
 

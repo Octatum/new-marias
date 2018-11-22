@@ -52,10 +52,10 @@ class CartProvider extends Component {
 
   addProduct(product) {
     // Check if product is in list
-    const productInList = this.state.products.find(p => p.id === product.id);
+    const productInList = this.state.products.find(p => p.id === product.id && p.type === product.type);
 
     if (productInList) {
-      this.increaseProductAmount(productInList.id);
+      this.increaseProductAmount(productInList, product.amount);
       return;
     }
 
@@ -70,9 +70,11 @@ class CartProvider extends Component {
     });
   }
 
-  removeProduct(productId) {
+  removeProduct(product) {
+    const { id: productId, type: productType} = product;    
+
     this.setState(prevState => {
-      const newProducts = prevState.products.filter(p => p.id !== productId);
+      const newProducts = prevState.products.filter(p => p.id !== productId || p.type !== productType);
 
       this.commitToLocalStorage(newProducts);
 
@@ -82,14 +84,15 @@ class CartProvider extends Component {
     });
   }
 
-  increaseProductAmount(productId) {
-    console.log('Increase');
+  increaseProductAmount(product, amount = 1) {
+    const { id: productId, type: productType} = product;
+
     this.setState(prevState => {
       const newProducts = prevState.products.map(p => {
-        if (p.id === productId) {
+        if (p.id === productId, p.type === productType) {
           return {
             ...p,
-            amount: p.amount + 1,
+            amount: p.amount + amount,
           };
         }
 
@@ -104,10 +107,12 @@ class CartProvider extends Component {
     });
   }
 
-  decreaseProductAmount(productId) {
+  decreaseProductAmount(product) {
+    const { id: productId, type: productType} = product;
+
     this.setState(prevState => {
       const newProducts = prevState.products.map(p => {
-        if (p.id === productId) {
+        if (p.id === productId && p.type === productType) {
           const newAmount = p.amount - 1;
           return {
             ...p,

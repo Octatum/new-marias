@@ -104,7 +104,7 @@ class ProductDetailContainer extends React.PureComponent {
       id: cockpitProduct.id,
       name: cockpitProduct.entry.name,
       price: cockpitProduct.entry.price,
-      color: this.state.currentColor,
+      type: this.state.currentColor,
       thumbnail: this.state.currentImages[0],
       amount: this.state.quantity,
     });

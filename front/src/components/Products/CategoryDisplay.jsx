@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { observer } from 'mobx-react';
 
 import Product from './Product';
-import CounterStore from '../../ShoppingCart';
 import device from '../../utilities/device';
 import backButtonImg from './assets/backbutton.png';
 import forwardButtonImg from './assets/forwardbutton.png';
 import CategoryList from '../CategoryList';
-import shoppingCart from '../../ShoppingCart';
 import Breadcrumbs from '../Breadcrumbs';
 import banner from './assets/banner.jpg';
 import AppLayout from '../AppLayout';
@@ -29,10 +26,21 @@ const Banner = styled.div`
 `;
 
 const GridCell = styled('div')`
+  position: relative;
   grid-area: ${({ area }) => area};
 `;
 
+const TabletGridCell = styled(GridCell)`
+  ${device.mobile} {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }
+`;
+
 const Container = styled.div`
+  position: relative;
   padding-left: 3.5rem;
   padding-right: 3.5rem;
   padding-bottom: 3rem;
@@ -48,6 +56,9 @@ const Container = styled.div`
   ${device.mobile} {
     padding-left: 0;
     padding-right: 0;
+    grid-template-areas:
+    'breadcrumbs breadcrumbs breadcrumbs breadcrumbs cart'
+    'content content content content content';
   }
 `;
 
@@ -64,9 +75,7 @@ const ButtonHide = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   color: white;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
   z-index: 999;
   display: none;
   ${device.mobile} {
@@ -83,27 +92,21 @@ const ProductList = styled.div`
   grid-gap: 1em;
   padding-top: 0.5rem;
   flex: 3;
-  ${device.mobile} {
-    grid-template-columns: repeat(2, minmax(5em, 20vw));
-    padding: 20px 20%;
-    grid-gap: 2.5em;
-  }
-`;
 
-const BackDrop = styled.div`
+  ${device.laptop} {
+    margin-left: 2rem;
+    grid-template-columns: repeat(3, minmax(10em, 20vw));
+  }
+
+  ${device.tablet} {
+    grid-template-columns: repeat(2, minmax(10em, 20vw));
+  }
+
   ${device.mobile} {
-    transition: all 0.2s ease-in;
-    background-color: rgba(
-      255,
-      255,
-      255,
-      ${({ hide }) => (hide ? '0' : '0.95')}
-    );
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: ${({ hide }) => (hide ? '-100%' : '0')};
-    top: 0;
+    grid-template-columns: repeat(2, minmax(10em, 20vw));
+    padding: 20px 10%;
+    margin-left: 0;
+    grid-gap: 5vw;
   }
 `;
 
@@ -112,10 +115,6 @@ class CategoryDisplay extends Component {
     categories: this.props.categories,
     products: this.props.products,
     menuHidden: false,
-  };
-
-  onSelectedProductHandler = id => {
-    CounterStore.currentProduct = id;
   };
 
   menuToggle = () => {
@@ -131,9 +130,9 @@ class CategoryDisplay extends Component {
       <AppLayout>
         <Banner />
         <Container>
-          <GridCell area="categories">
+          <TabletGridCell area="categories">
             <CategoryList hidden={this.state.menuHidden} />
-          </GridCell>
+          </TabletGridCell>
           <GridCell area="breadcrumbs">
             <Breadcrumbs links={breadcrumbItems} />
           </GridCell>
@@ -141,10 +140,8 @@ class CategoryDisplay extends Component {
             <CartCounter
               width={69}
               height={61}
-              quantity={shoppingCart.counter}
             />
           </GridCell>
-          <BackDrop hide={this.state.menuHidden} />
           <GridCell area="content">
             <ProductList>
               {products.map(product => (
@@ -164,4 +161,4 @@ class CategoryDisplay extends Component {
   }
 }
 
-export default observer(CategoryDisplay);
+export default CategoryDisplay;

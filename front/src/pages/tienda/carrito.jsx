@@ -12,7 +12,7 @@ const Container = styled.div`
   width: 75%;
   margin: 0 auto;
   padding-bottom: 40px;
-  ${device.mobile} {
+  ${device.tablet} {
     width: 100%;
   }
 `;

@@ -26,6 +26,12 @@ const TableBody = styled('div')`
   flex-direction: column;
 `;
 
+const DesktopText = styled(Text)`
+  ${device.tablet} {
+    opacity: 0;
+  }
+`;
+
 const OrdersTable = props => {
   const { products } = props;
 
@@ -33,29 +39,29 @@ const OrdersTable = props => {
     <ContentTable>
       <TableHead>
         <FlexCell>
-          <Text align="center" size={2} color="white">
+          <DesktopText align="center" size={2} color="white">
             Producto
-          </Text>
+          </DesktopText>
         </FlexCell>
         <FlexCell>
-          <Text align="center" size={2} color="white">
+          <DesktopText align="center" size={2} color="white">
             Nombre
-          </Text>
+          </DesktopText>
         </FlexCell>
         <FlexCell>
-          <Text align="center" size={2} color="white">
+          <DesktopText align="center" size={2} color="white">
             Precio
-          </Text>
+          </DesktopText>
         </FlexCell>
         <FlexCell>
-          <Text align="center" size={2} color="white">
+          <DesktopText align="center" size={2} color="white">
             Cantidad
-          </Text>
+          </DesktopText>
         </FlexCell>
         <FlexCell>
-          <Text align="center" size={2} color="white">
+          <DesktopText align="center" size={2} color="white">
             Total
-          </Text>
+          </DesktopText>
         </FlexCell>
         <FlexCell flex={1} />
       </TableHead>

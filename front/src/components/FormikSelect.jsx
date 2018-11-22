@@ -50,6 +50,7 @@ const FormikSelect = props => {
         name={name}
         {...rest}
       >
+        <PlaceholderOption value="">{placeholder}</PlaceholderOption>
         {options &&
           options.map(option => (
             <Option

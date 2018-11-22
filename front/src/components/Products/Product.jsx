@@ -2,17 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import device from './../../utilities/device';
+import Text from '../Text';
 
 const Container = styled.div`
-  p {
-    color: #626363;
-    font-family: 'Archivo Narrow', sans-serif;
-    font-size: 14px;
-  }
-  ${device.mobile} {
-    p {
-      font-size: 13px;
-    }
+  ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 5%;
   }
 `;
 
@@ -28,22 +27,29 @@ const Placeholder = styled.div`
   grid-column: span 1;
   max-width: none;
   ${device.mobile} {
-    width: 110px;
-    height: 110px;
+    width: 100%;
     padding: 0;
     margin: 0;
   }
   display: inline-block;
 `;
 
+const TextBlock = styled(Text)`
+  width: 100%;
+`;
+
+const CoolLink = styled(Link)`
+  width: 100%;
+`;
+
 function Product(props) {
   return (
     <Container>
-      <Link to={props.path}>
+      <CoolLink to={props.path}>
         <Placeholder src={props.thumbnail.path} />
-      </Link>
-      <p>{props.name}</p>
-      <p>${parseFloat(props.price).toFixed(2)}</p>
+      </CoolLink>
+      <TextBlock>{props.name}</TextBlock>
+      <TextBlock>${parseFloat(props.price).toFixed(2)}</TextBlock>
     </Container>
   );
 }

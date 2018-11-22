@@ -6,6 +6,10 @@ import Text from '../Text';
 const Layout = styled('div')`
   display: flex;
   padding: 0 0.5em;
+
+  ${device.tablet} {
+    padding: 1rem;
+  }
 `;
 
 const FlexCell = styled('div')`
@@ -14,12 +18,22 @@ const FlexCell = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${({hideTablet}) => hideTablet && `
+    ${device.tablet} {
+      display: none;
+    }
+  `}
 `;
 
 const ButtonText = styled(Text)`
   cursor: pointer;
   border: none;
   background: none;
+
+  ${device.tablet} {
+    font-size: 2em;
+  }
 `;
 
 const Thumbnail = styled('img')`
@@ -52,6 +66,36 @@ const CustomFlexCell = styled(FlexCell)`
   }
 `;
 
+const ResponsiveText = styled(Text)`
+  text-align: center;
+  width: 100%;
+
+  ${device.tablet} {
+    text-align: left;
+    flex: 1;
+  }
+`;
+
+const ResponsiveFlexCell = styled(FlexCell)`
+  ${device.tablet} {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+`;
+
+const TabletFlexCell = styled(FlexCell)`
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  > * {
+    width: 100%;
+  }
+
+  ${device.tablet} {
+    display: flex;
+  }
+`;
+
 function OrderRow(props) {
   const {
     increaseProductAmount,
@@ -60,7 +104,7 @@ function OrderRow(props) {
     product,
   } = props;
 
-  const { name, price, amount, thumbnail, id } = product;
+  const { name, price, amount, thumbnail, type } = product;
   const DEFAULT_SIZE = 1.5;
 
   return (
@@ -70,31 +114,41 @@ function OrderRow(props) {
           src={`https://admin.newmarias.com${thumbnail}?w=200&h=200`}
         />
       </FlexCell>
-      <FlexCell>
-        <Text size={DEFAULT_SIZE} align="center">
-          {name}
-        </Text>
-      </FlexCell>
-      <FlexCell>
+      <ResponsiveFlexCell>
+        <ResponsiveText size={DEFAULT_SIZE} align="center">
+          {name} ({type})
+        </ResponsiveText>
+        <TabletFlexCell flex={9}>
+          <Text color="palebrown" size={4}>${parseFloat(price * amount).toFixed(2)}</Text>
+          <FlexCell>
+            <Button onClick={() => decreaseProductAmount(product)}>-</Button>
+            <Text color="white" size={DEFAULT_SIZE} align="center">
+              {amount}
+            </Text>
+            <Button onClick={() => increaseProductAmount(product)}>+</Button>
+          </FlexCell>
+        </TabletFlexCell>
+      </ResponsiveFlexCell>
+      <FlexCell hideTablet>
         <Text size={DEFAULT_SIZE} align="center">
           ${parseFloat(price).toFixed(2)}
         </Text>
       </FlexCell>
-      <CustomFlexCell>
-        <Button onClick={() => decreaseProductAmount(product.id)}>-</Button>
+      <CustomFlexCell hideTablet>
+        <Button onClick={() => decreaseProductAmount(product)}>-</Button>
         <Text color="white" size={DEFAULT_SIZE} align="center">
           {amount}
         </Text>
-        <Button onClick={() => increaseProductAmount(product.id)}>+</Button>
+        <Button onClick={() => increaseProductAmount(product)}>+</Button>
       </CustomFlexCell>
-      <FlexCell>
+      <FlexCell hideTablet>
         <Text size={DEFAULT_SIZE} align="center">
           ${parseFloat(price * amount).toFixed(2)}
         </Text>
       </FlexCell>
       <FlexCell flex={1}>
         <ButtonText
-          onClick={() => removeProduct(id)}
+          onClick={() => removeProduct(product)}
           as="button"
           alt="eliminar producto"
           align="center"
