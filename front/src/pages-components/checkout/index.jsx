@@ -7,6 +7,7 @@ import getInitialState from './getInitialState';
 import ShippingSelection from './ShippingSelection';
 import localStorageManager from '../../utilities/localStorageManager';
 import PaymentMethodSelection from './PaymentMethodSelection';
+import FinalSummary from './FinalSummary';
 
 const CUSTOMER_DATA = {
   key: 'costumer_personal_data',
@@ -95,12 +96,17 @@ class CheckoutPage extends Component {
               selectedShipping={this.state.shippingData}
               setShipping={this.setShipping}
             />
-            <PaymentMethodSelection 
+            <PaymentMethodSelection
               path="facturacion"
               customerAddress={this.state.customerData}
               selectedShipping={this.state.shippingData}
             />
           </OrderSummary>
+          <FinalSummary
+            path="/tienda/checkout/resumen/:pago"
+            customerAddress={this.state.customerData}
+            selectedShipping={this.state.shippingData}
+          />
         </Router>
       </AppLayout>
     );

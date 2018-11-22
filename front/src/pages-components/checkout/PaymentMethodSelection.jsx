@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button';
 import device from '../../utilities/device';
 import Text from '../../components/Text';
-import paypalImage from './assets/paypal.png';
+import paymentOptions from './paymentOptions';
 
 const Container = styled('div')`
   width: 100%;
@@ -24,7 +24,8 @@ const Info = styled.div`
   padding-right: 10%;
   border-right: 3px solid ${({ theme }) => theme.colors.gray};
 
-  > *:first-child, > *:last-child {
+  > *:first-child,
+  > *:last-child {
     margin-top: 3rem;
     margin-bottom: 1em;
   }
@@ -53,7 +54,7 @@ const Field = styled('div')`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: ${({direction}) => direction};
+  flex-direction: ${({ direction }) => direction};
 `;
 
 const FlexRow = styled('div')`
@@ -64,7 +65,6 @@ const FlexRow = styled('div')`
 const TextFlexCell = styled(Text)`
   flex: ${({ flex }) => flex || 1};
   justify-content: ${({ justify }) => justify || 'initial'};
-
 `;
 
 const PaymentItems = styled('div')`
@@ -106,7 +106,6 @@ const PaymentOption = styled('button')`
 
 const PaymentImage = styled('img')`
   max-height: 100%;
-
 `;
 
 const NextStepButton = styled(Button)`
@@ -114,19 +113,20 @@ const NextStepButton = styled(Button)`
   font-size: 1.5em;
 `;
 
-const paymentOptions = [
-  {
-    id: 'paypal',
-    name: 'paypal',
-    image: paypalImage,
-  }
-];
-
 const PaymentItemCell = styled(CellItem)`
   max-height: 4rem;
 `;
 
 class PaymentMethodSelection extends Component {
+  state = {
+    selectedPaymentId: paymentOptions[0].id,
+  };
+
+  setPaymentMethod = paymentMethodId => {
+    this.setState({
+      selectedPaymentId: paymentMethodId,
+    });
+  };
 
   render() {
     const { customerAddress, selectedShipping } = this.props;
@@ -156,27 +156,24 @@ class PaymentMethodSelection extends Component {
               <TextFlexCell as="h2" bold>
                 Envío
               </TextFlexCell>
-              <TextFlexCell flex={3}>
-                {selectedShipping.name}
-              </TextFlexCell>
-              <TextFlexCell
-                align="right"
-                as={Link}
-                to="/tienda/checkout/envio"
-              >
+              <TextFlexCell flex={3}>{selectedShipping.name}</TextFlexCell>
+              <TextFlexCell align="right" as={Link} to="/tienda/checkout/envio">
                 Editar
               </TextFlexCell>
             </CellItem>
           </Field>
           <Field direction="column">
             <FlexRow>
-              <Text bold>Pagos y facturación</Text>
+              <Text bold>Selección de método de pago</Text>
             </FlexRow>
             <PaymentItems>
               {paymentOptions.map(option => (
                 <PaymentItemCell key={option.id}>
                   <TextFlexCell>
-                    <PaymentOption />
+                    <PaymentOption
+                      onClick={() => this.setPaymentMethod(option.id)}
+                      selected={option.id === this.state.selectedPaymentId}
+                    />
                   </TextFlexCell>
                   <TextFlexCell flex={9}>
                     <PaymentImage src={option.image} />
@@ -191,10 +188,10 @@ class PaymentMethodSelection extends Component {
             </Text>
             <NextStepButton
               as={Link}
-              to="/tienda/checkout/facturacion"
+              to={`/tienda/checkout/resumen/${this.state.selectedPaymentId}`}
               color="palebrown"
             >
-              Continuar
+              Ver resumen
             </NextStepButton>
           </Field>
         </Info>

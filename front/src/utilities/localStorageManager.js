@@ -1,4 +1,4 @@
-const isClient = typeof window !== 'undefined'
+const isClient = typeof window !== 'undefined';
 
 const localStorageManager = {
   retrieve: function(key, defaultValue) {

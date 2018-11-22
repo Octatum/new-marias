@@ -7,7 +7,7 @@ import { Formik, Form } from 'formik';
 import Text from '../../components/Text';
 import Input from '../../components/Input';
 import validationSchema from './formValidation';
-import Select from '../../components/Select';
+import FormikSelect from '../../components/FormikSelect';
 
 const Info = styled.div`
   box-sizing: border-box;
@@ -106,6 +106,41 @@ const BackButton = styled.button`
   }
 `;
 
+const stateList = [
+  'Aguascalientes',
+  'Baja California',
+  'Baja California Sur',
+  'Campeche',
+  'Chiapas',
+  'Chihuahua',
+  'Ciudad de México',
+  'Coahuila',
+  'Colima',
+  'Durango',
+  'Estado de México',
+  'Guanajuato',
+  'Guerrero',
+  'Hidalgo',
+  'Jalisco',
+  'Michoacán',
+  'Morelos',
+  'Nayarit',
+  'Nuevo León',
+  'Oaxaca',
+  'Puebla',
+  'Querétaro',
+  'Quintana Roo',
+  'San Luis Potosi',
+  'Sinaloa',
+  'Sonora',
+  'Tabasco',
+  'Tamaulipas',
+  'Tlaxcala',
+  'Veracruz',
+  'Yucatán',
+  'Zacatecas',
+];
+
 const CustomerData = props => {
   const { onSubmit, initialValues } = props;
 
@@ -114,7 +149,7 @@ const CustomerData = props => {
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      render={({ setFieldValue }) => (
+      render={({ setFieldValue, values }) => (
         <Container>
           <Info>
             <Fieldset>
@@ -159,20 +194,21 @@ const CustomerData = props => {
                 />
               </InputRow>
               <InputRow>
-                <Select
+                <FormikSelect
                   setFieldValue={setFieldValue}
                   autoComplete="country"
                   name="country"
-                  options={['México', 'EEUU']}
+                  options={['México']}
                   placeholder="País"
+                  values={values}
                 />
-
-                <Select
+                <FormikSelect
                   setFieldValue={setFieldValue}
                   placeholder="Estado"
-                  options={['Nuevo León', 'Sonora']}
+                  options={stateList}
                   autoComplete="address-line1"
                   name="state"
+                  values={values}
                 />
                 <Input
                   autoComplete="postal-code"

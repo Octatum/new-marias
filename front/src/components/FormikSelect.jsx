@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import Text from './Text';
+import { ErrorMessage } from 'formik';
 
 const Option = styled('option')``;
 
 const Label = styled('label')`
   display: flex;
   flex-direction: column;
+`;
+
+const ErrorField = styled(ErrorMessage)`
+  color: ${({ theme }) => theme.colors.red};
+  font-family: 'Archivo Narrow', sans-serif;
+  opacity: 0.8;
 `;
 
 const SelectField = styled('select')`
@@ -24,14 +31,13 @@ const PlaceholderOption = styled(Option)`
   font-style: italic;
 `;
 
-const Select = props => {
+const FormikSelect = props => {
   const {
     options,
     placeholder,
     setFieldValue,
     labelText,
     name,
-    selectedOption,
     values,
     ...rest
   } = props;
@@ -44,20 +50,20 @@ const Select = props => {
         name={name}
         {...rest}
       >
-        <PlaceholderOption value="">{placeholder}</PlaceholderOption>
         {options &&
           options.map(option => (
             <Option
               key={option}
               value={option}
-              selected={selectedOption === option}
+              selected={values[name] === option}
             >
               {option}
             </Option>
           ))}
       </SelectField>
+      <ErrorField component="p" name={name} />
     </Label>
   );
 };
 
-export default Select;
+export default FormikSelect;

@@ -63,6 +63,10 @@ const ShippingItems = styled('div')`
   }
 `;
 
+const PaddedText = styled(Text)`
+  margin-bottom: 0.5em;
+`;
+
 const ShippingOption = styled('button')`
   --radius: 2rem;
   outline: none;
@@ -150,6 +154,7 @@ class ShippingSelection extends Component {
           </Field>
           <Field>
             <ShippingItems>
+              <PaddedText bold>Selección de método de envío</PaddedText>
               {shippingsOptions.map(option => (
                 <CellItem center key={option.id}>
                   <TextFlexCell justify="center">

@@ -136,24 +136,21 @@ const Detail = props => {
       </Price>
       <SelectsContainer>
         <ColorContainer>
-          <Select name="Color o tipo" onChange={onColorChange}>
-            {colors.map(c => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </Select>
+          <Select
+            name="Color o tipo"
+            onChange={onColorChange}
+            options={colors}
+            required
+          />
         </ColorContainer>
 
         <AmountContainer>
-          <Select name="Cantidad" onChange={onQuantityChange}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-          </Select>
+          <Select
+            name="Cantidad"
+            onChange={onQuantityChange}
+            options={[1, 2, 3, 4, 5, 6]}
+            required
+          />
         </AmountContainer>
       </SelectsContainer>
       <AddToCartContainer>

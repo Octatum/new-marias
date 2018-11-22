@@ -82,7 +82,10 @@ const OrderSummary = props => {
               <Section>
                 <Field>
                   <h3>Total</h3>
-                  <Total>${shippingData && (subTotal + shippingData.price).toFixed(2)}</Total>
+                  <Total>
+                    $
+                    {shippingData && (subTotal + shippingData.price).toFixed(2)}
+                  </Total>
                 </Field>
               </Section>
             </SummaryContainer>
