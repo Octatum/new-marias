@@ -9,7 +9,7 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
 import Gallery from '../../components/Gallery';
-import backButtonImg from './assets/backbutton.png';
+import backButtonImg from './assets/backButton.svg';
 import CartContext, { CartConsumer } from '../../components/CartContext';
 import GatsbyLink from 'gatsby-link';
 

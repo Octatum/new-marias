@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import backButtonImg from './assets/backbutton.png';
-import forwardButtonImg from './assets/forwardbutton.png';
+import backButtonImg from './assets/backButton.svg';
+import forwardButtonImg from './assets/forwardButton.svg';
 
 const Container = styled.div`
   display: flex;

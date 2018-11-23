@@ -7,6 +7,7 @@ export default {
     gray: '#d6d8db',
     white: 'white',
     lightgray: '#f2f3f5',
+    slategray: 'rgb(130, 146, 140)',
   },
   sizes: {
     h1: '2.5em',

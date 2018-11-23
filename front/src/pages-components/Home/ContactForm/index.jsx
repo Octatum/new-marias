@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MunecaImage from './../assets/muneca.png';
 import device from './../../../utilities/device';
+import Text from '../../../components/Text';
 
 const Container = styled.div`
   display: flex;
@@ -46,17 +47,15 @@ const Input = styled.input`
   }
 `;
 
-const H2 = styled.h2`
+const H2 = styled(Text)`
   text-align: center;
-  margin-top: 40px;
-  color: #626363;
+  margin-top: 3rem;
+
   ${device.mobile} {
     width: 40%;
     text-align: left;
-    font-size: 16px !important;
     align-self: flex-start;
     margin-top: 10px;
-    font-weight: normal;
   }
 `;
 
@@ -111,9 +110,6 @@ const Button = styled.button`
   font-size: 24px;
   color: #ffffff;
   margin-top: 46px;
-  :hover {
-    cursor: pointer;
-  }
   ${device.mobile} {
     margin-top: 16px;
     width: 152px;
@@ -125,7 +121,9 @@ const Button = styled.button`
 const ContactForm = () => {
   return (
     <Container>
-      <H2>Queremos escucharte, déjanos tu mensaje:</H2>
+      <H2 size={4} as="h2">
+        Queremos escucharte, déjanos tu mensaje:
+      </H2>
       <NameAndEmailContainer>
         <Input placeholder="Nombre" type="text" />
         <Input placeholder="Correo electrónico" type="text" />

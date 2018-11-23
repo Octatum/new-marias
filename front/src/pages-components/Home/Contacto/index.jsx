@@ -7,6 +7,7 @@ import FacebookIcon from './../assets/fb.png';
 import InstagramIcon from './../assets/instagram.png';
 import ContactForm from './../ContactForm';
 import device from './../../../utilities/device';
+import Text from '../../../components/Text';
 
 const Sucursales = styled.div`
   display: flex;
@@ -47,31 +48,31 @@ const Icon = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   margin: 12.5px 0;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
-const Contacto = () => {
+const Contacto = props => {
+  const [leftLocation, rightLocation] = props.data;
+
   return (
     <Section titleSrc={ContactoImage} title="Contacto">
-      <h2>Sucursales</h2>
+      <Text size={3} as="h2">
+        Sucursales
+      </Text>
       <Sucursales>
         <Sucursal
-          name="Plaza Maranta"
-          address="Calzada del Valle Alberto Santos 13,
-                    Col. Del Valle 66220, SPGG. Local X"
-          telephone="81 2138 6212"
+          name={leftLocation.name}
+          address={leftLocation.content}
+          coordinates={leftLocation.coords}
         />
         <Icons>
           <Icon src={FacebookIcon} />
           <Icon src={InstagramIcon} />
         </Icons>
         <Sucursal
-          name="Parque Arboleda"
-          address="Av. del Roble 660 Col. Valle
-                    del Campestre, 66265, SPGG. Local L-102-A"
-          telephone="81 1766 5090"
+          name={rightLocation.name}
+          address={rightLocation.content}
+          coordinates={rightLocation.coords}
         />
       </Sucursales>
       <ContactForm />

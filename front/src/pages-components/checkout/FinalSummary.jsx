@@ -120,9 +120,7 @@ const FinalSummary = function(props) {
             <OrderSummary>
               <TableRow>
                 <FlexCell flex={1}>
-                  <FlexCellHeader>
-                    Resumen de compra
-                  </FlexCellHeader>
+                  <FlexCellHeader>Resumen de compra</FlexCellHeader>
                   <Text />
                 </FlexCell>
                 <FlexCell flex={2}>
@@ -168,9 +166,9 @@ const FinalSummary = function(props) {
                 <FlexCell flex={2}>
                   <FlexCellHeader>Dirección de facturación</FlexCellHeader>
                   <Text>
-                    {customerAddress.street}, <br/>
-                    {customerAddress.suburb}, <br/>
-                    {customerAddress.city}, <br/>
+                    {customerAddress.street}, <br />
+                    {customerAddress.suburb}, <br />
+                    {customerAddress.city}, <br />
                     {customerAddress.state}, {customerAddress.country}
                   </Text>
                 </FlexCell>

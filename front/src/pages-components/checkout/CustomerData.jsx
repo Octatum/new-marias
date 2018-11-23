@@ -114,95 +114,97 @@ const CustomerData = props => {
   return (
     <React.Fragment>
       <Helmet title="Datos de cliente" />
-    <Formik
-      onSubmit={onSubmit}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      render={({ setFieldValue, values }) => (
-        <Container>
-          <Info>
-            <Fieldset>
-              <PaddedText bold>Información de contacto</PaddedText>
-              <InputRow>
-                <Input name="email" placeholder="Correo electrónico" />
-              </InputRow>
-            </Fieldset>
-            <Fieldset>
-              <PaddedText bold>Dirección de envío</PaddedText>
-              <InputRow breakdown>
-                <Input
-                  name="firstName"
-                  autoComplete="given-name"
-                  placeholder="Nombre (s)"
-                />
-                <Input
-                  name="lastName"
-                  autoComplete="family-name"
-                  placeholder="Apellidos"
-                />
-              </InputRow>
-              <InputRow>
-                <Input
-                  name="street"
-                  autoComplete="street-address"
-                  placeholder="Calle y número"
-                />
-              </InputRow>
-              <InputRow>
-                <Input
-                  name="suburb"
-                  autoComplete="address-line3"
-                  placeholder="Colonia"
-                />
-              </InputRow>
-              <InputRow>
-                <Input
-                  name="city"
-                  autoComplete="address-line2"
-                  placeholder="Ciudad"
-                />
-              </InputRow>
-              <InputRow>
-                <FormikSelect
-                  setFieldValue={setFieldValue}
-                  autoComplete="country"
-                  name="country"
-                  options={['México']}
-                  placeholder="País"
-                  values={values}
-                />
-                <FormikSelect
-                  setFieldValue={setFieldValue}
-                  placeholder="Estado"
-                  options={stateList}
-                  autoComplete="address-line1"
-                  name="state"
-                  values={values}
-                />
-                <Input
-                  autoComplete="postal-code"
-                  name="zipCode"
-                  placeholder="Código Postal"
-                />
-              </InputRow>
-              <InputRow>
-                <Input
-                  autoComplete="tel-national"
-                  name="phone"
-                  placeholder="Teléfono"
-                />
-              </InputRow>
-            </Fieldset>
-            <FlexRow>
-            <Text as={Link} to="/tienda/carrito">
-              {'<'} Volver a información de cliente
-            </Text>
-            <CustomButton color="palebrown" type="submit">Continuar</CustomButton>
-            </FlexRow>
-          </Info>
-        </Container>
-      )}
-    />
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        render={({ setFieldValue, values }) => (
+          <Container>
+            <Info>
+              <Fieldset>
+                <PaddedText bold>Información de contacto</PaddedText>
+                <InputRow>
+                  <Input name="email" placeholder="Correo electrónico" />
+                </InputRow>
+              </Fieldset>
+              <Fieldset>
+                <PaddedText bold>Dirección de envío</PaddedText>
+                <InputRow breakdown>
+                  <Input
+                    name="firstName"
+                    autoComplete="given-name"
+                    placeholder="Nombre (s)"
+                  />
+                  <Input
+                    name="lastName"
+                    autoComplete="family-name"
+                    placeholder="Apellidos"
+                  />
+                </InputRow>
+                <InputRow>
+                  <Input
+                    name="street"
+                    autoComplete="street-address"
+                    placeholder="Calle y número"
+                  />
+                </InputRow>
+                <InputRow>
+                  <Input
+                    name="suburb"
+                    autoComplete="address-line3"
+                    placeholder="Colonia"
+                  />
+                </InputRow>
+                <InputRow>
+                  <Input
+                    name="city"
+                    autoComplete="address-line2"
+                    placeholder="Ciudad"
+                  />
+                </InputRow>
+                <InputRow>
+                  <FormikSelect
+                    setFieldValue={setFieldValue}
+                    autoComplete="country"
+                    name="country"
+                    options={['México']}
+                    placeholder="País"
+                    values={values}
+                  />
+                  <FormikSelect
+                    setFieldValue={setFieldValue}
+                    placeholder="Estado"
+                    options={stateList}
+                    autoComplete="address-line1"
+                    name="state"
+                    values={values}
+                  />
+                  <Input
+                    autoComplete="postal-code"
+                    name="zipCode"
+                    placeholder="Código Postal"
+                  />
+                </InputRow>
+                <InputRow>
+                  <Input
+                    autoComplete="tel-national"
+                    name="phone"
+                    placeholder="Teléfono"
+                  />
+                </InputRow>
+              </Fieldset>
+              <FlexRow>
+                <Text as={Link} to="/tienda/carrito">
+                  {'<'} Volver a información de cliente
+                </Text>
+                <CustomButton color="palebrown" type="submit">
+                  Continuar
+                </CustomButton>
+              </FlexRow>
+            </Info>
+          </Container>
+        )}
+      />
     </React.Fragment>
   );
 };

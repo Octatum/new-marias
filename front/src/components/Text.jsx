@@ -11,19 +11,23 @@ const increments = {
   mobile: 0.1,
 };
 
-const setColor = ({ theme, color }) => {
+const setColor = ({ theme, color = '' }) => {
   const { colors } = theme;
 
-  if (color === 'gray') {
+  if (color.toLowerCase() === 'gray') {
     return colors.gray;
   }
 
-  if (color === 'white') {
+  if (color.toLowerCase() === 'white') {
     return colors.white;
   }
 
-  if (color === 'palebrown') {
+  if (color.toLowerCase() === 'palebrown') {
     return colors.palebrown;
+  }
+
+  if (color.toLowerCase() === 'slategray') {
+    return colors.slategray;
   }
 
   return colors.darkgray;
