@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import forwardButtonImg from './assets/forwardbutton.png';
+import forwardButtonImg from './assets/forwardButton.svg';
 import device from './../../utilities/device';
 import GatsbyLink from 'gatsby-link';
 import Text from '../Text';

@@ -9,6 +9,7 @@ import Text from '../../components/Text';
 import Input from '../../components/Input';
 import validationSchema from './formValidation';
 import FormikSelect from '../../components/FormikSelect';
+import Button from '../../components/Button';
 
 const Info = styled.div`
   box-sizing: border-box;
@@ -58,26 +59,17 @@ const PaddedText = styled(Text)`
   margin-bottom: 0.5em;
 `;
 
-const Button = styled.button`
-  height: 50px;
-  width: 37%;
-  border: none;
-  background-color: #d4ad9f;
-  color: #ffffff;
-  float: right;
-  margin-top: 29px;
-  margin-bottom: 100px;
-  font-size: 18px;
-  cursor: pointer;
+const FlexRow = styled('div')`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
 `;
 
-const BackButton = styled.button`
-  margin-top: 43px;
-  border: none;
-  background: transparent;
-  font-family: 'Archivo Narrow', sans-serif;
-  color: #626363;
-  font-size: 14px;
+const CustomButton = styled(Button)`
+  margin-right: 0;
+  font-size: 18px;
   cursor: pointer;
 `;
 
@@ -201,10 +193,12 @@ const CustomerData = props => {
                 />
               </InputRow>
             </Fieldset>
-            <Link to="/tienda/carrito">
-              <BackButton> {'<'} Volver a carrito</BackButton>
-            </Link>
-            <Button type="submit">Continuar</Button>
+            <FlexRow>
+            <Text as={Link} to="/tienda/carrito">
+              {'<'} Volver a información de cliente
+            </Text>
+            <CustomButton color="palebrown" type="submit">Continuar</CustomButton>
+            </FlexRow>
           </Info>
         </Container>
       )}

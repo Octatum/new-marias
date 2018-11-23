@@ -124,13 +124,13 @@ const PaymentImage = styled('img')`
 
 const NextStepButton = styled(Button)`
   margin: 0;
-  font-size: 1.5em;
+  font-size: 18px;
   text-align: center;
+  padding: 0.6em 1em;
 
   ${device.tablet} {
     font-size: 1.3em;
     margin-left: 1rem;
-    padding: 0.6em 1em;
   }
 `;
 

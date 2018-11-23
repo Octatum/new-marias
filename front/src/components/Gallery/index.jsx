@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import backButtonImg from './assets/backbutton.png';
-import forwardButtonImg from './assets/forwardbutton.png';
+import forwardButtonImg from './assets/forwardButton.svg';
 import device from './../../utilities/device';
 import Current from './Current';
 

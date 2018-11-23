@@ -102,7 +102,7 @@ const ShippingOption = styled('button')`
 
 const NextStepButton = styled(Button)`
   margin: 0;
-  font-size: 1.5em;
+  font-size: 18px;
 `;
 
 const shippingsOptions = [

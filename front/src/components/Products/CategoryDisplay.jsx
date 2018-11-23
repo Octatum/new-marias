@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Product from './Product';
 import device from '../../utilities/device';
 import backButtonImg from './assets/backbutton.png';
-import forwardButtonImg from './assets/forwardbutton.png';
+import forwardButtonImg from './assets/forwardButton.svg';
 import CategoryList from '../CategoryList';
 import Breadcrumbs from '../Breadcrumbs';
 import banner from './assets/banner.jpg';
