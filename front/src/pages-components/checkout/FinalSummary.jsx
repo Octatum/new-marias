@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { StaticQuery, graphql } from 'gatsby';
+import Helmet from 'react-helmet';
 
 import device from '../../utilities/device';
-import Cart from '../../ShoppingCart';
 import Text from '../../components/Text';
 import AppLayout from '../../components/AppLayout';
 import { CartConsumer } from '../../components/CartContext';
@@ -31,43 +30,16 @@ const Button = styled.button`
   }
 `;
 
-const query = graphql`
-  query {
-    allCockpitProduct {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          id
-          entry {
-            description
-            price
-            name
-            thumbnail {
-              path
-            }
-            gallery {
-              value {
-                color
-                images {
-                  path
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2em 12%;
   > * {
     margin-bottom: 2rem;
+  }
+
+  ${device.tablet} {
+    padding: 2em 5%;
   }
 `;
 
@@ -114,6 +86,15 @@ const DetailTable = styled('div')`
   border: 1px solid ${({ theme }) => theme.colors.darkgray};
 `;
 
+const MobileTableRow = styled(TableRow)`
+  ${device.tablet} {
+    flex-direction: column;
+    > * {
+      margin-bottom: 1rem;
+    }
+  }
+`;
+
 const FinalSummary = function(props) {
   const todayDate = new Date();
   const formattedDated = todayDate.toLocaleDateString('es-MX');
@@ -132,13 +113,16 @@ const FinalSummary = function(props) {
 
         return (
           <Layout>
+            <Helmet title="Resumen de compra" />
             <Text as="h2" size={4}>
               Tu pedido con New Marías
             </Text>
             <OrderSummary>
               <TableRow>
                 <FlexCell flex={1}>
-                  <FlexCellHeader />
+                  <FlexCellHeader>
+                    Resumen de compra
+                  </FlexCellHeader>
                   <Text />
                 </FlexCell>
                 <FlexCell flex={2}>
@@ -176,7 +160,7 @@ const FinalSummary = function(props) {
               Detalles del pedido
             </Text>
             <DetailTable>
-              <TableRow>
+              <MobileTableRow>
                 <FlexCell flex={1}>
                   <FlexCellHeader>Método de pago</FlexCellHeader>
                   <Text>{selectedPaymentOption.name}</Text>
@@ -184,9 +168,10 @@ const FinalSummary = function(props) {
                 <FlexCell flex={2}>
                   <FlexCellHeader>Dirección de facturación</FlexCellHeader>
                   <Text>
-                    {customerAddress.street}, {customerAddress.suburb},{' '}
-                    {customerAddress.city}, {customerAddress.state},{' '}
-                    {customerAddress.country}
+                    {customerAddress.street}, <br/>
+                    {customerAddress.suburb}, <br/>
+                    {customerAddress.city}, <br/>
+                    {customerAddress.state}, {customerAddress.country}
                   </Text>
                 </FlexCell>
                 <FlexCell flex={1}>
@@ -204,12 +189,12 @@ const FinalSummary = function(props) {
                     ).toFixed(2)}
                   </Text>
                 </FlexCell>
-              </TableRow>
+              </MobileTableRow>
             </DetailTable>
             <ButtonLayout>
               <Button>
                 <Text size={3} color="white">
-                  Proceder a pago
+                  Finalizar
                 </Text>
               </Button>
             </ButtonLayout>

@@ -15,23 +15,18 @@ const Container = styled.div`
   }
 `;
 
-const Placeholder = styled.div`
+const ProductImage = styled('img')`
   width: 145px;
   height: 145px;
-  background-color: #d6d8db;
-  background-image: url('https://admin.newmarias.com${({ src }) => src}');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   margin-bottom: 5px;
   grid-column: span 1;
   max-width: none;
   ${device.mobile} {
     width: 100%;
+    height: auto;
     padding: 0;
     margin: 0;
   }
-  display: inline-block;
 `;
 
 const TextBlock = styled(Text)`
@@ -46,7 +41,9 @@ function Product(props) {
   return (
     <Container>
       <CoolLink to={props.path}>
-        <Placeholder src={props.thumbnail.path} />
+        <ProductImage
+          src={`https://admin.newmarias.com${props.thumbnail.path}`}
+        />
       </CoolLink>
       <TextBlock>{props.name}</TextBlock>
       <TextBlock>${parseFloat(props.price).toFixed(2)}</TextBlock>

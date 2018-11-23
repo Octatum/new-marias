@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
@@ -13,6 +14,11 @@ const Container = styled.div`
   width: 75%;
   margin: 0 auto;
   padding-bottom: 40px;
+
+  ${device.laptop} {
+    width: 85%;
+  }
+
   ${device.tablet} {
     width: 100%;
   }
@@ -32,6 +38,7 @@ const CustomButton = styled(Button)`
 const Carrito = () => {
   return (
     <AppLayout>
+      <Helmet title="Mi carrito" />
       <CartConsumer>
         {({ addProduct, products, ...rest }) => (
           <Container>
@@ -43,7 +50,11 @@ const Carrito = () => {
               <CustomButton color="palebrown" as={Link} to="/tienda">
                 Regresar
               </CustomButton>
-              <CustomButton color="palebrown" as={Link} to="/tienda/checkout/cliente">
+              <CustomButton
+                color="palebrown"
+                as={Link}
+                to="/tienda/checkout/cliente"
+              >
                 Continuar
               </CustomButton>
             </ButtonContainer>

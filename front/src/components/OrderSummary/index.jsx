@@ -25,8 +25,9 @@ const SummaryContainer = styled.div`
   > div:last-child {
     border-bottom: none;
   }
-  ${device.mobile} {
-    display: 'none';
+
+  ${device.tablet} {
+    display: none;
   }
 `;
 

@@ -57,8 +57,8 @@ const Container = styled.div`
     padding-left: 0;
     padding-right: 0;
     grid-template-areas:
-    'breadcrumbs breadcrumbs breadcrumbs breadcrumbs cart'
-    'content content content content content';
+      'breadcrumbs breadcrumbs breadcrumbs breadcrumbs cart'
+      'content content content content content';
   }
 `;
 
@@ -74,6 +74,7 @@ const ButtonHide = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  opacity: 0.5;
   color: white;
   cursor: pointer;
   z-index: 999;
@@ -103,7 +104,7 @@ const ProductList = styled.div`
   }
 
   ${device.mobile} {
-    grid-template-columns: repeat(2, minmax(10em, 20vw));
+    grid-template-columns: repeat(2, minmax(min-content, 20vw));
     padding: 20px 10%;
     margin-left: 0;
     grid-gap: 5vw;
@@ -137,10 +138,7 @@ class CategoryDisplay extends Component {
             <Breadcrumbs links={breadcrumbItems} />
           </GridCell>
           <GridCell area="cart">
-            <CartCounter
-              width={69}
-              height={61}
-            />
+            <CartCounter width={69} height={61} />
           </GridCell>
           <GridCell area="content">
             <ProductList>

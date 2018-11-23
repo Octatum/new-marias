@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 
 import Button from '../../components/Button';
 import device from '../../utilities/device';
@@ -29,6 +30,11 @@ const Info = styled.div`
     margin-top: 3rem;
     margin-bottom: 1em;
   }
+
+  ${device.tablet} {
+    padding: 0 5%;
+    border: none;
+  }
 `;
 
 const CellItem = styled('div')`
@@ -52,6 +58,7 @@ const CellItem = styled('div')`
 
 const Field = styled('div')`
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
   flex-direction: ${({ direction }) => direction};
@@ -59,18 +66,21 @@ const Field = styled('div')`
 
 const FlexRow = styled('div')`
   width: 100%;
+  box-sizing: border-box;
   margin-bottom: 0.5rem;
 `;
 
 const TextFlexCell = styled(Text)`
   flex: ${({ flex }) => flex || 1};
   justify-content: ${({ justify }) => justify || 'initial'};
+  box-sizing: border-box;
 `;
 
 const PaymentItems = styled('div')`
   display: flex;
   width: 100%;
   flex-direction: column;
+  box-sizing: border-box;
 
   > :not(:last-child) {
     border-bottom: none;
@@ -106,11 +116,22 @@ const PaymentOption = styled('button')`
 
 const PaymentImage = styled('img')`
   max-height: 100%;
+
+  ${device.mobile} {
+    margin-left: 0.5em;
+  }
 `;
 
 const NextStepButton = styled(Button)`
   margin: 0;
   font-size: 1.5em;
+  text-align: center;
+
+  ${device.tablet} {
+    font-size: 1.3em;
+    margin-left: 1rem;
+    padding: 0.6em 1em;
+  }
 `;
 
 const PaymentItemCell = styled(CellItem)`
@@ -133,6 +154,7 @@ class PaymentMethodSelection extends Component {
 
     return (
       <Container>
+        <Helmet title="Método de pago" />
         <Info>
           <Field direction="column">
             <CellItem>
@@ -191,7 +213,7 @@ class PaymentMethodSelection extends Component {
               to={`/tienda/checkout/resumen/${this.state.selectedPaymentId}`}
               color="palebrown"
             >
-              Ver resumen
+              Proceder a pago
             </NextStepButton>
           </Field>
         </Info>

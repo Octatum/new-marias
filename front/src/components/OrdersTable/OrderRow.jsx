@@ -19,7 +19,9 @@ const FlexCell = styled('div')`
   align-items: center;
   justify-content: center;
 
-  ${({hideTablet}) => hideTablet && `
+  ${({ hideTablet }) =>
+    hideTablet &&
+    `
     ${device.tablet} {
       display: none;
     }
@@ -38,6 +40,7 @@ const ButtonText = styled(Text)`
 
 const Thumbnail = styled('img')`
   max-height: 150px;
+  max-width: 100%;
 `;
 
 const Button = styled.button`
@@ -68,12 +71,12 @@ const CustomFlexCell = styled(FlexCell)`
 `;
 
 const NumberDisplay = styled(Text)`
-  background: ${({theme}) => theme.colors.palebrown};
+  background: ${({ theme }) => theme.colors.palebrown};
   margin: 0 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4rem; 
+  width: 4rem;
   height: 3rem;
 `;
 
@@ -129,16 +132,18 @@ function OrderRow(props) {
   return (
     <Layout>
       <FlexCell>
-        <Thumbnail
-          src={`https://admin.newmarias.com${thumbnail}?w=200&h=200`}
-        />
+        <Thumbnail src={`https://admin.newmarias.com${thumbnail}`} />
       </FlexCell>
       <ResponsiveFlexCell>
         <ResponsiveText size={DEFAULT_SIZE} align="center">
           {name} ({type})
         </ResponsiveText>
         <TabletFlexCell flex={9}>
-          <Text color="palebrown" size={4}>${parseFloat(price * amount).toFixed(2)}</Text>
+          <OtherFlexCell>
+            <Text color="palebrown" size={4}>
+              ${parseFloat(price * amount).toFixed(2)}
+            </Text>
+          </OtherFlexCell>
           <OtherFlexCell>
             <Button onClick={() => decreaseProductAmount(product)}>-</Button>
             <NumberDisplay color="white" size={DEFAULT_SIZE} align="center">

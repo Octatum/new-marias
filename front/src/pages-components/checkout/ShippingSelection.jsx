@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helmet from 'react-helmet';
 import { Link } from '@reach/router';
 import styled from 'styled-components';
 import Button from '../../components/Button';
@@ -24,6 +25,11 @@ const Info = styled.div`
 
   > * {
     margin-top: 3rem;
+  }
+
+  ${device.tablet} {
+    padding: 0 5%;
+    border: none;
   }
 `;
 
@@ -132,6 +138,7 @@ class ShippingSelection extends Component {
 
     return (
       <Container>
+        <Helmet title="Datos de envío" />
         <Info>
           <Field>
             <CellItem>

@@ -16,7 +16,6 @@ const Container = styled.div`
 
     > :first-child {
       padding-left: 1rem;
-      
     }
   }
 `;

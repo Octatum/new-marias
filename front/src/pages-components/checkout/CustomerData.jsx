@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
+import Helmet from 'react-helmet';
 
 import styled from 'styled-components';
 import device from '../../utilities/device';
@@ -16,6 +17,11 @@ const Info = styled.div`
   padding-left: 25%;
   padding-right: 10%;
   border-right: 3px solid ${({ theme }) => theme.colors.gray};
+
+  ${device.tablet} {
+    padding: 0 5%;
+    border: none;
+  }
 `;
 
 const Container = styled(Form)`
@@ -25,15 +31,6 @@ const Container = styled(Form)`
   align-items: center;
 
   box-sizing: border-box;
-  ${device.mobile} {
-    > div:nth-child(1) {
-      width: 100%;
-      border: none;
-    }
-    > div:nth-child(2) {
-      width: 0%;
-    }
-  }
 `;
 
 const InputRow = styled.div`
@@ -49,24 +46,6 @@ const InputRow = styled.div`
 
   > :not(:first-child) {
     margin-left: 0.3rem;
-  }
-
-  ${device.mobile} {
-    flex-wrap: ${({ breakdown }) => (breakdown ? 'wrap' : 'no-wrap')};
-    > input,
-    > select {
-      width: ${({ breakdown }) => (breakdown ? '100%' : '33%')};
-    }
-    > input {
-      margin: 0;
-    }
-    > input:not(:last-child) {
-      margin-bottom: 10px;
-    }
-    > select {
-      margin-bottom: ${({ breakdown }) => (breakdown ? '9px' : '0px')};
-    }
-    margin-bottom: ${({ breakdown }) => (breakdown ? '47px' : '10px')};
   }
 `;
 
@@ -89,9 +68,7 @@ const Button = styled.button`
   margin-top: 29px;
   margin-bottom: 100px;
   font-size: 18px;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const BackButton = styled.button`
@@ -101,9 +78,7 @@ const BackButton = styled.button`
   font-family: 'Archivo Narrow', sans-serif;
   color: #626363;
   font-size: 14px;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const stateList = [
@@ -145,6 +120,8 @@ const CustomerData = props => {
   const { onSubmit, initialValues } = props;
 
   return (
+    <React.Fragment>
+      <Helmet title="Datos de cliente" />
     <Formik
       onSubmit={onSubmit}
       initialValues={initialValues}
@@ -232,6 +209,7 @@ const CustomerData = props => {
         </Container>
       )}
     />
+    </React.Fragment>
   );
 };
 export default CustomerData;
