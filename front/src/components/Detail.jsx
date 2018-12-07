@@ -7,6 +7,17 @@ import Select from './Select';
 import Button from './Button';
 import Text from './Text';
 
+const Description = styled.p`
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 18px;
+  line-height: normal;
+  color: #626363;
+
+  ${device.tablet} {
+    order: 1;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,17 +67,6 @@ const Price = styled(Text)`
   ${device.tablet} {
     order: 2;
     margin: 1em 0;
-  }
-`;
-
-const Description = styled.p`
-  font-family: 'Archivo Narrow', sans-serif;
-  font-size: 18px;
-  line-height: normal;
-  color: #626363;
-
-  ${device.tablet} {
-    order: 1;
   }
 `;
 

@@ -4,7 +4,6 @@ import Helmet from 'react-helmet';
 
 import device from '../../utilities/device';
 import Text from '../../components/Text';
-import AppLayout from '../../components/AppLayout';
 import { CartConsumer } from '../../components/CartContext';
 import paymentOptions from './paymentOptions';
 

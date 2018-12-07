@@ -37,6 +37,14 @@ const Info = styled.div`
   }
 `;
 
+const Field = styled('div')`
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: ${({ direction }) => direction};
+`;
+
 const CellItem = styled('div')`
   display: flex;
   width: 100%;
@@ -54,14 +62,6 @@ const CellItem = styled('div')`
     `
     align-items: center;
   `};
-`;
-
-const Field = styled('div')`
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: ${({ direction }) => direction};
 `;
 
 const FlexRow = styled('div')`

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import device from '../utilities/device';
 import Text from './Text';
 
 const Summary = styled.div`

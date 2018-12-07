@@ -19,11 +19,6 @@ const SelectField = styled('select')`
   background: white;
 `;
 
-const PlaceholderOption = styled(Option)`
-  opacity: 0.5;
-  font-style: italic;
-`;
-
 const Select = props => {
   const {
     options,
