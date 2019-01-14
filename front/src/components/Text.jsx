@@ -53,7 +53,7 @@ const setFontFamily = ({ theme, secondaryFont = false }) => {
   return secondaryFont ? theme.fonts.secondary : theme.fonts.main;
 };
 
-const Text = styled.div`
+export const withTextStyle = component => styled(component)`
   line-height: ${({ lineHeight }) => lineHeight || '1.2em'};
   font-family: ${setFontFamily};
   color: ${setColor};
@@ -74,6 +74,8 @@ const Text = styled.div`
     font-size: ${props => setFontSize(props, increments.mobile)};
   }
 `;
+
+const Text = withTextStyle('div');
 
 Text.propTypes = {
   // Por cuestiones de accesibilidad, no es conveniente usar textos directamente en un div

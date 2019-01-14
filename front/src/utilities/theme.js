@@ -8,6 +8,7 @@ export default {
     white: 'white',
     lightgray: '#f2f3f5',
     slategray: 'rgb(130, 146, 140)',
+    pink: '#D13763',
   },
   sizes: {
     h1: '2.5em',

@@ -60,7 +60,10 @@ const CategoryList = props => {
       <StaticQuery
         query={graphql`
           query {
-            categories: allCockpitCategory(sort: { fields: entry___name }) {
+            categories: allCockpitCategory(
+              sort: { fields: entry___name }
+              filter: { fields: { cleanName: {ne: "otros"}}}
+            ) {
               edges {
                 node {
                   id
@@ -84,13 +87,18 @@ const CategoryList = props => {
 
           return categories.map(category => (
             <Text as="li" key={category.id}>
-              <CategoryLink to={`/tienda/categoria/${category.cleanName}`}>
+              <CategoryLink to={`/tienda/categoria/${category.cleanName}`} replace>
                 {category.name.toLowerCase()}
               </CategoryLink>
             </Text>
           ));
         }}
       />
+      <Text as="li">
+        <CategoryLink to={`/tienda/categoria/otros`}>
+          {("Otros").toLowerCase()}
+        </CategoryLink>
+      </Text>
     </Ul>
   );
 };

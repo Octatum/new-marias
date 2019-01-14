@@ -8,7 +8,7 @@ const Container = styled.section`
   width: 90%;
   padding-top: 30px;
   margin: 0 auto;
-  margin-bottom: 100px;
+  margin-bottom: 5rem;
   position: relative;
   ${device.mobile} {
     margin-bottom: 60px;
@@ -22,18 +22,14 @@ const Title = styled.img`
   top: 0;
   transform: translateY(-70%);
   background-color: #ffffff;
-  height: 4rem;
-
-  ${device.laptop} {
-    height: 3rem;
-  }
+  height: 2.5rem;
 
   ${device.tablet} {
-    height: 2.5rem;
+    height: 2rem;
   }
 
   ${device.mobile} {
-    height: 2rem;
+    height: 1.5rem;
   }
 `;
 

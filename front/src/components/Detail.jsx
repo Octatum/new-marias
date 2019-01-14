@@ -25,7 +25,6 @@ const Container = styled.div`
   ${device.tablet} {
     & > ${Description} {
       order: 1;
-      background: red;
     }
   }
 `;

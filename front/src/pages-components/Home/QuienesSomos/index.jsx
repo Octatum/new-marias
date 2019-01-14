@@ -1,9 +1,10 @@
 import React from 'react';
 import Section from './../Section';
 import styled from 'styled-components';
-import QuienesSomosImage from './../assets/quienes-somos.png';
+import QuienesSomosImage from './../assets/quienes-somos.svg';
 import device from './../../../utilities/device';
-import Text from '../../../components/Text';
+import { withTextStyle } from '../../../components/Text';
+import ReactMarkdown from 'react-markdown';
 
 const Banner = styled.div`
   width: 100vw;
@@ -20,6 +21,15 @@ const Banner = styled.div`
   }
 `;
 
+const Content = styled(withTextStyle(ReactMarkdown))`
+  > p {
+    display: flex;
+  }
+  img {
+    max-height: 3rem;
+  }
+`;
+
 const QuienesSomos = props => {
   const { banner, content } = props.data;
 
@@ -27,9 +37,7 @@ const QuienesSomos = props => {
     <div>
       <Section titleSrc={QuienesSomosImage} title="Quienes Somos">
         <Banner src={banner} />
-        <Text size={2} as="p">
-          {content}
-        </Text>
+        <Content size={2} source={content} />
       </Section>
     </div>
   );

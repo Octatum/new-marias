@@ -74,7 +74,7 @@ const PaddedText = styled(Text)`
 `;
 
 const ShippingOption = styled('button')`
-  --radius: 2rem;
+  --radius: 1rem;
   outline: none;
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 100%;

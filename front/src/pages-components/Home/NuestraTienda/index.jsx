@@ -1,6 +1,6 @@
 import React from 'react';
 import Section from './../Section';
-import NuestraTiendaImage from './../assets/nuestra-tienda.png';
+import NuestraTiendaImage from './../assets/nuestra-tienda.svg';
 import styled from 'styled-components';
 import MunecaImage from './../assets/muneca.png';
 import device from './../../../utilities/device';
@@ -40,8 +40,8 @@ const Pictures = styled.div`
 
 const Picture = styled(GatsbyLink)`
   display: block;
-  width: 44%;
-  padding-bottom: 44%;
+  width: 30%;
+  padding-bottom: 30%;
   background-color: #c4c4c4;
   background-image: url('${({ src }) => src}');
   background-size: cover;

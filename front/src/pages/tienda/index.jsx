@@ -14,7 +14,7 @@ const IndexPage = ({ data }) => {
   }));
   const breadcrumbItems = [
     {
-      to: '/',
+      to: '/tienda',
       name: 'Todo',
     },
   ];

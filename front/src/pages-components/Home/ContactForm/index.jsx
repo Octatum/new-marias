@@ -10,6 +10,7 @@ const Container = styled.div`
   width: 72%;
   margin: 0 auto;
   align-items: center;
+
   ${device.mobile} {
     width: 100%;
   }
@@ -49,7 +50,7 @@ const Input = styled.input`
 
 const H2 = styled(Text)`
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
 
   ${device.mobile} {
     width: 40%;
@@ -103,7 +104,7 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-  background-color: #82928c;
+  background-color: ${({theme}) => theme.colors.pink};
   width: 221px;
   height: 49px;
   border: none;

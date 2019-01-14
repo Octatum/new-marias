@@ -12,6 +12,7 @@ import Text from '../../../../components/Text';
 
 const Header = styled(Text)`
   margin-bottom: 10px;
+  color: ${({theme}) => theme.colors.pink};
 `;
 
 const Content = styled(Text)`

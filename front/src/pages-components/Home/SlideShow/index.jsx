@@ -39,6 +39,7 @@ const SlideshowSection = props => {
           showFullscreenButton={false}
           showPlayButton={false}
           slideDuration={1000}
+          slideInterval={5000}
           autoPlay
           showBullets
           lazyLoad
