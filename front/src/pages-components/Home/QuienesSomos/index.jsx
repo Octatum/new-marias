@@ -17,8 +17,9 @@ const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  ${device.mobile} {
+  ${device.tablet} {
     margin-bottom: 10px;
+    height: 30vh;
   }
 `;
 

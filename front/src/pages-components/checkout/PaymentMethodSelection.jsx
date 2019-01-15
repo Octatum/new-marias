@@ -204,9 +204,9 @@ class PaymentMethodSelection extends Component {
               ))}
             </PaymentItems>
           </Field>
-          <Field>
+          <Field style={{padding: 0}}>
             <Text as={Link} to="/tienda/checkout/envio">
-              {'<'} Volver a información de cliente
+              {'<'} Volver a métodos de envío
             </Text>
             <NextStepButton
               as={Link}

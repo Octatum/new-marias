@@ -193,9 +193,9 @@ const CustomerData = props => {
                   />
                 </InputRow>
               </Fieldset>
-              <FlexRow>
+              <FlexRow style={{padding: 0}}>
                 <Text as={Link} to="/tienda/carrito">
-                  {'<'} Volver a información de cliente
+                  {'<'} Volver al carrito
                 </Text>
                 <CustomButton color="pink" type="submit">
                   Continuar

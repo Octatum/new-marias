@@ -55,7 +55,7 @@ const MyMapComponent = withScriptjs(
 const Sucursal = props => {
   return (
     <Container>
-      <Header color="slategray" size={5} as={'h3'}>
+      <Header align="center" color="slategray" size={5} as={'h3'}>
         {props.name}
       </Header>
       <Content align="center" size={2} as={Markdown}>

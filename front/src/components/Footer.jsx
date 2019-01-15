@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import device from '../utilities/device';
 
 const Layout = styled('footer')`
   width: 100%;
@@ -19,6 +20,10 @@ const Layout = styled('footer')`
     left: 50%;
     transform: translateX(-50%);
     top: 0;
+  }
+
+  ${device.tablet} {
+    font-size: 0.8em;
   }
 `;
 

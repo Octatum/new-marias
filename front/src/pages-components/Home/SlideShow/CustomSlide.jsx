@@ -12,7 +12,7 @@ const Img = styled.img`
   height: 35vw;
 
   ${device.mobile} {
-    height: 60vw;
+    height: auto;
   }
 `;
 

@@ -57,7 +57,7 @@ const Contacto = props => {
 
   return (
     <Section titleSrc={ContactoImage} id={navbarIds.contacto} title="Contacto">
-      <Text size={3} as="h2">
+      <Text size={3} as="h2" bold>
         Sucursales
       </Text>
       <Sucursales>

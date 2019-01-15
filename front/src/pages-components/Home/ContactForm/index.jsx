@@ -53,8 +53,9 @@ const H2 = styled(Text)`
   margin-top: 2rem;
 
   ${device.mobile} {
-    width: 40%;
-    text-align: left;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
     align-self: flex-start;
     margin-top: 10px;
   }

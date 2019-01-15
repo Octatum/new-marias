@@ -181,7 +181,7 @@ class ShippingSelection extends Component {
               ))}
             </ShippingItems>
           </Field>
-          <Field>
+          <Field style={{padding: 0}}>
             <Text as={Link} to="/tienda/checkout/cliente">
               {'<'} Volver a información de cliente
             </Text>

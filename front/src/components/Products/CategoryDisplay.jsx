@@ -115,7 +115,7 @@ class CategoryDisplay extends Component {
   state = {
     categories: this.props.categories,
     products: this.props.products,
-    menuHidden: false,
+    menuHidden: true,
   };
 
   menuToggle = () => {
