@@ -10,8 +10,8 @@ import GatsbyLink from 'gatsby-link';
 
 export const navbarIds = {
   inicio: "inicio",
-  quienesSomos: "quienesSomos",
-  contacto: "contacto"
+  quienesSomos: "",
+  contacto: ""
 };
 
 const Container = styled.div`
@@ -69,7 +69,7 @@ const List = styled.ul`
     text-transform: uppercase;
   }
 
-  li a {
+  li a {http://mail.octatum.com
     text-decoration: none;
     color: #626363;
   }

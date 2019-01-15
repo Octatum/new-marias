@@ -13,15 +13,15 @@ import CartCounter from '../CartCounter';
 
 const Banner = styled.div`
   width: 100%;
-  height: 217px;
+  height: 13.5rem;
   background-color: #d6d8db;
   background-image: url('${banner}');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+
   ${device.mobile} {
-    margin-top: 103px;
-    height: 90px;
+    height: 20vh;
   }
 `;
 
