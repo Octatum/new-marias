@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import device from '../../utilities/device';
 
-const Container = styled.div`
+const Container = styled('a')`
   width: 38px;
   height: 38px;
   border: 2px solid ${({theme}) => theme.colors.orange};
@@ -15,10 +15,6 @@ const Container = styled.div`
     background-color: ${({theme}) => theme.colors.orange};
     margin: 2px auto;
   }
-  :hover {
-    cursor: pointer;
-  }
-
   display: none;
   ${device.mobile} {
     display: flex;
@@ -27,9 +23,9 @@ const Container = styled.div`
   }
 `;
 
-const BurgerButtton = ({ onClick }) => {
+const BurgerButtton = (props) => {
   return (
-    <Container onClick={onClick}>
+    <Container {...props}>
       <span />
       <span />
       <span />

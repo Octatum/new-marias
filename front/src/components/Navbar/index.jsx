@@ -92,7 +92,7 @@ const List = styled.ul`
       margin-bottom: 23px;
       padding: 0 17px;
     }
-    display: ${({ hide }) => (hide ? 'none' : 'block')};
+    display: ${({ visible }) => (visible ? 'block' : 'none')};
   }
 `;
 
@@ -102,9 +102,18 @@ const Icon = styled.img`
   }
 `;
 
+const Overlay = styled('div')`
+  width: 100vw;
+  height: 100vh;
+  display: ${({display}) => display};
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
+
 class Navbar extends Component {
   state = {
-    visible: true,
+    visible: false,
   };
 
   toggleNavbar = () => {
@@ -115,12 +124,19 @@ class Navbar extends Component {
     });
   };
 
+  closeNavbar = () => {
+    this.setState({
+      visible: false
+    });
+  }
+
   render() {
     return (
       <Container>
         <Logo src={headerIcon} />
         <BurgerButton onClick={this.toggleNavbar} />
-        <List hide={this.state.visible}>
+        <Overlay display={this.state.visible ? 'block' : 'none'} onClick={this.closeNavbar} />
+        <List visible={this.state.visible}>
           <li>
             <Link to="/">Inicio</Link>
           </li>
