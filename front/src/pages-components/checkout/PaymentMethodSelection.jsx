@@ -211,7 +211,7 @@ class PaymentMethodSelection extends Component {
             <NextStepButton
               as={Link}
               to={`/tienda/checkout/resumen/${this.state.selectedPaymentId}`}
-              color="palebrown"
+              color="pink"
             >
               Proceder a pago
             </NextStepButton>

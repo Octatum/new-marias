@@ -6,8 +6,19 @@ import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
 import device from './../../utilities/device';
 import BurgerButton from './BurgerButton';
+import GatsbyLink from 'gatsby-link';
+
+export const navbarIds = {
+  inicio: "inicio",
+  quienesSomos: "quienesSomos",
+  contacto: "contacto"
+};
 
 const Container = styled.div`
+  position: -webkit-sticky;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   padding: 1.2em 1.5em 0.4em 1.5em;
   background: white;
@@ -120,13 +131,13 @@ class Navbar extends Component {
             </Link>
           </li>
           <li>
-            <a href="#about">Quiénes somos</a>
+            <GatsbyLink to={`/#${navbarIds.quienesSomos}`}>Quiénes somos</GatsbyLink>
           </li>
           <li>
-            <a href="#stories">Historias</a>
+            <GatsbyLink to={`/#`}>Historias</GatsbyLink>
           </li>
           <li>
-            <a href="#contact">Contacto</a>
+            <GatsbyLink to={`/#${navbarIds.contacto}`}>Contacto</GatsbyLink>
           </li>
           <li>
             <Icon src={facebookIcon} />

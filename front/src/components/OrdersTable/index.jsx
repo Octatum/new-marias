@@ -14,7 +14,7 @@ const TableHead = styled('div')`
   padding: 1em 0.5em;
   margin-top: 1em;
   justify-content: space-evenly;
-  background-color: ${({ theme }) => theme.colors.palebrown};
+  background-color: ${({ theme }) => theme.colors.pink};
 `;
 
 const FlexCell = styled('div')`

@@ -129,7 +129,7 @@ const Detail = props => {
       <Name>{productName}</Name>
       <Price as="h3" size={2}>
         Price:{' '}
-        <Text color="palebrown" size={2} as="span">
+        <Text color="orange" size={2} as="span">
           ${parseFloat(productPrice).toFixed(2)}
         </Text>
       </Price>

@@ -8,6 +8,7 @@ import InstagramIcon from './../assets/igpink.svg';
 import ContactForm from './../ContactForm';
 import device from './../../../utilities/device';
 import Text from '../../../components/Text';
+import { navbarIds } from '../../../components/Navbar';
 
 const Sucursales = styled.div`
   display: flex;
@@ -55,7 +56,7 @@ const Contacto = props => {
   const [leftLocation, rightLocation] = props.data;
 
   return (
-    <Section titleSrc={ContactoImage} title="Contacto">
+    <Section titleSrc={ContactoImage} id={navbarIds.contacto} title="Contacto">
       <Text size={3} as="h2">
         Sucursales
       </Text>

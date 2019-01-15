@@ -11,26 +11,8 @@ const increments = {
   mobile: 0.1,
 };
 
-const setColor = ({ theme, color = '' }) => {
-  const { colors } = theme;
-
-  if (color.toLowerCase() === 'gray') {
-    return colors.gray;
-  }
-
-  if (color.toLowerCase() === 'white') {
-    return colors.white;
-  }
-
-  if (color.toLowerCase() === 'palebrown') {
-    return colors.palebrown;
-  }
-
-  if (color.toLowerCase() === 'slategray') {
-    return colors.slategray;
-  }
-
-  return colors.darkgray;
+const setColor = ({ theme, color = 'darkgray' }) => {
+  return theme.colors[color];
 };
 
 const setWeight = ({ bold }) => {

@@ -47,11 +47,11 @@ const Carrito = () => {
             <SubtotalSummary products={products} />
 
             <ButtonContainer width={115} mobileHide>
-              <CustomButton color="palebrown" as={Link} to="/tienda">
+              <CustomButton color="orange" as={Link} to="/tienda">
                 Regresar
               </CustomButton>
               <CustomButton
-                color="palebrown"
+                color="pink"
                 as={Link}
                 to="/tienda/checkout/cliente"
               >

@@ -9,19 +9,6 @@ import Footer from './Footer';
 import './setup.css';
 import { CartProvider } from './CartContext';
 
-const ChildrenLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-`;
-
-const Container = styled.div`
-  flex: 3;
-  overflow-y: scroll;
-`;
-
 function AppLayout({ children }) {
   return (
     <ThemeProvider theme={theme}>
@@ -39,13 +26,13 @@ function AppLayout({ children }) {
           >
             <html lang="en" />
           </Helmet>
-          <ChildrenLayout>
+          <div>
             <Navbar />
-            <Container>
+            <div>
               {children}
               <Footer />
-            </Container>
-          </ChildrenLayout>
+            </div>
+          </div>
         </React.Fragment>
       </CartProvider>
     </ThemeProvider>

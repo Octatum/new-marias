@@ -197,7 +197,7 @@ const CustomerData = props => {
                 <Text as={Link} to="/tienda/carrito">
                   {'<'} Volver a información de cliente
                 </Text>
-                <CustomButton color="palebrown" type="submit">
+                <CustomButton color="pink" type="submit">
                   Continuar
                 </CustomButton>
               </FlexRow>

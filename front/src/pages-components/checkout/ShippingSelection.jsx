@@ -77,6 +77,7 @@ const ShippingOption = styled('button')`
   --radius: 1rem;
   outline: none;
   border: 1px solid ${({ theme }) => theme.colors.gray};
+  padding: 0.3rem;
   border-radius: 100%;
   box-sizing: border-box;
   width: var(--radius);
@@ -84,6 +85,7 @@ const ShippingOption = styled('button')`
   background: white;
   transition: 0.3s ease-in-out all;
   cursor: pointer;
+  transition: none;
 
   :hover {
     background: ${({ theme }) => theme.colors.gray};
@@ -92,6 +94,7 @@ const ShippingOption = styled('button')`
   ${({ selected }) =>
     selected &&
     `
+    padding: 0.2rem;
     border-width: calc(var(--radius) / 3.5);
 
     :hover {
@@ -185,7 +188,7 @@ class ShippingSelection extends Component {
             <NextStepButton
               as={Link}
               to="/tienda/checkout/facturacion"
-              color="palebrown"
+              color="pink"
             >
               Continuar
             </NextStepButton>

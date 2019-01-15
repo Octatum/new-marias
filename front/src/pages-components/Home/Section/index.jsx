@@ -35,7 +35,7 @@ const Title = styled.img`
 
 const Section = props => {
   return (
-    <Container>
+    <Container id={props.id}>
       <Title src={props.titleSrc} alt={props.title} />
       {props.children}
     </Container>

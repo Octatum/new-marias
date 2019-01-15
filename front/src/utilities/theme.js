@@ -4,6 +4,7 @@ export default {
     red: 'darkred',
     darkgray: '#626363',
     palebrown: '#d4ad9f',
+    orange: '#CE500D',
     gray: '#d6d8db',
     white: 'white',
     lightgray: '#f2f3f5',

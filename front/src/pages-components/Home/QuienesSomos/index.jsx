@@ -5,6 +5,7 @@ import QuienesSomosImage from './../assets/quienes-somos.svg';
 import device from './../../../utilities/device';
 import { withTextStyle } from '../../../components/Text';
 import ReactMarkdown from 'react-markdown';
+import { navbarIds } from '../../../components/Navbar';
 
 const Banner = styled.div`
   width: 100vw;
@@ -35,7 +36,7 @@ const QuienesSomos = props => {
 
   return (
     <div>
-      <Section titleSrc={QuienesSomosImage} title="Quienes Somos">
+      <Section titleSrc={QuienesSomosImage} id={navbarIds.quienesSomos} title="Quienes Somos">
         <Banner src={banner} />
         <Content size={2} source={content} />
       </Section>

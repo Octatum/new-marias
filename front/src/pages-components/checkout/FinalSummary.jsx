@@ -22,7 +22,7 @@ const Button = styled.button`
   height: 50px;
   width: 20%;
   border: none;
-  background-color: #d4ad9f;
+  background-color: #D13763;
   color: #ffffff;
   ${device.mobile} {
     width: 70%;
