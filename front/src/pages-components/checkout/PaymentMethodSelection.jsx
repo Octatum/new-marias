@@ -88,9 +88,10 @@ const PaymentItems = styled('div')`
 `;
 
 const PaymentOption = styled('button')`
-  --radius: 2rem;
+  --radius: 1rem;
   outline: none;
   border: 1px solid ${({ theme }) => theme.colors.gray};
+  padding: 0.3rem;
   border-radius: 100%;
   box-sizing: border-box;
   width: var(--radius);
@@ -98,6 +99,7 @@ const PaymentOption = styled('button')`
   background: white;
   transition: 0.3s ease-in-out all;
   cursor: pointer;
+  transition: none;
 
   :hover {
     background: ${({ theme }) => theme.colors.gray};
@@ -106,6 +108,7 @@ const PaymentOption = styled('button')`
   ${({ selected }) =>
     selected &&
     `
+    padding: 0.2rem;
     border-width: calc(var(--radius) / 3.5);
 
     :hover {
@@ -135,7 +138,7 @@ const NextStepButton = styled(Button)`
 `;
 
 const PaymentItemCell = styled(CellItem)`
-  max-height: 4rem;
+  max-height: 3.5rem;
 `;
 
 class PaymentMethodSelection extends Component {
@@ -159,7 +162,7 @@ class PaymentMethodSelection extends Component {
           <Field direction="column">
             <CellItem>
               <TextFlexCell as="h2" bold>
-                Direccion de envío
+                Dirección de envío
               </TextFlexCell>
               <TextFlexCell flex={3}>
                 {customerAddress.street}, {customerAddress.suburb},{' '}
@@ -191,7 +194,7 @@ class PaymentMethodSelection extends Component {
             <PaymentItems>
               {paymentOptions.map(option => (
                 <PaymentItemCell key={option.id}>
-                  <TextFlexCell>
+                  <TextFlexCell style={{display: 'flex', alignItems: 'center'}}>
                     <PaymentOption
                       onClick={() => this.setPaymentMethod(option.id)}
                       selected={option.id === this.state.selectedPaymentId}

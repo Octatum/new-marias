@@ -37,10 +37,12 @@ const BackButton = styled.button`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  background-color: transparent;
   border: none;
 `;
 
 const PreviousButton = styled.button`
+  background-color: transparent;
   grid-area: prev;
   height: 29px;
   align-self: center;
@@ -70,7 +72,6 @@ const ImagesContainer = styled.div`
 
 const ImgPreview = styled('img')`
   cursor: pointer;
-  background-color: #cccccc;
   width: 15vw;
   max-width: 10rem;
   max-height: 10rem;

@@ -119,11 +119,11 @@ const FinalSummary = function(props) {
             <OrderSummary>
               <TableRow>
                 <FlexCell flex={1}>
-                  <FlexCellHeader>Resumen de compra</FlexCellHeader>
-                  <Text />
+                  <FlexCellHeader bold>Resumen de compra</FlexCellHeader>
+                  <Text>#######</Text>
                 </FlexCell>
                 <FlexCell flex={2}>
-                  <FlexCellHeader>Enviar a</FlexCellHeader>
+                  <FlexCellHeader bold>Enviar a</FlexCellHeader>
                   <Text>
                     {customerAddress.street}, {customerAddress.suburb},{' '}
                     {customerAddress.city}, {customerAddress.state},{' '}
@@ -131,39 +131,42 @@ const FinalSummary = function(props) {
                   </Text>
                 </FlexCell>
                 <FlexCell flex={1}>
-                  <FlexCellHeader>Fecha de pedido</FlexCellHeader>
+                  <FlexCellHeader bold>Fecha de pedido</FlexCellHeader>
                   <Text>{formattedDated}</Text>
                 </FlexCell>
               </TableRow>
+            </OrderSummary>
+            <OrderSummary>
+
               {products.map(product => (
                 <TableRow>
                   <FlexCell flex={1}>
                     <Img src={product.thumbnail} />
                   </FlexCell>
                   <FlexCell flex={2}>
-                    <FlexCellHeader>Producto</FlexCellHeader>
+                    <FlexCellHeader bold>Producto</FlexCellHeader>
                     <Text>
                       ({product.amount}) {product.name}
                     </Text>
                   </FlexCell>
                   <FlexCell flex={1}>
-                    <FlexCellHeader>Precio por unidad</FlexCellHeader>
+                    <FlexCellHeader bold>Precio por unidad</FlexCellHeader>
                     <Text>${parseFloat(product.price).toFixed(2)}</Text>
                   </FlexCell>
                 </TableRow>
               ))}
             </OrderSummary>
-            <Text as="h3" size={2} color="palebrown">
+            <Text as="h3" size={2} color="pink">
               Detalles del pedido
             </Text>
             <DetailTable>
               <MobileTableRow>
                 <FlexCell flex={1}>
-                  <FlexCellHeader>Método de pago</FlexCellHeader>
+                  <FlexCellHeader bold>Método de pago</FlexCellHeader>
                   <Text>{selectedPaymentOption.name}</Text>
                 </FlexCell>
                 <FlexCell flex={2}>
-                  <FlexCellHeader>Dirección de facturación</FlexCellHeader>
+                  <FlexCellHeader bold>Dirección de facturación</FlexCellHeader>
                   <Text>
                     {customerAddress.street}, <br />
                     {customerAddress.suburb}, <br />
@@ -172,7 +175,7 @@ const FinalSummary = function(props) {
                   </Text>
                 </FlexCell>
                 <FlexCell flex={1}>
-                  <FlexCellHeader>Resumen de pago</FlexCellHeader>
+                  <FlexCellHeader bold>Resumen de pago</FlexCellHeader>
                   <Text>
                     Subtotal: ${parseFloat(productSubtotal).toFixed(2)}
                   </Text>

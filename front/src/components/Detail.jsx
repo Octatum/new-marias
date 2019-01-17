@@ -128,7 +128,7 @@ const Detail = props => {
     <Container {...{ className }}>
       <Name>{productName}</Name>
       <Price as="h3" size={2}>
-        Price:{' '}
+        Precio:{' '}
         <Text color="orange" size={2} as="span">
           ${parseFloat(productPrice).toFixed(2)}
         </Text>

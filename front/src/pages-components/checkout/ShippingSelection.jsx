@@ -146,7 +146,7 @@ class ShippingSelection extends Component {
           <Field>
             <CellItem>
               <TextFlexCell as="h2" bold>
-                Direccion de envío
+                Dirección de envío
               </TextFlexCell>
               <TextFlexCell flex={3}>
                 {customerAddress.street}, {customerAddress.suburb},{' '}
@@ -167,7 +167,7 @@ class ShippingSelection extends Component {
               <PaddedText bold>Selección de método de envío</PaddedText>
               {shippingsOptions.map(option => (
                 <CellItem center key={option.id}>
-                  <TextFlexCell justify="center">
+                  <TextFlexCell style={{display: 'flex', alignItems: 'center'}}>
                     <ShippingOption
                       onClick={() => this.setShippingOption(option)}
                       selected={option.id === selectedShipping.id}

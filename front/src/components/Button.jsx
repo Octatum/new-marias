@@ -26,6 +26,7 @@ const Button = styled.button`
     `
     background-color: ${theme.colors.orange};
   `}
+
 `;
 
 export default Button;

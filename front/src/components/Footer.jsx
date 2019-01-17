@@ -5,7 +5,7 @@ import device from '../utilities/device';
 const Layout = styled('footer')`
   width: 100%;
   color: ${({ theme }) => theme.colors.darkgray};
-  font-family: ${({ theme }) => theme.fonts.secondary};
+  font-family: ${({ theme }) => theme.fonts.main};
   text-align: center;
   padding: 1em;
   box-sizing: border-box;

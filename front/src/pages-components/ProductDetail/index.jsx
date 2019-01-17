@@ -91,7 +91,7 @@ class ProductDetailContainer extends React.PureComponent {
       currentImages: props.data.cockpitProduct.entry.gallery[0].value.images.map(
         i => i.path
       ),
-      currentColor: props.data.cockpitProduct.entry.gallery[0].value.color, //props.data.productsJson.images[0].color,
+      currentColor: props.data.cockpitProduct.entry.gallery[0].value.color,
       quantity: 1,
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);

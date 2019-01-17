@@ -13,7 +13,7 @@ const InputField = styled(Field)`
   width: 100%;
   padding-left: 1em;
   font-family: 'Archivo Narrow', sans-serif;
-  font-size: 18px;
+  font-size: 1em;
   box-sizing: border-box;
   color: ${({ theme }) => theme.colors.darkgray};
   height: 2em;

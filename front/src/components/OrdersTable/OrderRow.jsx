@@ -46,7 +46,7 @@ const Thumbnail = styled('img')`
 const Button = styled.button`
   width: 20%;
   border: none;
-  background-color: ${({ theme }) => theme.colors.palebrown};
+  background-color: ${({ theme }) => theme.colors.pink};
   color: #ffffff;
   width: 1rem;
   ${device.tablet} {
@@ -57,7 +57,7 @@ const Button = styled.button`
 
 const CustomFlexCell = styled(FlexCell)`
   > * {
-    background-color: ${({ theme }) => theme.colors.palebrown};
+    background-color: ${({ theme }) => theme.colors.pink};
     height: 2.5rem;
     display: flex;
     align-items: center;
@@ -71,7 +71,7 @@ const CustomFlexCell = styled(FlexCell)`
 `;
 
 const NumberDisplay = styled(Text)`
-  background: ${({ theme }) => theme.colors.palebrown};
+  background: ${({ theme }) => theme.colors.pink};
   margin: 0 0.5rem;
   display: flex;
   align-items: center;
