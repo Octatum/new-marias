@@ -86,11 +86,12 @@ const CurrentImageContainer = styled('div')`
   grid-template: minmax(188px, 40vmax) 3rem / 1rem auto 1rem;
   align-items: flex-start;
   grid-template-areas:
-    'prev current next'
-    'dots dots dots';
+    "prev current next"
+    "dots dots dots";
 
   ${device.tablet} {
-    grid-template: minmax(min-content, 20rem) 3rem / 1rem auto 1rem;
+    grid-template-rows: minmax(min-content, 20rem) 3rem;
+    grid-template-columns: 1rem auto 1rem;
   }
 `;
 
