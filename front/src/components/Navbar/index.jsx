@@ -69,7 +69,7 @@ const List = styled.ul`
     text-transform: uppercase;
   }
 
-  li a {http://mail.octatum.com
+  li a {
     text-decoration: none;
     color: #626363;
   }
@@ -135,7 +135,7 @@ class Navbar extends Component {
       <Container>
         <Logo src={headerIcon} />
         <BurgerButton onClick={this.toggleNavbar} />
-        <Overlay display={this.state.visible ? 'block' : 'none'} onClick={this.closeNavbar} />
+        <Overlay display={this.state.visible ? 'initial' : 'none'} onClick={this.closeNavbar} />
         <List visible={this.state.visible}>
           <li>
             <Link to="/">Inicio</Link>
