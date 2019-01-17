@@ -10,8 +10,8 @@ import GatsbyLink from 'gatsby-link';
 
 export const navbarIds = {
   inicio: "inicio",
-  quienesSomos: "",
-  contacto: ""
+  quienesSomos: "quienesSomos",
+  contacto: "contacto"
 };
 
 const Container = styled.div`

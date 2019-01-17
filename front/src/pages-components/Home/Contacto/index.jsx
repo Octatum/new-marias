@@ -56,7 +56,8 @@ const Contacto = props => {
   const [leftLocation, rightLocation] = props.data;
 
   return (
-    <Section titleSrc={ContactoImage} id={navbarIds.contacto} title="Contacto">
+    <Section titleSrc={ContactoImage} title="Contacto">
+      <div style={{position: 'absolute', top: '-12rem'}} id={navbarIds.contacto} />
       <Text size={3} as="h2">
         Sucursales
       </Text>

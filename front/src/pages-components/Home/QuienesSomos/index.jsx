@@ -37,7 +37,8 @@ const QuienesSomos = props => {
 
   return (
     <div>
-      <Section titleSrc={QuienesSomosImage} id={navbarIds.quienesSomos} title="Quienes Somos">
+      <Section titleSrc={QuienesSomosImage} title="Quienes Somos">
+        <div style={{position: 'absolute', top: '-12rem'}} id={navbarIds.quienesSomos} />
         <Banner src={banner} />
         <Content size={2} source={content} />
       </Section>
