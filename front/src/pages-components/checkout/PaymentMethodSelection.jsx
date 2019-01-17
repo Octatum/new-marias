@@ -118,8 +118,10 @@ const PaymentOption = styled('button')`
 `;
 
 const PaymentImage = styled('img')`
-  height: 100%;
+  max-height: 1.5rem;
+  max-width: 15rem;
   width: auto;
+  height: auto;
 
   ${device.mobile} {
     margin-left: 0.5em;
