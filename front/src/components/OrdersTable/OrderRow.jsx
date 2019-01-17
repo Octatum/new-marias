@@ -140,7 +140,7 @@ function OrderRow(props) {
         </ResponsiveText>
         <TabletFlexCell flex={9}>
           <OtherFlexCell>
-            <Text color="palebrown" size={4}>
+            <Text color="pink" size={4}>
               ${parseFloat(price * amount).toFixed(2)}
             </Text>
           </OtherFlexCell>
