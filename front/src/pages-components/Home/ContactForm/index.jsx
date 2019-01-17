@@ -38,6 +38,7 @@ const NameAndEmailContainer = styled.div`
 
 const Input = styled.input`
   box-sizing: border-box;
+  border-radius: 0;
   height: 30px;
   padding-left: 20px;
   font-family: 'Archivo Narrow', sans-serif;
@@ -90,6 +91,7 @@ const TextAreaContainer = styled.div`
 `;
 
 const TextArea = styled.textarea`
+  border-radius: 0;
   height: 100%;
   width: 100%;
   box-sizing: border-box;

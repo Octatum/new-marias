@@ -16,6 +16,7 @@ const InputField = styled(Field)`
   font-size: 1em;
   box-sizing: border-box;
   color: ${({ theme }) => theme.colors.darkgray};
+  border-radius: 0;
   height: 2em;
 
   ::placeholder {
