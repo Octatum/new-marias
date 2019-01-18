@@ -22,7 +22,7 @@ const Button = styled.button`
   height: 50px;
   width: 20%;
   border: none;
-  background-color: #D13763;
+  background-color: ${({theme, bg}) => theme.colors[bg]};
   color: #ffffff;
   ${device.mobile} {
     width: 70%;
@@ -96,7 +96,11 @@ const MobileTableRow = styled(TableRow)`
 
 const FinalSummary = function(props) {
   const todayDate = new Date();
-  const formattedDated = todayDate.toLocaleDateString('es-MX');
+  const formattedDated = todayDate.toLocaleDateString('es-MX', {
+    "day": "2-digit",
+    "month": "2-digit",
+    "year": "numeric",
+  });
   const { customerAddress, selectedShipping } = props;
   const selectedPaymentOption = paymentOptions.find(p => p.id === props.pago);
   console.log(props);
@@ -192,7 +196,12 @@ const FinalSummary = function(props) {
               </MobileTableRow>
             </DetailTable>
             <ButtonLayout>
-              <Button>
+              <Button bg="orange">
+                <Text size={3} color="white" >
+                  Descargar
+                </Text>
+              </Button>
+              <Button bg="pink" style={{marginLeft: '0.5em'}}>
                 <Text size={3} color="white">
                   Finalizar
                 </Text>

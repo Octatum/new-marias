@@ -52,12 +52,21 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 
+const Div = styled('div')`
+  position: absolute;
+  top: -12rem;
+
+  ${device.mobile} {
+    top: -7rem;
+  }
+`;
+
 const Contacto = props => {
   const [leftLocation, rightLocation] = props.data;
 
   return (
     <Section titleSrc={ContactoImage} title="Contacto">
-      <div style={{position: 'absolute', top: '-12rem'}} id={navbarIds.contacto} />
+      <Div id={navbarIds.contacto} />
       <Text size={3} as="h2">
         Sucursales
       </Text>

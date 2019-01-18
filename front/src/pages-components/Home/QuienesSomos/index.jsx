@@ -32,13 +32,22 @@ const Content = styled(withTextStyle(ReactMarkdown))`
   }
 `;
 
+const Div = styled('div')`
+  position: absolute;
+  top: -12rem;
+
+  ${device.mobile} {
+    top: -7rem;
+  }
+`;
+
 const QuienesSomos = props => {
   const { banner, content } = props.data;
 
   return (
     <div>
       <Section titleSrc={QuienesSomosImage} title="Quienes Somos">
-        <div style={{position: 'absolute', top: '-12rem'}} id={navbarIds.quienesSomos} />
+        <Div id={navbarIds.quienesSomos} />
         <Banner src={banner} />
         <Content size={2} source={content} />
       </Section>
