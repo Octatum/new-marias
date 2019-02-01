@@ -103,8 +103,6 @@ const FinalSummary = function(props) {
   });
   const { customerAddress, selectedShipping } = props;
   const selectedPaymentOption = paymentOptions.find(p => p.id === props.pago);
-  console.log(props);
-  console.log(selectedPaymentOption);
 
   return (
     <CartConsumer>
@@ -198,7 +196,7 @@ const FinalSummary = function(props) {
             <ButtonLayout>
               <Button bg="orange">
                 <Text size={3} color="white" >
-                  Descargar
+                  Imprimir
                 </Text>
               </Button>
               <Button bg="pink" style={{marginLeft: '0.5em'}}>
