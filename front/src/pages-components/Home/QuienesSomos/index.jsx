@@ -1,5 +1,4 @@
 import React from 'react';
-import Section from './../Section';
 import styled from 'styled-components';
 import QuienesSomosImage from './../assets/quienes-somos.svg';
 import device from './../../../utilities/device';
@@ -8,9 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { navbarIds } from '../../../components/Navbar';
 
 const Banner = styled.div`
-  width: 100vw;
   height: 300px;
-  margin-left: -7%;
   margin-bottom: 30px;
   background-color: #c94545;
   background-image: url('${({ src }) => src}');
@@ -24,9 +21,13 @@ const Banner = styled.div`
 `;
 
 const Content = styled(withTextStyle(ReactMarkdown))`
+  width: 90%;
+  margin: 0 auto;
+
   > p {
     display: flex;
   }
+
   img {
     max-height: 3rem;
   }
@@ -41,17 +42,56 @@ const Div = styled('div')`
   }
 `;
 
+const Section = styled('section')`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rem;
+  justify-content: center;
+`;
+
+const Header = styled('div')`
+  width: 90%;
+  margin: 0 auto;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  ${device.mobile} {
+    height: 1.5rem;
+  }
+  ${device.tablet} {
+    height: 2rem;
+  }
+
+  ${device.laptop} {
+    height: 2.5rem;
+  }
+`;
+
+const Image = styled('img')`
+  max-height: 100%;
+`;
+
+const BlackLine = styled('div')`
+  height: 1px;
+  flex: 1;
+  background-color: ${({theme}) => theme.colors.darkgray};
+`;
+
 const QuienesSomos = props => {
   const { banner, content } = props.data;
 
   return (
-    <div>
-      <Section titleSrc={QuienesSomosImage} title="Quienes Somos">
-        <Div id={navbarIds.quienesSomos} />
-        <Banner src={banner} />
-        <Content size={2} source={content} />
-      </Section>
-    </div>
+    <Section>
+      <Div id={navbarIds.quienesSomos} />
+      <Header>
+        <Image src={QuienesSomosImage} />
+        <BlackLine />
+      </Header>
+      <Banner src={banner} />
+      <Content size={2} source={content} />
+    </Section>
   );
 };
 export default QuienesSomos;

@@ -63,7 +63,7 @@ const List = styled.ul`
 
   li {
     padding: 0 1.2em;
-    color: #626363;
+    color: ${({theme}) => theme.colors.darkgray};
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 18px;
     text-transform: uppercase;
@@ -71,7 +71,7 @@ const List = styled.ul`
 
   li a {
     text-decoration: none;
-    color: #626363;
+    color: ${({theme}) => theme.colors.darkgray};
   }
 
   ${device.tablet} {
@@ -88,6 +88,7 @@ const List = styled.ul`
     position: absolute;
     right: 0;
     border: none;
+    top: 5.4rem;
     li {
       margin-bottom: 23px;
       padding: 0 17px;

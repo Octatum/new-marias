@@ -123,7 +123,7 @@ const FinalSummary = function(props) {
             <OrderSummary>
               <TableRow>
                 <FlexCell flex={1}>
-                  <FlexCellHeader bold>Resumen de compra</FlexCellHeader>
+                  <FlexCellHeader bold>Número de pedido</FlexCellHeader>
                   <Text>#######</Text>
                 </FlexCell>
                 <FlexCell flex={2}>
