@@ -11,8 +11,12 @@ function toTitleCase(str) {
   return str.join(' ');
 }
 
-const ProductsByCategory = ({ data }) => {
-  const products = data.products.edges.map(({ node }) => ({
+const ProductsByCategory = (props) => {
+  const { data } = props;
+  const productsList = data.products || {};
+  const productEdges = productsList.edges || []; 
+
+  const products = productEdges.map(({ node }) => ({
     slug: node.fields.slug,
     thumbnail: node.entry.thumbnail.path,
     ...node.entry,

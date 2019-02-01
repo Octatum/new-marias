@@ -6,6 +6,7 @@ exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `CockpitProduct`) {
     const slug = `/tienda/producto-${node.id}`;
+
     createNodeField({
       node,
       name: `slug`,
@@ -26,7 +27,19 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve) => {
     graphql(`
       {
-        products: allCockpitProduct {
+        products: allCockpitProduct(filter:{
+          entry: {
+            gallery: {
+              elemMatch: {
+                value: {
+                  color: {
+                    ne: null
+                  }
+                }
+              }
+            }
+          }
+        }) {
           edges {
             node {
               fields {
