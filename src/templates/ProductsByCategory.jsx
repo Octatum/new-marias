@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import CategoryDisplay from '../components/Products/CategoryDisplay';
+import cleanString from '../utilities/cleanString';
 
 function toTitleCase(str) {
   str = str.toLowerCase().split(' ');
@@ -12,7 +13,11 @@ function toTitleCase(str) {
 }
 
 const ProductsByCategory = props => {
-  const { data } = props;
+  const {
+    data,
+    pageContext: { categoryName },
+  } = props;
+
   const productsList = data.products || {};
   const productEdges = productsList.edges || [];
   const products = productEdges.map(({ node }) => ({
@@ -20,20 +25,21 @@ const ProductsByCategory = props => {
     thumbnail: node.mainImage.childImageSharp.fixed,
     price: node.price[0].amount,
   }));
+  const cleanCategoryName = cleanString(categoryName);
   const breadcrumbItems = [
     {
       to: '/tienda',
       name: 'Todo',
     },
     {
-      to: `/tienda/categoria/${data.category.name}`,
-      name: data.category.name,
+      to: `/tienda/categoria/${cleanCategoryName}`,
+      name: categoryName,
     },
   ];
 
   return (
     <React.Fragment>
-      <Helmet title={toTitleCase(data.category.name)} />
+      <Helmet title={toTitleCase(categoryName)} />
       <CategoryDisplay breadcrumbItems={breadcrumbItems} products={products} />
     </React.Fragment>
   );
@@ -42,8 +48,10 @@ const ProductsByCategory = props => {
 export default ProductsByCategory;
 
 export const query = graphql`
-  query ProductsByCategoryId($categoryId: String!) {
-    products: allMoltinProduct {
+  query ProductsByCategoryName($categoryName: String!) {
+    products: allMoltinProduct(
+      filter: { fields: { mainCategory: { eq: $categoryName } } }
+    ) {
       edges {
         node {
           name
@@ -51,6 +59,9 @@ export const query = graphql`
           description
           price {
             amount
+          }
+          categories {
+            name
           }
           mainImage {
             childImageSharp {
@@ -61,10 +72,6 @@ export const query = graphql`
           }
         }
       }
-    }
-
-    category: moltinCategory(id: { eq: $categoryId }) {
-      name
     }
   }
 `;

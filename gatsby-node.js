@@ -5,6 +5,18 @@ const productGridView = path.resolve('src/templates/ProductsByCategory.jsx');
 function getCleanString(string) {
   return string.replace(/\W/g, '').toLowerCase();
 }
+exports.onCreateNode = ({ node, actions }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === `MoltinProduct`) {
+    const mainCategory = node.categories ? node.categories[0].name : 'Otros';
+    createNodeField({
+      node,
+      name: `mainCategory`,
+      value: mainCategory,
+    });
+  }
+};
 
 exports.createPages = ({ graphql, actions }) => {
   return new Promise(resolve => {
@@ -45,9 +57,17 @@ exports.createPages = ({ graphql, actions }) => {
           path: `/tienda/categoria/${cleanName}`,
           component: productGridView,
           context: {
-            categoryId: node.id,
+            categoryName: node.name,
           },
         });
+      });
+
+      createPage({
+        path: `/tienda/categoria/otros`,
+        component: productGridView,
+        context: {
+          categoryName: 'Otros',
+        },
       });
 
       resolve();
