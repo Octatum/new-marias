@@ -129,8 +129,9 @@ class ProductDetailContainer extends React.PureComponent {
 
   render() {
     const { moltinProduct } = this.props.data;
+    moltinProduct.images = moltinProduct.images || [moltinProduct.mainImage];
 
-    const categoryName = moltinProduct.categories[0].name;
+    const categoryName = moltinProduct.fields.mainCategory;
     const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
     const productName = moltinProduct.name.toLowerCase();
 

@@ -22,6 +22,9 @@ export const query = graphql`
       categories {
         name
       }
+      fields {
+        mainCategory
+      }
       images {
         childImageSharp {
           fluid(maxWidth: 500, maxHeight: 500) {
@@ -33,6 +36,9 @@ export const query = graphql`
         childImageSharp {
           original {
             src
+          }
+          fluid(maxWidth: 500, maxHeight: 500) {
+            ...GatsbyImageSharpFluid_noBase64
           }
         }
       }
