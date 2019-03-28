@@ -88,24 +88,20 @@ class ProductDetailContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currentImages: props.data.cockpitProduct.entry.gallery[0].value.images.map(
-        i => i.path
-      ),
-      currentColor: props.data.cockpitProduct.entry.gallery[0].value.color,
+      // currentColor: props.data.moltinProduct.entry.gallery[0].value.color,
       quantity: 1,
     };
     this.handleChangeColor = this.handleChangeColor.bind(this);
   }
 
   addProduct = cbAddProduct => {
-    const { cockpitProduct } = this.props.data;
+    const { moltinProduct } = this.props.data;
 
     cbAddProduct({
-      id: cockpitProduct.id,
-      name: cockpitProduct.entry.name,
-      price: cockpitProduct.entry.price,
-      type: this.state.currentColor,
-      thumbnail: this.state.currentImages[0],
+      id: moltinProduct.id,
+      name: moltinProduct.entry.name,
+      price: moltinProduct.entry.price.amount,
+      thumbnail: moltinProduct.mainImage.childImageSharp.original.src,
       amount: this.state.quantity,
     });
   };
@@ -115,14 +111,16 @@ class ProductDetailContainer extends React.PureComponent {
   };
 
   handleChangeColor(e) {
-    this.setState({ boardAddModalShow: true }, () => {
-      const color = this.state.currentColor;
-      this.setState({
-        currentImages: this.props.data.cockpitProduct.entry.gallery
-          .find(g => g.value.color === color)
-          .value.images.map(i => i.path),
-      });
-    });
+    // todo
+
+    // this.setState({ boardAddModalShow: true }, () => {
+    //   const color = this.state.currentColor;
+    //   this.setState({
+    //     currentImages: this.props.data.cockpitProduct.entry.gallery
+    //       .find(g => g.value.color === color)
+    //       .value.images.map(i => i.path),
+    //   });
+    // });
 
     this.setState({
       currentColor: e.target.value,
@@ -130,11 +128,11 @@ class ProductDetailContainer extends React.PureComponent {
   }
 
   render() {
-    const { cockpitProduct } = this.props.data;
+    const { moltinProduct } = this.props.data;
 
-    const categoryName = cockpitProduct.entry.category_id.display;
-    const cleanCategoryName = categoryName.replace(/\W/g, '');
-    const productName = cockpitProduct.entry.name.toLowerCase();
+    const categoryName = moltinProduct.categories[0].name;
+    const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
+    const productName = moltinProduct.name.toLowerCase();
 
     const breadcrumbItems = [
       {
@@ -163,11 +161,11 @@ class ProductDetailContainer extends React.PureComponent {
             <CartCounter width={50} height={40} />
           </MobileHeader>
           <Container>
-            <StyledGallery images={this.state.currentImages} />
+            <StyledGallery images={moltinProduct.images} />
             <CartConsumer>
               {({ addProduct }) => (
                 <StyledDetail
-                  product={cockpitProduct}
+                  product={moltinProduct}
                   onColorChange={this.handleChangeColor}
                   onQuantityChange={this.changeQuantityHandler}
                   addToCartHandler={() => this.addProduct(addProduct)}

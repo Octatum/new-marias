@@ -142,7 +142,7 @@ class CategoryDisplay extends Component {
             <ProductList>
               {products.map(product => (
                 <Product
-                  path={`/tienda/producto-${product.id}`}
+                  path={`/tienda/producto/${product.slug}`}
                   thumbnail={product.thumbnail}
                   price={product.price}
                   name={product.name}

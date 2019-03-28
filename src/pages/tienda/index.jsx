@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 
@@ -27,7 +26,7 @@ const IndexPage = ({ data }) => {
   );
 };
 
-export default observer(IndexPage);
+export default IndexPage;
 
 export const query = graphql`
   query {
@@ -44,7 +43,7 @@ export const query = graphql`
           mainImage {
             childImageSharp {
               fixed(width: 125) {
-                ...GatsbyImageSharpFixed
+                ...GatsbyImageSharpFixed_noBase64
               }
             }
           }

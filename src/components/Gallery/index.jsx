@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
+import GatsbyImage from 'gatsby-image';
 import backButtonImg from './assets/backButton.svg';
 import forwardButtonImg from './assets/forwardButton.svg';
 import device from './../../utilities/device';
@@ -23,8 +24,9 @@ const CurrentImageLayout = styled.div`
   }
 `;
 
-const CurrentImage = styled.img`
+const CurrentImage = styled(GatsbyImage)`
   max-width: 100%;
+  width: 100%;
   max-height: 100%;
 `;
 
@@ -70,7 +72,7 @@ const ImagesContainer = styled.div`
   }
 `;
 
-const ImgPreview = styled('img')`
+const ImgPreview = styled(GatsbyImage)`
   cursor: pointer;
   width: 15vw;
   max-width: 10rem;
@@ -86,8 +88,8 @@ const CurrentImageContainer = styled('div')`
   grid-template: minmax(188px, 40vmax) 3rem / 1rem auto 1rem;
   align-items: flex-start;
   grid-template-areas:
-    "prev current next"
-    "dots dots dots";
+    'prev current next'
+    'dots dots dots';
 
   ${device.tablet} {
     grid-template-rows: minmax(min-content, 20rem) 3rem;
@@ -142,7 +144,7 @@ class Gallery extends Component {
       <ImgPreview
         key={source}
         onClick={() => this.changeCurrentImage(index)}
-        src={`https://admin.newmarias.com/${source}`}
+        fluid={source.childImageSharp.fluid}
       />
     ));
 
@@ -162,9 +164,10 @@ class Gallery extends Component {
           <PreviousButton onClick={this.previousImage} />
           <CurrentImageLayout>
             <CurrentImage
-              src={`https://admin.newmarias.com/${
-                this.props.images[this.state.currentImageIndex]
-              }`}
+              fluid={
+                this.props.images[this.state.currentImageIndex].childImageSharp
+                  .fluid
+              }
             />
           </CurrentImageLayout>
           <Nextbutton onClick={this.nextImage} />

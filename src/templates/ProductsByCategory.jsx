@@ -55,7 +55,7 @@ export const query = graphql`
           mainImage {
             childImageSharp {
               fixed(width: 125) {
-                ...GatsbyImageSharpFixed
+                ...GatsbyImageSharpFixed_noBase64
               }
             }
           }

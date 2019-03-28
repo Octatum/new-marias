@@ -10,26 +10,31 @@ export default Producto;
 
 export const query = graphql`
   query($slug: String!) {
-    cockpitProduct(fields: { slug: { eq: $slug } }) {
+    moltinProduct(slug: { eq: $slug }) {
       id
-      entry {
+      name
+      price {
+        amount
+        currency
+        includes_tax
+      }
+      description
+      categories {
         name
-        price
-        description
-        category_id {
-          display
+      }
+      images {
+        childImageSharp {
+          fluid(maxWidth: 500, maxHeight: 500) {
+            ...GatsbyImageSharpFluid_noBase64
+          }
         }
-        thumbnail {
-          path
+      }
+      mainImage {
+        childImageSharp {
+          original {
+            src
+          }
         }
-        # gallery {
-        #   value {
-        #     color
-        #     images {
-        #       path
-        #     }
-        #   }
-        # }
       }
     }
   }

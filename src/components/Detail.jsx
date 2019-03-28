@@ -115,14 +115,10 @@ const Detail = props => {
     className,
   } = props;
 
-  const {
-    name: productName,
-    description: productDescription,
-    price: productPrice,
-    gallery,
-  } = product.entry;
+  const { name: productName, description: productDescription, price } = product;
+  const productPrice = price[0].amount / 100;
 
-  const colors = gallery.map(g => g.value.color);
+  // const colors = gallery.map(g => g.value.color);
 
   return (
     <Container {...{ className }}>
@@ -134,6 +130,7 @@ const Detail = props => {
         </Text>
       </Price>
       <SelectsContainer>
+        {/*
         <ColorContainer>
           <Select
             name="Color o tipo"
@@ -142,7 +139,7 @@ const Detail = props => {
             required
           />
         </ColorContainer>
-
+        */}
         <AmountContainer>
           <Select
             name="Cantidad"

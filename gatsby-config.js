@@ -1,3 +1,6 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 module.exports = {
   siteMetadata: {
     title: 'New Marias',
@@ -23,17 +26,9 @@ module.exports = {
     },
     'gatsby-plugin-offline',
     {
-      resolve: 'gatsby-source-cockpit',
+      resolve: `@moltin/gatsby-source-moltin`,
       options: {
-        host: 'https://admin.newmarias.com',
-        accessToken: '8e126ac75a4c97897cd52dfab00650',
-        collectionName: ['Product', 'Category'],
-      },
-    },
-    {
-      resolve: `self-gatsby-source-moltin`,
-      options: {
-        client_id: 'DvIbRcWtcxNrbUSfHn0X7GTAFqYxXtsudWFYYSaWFu',
+        client_id: process.env.GATSBY_MOLTIN_CLIENT_ID,
       },
     },
     `gatsby-plugin-sharp`,
