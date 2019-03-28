@@ -113,8 +113,6 @@ const ProductList = styled.div`
 
 class CategoryDisplay extends Component {
   state = {
-    categories: this.props.categories,
-    products: this.props.products,
     menuHidden: true,
   };
 
@@ -145,7 +143,7 @@ class CategoryDisplay extends Component {
               {products.map(product => (
                 <Product
                   path={`/tienda/producto-${product.id}`}
-                  thumbnail={product.entry.thumbnail}
+                  thumbnail={product.thumbnail}
                   price={product.price}
                   name={product.name}
                 />

@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductDetailContainer from '../pages-components/ProductDetail';
+import { graphql } from 'gatsby';
 
 function Producto(props) {
   return <ProductDetailContainer {...props} />;
@@ -21,14 +22,14 @@ export const query = graphql`
         thumbnail {
           path
         }
-        gallery {
-          value {
-            color
-            images {
-              path
-            }
-          }
-        }
+        # gallery {
+        #   value {
+        #     color
+        #     images {
+        #       path
+        #     }
+        #   }
+        # }
       }
     }
   }

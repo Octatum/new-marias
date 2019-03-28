@@ -11,16 +11,14 @@ function toTitleCase(str) {
   return str.join(' ');
 }
 
-const ProductsByCategory = (props) => {
+const ProductsByCategory = props => {
   const { data } = props;
   const productsList = data.products || {};
-  const productEdges = productsList.edges || []; 
-
+  const productEdges = productsList.edges || [];
   const products = productEdges.map(({ node }) => ({
-    slug: node.fields.slug,
-    thumbnail: node.entry.thumbnail.path,
-    ...node.entry,
     ...node,
+    thumbnail: node.mainImage.childImageSharp.fixed,
+    price: node.price[0].amount,
   }));
   const breadcrumbItems = [
     {
@@ -28,14 +26,14 @@ const ProductsByCategory = (props) => {
       name: 'Todo',
     },
     {
-      to: `/tienda/categoria/${data.category.fields.cleanName}`,
-      name: data.category.entry.name,
+      to: `/tienda/categoria/${data.category.name}`,
+      name: data.category.name,
     },
   ];
 
   return (
     <React.Fragment>
-      <Helmet title={toTitleCase(data.category.entry.name)} />
+      <Helmet title={toTitleCase(data.category.name)} />
       <CategoryDisplay breadcrumbItems={breadcrumbItems} products={products} />
     </React.Fragment>
   );
@@ -45,34 +43,28 @@ export default ProductsByCategory;
 
 export const query = graphql`
   query ProductsByCategoryId($categoryId: String!) {
-    products: allCockpitProduct(
-      filter: { entry: { category_id: { _id: { eq: $categoryId } } } }
-    ) {
+    products: allMoltinProduct {
       edges {
         node {
-          id
-          fields {
-            slug
+          name
+          slug
+          description
+          price {
+            amount
           }
-          entry {
-            name
-            price
-            description
-            thumbnail {
-              path
+          mainImage {
+            childImageSharp {
+              fixed(width: 125) {
+                ...GatsbyImageSharpFixed
+              }
             }
           }
         }
       }
     }
 
-    category: cockpitCategory(id: { eq: $categoryId }) {
-      fields {
-        cleanName
-      }
-      entry {
-        name
-      }
+    category: moltinCategory(id: { eq: $categoryId }) {
+      name
     }
   }
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import GatsbyImage from 'gatsby-image';
 import device from './../../utilities/device';
 import Text from '../Text';
 
@@ -15,7 +16,7 @@ const Container = styled.div`
   }
 `;
 
-const ProductImage = styled('img')`
+const ProductImage = styled(GatsbyImage)`
   width: 145px;
   height: 145px;
   margin-bottom: 5px;
@@ -41,12 +42,10 @@ function Product(props) {
   return (
     <Container>
       <CoolLink to={props.path}>
-        <ProductImage
-          src={`https://admin.newmarias.com${props.thumbnail.path}`}
-        />
+        <ProductImage fixed={props.thumbnail} />
       </CoolLink>
       <TextBlock>{props.name}</TextBlock>
-      <TextBlock>${parseFloat(props.price).toFixed(2)}</TextBlock>
+      <TextBlock>${parseFloat(props.price / 100).toFixed(2)}</TextBlock>
     </Container>
   );
 }

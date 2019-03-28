@@ -3,10 +3,7 @@ module.exports = {
     title: 'New Marias',
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {},
-    },
+    `gatsby-plugin-styled-components`,
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-plugin-manifest`,
@@ -33,5 +30,13 @@ module.exports = {
         collectionName: ['Product', 'Category'],
       },
     },
+    {
+      resolve: `self-gatsby-source-moltin`,
+      options: {
+        client_id: 'DvIbRcWtcxNrbUSfHn0X7GTAFqYxXtsudWFYYSaWFu',
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
   ],
 };

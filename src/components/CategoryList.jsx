@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import { StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Text from './Text';
 
 import device from '../utilities/device';
+import cleanString from '../utilities/cleanString';
 
 const Ul = styled.ul`
   list-style: none;
@@ -52,51 +53,38 @@ const CategoryLink = styled(Link)`
 
 const CategoryList = props => {
   const { hidden } = props;
+  const data = useStaticQuery(graphql`
+    query {
+      categories: allMoltinCategory(sort: { fields: name }) {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+    }
+  `);
+
+  const categories = data.categories.edges.map(({ node }) => ({
+    cleanName: cleanString(node.name),
+    ...node,
+  }));
   return (
     <Ul hide={hidden}>
       <TitleLi as="li" size={4} className="title">
         Categorías
       </TitleLi>
-      <StaticQuery
-        query={graphql`
-          query {
-            categories: allCockpitCategory(
-              sort: { fields: entry___name }
-              filter: { fields: { cleanName: {ne: "otros"}}}
-            ) {
-              edges {
-                node {
-                  id
-                  fields {
-                    cleanName
-                  }
-                  entry {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        `}
-        render={data => {
-          const categories = data.categories.edges.map(({ node }) => ({
-            name: node.entry.name,
-            cleanName: node.fields.cleanName,
-            ...node,
-          }));
-
-          return categories.map(category => (
-            <Text as="li" key={category.id}>
-              <CategoryLink to={`/tienda/categoria/${category.cleanName}`} replace>
-                {category.name.toLowerCase()}
-              </CategoryLink>
-            </Text>
-          ));
-        }}
-      />
+      {categories.map(category => (
+        <Text as="li" key={category.id}>
+          <CategoryLink to={`/tienda/categoria/${category.cleanName}`} replace>
+            {category.name.toLowerCase()}
+          </CategoryLink>
+        </Text>
+      ))}
       <Text as="li">
         <CategoryLink to={`/tienda/categoria/otros`}>
-          {("Otros").toLowerCase()}
+          {'Otros'.toLowerCase()}
         </CategoryLink>
       </Text>
     </Ul>

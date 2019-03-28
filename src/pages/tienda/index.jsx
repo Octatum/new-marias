@@ -7,10 +7,10 @@ import CategoryDisplay from '../../components/Products/CategoryDisplay';
 
 const IndexPage = ({ data }) => {
   const products = data.products.edges.map(({ node }) => ({
-    slug: node.fields.slug,
-    thumbnail: node.entry.thumbnail.path,
-    ...node.entry,
     ...node,
+    slug: node.slug,
+    thumbnail: node.mainImage.childImageSharp.fixed,
+    price: node.price[0].amount,
   }));
   const breadcrumbItems = [
     {
@@ -31,18 +31,21 @@ export default observer(IndexPage);
 
 export const query = graphql`
   query {
-    products: allCockpitProduct {
+    products: allMoltinProduct {
       edges {
         node {
           id
-          fields {
-            slug
+          name
+          slug
+          description
+          price {
+            amount
           }
-          entry {
-            name
-            price
-            thumbnail {
-              path
+          mainImage {
+            childImageSharp {
+              fixed(width: 125) {
+                ...GatsbyImageSharpFixed
+              }
             }
           }
         }
