@@ -4,11 +4,12 @@ import MunecaImage from './../assets/muneca.png';
 import device from './../../../utilities/device';
 import Text from '../../../components/Text';
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   width: 72%;
   margin: 0 auto;
+  margin-top: 1em;
   align-items: center;
 
   ${device.mobile} {
@@ -107,7 +108,7 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-  background-color: ${({theme}) => theme.colors.pink};
+  background-color: ${({ theme }) => theme.colors.pink};
   width: 221px;
   height: 49px;
   border: none;

@@ -118,6 +118,7 @@ const Detail = props => {
   const { name, description, price, meta } = product;
   const { variations = [] } = meta;
   const productPrice = price[0].amount / 100;
+  console.log(product);
 
   return (
     <Container className={className}>
@@ -129,11 +130,11 @@ const Detail = props => {
         </Text>
       </Price>
       <SelectsContainer>
-        {variations.map((variation, index) => (
+        {variations.map(variation => (
           <VariationContainer key={variation.name}>
             <Select
               name={variation.name}
-              onChange={() => variationChangeHandler(index)}
+              onChange={e => variationChangeHandler(e.target.value)}
               options={variation.options.map(item => ({
                 value: item.id,
                 name: item.name,

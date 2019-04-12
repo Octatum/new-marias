@@ -12,7 +12,7 @@ import Text from '../../../../components/Text';
 
 const Header = styled(Text)`
   margin-bottom: 10px;
-  color: ${({theme}) => theme.colors.pink};
+  color: ${({ theme }) => theme.colors.pink};
 `;
 
 const Content = styled(Text)`
@@ -64,7 +64,7 @@ const Sucursal = props => {
       <Picture>
         <MyMapComponent
           isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyD6E9uE4C9Y_r7rLayrcGB9STtE-pgxXV4"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `100%` }} />}

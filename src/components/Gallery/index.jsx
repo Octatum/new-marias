@@ -122,7 +122,6 @@ function Gallery(props) {
   }
 
   function changeCurrentImage(index) {
-    console.log(index);
     setCurrentImageIndex(index);
   }
 

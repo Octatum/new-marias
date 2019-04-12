@@ -21,7 +21,7 @@ const SelectField = styled('select')`
 
 const Select = props => {
   const {
-    options,
+    options = [],
     placeholder,
     setFieldValue,
     labelText,
@@ -44,23 +44,22 @@ const Select = props => {
         value={selectedOption}
         {...rest}
       >
-        {options &&
-          options.map(option => {
-            if (typeof option === 'object') {
-              const { name, value } = option;
-              return (
-                <Option key={name} value={value}>
-                  {name}
-                </Option>
-              );
-            }
-
+        {options.map(option => {
+          if (typeof option === 'object') {
+            const { name, value } = option;
             return (
-              <Option key={option} value={option}>
-                {option}
+              <Option key={name} value={value}>
+                {name}
               </Option>
             );
-          })}
+          }
+
+          return (
+            <Option key={option} value={option}>
+              {option}
+            </Option>
+          );
+        })}
       </SelectField>
     </Label>
   );

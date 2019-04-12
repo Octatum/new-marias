@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useReducer } from 'react';
 import styled from 'styled-components/macro';
 import Helmet from 'react-helmet';
+import GatsbyLink from 'gatsby-link';
 
 import toTitleCase from '../../utilities/toTitleCase';
 import Detail from '../../components/Detail';
@@ -11,9 +12,6 @@ import device from '../../utilities/device';
 import Gallery from '../../components/Gallery';
 import backButtonImg from './assets/backButton.svg';
 import { useProducts } from '../../components/CartContext';
-import GatsbyLink from 'gatsby-link';
-import { useEffect } from 'react';
-import { useReducer } from 'react';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -133,8 +131,11 @@ function ProductDetailContainer(props) {
 
   async function getMoltinProduct(id) {
     const response = await moltinClient.get(`products/${id}?include=files`);
-    console.log(response);
     return response;
+  }
+
+  function setVariation(id) {
+    setCurrentVariationId(id);
   }
 
   useEffect(() => {
@@ -163,7 +164,6 @@ function ProductDetailContainer(props) {
     <AppLayout>
       <Layout>
         <Helmet title={toTitleCase(productName)} />
-
         <BreadcrumbContainer>
           <Breadcrumbs links={breadcrumbItems} />
         </BreadcrumbContainer>
@@ -178,7 +178,7 @@ function ProductDetailContainer(props) {
               <StyledGallery images={productState.images} />
               <StyledDetail
                 product={productState.product}
-                variationChangeHandler={() => {}}
+                variationChangeHandler={setVariation}
                 onQuantityChange={() => {}}
                 addToCartHandler={addProductToCart}
               />
