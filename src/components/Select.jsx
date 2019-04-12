@@ -33,22 +33,34 @@ const Select = props => {
 
   return (
     <Label>
-      {labelText && <Text>{labelText}</Text>}
+      {labelText && (
+        <Text size={2} style={{ paddingBottom: '0.5em' }}>
+          {labelText}
+        </Text>
+      )}
       <SelectField
         onChange={event => setFieldValue(name, event.target.value)}
         name={name}
+        value={selectedOption}
         {...rest}
       >
         {options &&
-          options.map(option => (
-            <Option
-              key={option}
-              value={option}
-              selected={selectedOption === option}
-            >
-              {option}
-            </Option>
-          ))}
+          options.map(option => {
+            if (typeof option === 'object') {
+              const { name, value } = option;
+              return (
+                <Option key={name} value={value}>
+                  {name}
+                </Option>
+              );
+            }
+
+            return (
+              <Option key={option} value={option}>
+                {option}
+              </Option>
+            );
+          })}
       </SelectField>
     </Label>
   );

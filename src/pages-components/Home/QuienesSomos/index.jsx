@@ -35,7 +35,7 @@ const Content = styled(withTextStyle(ReactMarkdown))`
 
 const Div = styled('div')`
   position: absolute;
-  top: -12rem;
+  top: -10rem;
 
   ${device.mobile} {
     top: -7rem;
@@ -46,6 +46,7 @@ const Section = styled('section')`
   display: flex;
   flex-direction: column;
   margin-bottom: 5rem;
+  position: relative;
   justify-content: center;
 `;
 
@@ -76,7 +77,7 @@ const Image = styled('img')`
 const BlackLine = styled('div')`
   height: 1px;
   flex: 1;
-  background-color: ${({theme}) => theme.colors.darkgray};
+  background-color: ${({ theme }) => theme.colors.darkgray};
 `;
 
 const QuienesSomos = props => {

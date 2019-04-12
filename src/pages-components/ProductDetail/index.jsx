@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components/macro';
 import Helmet from 'react-helmet';
 
 import toTitleCase from '../../utilities/toTitleCase';
 import Detail from '../../components/Detail';
-import AppLayout from '../../components/AppLayout';
+import AppLayout, { MoltinGatewayContext } from '../../components/AppLayout';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
 import Gallery from '../../components/Gallery';
 import backButtonImg from './assets/backButton.svg';
-import CartContext, { CartConsumer } from '../../components/CartContext';
+import { useProducts } from '../../components/CartContext';
 import GatsbyLink from 'gatsby-link';
+import { useEffect } from 'react';
+import { useReducer } from 'react';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -84,102 +86,108 @@ const StyledDetail = styled(Detail)`
   flex: 2;
 `;
 
-class ProductDetailContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // currentColor: props.data.moltinProduct.entry.gallery[0].value.color,
-      quantity: 1,
-    };
-    this.handleChangeColor = this.handleChangeColor.bind(this);
-  }
+const actions = {
+  setProduct: 'setProduct',
+  setImages: 'setImages',
+};
 
-  addProduct = cbAddProduct => {
-    const { moltinProduct } = this.props.data;
-
-    cbAddProduct({
-      id: moltinProduct.id,
-      name: moltinProduct.entry.name,
-      price: moltinProduct.entry.price.amount,
-      thumbnail: moltinProduct.mainImage.childImageSharp.original.src,
-      amount: this.state.quantity,
-    });
-  };
-
-  changeQuantityHandler = e => {
-    this.setState({ quantity: parseInt(e.target.value) });
-  };
-
-  handleChangeColor(e) {
-    // todo
-
-    // this.setState({ boardAddModalShow: true }, () => {
-    //   const color = this.state.currentColor;
-    //   this.setState({
-    //     currentImages: this.props.data.cockpitProduct.entry.gallery
-    //       .find(g => g.value.color === color)
-    //       .value.images.map(i => i.path),
-    //   });
-    // });
-
-    this.setState({
-      currentColor: e.target.value,
-    });
-  }
-
-  render() {
-    const { moltinProduct } = this.props.data;
-    moltinProduct.images = moltinProduct.images || [moltinProduct.mainImage];
-
-    const categoryName = moltinProduct.fields.mainCategory;
-    const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
-    const productName = moltinProduct.name.toLowerCase();
-
-    const breadcrumbItems = [
-      {
-        to: '/tienda',
-        name: 'Todo',
-      },
-      {
-        to: `/tienda/categoria/${cleanCategoryName}`,
-        name: categoryName.toLowerCase(),
-      },
-      {
-        name: productName,
-      },
-    ];
-
-    return (
-      <AppLayout>
-        <Layout>
-          <Helmet title={toTitleCase(productName)} />
-          <BreadcrumbContainer>
-            <Breadcrumbs links={breadcrumbItems} />
-          </BreadcrumbContainer>
-          <MobileHeader>
-            <BackButton to="tienda" />
-            <Par>{productName}</Par>
-            <CartCounter width={50} height={40} />
-          </MobileHeader>
-          <Container>
-            <StyledGallery images={moltinProduct.images} />
-            <CartConsumer>
-              {({ addProduct }) => (
-                <StyledDetail
-                  product={moltinProduct}
-                  onColorChange={this.handleChangeColor}
-                  onQuantityChange={this.changeQuantityHandler}
-                  addToCartHandler={() => this.addProduct(addProduct)}
-                />
-              )}
-            </CartConsumer>
-          </Container>
-        </Layout>
-      </AppLayout>
-    );
+function productReducer(state, action) {
+  switch (action.type) {
+    case actions.setProduct:
+      return { ...state, product: action.payload, loaded: true };
+    case actions.setImages:
+      return { ...state, images: action.payload };
   }
 }
 
-ProductDetailContainer.contextType = CartContext;
+function ProductDetailContainer(props) {
+  const [productState, dispatch] = useReducer(productReducer, {
+    images: [],
+    data: {},
+    loaded: false,
+  });
+  const [currentVariationId, setCurrentVariationId] = useState(null);
+  const moltinClient = useContext(MoltinGatewayContext);
+  const { addProduct } = useProducts();
+  const { moltinProduct } = props.data;
+
+  const categoryName = moltinProduct.fields.mainCategory;
+  const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
+  const productName = moltinProduct.name.toLowerCase();
+
+  const breadcrumbItems = [
+    {
+      to: '/tienda',
+      name: 'Todo',
+    },
+    {
+      to: `/tienda/categoria/${cleanCategoryName}`,
+      name: categoryName.toLowerCase(),
+    },
+    {
+      name: productName,
+    },
+  ];
+
+  function addProductToCart() {}
+
+  async function getMoltinProduct(id) {
+    const response = await moltinClient.get(`products/${id}?include=files`);
+    console.log(response);
+    return response;
+  }
+
+  useEffect(() => {
+    if (currentVariationId === null) return;
+
+    getMoltinProduct(currentVariationId).then(response => {
+      const images = response.included.files.map(file => file.link.href);
+      dispatch({ type: actions.setImages, payload: images });
+    });
+  }, [currentVariationId]);
+
+  useEffect(() => {
+    getMoltinProduct(moltinProduct.id).then(response => {
+      const product = response.data;
+      dispatch({ type: actions.setProduct, payload: product });
+      if (!product.meta.variations) {
+        const images = response.included.files.map(file => file.link.href);
+        dispatch({ type: actions.setImages, payload: images });
+      } else {
+        setCurrentVariationId(response.included.childrens[0].id);
+      }
+    });
+  }, []);
+
+  return (
+    <AppLayout>
+      <Layout>
+        <Helmet title={toTitleCase(productName)} />
+
+        <BreadcrumbContainer>
+          <Breadcrumbs links={breadcrumbItems} />
+        </BreadcrumbContainer>
+        <MobileHeader>
+          <BackButton to="tienda" />
+          <Par>{productName}</Par>
+          <CartCounter width={50} height={40} />
+        </MobileHeader>
+        <Container>
+          {productState.loaded && (
+            <>
+              <StyledGallery images={productState.images} />
+              <StyledDetail
+                product={productState.product}
+                variationChangeHandler={() => {}}
+                onQuantityChange={() => {}}
+                addToCartHandler={addProductToCart}
+              />
+            </>
+          )}
+        </Container>
+      </Layout>
+    </AppLayout>
+  );
+}
 
 export default ProductDetailContainer;

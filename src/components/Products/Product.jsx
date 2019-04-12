@@ -32,6 +32,7 @@ const ProductImage = styled(GatsbyImage)`
 
 const TextBlock = styled(Text)`
   width: 100%;
+  max-width: 7em;
 `;
 
 const CoolLink = styled(Link)`
@@ -45,7 +46,9 @@ function Product(props) {
         <ProductImage fixed={props.thumbnail} />
       </CoolLink>
       <TextBlock>{props.name}</TextBlock>
-      <TextBlock>${parseFloat(props.price / 100).toFixed(2)}</TextBlock>
+      <TextBlock style={{ opacity: '0.6' }}>
+        ${parseFloat(props.price / 100).toFixed(2)}
+      </TextBlock>
     </Container>
   );
 }

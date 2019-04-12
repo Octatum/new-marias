@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import createPersistedState from 'use-persisted-state';
 
 const CartContext = React.createContext({
   products: [],
@@ -9,6 +10,72 @@ const CartContext = React.createContext({
 });
 
 const LOCAL_STORAGE_ID = 'cart_products';
+const useProductsState = createPersistedState(LOCAL_STORAGE_ID);
+
+export function useProducts() {
+  const [products, setProducts] = useProductsState([]);
+
+  function addProduct(product) {
+    const productInList = products.find(p => p.sku === product.sku);
+
+    if (productInList) {
+      increaseProductAmount(productInList, product.amount);
+      return;
+    }
+
+    const newProducts = [...products, product];
+
+    setProducts(newProducts);
+  }
+
+  function removeProduct(product) {
+    const newProducts = products.filter(p => p.sku !== product.sku);
+
+    setProducts(newProducts);
+  }
+
+  function increaseProductAmount(product, amount = 1) {
+    const { sku } = product;
+
+    const newProducts = products.map(p => {
+      if (p.sku === sku) {
+        return {
+          ...p,
+          amount: p.amount + amount,
+        };
+      }
+
+      return { ...p };
+    });
+
+    setProducts(newProducts);
+  }
+
+  function decreaseProductAmount(product) {
+    const { sku } = product;
+    const newProducts = products.map(p => {
+      if (p.sku === sku) {
+        const newAmount = p.amount - 1;
+        return {
+          ...p,
+          amount: newAmount < 1 ? 1 : newAmount,
+        };
+      }
+
+      return { ...p };
+    });
+
+    setProducts(newProducts);
+  }
+
+  return {
+    products,
+    removeProduct,
+    addProduct,
+    increaseProductAmount,
+    decreaseProductAmount,
+  };
+}
 
 class CartProvider extends Component {
   constructor(props) {

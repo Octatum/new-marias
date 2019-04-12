@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import GatsbyImage from 'gatsby-image';
 import backButtonImg from './assets/backButton.svg';
 import forwardButtonImg from './assets/forwardButton.svg';
 import device from './../../utilities/device';
@@ -24,10 +23,8 @@ const CurrentImageLayout = styled.div`
   }
 `;
 
-const CurrentImage = styled(GatsbyImage)`
+const CurrentImage = styled('img')`
   max-width: 100%;
-  width: 100%;
-  max-height: 100%;
 `;
 
 const BackButton = styled.button`
@@ -71,13 +68,19 @@ const ImagesContainer = styled.div`
     display: none;
   }
 `;
+const ImagePreviewAligner = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 10rem;
+`;
 
-const ImgPreview = styled(GatsbyImage)`
+const ImgPreview = styled('img')`
   cursor: pointer;
-  width: 15vw;
-  max-width: 10rem;
-  max-height: 10rem;
   margin-bottom: 1em;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const CurrentImageContainer = styled('div')`
@@ -105,77 +108,49 @@ const BackButtonLayout = styled(Link)`
   }
 `;
 
-class Gallery extends Component {
-  state = {
-    currentImageIndex: 0,
-  };
+function Gallery(props) {
+  const { images, className } = props;
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const imagesLength = images.length;
 
-  nextImage = () => {
-    const imagesLength = this.props.images.length;
-
-    this.setState(prevState => ({
-      currentImageIndex: (prevState.currentImageIndex + 1) % imagesLength,
-    }));
-  };
-
-  previousImage = () => {
-    const imagesLength = this.props.images.length;
-
-    this.setState(prevState => ({
-      currentImageIndex:
-        (prevState.currentImageIndex + imagesLength - 1) % imagesLength,
-    }));
-  };
-
-  changeCurrentImage = index => {
-    this.setState(() => ({ currentImageIndex: index }));
-  };
-
-  static getDerivedStateFromProps(props, state) {
-    if (state.currentImageIndex >= props.images.length) {
-      return {
-        currentImageIndex: 0,
-      };
-    }
+  function nextImage() {
+    setCurrentImageIndex((currentImageIndex + 1) % imagesLength);
   }
 
-  render() {
-    const images = this.props.images.map((source, index) => (
-      <ImgPreview
-        key={source}
-        onClick={() => this.changeCurrentImage(index)}
-        fluid={source.childImageSharp.fluid}
-      />
-    ));
+  function previousImage() {
+    setCurrentImageIndex((currentImageIndex + imagesLength - 1) % imagesLength);
+  }
 
-    const dots = this.props.images.map((_, index) => {
-      return index === this.state.currentImageIndex;
-    });
+  function changeCurrentImage(index) {
+    console.log(index);
+    setCurrentImageIndex(index);
+  }
 
-    const { className } = this.props;
-
-    return (
-      <Container {...{ className }}>
-        <BackButtonLayout to="/tienda">
-          <BackButton />
-        </BackButtonLayout>
-        <ImagesContainer>{images}</ImagesContainer>
-        <CurrentImageContainer>
-          <PreviousButton onClick={this.previousImage} />
-          <CurrentImageLayout>
-            <CurrentImage
-              fluid={
-                this.props.images[this.state.currentImageIndex].childImageSharp
-                  .fluid
-              }
+  return (
+    <Container className={className}>
+      <BackButtonLayout to="/tienda">
+        <BackButton />
+      </BackButtonLayout>
+      <ImagesContainer>
+        {images.map((source, index) => (
+          <ImagePreviewAligner key={source}>
+            <ImgPreview
+              onClick={() => changeCurrentImage(index)}
+              src={source}
             />
-          </CurrentImageLayout>
-          <Nextbutton onClick={this.nextImage} />
-          <Current dots={dots} />
-        </CurrentImageContainer>
-      </Container>
-    );
-  }
+          </ImagePreviewAligner>
+        ))}
+      </ImagesContainer>
+      <CurrentImageContainer>
+        <PreviousButton onClick={previousImage} />
+        <CurrentImageLayout>
+          <CurrentImage src={images[currentImageIndex]} />
+        </CurrentImageLayout>
+        <Nextbutton onClick={nextImage} />
+        <Current dots={images.map((_, index) => index === currentImageIndex)} />
+      </CurrentImageContainer>
+    </Container>
+  );
 }
 
 export default Gallery;

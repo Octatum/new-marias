@@ -30,7 +30,7 @@ export default IndexPage;
 
 export const query = graphql`
   query {
-    products: allMoltinProduct {
+    products: allMoltinProduct(filter: { mainImageHref: { ne: null } }) {
       edges {
         node {
           id

@@ -50,7 +50,10 @@ export default ProductsByCategory;
 export const query = graphql`
   query ProductsByCategoryName($categoryName: String!) {
     products: allMoltinProduct(
-      filter: { fields: { mainCategory: { eq: $categoryName } } }
+      filter: {
+        fields: { mainCategory: { eq: $categoryName } }
+        mainImageHref: { ne: null }
+      }
     ) {
       edges {
         node {

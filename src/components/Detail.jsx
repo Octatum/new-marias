@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { observer } from 'mobx-react';
 import device from '../utilities/device';
 import CartCounter from './CartCounter';
 import Select from './Select';
@@ -97,32 +96,32 @@ const AmountContainer = styled('div')`
   }
 `;
 
-const ColorContainer = styled('div')`
+const VariationContainer = styled('div')`
   flex: 3;
   margin-right: 20%;
 
   ${device.tablet} {
     margin: 0;
+    padding-bottom: 1em;
   }
 `;
 
 const Detail = props => {
   const {
     product,
-    onColorChange,
+    variationChangeHandler,
     onQuantityChange,
     addToCartHandler,
     className,
   } = props;
 
-  const { name: productName, description: productDescription, price } = product;
+  const { name, description, price, meta } = product;
+  const { variations = [] } = meta;
   const productPrice = price[0].amount / 100;
 
-  // const colors = gallery.map(g => g.value.color);
-
   return (
-    <Container {...{ className }}>
-      <Name>{productName}</Name>
+    <Container className={className}>
+      <Name>{name}</Name>
       <Price as="h3" size={2}>
         Precio:{' '}
         <Text color="orange" size={2} as="span">
@@ -130,19 +129,25 @@ const Detail = props => {
         </Text>
       </Price>
       <SelectsContainer>
-        {/*
-        <ColorContainer>
-          <Select
-            name="Color o tipo"
-            onChange={onColorChange}
-            options={colors}
-            required
-          />
-        </ColorContainer>
-        */}
+        {variations.map((variation, index) => (
+          <VariationContainer key={variation.name}>
+            <Select
+              name={variation.name}
+              onChange={() => variationChangeHandler(index)}
+              options={variation.options.map(item => ({
+                value: item.id,
+                name: item.name,
+              }))}
+              labelText={variation.name}
+              required
+            />
+          </VariationContainer>
+        ))}
+
         <AmountContainer>
           <Select
             name="Cantidad"
+            labelText="Cantidad"
             onChange={onQuantityChange}
             options={[1, 2, 3, 4, 5, 6]}
             required
@@ -155,9 +160,9 @@ const Detail = props => {
         </Button>
         <CartCounter width="69" height="61" />
       </AddToCartContainer>
-      <Description>{productDescription}</Description>
+      <Description>{description}</Description>
     </Container>
   );
 };
 
-export default observer(Detail);
+export default Detail;

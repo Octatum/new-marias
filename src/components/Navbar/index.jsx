@@ -9,9 +9,9 @@ import BurgerButton from './BurgerButton';
 import GatsbyLink from 'gatsby-link';
 
 export const navbarIds = {
-  inicio: "inicio",
-  quienesSomos: "quienesSomos",
-  contacto: "contacto"
+  inicio: 'inicio',
+  quienesSomos: 'quienesSomos',
+  contacto: 'contacto',
 };
 
 const Container = styled.div`
@@ -63,7 +63,7 @@ const List = styled.ul`
 
   li {
     padding: 0 1.2em;
-    color: ${({theme}) => theme.colors.darkgray};
+    color: ${({ theme }) => theme.colors.darkgray};
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 18px;
     text-transform: uppercase;
@@ -71,7 +71,7 @@ const List = styled.ul`
 
   li a {
     text-decoration: none;
-    color: ${({theme}) => theme.colors.darkgray};
+    color: ${({ theme }) => theme.colors.darkgray};
   }
 
   ${device.tablet} {
@@ -106,7 +106,7 @@ const Icon = styled.img`
 const Overlay = styled('div')`
   width: 100vw;
   height: 100vh;
-  display: ${({display}) => display};
+  display: ${({ display }) => display};
   position: fixed;
   top: 0;
   left: 0;
@@ -127,16 +127,19 @@ class Navbar extends Component {
 
   closeNavbar = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
-  }
+  };
 
   render() {
     return (
       <Container>
         <Logo src={headerIcon} />
         <BurgerButton onClick={this.toggleNavbar} />
-        <Overlay display={this.state.visible ? 'initial' : 'none'} onClick={this.closeNavbar} />
+        <Overlay
+          display={this.state.visible ? 'initial' : 'none'}
+          onClick={this.closeNavbar}
+        />
         <List visible={this.state.visible}>
           <li>
             <Link to="/">Inicio</Link>
@@ -148,19 +151,30 @@ class Navbar extends Component {
             </Link>
           </li>
           <li>
-            <GatsbyLink to={`/#${navbarIds.quienesSomos}`}>Quiénes somos</GatsbyLink>
-          </li>
-          <li>
-            <GatsbyLink to={`/#`}>Historias</GatsbyLink>
+            <GatsbyLink to={`/#${navbarIds.quienesSomos}`}>
+              Quiénes somos
+            </GatsbyLink>
           </li>
           <li>
             <GatsbyLink to={`/#${navbarIds.contacto}`}>Contacto</GatsbyLink>
           </li>
           <li>
-            <Icon src={facebookIcon} />
+            <a
+              href="https://www.facebook.com/newmarias/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon src={facebookIcon} />
+            </a>
           </li>
           <li>
-            <Icon src={instagramIcon} />
+            <a
+              href="https://www.instagram.com/new_marias/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon src={instagramIcon} />
+            </a>
           </li>
         </List>
       </Container>
