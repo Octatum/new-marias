@@ -25,10 +25,18 @@ export const query = graphql`
       fields {
         mainCategory
       }
-      images {
-        childImageSharp {
-          fluid(maxWidth: 500, maxHeight: 500) {
-            ...GatsbyImageSharpFluid_noBase64
+      files {
+        href
+      }
+      relationships {
+        parent {
+          data {
+            id
+          }
+        }
+        variations {
+          data {
+            id
           }
         }
       }
@@ -36,9 +44,6 @@ export const query = graphql`
         childImageSharp {
           original {
             src
-          }
-          fluid(maxWidth: 500, maxHeight: 500) {
-            ...GatsbyImageSharpFluid_noBase64
           }
         }
       }

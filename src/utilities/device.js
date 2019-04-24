@@ -9,7 +9,7 @@ export const generateBreakpoint = size => `@media (max-width: ${size})`;
 
 const device = Object.keys(screenBreakpoints).reduce((accumulator, label) => {
   const emSize = screenBreakpoints[label] / 16;
-  accumulator[label] = generateBreakpoint(emSize);
+  accumulator[label] = generateBreakpoint(`${emSize}em`);
   return accumulator;
 }, {});
 
