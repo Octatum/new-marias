@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import shoppingCartImg from './assets/shoppingcart.svg';
 import GatsbyLink from 'gatsby-link';
-import { CartConsumer } from '../CartContext';
+import { useProducts } from '../CartContext';
 
 const Container = styled(GatsbyLink)`
   display: block;
@@ -31,24 +31,18 @@ const Counter = styled.div`
   }
 `;
 
-const CartCounter = ({ quantity, ...props }) => (
-  <CartConsumer>
-    {({ products }) => {
-      const amount = products.reduce(
-        (accum, product) => accum + product.amount,
-        0
-      );
+const CartCounter = ({ quantity, ...props }) => {
+  const { productAmount } = useProducts();
 
-      return (
-        <Container to={'/tienda/carrito'} {...props}>
-          <Counter
-            quantity={amount}
-            height={10}
-            aria-label={`hay ${amount} productos en el carrito.`}
-          />
-        </Container>
-      );
-    }}
-  </CartConsumer>
-);
+  return (
+    <Container to={'/tienda/carrito'} {...props}>
+      <Counter
+        quantity={productAmount}
+        height={10}
+        aria-label={`hay ${productAmount} productos en el carrito.`}
+      />
+    </Container>
+  );
+};
+
 export default CartCounter;

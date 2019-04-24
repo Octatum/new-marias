@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import QuienesSomosImage from './../assets/quienes-somos.svg';
-import device from './../../../utilities/device';
-import { withTextStyle } from '../../../components/Text';
+import QuienesSomosImage from './assets/quienes-somos.svg';
+import device from '../../utilities/device';
+import { withTextStyle } from '../../components/Text';
 import ReactMarkdown from 'react-markdown';
-import { navbarIds } from '../../../components/Navbar';
+import { navbarIds } from '../../components/Navbar';
 
 const Banner = styled.div`
   height: 300px;

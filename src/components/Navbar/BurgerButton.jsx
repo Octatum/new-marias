@@ -5,14 +5,14 @@ import device from '../../utilities/device';
 const Container = styled('a')`
   width: 38px;
   height: 38px;
-  border: 2px solid ${({theme}) => theme.colors.orange};
+  border: 2px solid ${({ theme }) => theme.colors.orange};
   position: absolute;
   top: 19px;
   right: 15px;
   span {
     width: 80%;
     height: 2px;
-    background-color: ${({theme}) => theme.colors.orange};
+    background-color: ${({ theme }) => theme.colors.orange};
     margin: 2px auto;
   }
   display: none;
@@ -23,7 +23,7 @@ const Container = styled('a')`
   }
 `;
 
-const BurgerButtton = (props) => {
+const BurgerButtton = props => {
   return (
     <Container {...props}>
       <span />

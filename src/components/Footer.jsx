@@ -31,8 +31,8 @@ const Footer = () => {
   const currentTime = new Date();
   return (
     <Layout>
-      Copyright © Todos los derechos reservados. New Marias {currentTime.getFullYear()}. Desarrollado
-      por Katartico | Octatum.
+      Copyright © Todos los derechos reservados. New Marias{' '}
+      {currentTime.getFullYear()}. Desarrollado por Katartico | Octatum.
     </Layout>
   );
 };

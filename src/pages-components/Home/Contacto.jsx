@@ -1,14 +1,14 @@
 import React from 'react';
-import Section from './../Section';
+import Section from './Section';
 import styled from 'styled-components';
-import ContactoImage from './../assets/contacto.svg';
+import ContactoImage from './assets/contacto.svg';
 import Sucursal from './Sucursal';
-import FacebookIcon from './../assets/fbpink.svg';
-import InstagramIcon from './../assets/igpink.svg';
-import ContactForm from './../ContactForm';
-import device from './../../../utilities/device';
-import Text from '../../../components/Text';
-import { navbarIds } from '../../../components/Navbar';
+import FacebookIcon from './assets/fbpink.svg';
+import InstagramIcon from './assets/igpink.svg';
+import ContactForm from './ContactForm';
+import device from '../../utilities/device';
+import Text from '../../components/Text';
+import { navbarIds } from '../../components/Navbar';
 
 const Sucursales = styled.div`
   display: flex;

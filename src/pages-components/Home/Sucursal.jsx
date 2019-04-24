@@ -8,7 +8,7 @@ import {
   Marker,
 } from 'react-google-maps';
 
-import Text from '../../../../components/Text';
+import Text from '../../components/Text';
 
 const Header = styled(Text)`
   margin-bottom: 10px;

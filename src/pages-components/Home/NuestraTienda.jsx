@@ -1,11 +1,11 @@
 import React from 'react';
-import Section from './../Section';
-import NuestraTiendaImage from './../assets/nuestra-tienda.svg';
+import Section from './Section';
+import NuestraTiendaImage from './assets/nuestra-tienda.svg';
 import styled from 'styled-components';
-import MunecaImage from './../assets/muneca.png';
-import device from './../../../utilities/device';
+import MunecaImage from './assets/muneca.png';
+import device from '../../utilities/device';
 import GatsbyLink from 'gatsby-link';
-import Text from '../../../components/Text';
+import Text from '../../components/Text';
 
 const Pictures = styled.div`
   display: flex;

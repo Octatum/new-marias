@@ -52,14 +52,23 @@ const Breadcrumbs = props => {
   return (
     <Container>
       {links &&
-        links.map(link => (
-          <BreadcrumbItem key={link.name}>
-            <TextLink to={link.to || null} as={link.to ? GatsbyLink : 'p'}>
-              {link.name.toLowerCase()}
-            </TextLink>
-            <Img src={forwardButtonImg} />
-          </BreadcrumbItem>
-        ))}
+        links.map(({ name, to = '' }) => {
+          let linkProps = {
+            as: 'div',
+          };
+          if (to !== '') {
+            linkProps = {
+              to,
+              as: GatsbyLink,
+            };
+          }
+          return (
+            <BreadcrumbItem key={name}>
+              <TextLink {...linkProps}>{name.toLowerCase()}</TextLink>
+              <Img src={forwardButtonImg} />
+            </BreadcrumbItem>
+          );
+        })}
     </Container>
   );
 };

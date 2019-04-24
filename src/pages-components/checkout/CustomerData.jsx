@@ -193,7 +193,7 @@ const CustomerData = props => {
                   />
                 </InputRow>
               </Fieldset>
-              <FlexRow style={{padding: 0}}>
+              <FlexRow style={{ padding: 0 }}>
                 <Text as={Link} to="/tienda/carrito">
                   {'<'} Volver al carrito
                 </Text>

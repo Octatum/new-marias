@@ -197,7 +197,9 @@ class PaymentMethodSelection extends Component {
             <PaymentItems>
               {paymentOptions.map(option => (
                 <PaymentItemCell key={option.id}>
-                  <TextFlexCell style={{display: 'flex', alignItems: 'center'}}>
+                  <TextFlexCell
+                    style={{ display: 'flex', alignItems: 'center' }}
+                  >
                     <PaymentOption
                       onClick={() => this.setPaymentMethod(option.id)}
                       selected={option.id === this.state.selectedPaymentId}
@@ -210,7 +212,7 @@ class PaymentMethodSelection extends Component {
               ))}
             </PaymentItems>
           </Field>
-          <Field style={{padding: 0}}>
+          <Field style={{ padding: 0 }}>
             <Text as={Link} to="/tienda/checkout/envio">
               {'<'} Volver a métodos de envío
             </Text>

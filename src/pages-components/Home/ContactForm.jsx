@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import MunecaImage from './../assets/muneca.png';
-import device from './../../../utilities/device';
-import Text from '../../../components/Text';
+import MunecaImage from './assets/muneca.png';
+import device from '../../utilities/device';
+import Text from '../../components/Text';
 
 const Container = styled('div')`
   display: flex;

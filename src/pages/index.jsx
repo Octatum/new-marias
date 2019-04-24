@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 
-import SlideShow from '../pages-components/Home/SlideShow';
+import SlideShow from '../pages-components/Home/Slideshow';
 import AppLayout from '../components/AppLayout';
 import NuestraTienda from '../pages-components/Home/NuestraTienda';
 import QuienesSomos from '../pages-components/Home/QuienesSomos';

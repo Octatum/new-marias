@@ -11,6 +11,7 @@ export default {
     slategray: 'rgb(130, 146, 140)',
     pink: '#D13763',
   },
+  breakpoints: ['40em', '52em', '64em'],
   sizes: {
     h1: '2.5em',
     h2: '2.2em',
@@ -19,6 +20,7 @@ export default {
     h5: '1.3em',
     default: '1em',
   },
+  fontSizes: [12, 14, 18, 20, 24, 32, 40, 48, 64],
   fonts: {
     main: "'Archivo Narrow', sans-serif",
     secondary: "'Raleway', sans-serif",

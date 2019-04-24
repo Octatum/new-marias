@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useReducer } from 'react';
 import createPersistedState from 'use-persisted-state';
 
 const CartContext = React.createContext({
@@ -14,6 +14,14 @@ const useProductsState = createPersistedState(LOCAL_STORAGE_ID);
 
 export function useProducts() {
   const [products, setProducts] = useProductsState([]);
+  let productAmount = 0;
+
+  useReducer(() => {
+    productAmount = products.reduce(
+      (amount, product) => amount + product.amount,
+      0
+    );
+  }, [products]);
 
   function addProduct(product) {
     const productInList = products.find(p => p.sku === product.sku);
@@ -26,6 +34,10 @@ export function useProducts() {
     const newProducts = [...products, product];
 
     setProducts(newProducts);
+  }
+
+  function resetProducts() {
+    setProducts([]);
   }
 
   function removeProduct(product) {
@@ -74,6 +86,8 @@ export function useProducts() {
     addProduct,
     increaseProductAmount,
     decreaseProductAmount,
+    resetProducts,
+    productAmount,
   };
 }
 

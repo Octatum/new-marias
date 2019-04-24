@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro';
-import PropTypes from 'prop-types';
 
 import device from '../utilities/device';
 
@@ -58,11 +57,5 @@ export const withTextStyle = component => styled(component)`
 `;
 
 const Text = withTextStyle('div');
-
-Text.propTypes = {
-  // Por cuestiones de accesibilidad, no es conveniente usar textos directamente en un div
-  // por lo que hay que especificar el tipo de tag de html que se usará en el componente.
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-};
 
 export default Text;

@@ -167,7 +167,9 @@ class ShippingSelection extends Component {
               <PaddedText bold>Selección de método de envío</PaddedText>
               {shippingsOptions.map(option => (
                 <CellItem center key={option.id}>
-                  <TextFlexCell style={{display: 'flex', alignItems: 'center'}}>
+                  <TextFlexCell
+                    style={{ display: 'flex', alignItems: 'center' }}
+                  >
                     <ShippingOption
                       onClick={() => this.setShippingOption(option)}
                       selected={option.id === selectedShipping.id}
@@ -181,7 +183,7 @@ class ShippingSelection extends Component {
               ))}
             </ShippingItems>
           </Field>
-          <Field style={{padding: 0}}>
+          <Field style={{ padding: 0 }}>
             <Text as={Link} to="/tienda/checkout/cliente">
               {'<'} Volver a información de cliente
             </Text>
