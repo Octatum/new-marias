@@ -73,7 +73,7 @@ const NoMobileBox = styled(Box)`
 
 const StyledGallery = styled(Box)`
   --thumbnails-width: 150px;
-  height: 500px;
+  min-height: 500px;
 
   & > * {
     height: 100%;
@@ -114,7 +114,7 @@ const StyledGallery = styled(Box)`
 
   ${device.tablet} {
     --thumbnails-width: 0;
-    height: auto;
+    min-height: auto;
   }
 `;
 
@@ -134,7 +134,7 @@ const images = [
 ];
 
 const GalleryNav = styled('button')`
-  transform: ${({ rotate }) => rotate && 'rotate(180deg)'};
+  transform: ${({ dataRotate }) => dataRotate && 'rotate(180deg)'};
   background-image: url('${backButtonImg}');
   background-color: transparent;
   background-repeat: no-repeat;
@@ -162,19 +162,38 @@ function renderRightNav(onClick, disabled) {
       className="image-gallery-custom-right-nav"
       disabled={disabled}
       onClick={onClick}
-      rotate
+      dataRotate
     />
   );
 }
 
 const actions = {
   setImages: 'SET_IMAGES',
+  setIdentifiers: 'SET_SKU',
+  setAmount: 'SET_AMOUNT',
+  setVariationIndex: 'SET_VARIATION_INDEX',
+  disable: 'DISABLE',
+  enable: 'ENABLE',
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case actions.setImages:
       return { ...state, images: action.payload };
+    case actions.setIdentifiers:
+      const { sku, id } = action.payload;
+      return { ...state, sku, id };
+    case actions.setAmount:
+      return { ...state, amount: action.payload };
+    case actions.setVariationIndex:
+      return {
+        ...state,
+        currentVariationIndex: action.payload,
+      };
+    case actions.disable:
+      return { ...state, disabled: true };
+    case actions.enable:
+      return { ...state, disabled: false };
     default:
       throw new Error("Wrong action sent to reducer 'productReducer'");
   }
@@ -183,27 +202,31 @@ function reducer(state, action) {
 function ProductDetailContainer(props) {
   const [state, dispatch] = useReducer(reducer, {
     images: [],
-  });
-
-  /* const [state, dispatch] = useReducer(productReducer, {
-    images: [],
-    product: {},
-    loaded: false,
     sku: '',
+    id: '',
+    amount: 1,
+    disabled: true,
+    unitsAvailable: 0,
+    currentVariationIndex: 0,
   });
-  const [currentVariationIndex, setCurrentVariationIndex] = useState(null);
-  const [quantity, setQuantity] = useState(1);
 
+  const moltinClient = useContext(MoltinGatewayContext);
+  const { addProduct } = useProducts();
+  const { moltinProduct } = props.data;
+  const categoryName = moltinProduct.fields.mainCategory;
+  const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
+  const productName = moltinProduct.name.toLowerCase();
+  const productPrice = moltinProduct.price[0].amount / 100;
+  const productVariations = moltinProduct.meta.variations;
+  const productHasVariations = productVariations !== null;
 
   function addProductToCart() {
-    let { sku } = state;
+    let { sku, amount } = state;
 
     const product = {
-      amount: quantity,
+      amount,
       sku,
     };
-
-    console.log({ product });
 
     // addProduct(product);
   }
@@ -213,60 +236,45 @@ function ProductDetailContainer(props) {
     return response;
   }
 
-  useEffect(() => {
-    if (currentVariationIndex === null) return;
+  function setAmount(event) {
+    const amount = event.target.value;
 
-    const currentVariationId =
-      state.product.relationships.children.data[currentVariationIndex].id;
+    dispatch({ type: actions.setAmount, payload: amount });
+  }
 
-    getMoltinProduct(currentVariationId).then(response => {
-      imagesCache[currentVariationId] = response.included.files.map(
-        file => file.link.href
-      );
-      dispatch({
-        type: actions.setImages,
-        payload: imagesCache[currentVariationId],
-      });
-      dispatch({ type: actions.setSKU, payload: response.data.sku });
-    });
-  }, [currentVariationIndex]);
+  function setVariationIndex(event) {
+    const index = event.target.value;
+
+    dispatch({ type: actions.setVariationIndex, payload: index });
+  }
 
   useEffect(() => {
-    getMoltinProduct(moltinProduct.id).then(response => {
-      const product = response.data;
-      dispatch({ type: actions.setProduct, payload: product });
-      if (!product.meta.variations) {
-        const images = response.included.files.map(file => file.link.href);
-        dispatch({ type: actions.setImages, payload: images });
-        console.log(product);
-        dispatch({ type: actions.setSKU, payload: product.sku });
-      } else {
-        setCurrentVariationIndex(0);
-      }
-    });
-  }, []); */
-
-  const moltinClient = useContext(MoltinGatewayContext);
-  const { addProduct } = useProducts();
-  const { moltinProduct } = props.data;
-  const categoryName = moltinProduct.fields.mainCategory;
-  const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
-  const productName = moltinProduct.name.toLowerCase();
-  const productPrice = moltinProduct.price[0].amount / 100;
-  const productHasVariations = moltinProduct.relationships.variations !== null;
+    dispatch({ type: actions.disable });
+  }, [state.id]);
 
   useEffect(() => {
-    if (productHasVariations) return;
+    let images = [];
+    let sku = '';
+    let id = '';
 
-    const images = moltinProduct.files.map(({ href }) => ({
-      thumbnail: href,
-      original: href,
-    }));
-
+    if (!productHasVariations) {
+      images = moltinProduct.files.map(({ href }) => ({
+        thumbnail: href,
+        original: href,
+      }));
+      ({ sku, id } = moltinProduct);
+      dispatch({ type: actions.enable });
+    } else {
+      const product = moltinProduct.children[state.currentVariationIndex];
+      images = product.files.map(({ href }) => ({
+        thumbnail: href,
+        original: href,
+      }));
+      ({ sku, id } = product);
+    }
+    dispatch({ type: actions.setIdentifiers, payload: { sku, id } });
     dispatch({ type: actions.setImages, payload: images });
-  }, []);
-
-  console.log(moltinProduct);
+  }, [state.currentVariationIndex]);
 
   const breadcrumbItems = [
     {
@@ -318,7 +326,7 @@ function ProductDetailContainer(props) {
                 <RebassText py={1} fontSize={[5, 6]}>
                   {toTitleCase(productName)}
                 </RebassText>
-                <RebassText py={1} fontSize={[3]}>
+                <RebassText pt={1} pb={2} fontSize={[3]}>
                   Precio:{' '}
                   <RebassText fontSize={[4]} as="span" color="orange">
                     ${parseFloat(productPrice).toFixed(2)}
@@ -326,12 +334,15 @@ function ProductDetailContainer(props) {
                 </RebassText>
                 <Flex flexDirection="column">
                   {productHasVariations && (
-                    <Box pb={3}>
+                    <Box pb={2}>
                       <Select
-                        name="tipo"
-                        onChange={() => {}}
-                        options={[1, 2, 3, 4, 5]}
-                        labelText="Tipo"
+                        name="variation"
+                        onChange={setVariationIndex}
+                        options={moltinProduct.children.map((child, index) => ({
+                          name: child.name,
+                          value: index,
+                        }))}
+                        labelText={productVariations[0].name}
                         required
                       />
                     </Box>
@@ -340,8 +351,8 @@ function ProductDetailContainer(props) {
                   <Box pb={3}>
                     <Select
                       name="cantidad"
-                      onChange={() => {}}
-                      options={[1, 2, 3, 4, 5]}
+                      onChange={setAmount}
+                      options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                       labelText="Cantidad"
                       required
                     />
@@ -351,6 +362,8 @@ function ProductDetailContainer(props) {
                   <RebassButton
                     fontSize={3}
                     width={[1, 'auto']}
+                    onClick={addProductToCart}
+                    disabled={state.disabled}
                     px={[2, 3]}
                     py={[3]}
                   >

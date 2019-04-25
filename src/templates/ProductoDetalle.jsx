@@ -9,16 +9,27 @@ function Producto(props) {
 export default Producto;
 
 export const query = graphql`
+  fragment productData on MoltinProduct {
+    id
+    name
+    sku
+    files {
+      href
+    }
+  }
+
   query($slug: String!) {
     moltinProduct(slug: { eq: $slug }) {
       id
       name
+      sku
       price {
         amount
-        currency
-        includes_tax
       }
       description
+      children {
+        ...productData
+      }
       categories {
         name
       }
@@ -28,13 +39,14 @@ export const query = graphql`
       files {
         href
       }
+      meta {
+        variations {
+          name
+          id
+        }
+      }
       relationships {
         parent {
-          data {
-            id
-          }
-        }
-        variations {
           data {
             id
           }

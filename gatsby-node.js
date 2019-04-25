@@ -22,7 +22,9 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise(resolve => {
     graphql(`
       {
-        products: allMoltinProduct {
+        products: allMoltinProduct(
+          filter: { relationships: { parent: { data: { id: { eq: null } } } } }
+        ) {
           edges {
             node {
               slug
@@ -75,9 +77,14 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
-exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
+exports.sourceNodes = ({
+  actions,
+  getNodesByType,
+  createNodeId,
+  createContentDigest,
+}) => {
   return new Promise(async resolve => {
-    const { createNode } = actions;
+    const { createNode, createParentChildLink } = actions;
 
     // fetch raw data from the randomuser api
     const allSingletons = await fetch(
@@ -111,6 +118,17 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
         console.info(`Node created for ${singletonName}`);
       })
     );
+
+    const productNodes = getNodesByType('MoltinProduct');
+
+    productNodes.forEach(productNode => {
+      if (!productNode.relationships.parent) return;
+
+      const parent = productNodes.find(
+        element => element.id === productNode.relationships.parent.data.id
+      );
+      createParentChildLink({ parent, child: productNode });
+    });
 
     resolve();
   });

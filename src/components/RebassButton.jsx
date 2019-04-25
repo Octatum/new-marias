@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const RebassButton = styled(RebassText)`
   border: none;
+
+  :disabled {
+    opacity: 0.6;
+  }
 `;
 
 RebassButton.defaultProps = {
