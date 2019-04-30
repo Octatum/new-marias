@@ -67,7 +67,7 @@ const OrdersTable = props => {
       </TableHead>
       <TableBody>
         {products.map(product => (
-          <OrderRow product={product} {...props} />
+          <OrderRow product={product} key={product.sku} {...props} />
         ))}
       </TableBody>
     </ContentTable>

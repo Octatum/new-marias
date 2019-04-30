@@ -27,6 +27,7 @@
     "gatsby-source-graphql": "^2.0.15",
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-sharp": "^2.1.17",
+    "lodash": "^4.17.11",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "react": "^16.8.5",

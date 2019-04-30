@@ -17,6 +17,10 @@ const SelectField = styled('select')`
   font-family: 'Archivo Narrow', sans-serif;
   color: ${({ theme }) => theme.colors.darkgray};
   background: white;
+
+  :disabled {
+    opacity: 0.6;
+  }
 `;
 
 const Select = props => {

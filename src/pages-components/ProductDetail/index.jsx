@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
+import { range, clamp } from 'lodash';
 import styled from 'styled-components/macro';
-import Helmet from 'react-helmet';
 import GatsbyLink from 'gatsby-link';
 import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';
@@ -15,6 +15,7 @@ import { useProducts } from '../../components/CartContext';
 import RebassText from '../../components/RebassText';
 import Select from '../../components/Select';
 import RebassButton from '../../components/RebassButton';
+import Loading from '../../components/Loading';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -103,6 +104,9 @@ const StyledGallery = styled(Box)`
       align-items: stretch;
       justify-content: space-between;
     }
+    ${device.tablet} {
+      width: 100%;
+    }
   }
   .image-gallery-thumbnails-container > * {
     width: calc(100% - 8px);
@@ -172,8 +176,7 @@ const actions = {
   setIdentifiers: 'SET_SKU',
   setAmount: 'SET_AMOUNT',
   setVariationIndex: 'SET_VARIATION_INDEX',
-  disable: 'DISABLE',
-  enable: 'ENABLE',
+  setUnitsAvailable: 'SET_UNITS_AVAILABLE',
 };
 
 function reducer(state, action) {
@@ -181,19 +184,22 @@ function reducer(state, action) {
     case actions.setImages:
       return { ...state, images: action.payload };
     case actions.setIdentifiers:
-      const { sku, id } = action.payload;
-      return { ...state, sku, id };
+      const { sku, id, name } = action.payload;
+      return { ...state, sku, id, name };
     case actions.setAmount:
       return { ...state, amount: action.payload };
     case actions.setVariationIndex:
       return {
         ...state,
         currentVariationIndex: action.payload,
+        inventoryLoaded: false,
       };
-    case actions.disable:
-      return { ...state, disabled: true };
-    case actions.enable:
-      return { ...state, disabled: false };
+    case actions.setUnitsAvailable:
+      return {
+        ...state,
+        unitsAvailable: action.payload,
+        inventoryLoaded: true,
+      };
     default:
       throw new Error("Wrong action sent to reducer 'productReducer'");
   }
@@ -204,9 +210,10 @@ function ProductDetailContainer(props) {
     images: [],
     sku: '',
     id: '',
+    name: '',
     amount: 1,
-    disabled: true,
     unitsAvailable: 0,
+    inventoryLoaded: false,
     currentVariationIndex: 0,
   });
 
@@ -219,16 +226,21 @@ function ProductDetailContainer(props) {
   const productPrice = moltinProduct.price[0].amount / 100;
   const productVariations = moltinProduct.meta.variations;
   const productHasVariations = productVariations !== null;
+  const clampedInventoryUnits = clamp(state.unitsAvailable, 0, 10);
+  const inputDisabled = !state.inventoryLoaded || clampedInventoryUnits === 0;
 
   function addProductToCart() {
-    let { sku, amount } = state;
+    let { sku, amount, id, name } = state;
 
     const product = {
-      amount,
       sku,
+      name,
+      id,
+      price: productPrice,
+      thumbnail: state.images[0].thumbnail,
     };
 
-    // addProduct(product);
+    addProduct(product, amount);
   }
 
   async function getMoltinProduct(id) {
@@ -236,12 +248,19 @@ function ProductDetailContainer(props) {
     return response;
   }
 
+  async function getProductInventory(id) {
+    const response = await moltinClient.get(`inventories/${id}`);
+    return response;
+  }
+
+  // Función usada para modificar la cantidad en el selector.
   function setAmount(event) {
     const amount = event.target.value;
 
     dispatch({ type: actions.setAmount, payload: amount });
   }
 
+  // Función utilizada para cambiar el índice de la variación seleccionada
   function setVariationIndex(event) {
     const index = event.target.value;
 
@@ -249,30 +268,42 @@ function ProductDetailContainer(props) {
   }
 
   useEffect(() => {
-    dispatch({ type: actions.disable });
+    if (state.id === '') return;
+
+    async function getProductInventoryData() {
+      const inventory = (await getProductInventory(state.id)).data;
+
+      dispatch({
+        type: actions.setUnitsAvailable,
+        payload: inventory.available,
+      });
+    }
+
+    getProductInventoryData();
   }, [state.id]);
 
+  // Efecto secundario que se ejecuta cuando el usuario cambia la variación
+  // que está seleccionada actualmente. En caso de que el producto no
+  // contenga variaciones, se asignan las imágenes del producto
+  // principal a la vista, si el producto contiene variaciones,
+  // se asignan a la vista las imágenes de la variación
+  // elegida.
   useEffect(() => {
-    let images = [];
-    let sku = '';
-    let id = '';
+    let product = moltinProduct;
 
-    if (!productHasVariations) {
-      images = moltinProduct.files.map(({ href }) => ({
-        thumbnail: href,
-        original: href,
-      }));
-      ({ sku, id } = moltinProduct);
-      dispatch({ type: actions.enable });
-    } else {
-      const product = moltinProduct.children[state.currentVariationIndex];
-      images = product.files.map(({ href }) => ({
-        thumbnail: href,
-        original: href,
-      }));
-      ({ sku, id } = product);
+    if (productHasVariations) {
+      product = moltinProduct.children[state.currentVariationIndex];
     }
-    dispatch({ type: actions.setIdentifiers, payload: { sku, id } });
+
+    // Obtener los datos del producto de la variación seleccionada
+    const images = product.files.map(({ href }) => ({
+      thumbnail: href,
+      original: href,
+    }));
+    const { sku, id, name } = product;
+    console.log(product);
+
+    dispatch({ type: actions.setIdentifiers, payload: { sku, id, name } });
     dispatch({ type: actions.setImages, payload: images });
   }, [state.currentVariationIndex]);
 
@@ -303,7 +334,6 @@ function ProductDetailContainer(props) {
   return (
     <AppLayout>
       <Layout>
-        <Helmet title={toTitleCase(productName)} />
         <BreadcrumbContainer>
           <Breadcrumbs links={breadcrumbItems} />
         </BreadcrumbContainer>
@@ -352,18 +382,31 @@ function ProductDetailContainer(props) {
                     <Select
                       name="cantidad"
                       onChange={setAmount}
-                      options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                      options={
+                        !inputDisabled
+                          ? range(1, clampedInventoryUnits + 1)
+                          : []
+                      }
+                      disabled={inputDisabled}
                       labelText="Cantidad"
                       required
                     />
                   </Box>
                 </Flex>
+                {state.inventoryLoaded && state.unitsAvailable === 0 && (
+                  <Box>
+                    <RebassText color="red" fontSize={3} pb={3}>
+                      No hay unidades disponibles
+                    </RebassText>
+                  </Box>
+                )}
+
                 <Flex justifyContent="space-between" mt={[2, 0]}>
                   <RebassButton
                     fontSize={3}
                     width={[1, 'auto']}
                     onClick={addProductToCart}
-                    disabled={state.disabled}
+                    disabled={inputDisabled}
                     px={[2, 3]}
                     py={[3]}
                   >

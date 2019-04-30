@@ -9,7 +9,6 @@ import theme from '../utilities/theme';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import './setup.css';
-import { CartProvider } from './CartContext';
 
 const client = new createClient({
   client_id: process.env.GATSBY_MOLTIN_CLIENT_ID,
@@ -22,29 +21,27 @@ function AppLayout({ children }) {
     <MoltinGatewayContext.Provider>
       <ShopkitProvider clientId={process.env.GATSBY_MOLTIN_CLIENT_ID}>
         <ThemeProvider theme={theme}>
-          <CartProvider>
-            <React.Fragment>
-              <Helmet
-                titleTemplate={`%s - New Marias`}
-                meta={[
-                  {
-                    name: 'description',
-                    content: 'Artesanías Mexicanas New Marias',
-                  },
-                  { name: 'keywords', content: 'artesanias, mexico' },
-                ]}
-              >
-                <html lang="es" />
-              </Helmet>
+          <React.Fragment>
+            <Helmet
+              titleTemplate={`%s - New Marias`}
+              meta={[
+                {
+                  name: 'description',
+                  content: 'Artesanías Mexicanas New Marias',
+                },
+                { name: 'keywords', content: 'artesanias, mexico' },
+              ]}
+            >
+              <html lang="es" />
+            </Helmet>
+            <div>
+              <Navbar />
               <div>
-                <Navbar />
-                <div>
-                  {children}
-                  <Footer />
-                </div>
+                {children}
+                <Footer />
               </div>
-            </React.Fragment>
-          </CartProvider>
+            </div>
+          </React.Fragment>
         </ThemeProvider>
       </ShopkitProvider>
     </MoltinGatewayContext.Provider>

@@ -1,9 +1,18 @@
 import React from 'react';
-import ProductDetailContainer from '../pages-components/ProductDetail';
+import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
+import ProductDetailContainer from '../pages-components/ProductDetail';
+import toTitleCase from '../utilities/toTitleCase';
 
 function Producto(props) {
-  return <ProductDetailContainer {...props} />;
+  const productName = props.data.moltinProduct.name;
+
+  return (
+    <>
+      <Helmet title={toTitleCase(productName)} />
+      <ProductDetailContainer {...props} />
+    </>
+  );
 }
 
 export default Producto;

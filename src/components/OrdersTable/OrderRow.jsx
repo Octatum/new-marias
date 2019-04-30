@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import device from '../../utilities/device';
 import Text from '../Text';
+import { useProducts } from '../CartContext';
 
 const Layout = styled('div')`
   display: flex;
@@ -119,24 +120,25 @@ const OtherFlexCell = styled(FlexCell)`
 `;
 
 function OrderRow(props) {
+  const { product } = props;
+
   const {
     increaseProductAmount,
     decreaseProductAmount,
     removeProduct,
-    product,
-  } = props;
+  } = useProducts();
 
-  const { name, price, amount, thumbnail, type } = product;
+  const { name, price, amount, thumbnail } = product;
   const DEFAULT_SIZE = 1.5;
 
   return (
     <Layout>
       <FlexCell>
-        <Thumbnail src={`https://admin.newmarias.com${thumbnail}`} />
+        <Thumbnail src={thumbnail} />
       </FlexCell>
       <ResponsiveFlexCell>
         <ResponsiveText size={DEFAULT_SIZE} align="center">
-          {name} ({type})
+          {name}
         </ResponsiveText>
         <TabletFlexCell flex={9}>
           <OtherFlexCell>
