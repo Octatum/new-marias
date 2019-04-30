@@ -12,7 +12,7 @@ const Img = styled.div`
   height: 90px;
   background-color: #c4c4c4;
   display: block;
-  background: url(https://admin.newmarias.com/${({ src }) => src});
+  background: url(${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
