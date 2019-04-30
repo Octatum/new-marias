@@ -301,7 +301,6 @@ function ProductDetailContainer(props) {
       original: href,
     }));
     const { sku, id, name } = product;
-    console.log(product);
 
     dispatch({ type: actions.setIdentifiers, payload: { sku, id, name } });
     dispatch({ type: actions.setImages, payload: images });

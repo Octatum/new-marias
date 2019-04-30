@@ -28,7 +28,6 @@ export function useProducts() {
 
   function addProduct(product, amount) {
     const productInList = products.find(p => p.sku === product.sku);
-    console.log('Producto agregado:', product);
 
     if (productInList) {
       increaseProductAmount(productInList, amount);
@@ -37,7 +36,6 @@ export function useProducts() {
     const pr = { ...product, amount };
 
     const newProducts = [...products, pr];
-    console.log({ newProducts });
 
     setProducts(newProducts);
   }
