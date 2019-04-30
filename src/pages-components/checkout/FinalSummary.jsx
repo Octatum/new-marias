@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 
 import device from '../../utilities/device';
 import Text from '../../components/Text';
-import { CartConsumer } from '../../components/CartContext';
+import { CartConsumer, useProducts } from '../../components/CartContext';
 import paymentOptions from './paymentOptions';
 
 const Img = styled.div`
@@ -103,111 +103,99 @@ const FinalSummary = function(props) {
   });
   const { customerAddress, selectedShipping } = props;
   const selectedPaymentOption = paymentOptions.find(p => p.id === props.pago);
+  const { products } = useProducts();
+  const productSubtotal = products.reduce(
+    (accum, prod) => prod.price * prod.amount + accum,
+    0
+  );
 
   return (
-    <CartConsumer>
-      {({ products }) => {
-        const productSubtotal = products.reduce(
-          (accum, prod) => prod.price * prod.amount + accum,
-          0
-        );
-
-        return (
-          <Layout>
-            <Helmet title="Resumen de compra" />
-            <Text as="h2" size={4}>
-              Tu pedido con New Marías
+    <Layout>
+      <Helmet title="Resumen de compra" />
+      <Text as="h2" size={4}>
+        Tu pedido con New Marías
+      </Text>
+      <OrderSummary>
+        <TableRow>
+          <FlexCell flex={1}>
+            <FlexCellHeader bold>Número de pedido</FlexCellHeader>
+            <Text>#######</Text>
+          </FlexCell>
+          <FlexCell flex={2}>
+            <FlexCellHeader bold>Enviar a</FlexCellHeader>
+            <Text>
+              {customerAddress.street}, {customerAddress.suburb},{' '}
+              {customerAddress.city}, {customerAddress.state},{' '}
+              {customerAddress.country}
             </Text>
-            <OrderSummary>
-              <TableRow>
-                <FlexCell flex={1}>
-                  <FlexCellHeader bold>Número de pedido</FlexCellHeader>
-                  <Text>#######</Text>
-                </FlexCell>
-                <FlexCell flex={2}>
-                  <FlexCellHeader bold>Enviar a</FlexCellHeader>
-                  <Text>
-                    {customerAddress.street}, {customerAddress.suburb},{' '}
-                    {customerAddress.city}, {customerAddress.state},{' '}
-                    {customerAddress.country}
-                  </Text>
-                </FlexCell>
-                <FlexCell flex={1}>
-                  <FlexCellHeader bold>Fecha de pedido</FlexCellHeader>
-                  <Text>{formattedDated}</Text>
-                </FlexCell>
-              </TableRow>
-            </OrderSummary>
-            <OrderSummary>
-              {products.map(product => (
-                <TableRow>
-                  <FlexCell flex={1}>
-                    <Img src={product.thumbnail} />
-                  </FlexCell>
-                  <FlexCell flex={2}>
-                    <FlexCellHeader bold>Producto</FlexCellHeader>
-                    <Text>
-                      ({product.amount}) {product.name}
-                    </Text>
-                  </FlexCell>
-                  <FlexCell flex={1}>
-                    <FlexCellHeader bold>Precio por unidad</FlexCellHeader>
-                    <Text>${parseFloat(product.price).toFixed(2)}</Text>
-                  </FlexCell>
-                </TableRow>
-              ))}
-            </OrderSummary>
-            <Text as="h3" size={2} color="pink">
-              Detalles del pedido
+          </FlexCell>
+          <FlexCell flex={1}>
+            <FlexCellHeader bold>Fecha de pedido</FlexCellHeader>
+            <Text>{formattedDated}</Text>
+          </FlexCell>
+        </TableRow>
+      </OrderSummary>
+      <OrderSummary>
+        {products.map(product => (
+          <TableRow>
+            <FlexCell flex={1}>
+              <Img src={product.thumbnail} />
+            </FlexCell>
+            <FlexCell flex={2}>
+              <FlexCellHeader bold>Producto</FlexCellHeader>
+              <Text>
+                ({product.amount}) {product.name}
+              </Text>
+            </FlexCell>
+            <FlexCell flex={1}>
+              <FlexCellHeader bold>Precio por unidad</FlexCellHeader>
+              <Text>${parseFloat(product.price).toFixed(2)}</Text>
+            </FlexCell>
+          </TableRow>
+        ))}
+      </OrderSummary>
+      <Text as="h3" size={2} color="pink">
+        Detalles del pedido
+      </Text>
+      <DetailTable>
+        <MobileTableRow>
+          <FlexCell flex={1}>
+            <FlexCellHeader bold>Método de pago</FlexCellHeader>
+            <Text>{selectedPaymentOption.name}</Text>
+          </FlexCell>
+          <FlexCell flex={2}>
+            <FlexCellHeader bold>Dirección de facturación</FlexCellHeader>
+            <Text>
+              {customerAddress.street}, <br />
+              {customerAddress.suburb}, <br />
+              {customerAddress.city}, <br />
+              {customerAddress.state}, {customerAddress.country}
             </Text>
-            <DetailTable>
-              <MobileTableRow>
-                <FlexCell flex={1}>
-                  <FlexCellHeader bold>Método de pago</FlexCellHeader>
-                  <Text>{selectedPaymentOption.name}</Text>
-                </FlexCell>
-                <FlexCell flex={2}>
-                  <FlexCellHeader bold>Dirección de facturación</FlexCellHeader>
-                  <Text>
-                    {customerAddress.street}, <br />
-                    {customerAddress.suburb}, <br />
-                    {customerAddress.city}, <br />
-                    {customerAddress.state}, {customerAddress.country}
-                  </Text>
-                </FlexCell>
-                <FlexCell flex={1}>
-                  <FlexCellHeader bold>Resumen de pago</FlexCellHeader>
-                  <Text>
-                    Subtotal: ${parseFloat(productSubtotal).toFixed(2)}
-                  </Text>
-                  <Text>
-                    Envío: ${parseFloat(selectedShipping.price).toFixed(2)}
-                  </Text>
-                  <Text>
-                    Total: $
-                    {parseFloat(
-                      productSubtotal + selectedShipping.price
-                    ).toFixed(2)}
-                  </Text>
-                </FlexCell>
-              </MobileTableRow>
-            </DetailTable>
-            <ButtonLayout>
-              <Button bg="orange">
-                <Text size={3} color="white">
-                  Imprimir
-                </Text>
-              </Button>
-              <Button bg="pink" style={{ marginLeft: '0.5em' }}>
-                <Text size={3} color="white">
-                  Finalizar
-                </Text>
-              </Button>
-            </ButtonLayout>
-          </Layout>
-        );
-      }}
-    </CartConsumer>
+          </FlexCell>
+          <FlexCell flex={1}>
+            <FlexCellHeader bold>Resumen de pago</FlexCellHeader>
+            <Text>Subtotal: ${parseFloat(productSubtotal).toFixed(2)}</Text>
+            <Text>Envío: ${parseFloat(selectedShipping.price).toFixed(2)}</Text>
+            <Text>
+              Total: $
+              {parseFloat(productSubtotal + selectedShipping.price).toFixed(2)}
+            </Text>
+          </FlexCell>
+        </MobileTableRow>
+      </DetailTable>
+      <ButtonLayout>
+        <Button bg="orange">
+          <Text size={3} color="white">
+            Imprimir
+          </Text>
+        </Button>
+        <Button bg="pink" style={{ marginLeft: '0.5em' }}>
+          <Text size={3} color="white">
+            Finalizar
+          </Text>
+        </Button>
+      </ButtonLayout>
+    </Layout>
   );
 };
 

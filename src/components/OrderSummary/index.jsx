@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CartConsumer } from '../CartContext';
 import device from './../../utilities/device';
 import SummaryRow from './SummaryRow';
+import { useProducts } from '../CartContext';
 
 const Layout = styled('div')`
   display: flex;
@@ -54,46 +54,39 @@ const Total = styled.h1`
 
 const OrderSummary = props => {
   const { children, shippingData } = props;
+  const { products } = useProducts();
+  const subTotal = products.reduce((a, p) => p.price * p.amount + a, 0);
 
   return (
-    <CartConsumer>
-      {({ products }) => {
-        const subTotal = products.reduce((a, p) => p.price * p.amount + a, 0);
-
-        return (
-          <Layout>
-            <StepContainer>{children}</StepContainer>
-            <SummaryContainer>
-              <h2>Resumen</h2>
-              <Section>
-                {products.map(product => (
-                  <SummaryRow key={product.name} product={product} />
-                ))}
-              </Section>
-              <Section>
-                <Field>
-                  <h3>Subtotal</h3>
-                  <h1>${subTotal.toFixed(2)}</h1>
-                </Field>
-                <Field>
-                  <h3>Envío</h3>
-                  <h1>${shippingData && shippingData.price.toFixed(2)}</h1>
-                </Field>
-              </Section>
-              <Section>
-                <Field>
-                  <h3>Total</h3>
-                  <Total>
-                    $
-                    {shippingData && (subTotal + shippingData.price).toFixed(2)}
-                  </Total>
-                </Field>
-              </Section>
-            </SummaryContainer>
-          </Layout>
-        );
-      }}
-    </CartConsumer>
+    <Layout>
+      <StepContainer>{children}</StepContainer>
+      <SummaryContainer>
+        <h2>Resumen</h2>
+        <Section>
+          {products.map(product => (
+            <SummaryRow key={product.name} product={product} />
+          ))}
+        </Section>
+        <Section>
+          <Field>
+            <h3>Subtotal</h3>
+            <h1>${subTotal.toFixed(2)}</h1>
+          </Field>
+          <Field>
+            <h3>Envío</h3>
+            <h1>${shippingData && shippingData.price.toFixed(2)}</h1>
+          </Field>
+        </Section>
+        <Section>
+          <Field>
+            <h3>Total</h3>
+            <Total>
+              ${shippingData && (subTotal + shippingData.price).toFixed(2)}
+            </Total>
+          </Field>
+        </Section>
+      </SummaryContainer>
+    </Layout>
   );
 };
 

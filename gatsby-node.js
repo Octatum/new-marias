@@ -1,4 +1,5 @@
 const path = require('path');
+const fetch = require('node-fetch');
 const productTemplate = path.resolve('src/templates/ProductoDetalle.jsx');
 const productGridView = path.resolve('src/templates/ProductsByCategory.jsx');
 
