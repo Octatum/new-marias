@@ -1,6 +1,6 @@
 import React, { useContext, createContext, useReducer, useEffect } from 'react';
 
-import { Shopkit } from './';
+import { Shopkit } from '.';
 import useLocalStorage from './useLocalStorage';
 
 const SET_CUSTOMER = 'SET_CUSTOMER';

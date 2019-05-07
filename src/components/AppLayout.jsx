@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { ThemeProvider } from 'styled-components';
 import { Shopkit as ShopkitProvider } from '@moltin/react-shopkit';
-import { createClient } from '@moltin/request';
+import { createClient, createCartIdentifier } from '@moltin/request';
+import createPersistedState from 'use-persisted-state';
 
 import theme from '../utilities/theme';
 import Navbar from './Navbar';
@@ -14,37 +15,49 @@ const client = new createClient({
   client_id: process.env.GATSBY_MOLTIN_CLIENT_ID,
 });
 
-export const MoltinGatewayContext = React.createContext(client);
+export const MoltinGatewayContext = React.createContext(null);
+export const CartIdContext = React.createContext(null);
+
+const LOCAL_STORAGE_ID = 'cart_id';
+const useMoltinCart = createPersistedState(LOCAL_STORAGE_ID);
 
 function AppLayout({ children }) {
+  const [cartId, setCartId] = useMoltinCart(null);
+
+  function generateNewCartId() {
+    const newCartId = createCartIdentifier();
+    setCartId(newCartId);
+  }
+
+  useEffect(() => {
+    if (!!cartId) return;
+    generateNewCartId();
+  }, [cartId]);
+
   return (
-    <MoltinGatewayContext.Provider>
-      <ShopkitProvider clientId={process.env.GATSBY_MOLTIN_CLIENT_ID}>
-        <ThemeProvider theme={theme}>
-          <React.Fragment>
-            <Helmet
-              titleTemplate={`%s - New Marias`}
-              meta={[
-                {
-                  name: 'description',
-                  content: 'Artesanías Mexicanas New Marias',
-                },
-                { name: 'keywords', content: 'artesanias, mexico' },
-              ]}
-            >
-              <html lang="es" />
-            </Helmet>
-            <div>
+    <CartIdContext.Provider value={{ id: cartId, generateNewCartId }}>
+      <MoltinGatewayContext.Provider value={client}>
+        <ShopkitProvider clientId={process.env.GATSBY_MOLTIN_CLIENT_ID}>
+          <ThemeProvider theme={theme}>
+            <React.Fragment>
+              <Helmet
+                titleTemplate={`%s - New Marias`}
+                meta={[
+                  {
+                    name: 'description',
+                    content: 'Artesanías Mexicanas New Marias',
+                  },
+                  { name: 'keywords', content: 'artesanias, mexico' },
+                ]}
+              />
               <Navbar />
-              <div>
-                {children}
-                <Footer />
-              </div>
-            </div>
-          </React.Fragment>
-        </ThemeProvider>
-      </ShopkitProvider>
-    </MoltinGatewayContext.Provider>
+              {children}
+              <Footer />
+            </React.Fragment>
+          </ThemeProvider>
+        </ShopkitProvider>
+      </MoltinGatewayContext.Provider>
+    </CartIdContext.Provider>
   );
 }
 

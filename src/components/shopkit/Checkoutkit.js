@@ -1,6 +1,6 @@
 import React, { useContext, createContext } from 'react';
 
-import { Shopkit } from './';
+import { Shopkit } from '.';
 
 let CheckoutContext;
 

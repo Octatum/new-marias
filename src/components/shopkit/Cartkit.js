@@ -1,9 +1,6 @@
-import React, { useContext, createContext, useReducer, useEffect } from 'react';
-import { createCartIdentifier } from '@moltin/request';
+import { useContext, useReducer, useEffect } from 'react';
 
-import { Shopkit } from './';
-
-import useLocalStorage from './useLocalStorage';
+import { MoltinGatewayContext, CartIdContext } from '../AppLayout';
 
 export const SET_CART = 'SET_CART';
 export const RESET_CART = 'RESET_CART';
@@ -15,6 +12,7 @@ export const initialState = {
   promotionItems: [],
   taxItems: [],
   meta: null,
+  subTotal: 0,
 };
 
 export default function reducer(state, action) {
@@ -32,7 +30,7 @@ export default function reducer(state, action) {
         0
       );
 
-      const subTotal = meta ? meta.display_price.without_tax.formatted : 0;
+      const subTotal = meta ? meta.display_price.without_tax.amount : 0;
 
       return {
         ...state,
@@ -53,33 +51,27 @@ export default function reducer(state, action) {
   }
 }
 
-let CartContext;
-
-const { Provider, Consumer } = (CartContext = createContext());
-
-function CartProvider({
-  clientId,
-  cartId: initialCartId = createCartIdentifier(),
-  children,
-  ...props
-}) {
-  const { moltin } = useContext(Shopkit);
+function useCartkit() {
+  const moltin = useContext(MoltinGatewayContext);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [cartId, setCartId] = useLocalStorage('mcart', initialCartId);
+  const { id: cartId, generateNewCartId } = useContext(CartIdContext);
+
   const isEmpty = state.count === 0;
 
   useEffect(() => {
+    if (!cartId) return;
     getCart(cartId);
-    setCartId(cartId);
   }, [cartId]);
 
   async function getCart(id) {
-    const payload = await moltin.get(`carts/${id}/items`);
+    if (!moltin) return;
+    const payload = await moltin.get(`carts/${id}/items?include=files`);
 
     dispatch({ type: SET_CART, payload });
   }
 
   async function addToCart(id, quantity) {
+    if (!cartId) throw new Error(`Cart ID should not be null`);
     const payload = await moltin.post(`carts/${cartId}/items`, {
       type: 'cart_item',
       id,
@@ -87,6 +79,7 @@ function CartProvider({
     });
 
     dispatch({ type: SET_CART, payload });
+    return payload;
   }
 
   async function updateQuantity(id, quantity) {
@@ -105,32 +98,18 @@ function CartProvider({
     dispatch({ type: SET_CART, payload });
   }
 
-  async function addPromotion(code) {
-    const payload = await moltin.post(`carts/${cartId}/items`, {
-      type: 'promotion_item',
-      code,
-    });
-
-    dispatch({ type: SET_CART, payload });
+  async function resetCart() {
+    generateNewCartId();
   }
 
-  return (
-    <Provider
-      value={{
-        ...state,
-        ...props,
-        cartId,
-        isEmpty,
-        addToCart,
-        updateQuantity,
-        removeFromCart,
-        addPromotion,
-        removePromotion: removeFromCart,
-      }}
-    >
-      {children}
-    </Provider>
-  );
+  return {
+    ...state,
+    isEmpty,
+    addToCart,
+    updateQuantity,
+    removeFromCart,
+    resetCart,
+  };
 }
 
-export { CartProvider, Consumer as CartConsumer, CartContext as Cartkit };
+export { useCartkit };

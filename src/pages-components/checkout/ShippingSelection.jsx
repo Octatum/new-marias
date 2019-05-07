@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { Link } from '@reach/router';
 import styled from 'styled-components';
@@ -121,84 +121,66 @@ const shippingsOptions = [
   },
 ];
 
-class ShippingSelection extends Component {
-  constructor(props) {
-    super(props);
+const ShippingSelection = props => {
+  const { customerAddress, selectedShipping, setShipping } = props;
 
-    const { setShipping } = this.props;
-
+  useEffect(() => {
     setShipping(shippingsOptions[0]);
-  }
+  }, []);
 
-  setShippingOption(option) {
-    const { setShipping } = this.props;
-
-    setShipping(option);
-  }
-
-  render() {
-    const { customerAddress, selectedShipping } = this.props;
-
-    return (
-      <Container>
-        <Helmet title="Datos de envío" />
-        <Info>
-          <Field>
-            <CellItem>
-              <TextFlexCell as="h2" bold>
-                Dirección de envío
-              </TextFlexCell>
-              <TextFlexCell flex={3}>
-                {customerAddress.street}, {customerAddress.suburb},{' '}
-                {customerAddress.city}, {customerAddress.state},{' '}
-                {customerAddress.country}
-              </TextFlexCell>
-              <TextFlexCell
-                align="right"
-                as={Link}
-                to="/tienda/checkout/cliente"
-              >
-                Editar
-              </TextFlexCell>
-            </CellItem>
-          </Field>
-          <Field>
-            <ShippingItems>
-              <PaddedText bold>Selección de método de envío</PaddedText>
-              {shippingsOptions.map(option => (
-                <CellItem center key={option.id}>
-                  <TextFlexCell
-                    style={{ display: 'flex', alignItems: 'center' }}
-                  >
-                    <ShippingOption
-                      onClick={() => this.setShippingOption(option)}
-                      selected={option.id === selectedShipping.id}
-                    />
-                  </TextFlexCell>
-                  <TextFlexCell flex={8}>{option.name}</TextFlexCell>
-                  <TextFlexCell align="right">
-                    ${parseFloat(option.price).toFixed(2)}
-                  </TextFlexCell>
-                </CellItem>
-              ))}
-            </ShippingItems>
-          </Field>
-          <Field style={{ padding: 0 }}>
-            <Text as={Link} to="/tienda/checkout/cliente">
-              {'<'} Volver a información de cliente
-            </Text>
-            <NextStepButton
-              as={Link}
-              to="/tienda/checkout/facturacion"
-              color="pink"
-            >
-              Continuar
-            </NextStepButton>
-          </Field>
-        </Info>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <Helmet title="Datos de envío" />
+      <Info>
+        <Field>
+          <CellItem>
+            <TextFlexCell as="h2" bold>
+              Dirección de envío
+            </TextFlexCell>
+            <TextFlexCell flex={3}>
+              {customerAddress.street}, {customerAddress.suburb},{' '}
+              {customerAddress.city}, {customerAddress.state},{' '}
+              {customerAddress.country}
+            </TextFlexCell>
+            <TextFlexCell align="right" as={Link} to="/tienda/checkout/cliente">
+              Editar
+            </TextFlexCell>
+          </CellItem>
+        </Field>
+        <Field>
+          <ShippingItems>
+            <PaddedText bold>Selección de método de envío</PaddedText>
+            {shippingsOptions.map(option => (
+              <CellItem center key={option.id}>
+                <TextFlexCell style={{ display: 'flex', alignItems: 'center' }}>
+                  <ShippingOption
+                    onClick={setShipping}
+                    selected={option.id === selectedShipping.id}
+                  />
+                </TextFlexCell>
+                <TextFlexCell flex={8}>{option.name}</TextFlexCell>
+                <TextFlexCell align="right">
+                  ${parseFloat(option.price).toFixed(2)}
+                </TextFlexCell>
+              </CellItem>
+            ))}
+          </ShippingItems>
+        </Field>
+        <Field style={{ padding: 0 }}>
+          <Text as={Link} to="/tienda/checkout/cliente">
+            {'<'} Volver a información de cliente
+          </Text>
+          <NextStepButton
+            as={Link}
+            to="/tienda/checkout/facturacion"
+            color="pink"
+          >
+            Continuar
+          </NextStepButton>
+        </Field>
+      </Info>
+    </Container>
+  );
+};
 
 export default ShippingSelection;

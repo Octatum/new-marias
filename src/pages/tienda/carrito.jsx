@@ -7,7 +7,6 @@ import OrdersTable from '../../components/OrdersTable';
 import SubtotalSummary from '../../components/SubtotalSummary';
 import device from '../../utilities/device';
 import AppLayout from '../../components/AppLayout';
-import { CartConsumer, useProducts } from '../../components/CartContext';
 import Button from '../../components/Button';
 
 const Container = styled.div`
@@ -36,15 +35,13 @@ const CustomButton = styled(Button)`
 `;
 
 const Carrito = () => {
-  const { products } = useProducts();
-
   return (
     <AppLayout>
       <Helmet title="Mi carrito" />
       <Container>
-        <OrdersTable products={products} />
+        <OrdersTable />
 
-        <SubtotalSummary products={products} />
+        <SubtotalSummary />
 
         <ButtonContainer width={115} mobileHide>
           <CustomButton color="orange" as={Link} to="/tienda">

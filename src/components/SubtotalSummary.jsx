@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Text from './Text';
+import { useProducts } from './CartContext';
 
 const Summary = styled.div`
   margin-right: 1rem;
@@ -9,17 +10,13 @@ const Summary = styled.div`
   align-items: flex-end;
 `;
 
-const SubtotalSummary = props => {
-  const { products } = props;
-  const productsSubtotal = products.reduce(
-    (accum, product) => product.price * product.amount + accum,
-    0
-  );
+const SubtotalSummary = () => {
+  const { subTotal } = useProducts();
 
   return (
     <Summary>
       <Text>SUBTOTAL</Text>
-      <Text>${productsSubtotal.toFixed(2)} MXN</Text>
+      <Text>${(subTotal / 100).toFixed(2)} MXN</Text>
     </Summary>
   );
 };

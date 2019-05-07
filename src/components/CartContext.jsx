@@ -1,97 +1,40 @@
-import React, { useState, useEffect } from 'react';
 import createPersistedState from 'use-persisted-state';
+import { useCartkit } from './shopkit/Cartkit';
 
-const CartContext = React.createContext({
-  products: [],
-  addProduct: () => {},
-  removeProduct: () => {},
-  increaseProductAmount: () => {},
-  decreaseProductAmount: () => {},
-});
-
-const LOCAL_STORAGE_ID = 'cart_products';
-const useProductsState = createPersistedState(LOCAL_STORAGE_ID);
+const PRODUCT_IMAGES_ID = 'product_images';
+const useProductImages = createPersistedState(PRODUCT_IMAGES_ID);
 
 export function useProducts() {
-  const [products, setProducts] = useProductsState([]);
+  const [productImages, setProductImages] = useProductImages({});
+  const { addToCart, updateQuantity, count, items, ...rest } = useCartkit();
 
-  const [totalProductCount, setTotalProductCount] = useState(0);
+  const products = items.map(item => ({
+    ...item,
+    thumbnail: productImages[item.product_id],
+    price: item.unit_price.amount / 100,
+    amount: item.quantity,
+  }));
 
-  useEffect(() => {
-    const productCount = products.reduce(
-      (amount, product) => amount + product.amount,
-      0
-    );
-
-    setTotalProductCount(productCount);
-  }, [products]);
-
-  function addProduct(product, amount) {
+  async function addProduct(product, amount) {
     const productInList = products.find(p => p.sku === product.sku);
 
     if (productInList) {
-      increaseProductAmount(productInList, amount);
+      const finalAmount = Number(amount) + Number(productInList.amount);
+      updateQuantity(productInList.id, finalAmount);
       return;
     }
-    const pr = { ...product, amount };
 
-    const newProducts = [...products, pr];
-
-    setProducts(newProducts);
+    setProductImages({ ...productImages, [product.id]: product.thumbnail });
+    return await addToCart(product.id, Number(amount));
   }
 
-  function resetProducts() {
-    setProducts([]);
-  }
-
-  function removeProduct(product) {
-    const newProducts = products.filter(p => p.sku !== product.sku);
-
-    setProducts(newProducts);
-  }
-
-  function increaseProductAmount(product, amount = 1) {
-    const { sku } = product;
-
-    const newProducts = products.map(p => {
-      if (p.sku === sku) {
-        return {
-          ...p,
-          amount: p.amount + amount,
-        };
-      }
-
-      return { ...p };
-    });
-
-    setProducts(newProducts);
-  }
-
-  function decreaseProductAmount(product) {
-    const { sku } = product;
-    const newProducts = products.map(p => {
-      if (p.sku === sku) {
-        const newAmount = p.amount - 1;
-        return {
-          ...p,
-          amount: newAmount < 1 ? 1 : newAmount,
-        };
-      }
-
-      return { ...p };
-    });
-
-    setProducts(newProducts);
-  }
+  console.log(rest);
 
   return {
+    ...rest,
+    updateQuantity,
     products,
-    removeProduct,
     addProduct,
-    increaseProductAmount,
-    decreaseProductAmount,
-    resetProducts,
-    productAmount: totalProductCount,
+    productAmount: count,
   };
 }
-export default CartContext;

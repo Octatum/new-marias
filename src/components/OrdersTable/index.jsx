@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import device from './../../utilities/device';
 import Text from '../Text';
 import OrderRow from './OrderRow';
+import { useProducts } from '../CartContext';
 
 const ContentTable = styled('section')`
   display: flex;
@@ -32,8 +33,12 @@ const DesktopText = styled(Text)`
   }
 `;
 
-const OrdersTable = props => {
-  const { products } = props;
+const OrdersTable = () => {
+  const { products, updateQuantity, removeProduct } = useProducts();
+
+  const sortedProducts = products.sort(
+    (a, b) => a.name.toLowerCase() < b.name.toLowerCase()
+  );
 
   return (
     <ContentTable>
@@ -66,8 +71,13 @@ const OrdersTable = props => {
         <FlexCell flex={1} />
       </TableHead>
       <TableBody>
-        {products.map(product => (
-          <OrderRow product={product} key={product.sku} {...props} />
+        {sortedProducts.map(product => (
+          <OrderRow
+            product={product}
+            updateQuantity={updateQuantity}
+            removeProduct={removeProduct}
+            key={product.name}
+          />
         ))}
       </TableBody>
     </ContentTable>

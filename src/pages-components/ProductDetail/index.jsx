@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import { range, clamp } from 'lodash';
 import styled from 'styled-components/macro';
-import GatsbyLink from 'gatsby-link';
+import GatsbyLink, { navigate } from 'gatsby-link';
 import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';
 
@@ -162,6 +162,7 @@ const actions = {
   setAmount: 'SET_AMOUNT',
   setVariationIndex: 'SET_VARIATION_INDEX',
   setUnitsAvailable: 'SET_UNITS_AVAILABLE',
+  disableButton: 'DISABLE_BUTTON',
 };
 
 function reducer(state, action) {
@@ -185,6 +186,11 @@ function reducer(state, action) {
         unitsAvailable: action.payload,
         inventoryLoaded: true,
       };
+    case actions.disableButton:
+      return {
+        ...state,
+        disable: true,
+      };
     default:
       throw new Error("Wrong action sent to reducer 'productReducer'");
   }
@@ -200,6 +206,7 @@ function ProductDetailContainer(props) {
     unitsAvailable: 0,
     inventoryLoaded: false,
     currentVariationIndex: 0,
+    disableButton: false,
   });
 
   const moltinClient = useContext(MoltinGatewayContext);
@@ -214,7 +221,7 @@ function ProductDetailContainer(props) {
   const clampedInventoryUnits = clamp(state.unitsAvailable, 0, 10);
   const inputDisabled = !state.inventoryLoaded || clampedInventoryUnits === 0;
 
-  function addProductToCart() {
+  async function addProductToCart() {
     let { sku, amount, id, name } = state;
 
     const product = {
@@ -225,12 +232,8 @@ function ProductDetailContainer(props) {
       thumbnail: state.images[0].thumbnail,
     };
 
-    addProduct(product, amount);
-  }
-
-  async function getMoltinProduct(id) {
-    const response = await moltinClient.get(`products/${id}?include=files`);
-    return response;
+    await addProduct(product, amount);
+    navigate('/tienda/carrito');
   }
 
   async function getProductInventory(id) {
@@ -316,99 +319,95 @@ function ProductDetailContainer(props) {
   };
 
   return (
-    <AppLayout>
-      <Layout>
-        <BreadcrumbContainer>
-          <Breadcrumbs links={breadcrumbItems} />
-        </BreadcrumbContainer>
-        <MobileHeader>
-          <BackButton to="/tienda" />
-          <Par>{productName}</Par>
-          <CartCounter width={50} height={40} />
-        </MobileHeader>
-        <Flex
-          flexDirection={['column', 'row']}
-          style={{ maxWidth: 1200, width: '100%' }}
-          mx="auto"
-        >
-          <StyledGallery p={2} width={[1, 1, 3 / 4, 0.7]}>
-            <ImageGallery {...imageGalleryProps} />
-          </StyledGallery>
-          <Box p={2} width={[1, 1, 1 / 4, 0.3]} style={{ minWidth: 290 }}>
-            <Flex flexDirection={['column-reverse', 'column', 'column']}>
-              <Box pb={[0, 3]}>
-                <RebassText py={1} fontSize={[5, 6]}>
-                  {toTitleCase(productName)}
+    <Layout>
+      <BreadcrumbContainer>
+        <Breadcrumbs links={breadcrumbItems} />
+      </BreadcrumbContainer>
+      <MobileHeader>
+        <BackButton to="/tienda" />
+        <Par>{productName}</Par>
+        <CartCounter width={50} height={40} />
+      </MobileHeader>
+      <Flex
+        flexDirection={['column', 'row']}
+        style={{ maxWidth: 1200, width: '100%' }}
+        mx="auto"
+      >
+        <StyledGallery p={2} width={[1, 1, 3 / 4, 0.7]}>
+          <ImageGallery {...imageGalleryProps} />
+        </StyledGallery>
+        <Box p={2} width={[1, 1, 1 / 4, 0.3]} style={{ minWidth: 290 }}>
+          <Flex flexDirection={['column-reverse', 'column', 'column']}>
+            <Box pb={[0, 3]}>
+              <RebassText py={1} fontSize={[5, 6]}>
+                {toTitleCase(productName)}
+              </RebassText>
+              <RebassText pt={1} pb={2} fontSize={[3]}>
+                Precio:{' '}
+                <RebassText fontSize={[4]} as="span" color="orange">
+                  ${parseFloat(productPrice).toFixed(2)}
                 </RebassText>
-                <RebassText pt={1} pb={2} fontSize={[3]}>
-                  Precio:{' '}
-                  <RebassText fontSize={[4]} as="span" color="orange">
-                    ${parseFloat(productPrice).toFixed(2)}
-                  </RebassText>
-                </RebassText>
-                <Flex flexDirection="column">
-                  {productHasVariations && (
-                    <Box pb={2}>
-                      <Select
-                        name="variation"
-                        onChange={setVariationIndex}
-                        options={moltinProduct.children.map((child, index) => ({
-                          name: child.name,
-                          value: index,
-                        }))}
-                        labelText={productVariations[0].name}
-                        required
-                      />
-                    </Box>
-                  )}
-
-                  <Box pb={3}>
+              </RebassText>
+              <Flex flexDirection="column">
+                {productHasVariations && (
+                  <Box pb={2}>
                     <Select
-                      name="cantidad"
-                      onChange={setAmount}
-                      options={
-                        !inputDisabled
-                          ? range(1, clampedInventoryUnits + 1)
-                          : []
-                      }
-                      disabled={inputDisabled}
-                      labelText="Cantidad"
+                      name="variation"
+                      onChange={setVariationIndex}
+                      options={moltinProduct.children.map((child, index) => ({
+                        name: child.name,
+                        value: index,
+                      }))}
+                      labelText={productVariations[0].name}
                       required
                     />
                   </Box>
-                </Flex>
-                {state.inventoryLoaded && state.unitsAvailable === 0 && (
-                  <Box>
-                    <RebassText color="red" fontSize={3} pb={3}>
-                      No hay unidades disponibles
-                    </RebassText>
-                  </Box>
                 )}
 
-                <Flex justifyContent="space-between" mt={[2, 0]}>
-                  <RebassButton
-                    fontSize={3}
-                    width={[1, 'auto']}
-                    onClick={addProductToCart}
+                <Box pb={3}>
+                  <Select
+                    name="cantidad"
+                    onChange={setAmount}
+                    options={
+                      !inputDisabled ? range(1, clampedInventoryUnits + 1) : []
+                    }
                     disabled={inputDisabled}
-                    px={[2, 3]}
-                    py={[3]}
-                  >
-                    Agregar al carrito
-                  </RebassButton>
-                  <NoMobileBox>
-                    <CartCounter width="69" height="61" />
-                  </NoMobileBox>
-                </Flex>
-              </Box>
-              <Box pb={[2, 1]} pt={[0, 1]}>
-                <RebassText>{moltinProduct.description}</RebassText>
-              </Box>
-            </Flex>
-          </Box>
-        </Flex>
-      </Layout>
-    </AppLayout>
+                    labelText="Cantidad"
+                    required
+                  />
+                </Box>
+              </Flex>
+              {state.inventoryLoaded && state.unitsAvailable === 0 && (
+                <Box>
+                  <RebassText color="red" fontSize={3} pb={3}>
+                    No hay unidades disponibles
+                  </RebassText>
+                </Box>
+              )}
+
+              <Flex justifyContent="space-between" mt={[2, 0]}>
+                <RebassButton
+                  fontSize={3}
+                  width={[1, 'auto']}
+                  onClick={addProductToCart}
+                  disabled={inputDisabled || state.disableButton}
+                  px={[2, 3]}
+                  py={[3]}
+                >
+                  Agregar al carrito
+                </RebassButton>
+                <NoMobileBox>
+                  <CartCounter width="69" height="61" />
+                </NoMobileBox>
+              </Flex>
+            </Box>
+            <Box pb={[2, 1]} pt={[0, 1]}>
+              <RebassText>{moltinProduct.description}</RebassText>
+            </Box>
+          </Flex>
+        </Box>
+      </Flex>
+    </Layout>
   );
 }
 

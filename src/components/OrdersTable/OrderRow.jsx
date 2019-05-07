@@ -120,16 +120,32 @@ const OtherFlexCell = styled(FlexCell)`
 `;
 
 function OrderRow(props) {
-  const { product } = props;
-
-  const {
-    increaseProductAmount,
-    decreaseProductAmount,
-    removeProduct,
-  } = useProducts();
+  const { product, updateQuantity, removeProduct } = props;
 
   const { name, price, amount, thumbnail } = product;
   const DEFAULT_SIZE = 1.5;
+
+  async function decreaseProductAmount(product) {
+    const { id, amount } = product;
+
+    if (amount === 1) return;
+
+    try {
+      await updateQuantity(id, amount - 1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function increaseProductAmount(product) {
+    const { id, amount } = product;
+
+    try {
+      await updateQuantity(id, amount + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Layout>
