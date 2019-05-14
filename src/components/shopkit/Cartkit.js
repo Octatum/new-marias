@@ -25,6 +25,10 @@ export default function reducer(state, action) {
         ({ type }) => type === 'promotion_item'
       );
       const taxItems = items.filter(({ type }) => type === 'tax_item');
+      const otherItems = items.filter(
+        ({ type }) =>
+          !['tax_item', 'promotion_item', 'cart_item'].includes(type)
+      );
       const count = cartItems.reduce(
         (sum, { type, quantity }) => type === 'cart_item' && sum + quantity,
         0
@@ -36,6 +40,7 @@ export default function reducer(state, action) {
         ...state,
         items,
         cartItems,
+        otherItems,
         promotionItems,
         taxItems,
         count,
@@ -82,6 +87,29 @@ function useCartkit() {
     return payload;
   }
 
+  async function addDelivery(deliveryItem) {
+    if (!cartId) throw new Error(`Cart ID should not be null`);
+    const currentDelivery = state.otherItems.find(
+      item => item.sku === 'delivery-item'
+    );
+    if (!!currentDelivery) {
+      await removeFromCart(currentDelivery.id);
+    }
+    const sku = 'delivery-item';
+    const payload = await moltin.post(`carts/${cartId}/items`, {
+      type: 'custom_item',
+      name: `${deliveryItem.name} delivery`,
+      sku,
+      quantity: 1,
+      price: {
+        amount: deliveryItem.price,
+      },
+    });
+
+    dispatch({ type: SET_CART, payload });
+    return payload;
+  }
+
   async function updateQuantity(id, quantity) {
     const payload = await moltin.put(`carts/${cartId}/items/${id}`, {
       type: 'cart_item',
@@ -109,6 +137,7 @@ function useCartkit() {
     updateQuantity,
     removeFromCart,
     resetCart,
+    addDelivery,
   };
 }
 

@@ -6,9 +6,9 @@ const useProductImages = createPersistedState(PRODUCT_IMAGES_ID);
 
 export function useProducts() {
   const [productImages, setProductImages] = useProductImages({});
-  const { addToCart, updateQuantity, count, items, ...rest } = useCartkit();
+  const { addToCart, updateQuantity, count, cartItems, ...rest } = useCartkit();
 
-  const products = items.map(item => ({
+  const products = cartItems.map(item => ({
     ...item,
     thumbnail: productImages[item.product_id],
     price: item.unit_price.amount / 100,
@@ -27,8 +27,6 @@ export function useProducts() {
     setProductImages({ ...productImages, [product.id]: product.thumbnail });
     return await addToCart(product.id, Number(amount));
   }
-
-  console.log(rest);
 
   return {
     ...rest,

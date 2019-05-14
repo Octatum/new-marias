@@ -20,7 +20,7 @@ const Sucursales = styled.div`
   > div {
     width: 41%;
   }
-  ${device.mobile} {
+  ${device.tablet} {
     flex-direction: column;
     > div {
       width: 100%;
@@ -29,27 +29,26 @@ const Sucursales = styled.div`
   }
 `;
 
-const Icons = styled.div`
+const Icons = styled('div')`
   width: 18%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  ${device.mobile} {
+  ${device.tablet} {
     display: none;
   }
 `;
 
-const Icon = styled.div`
+const Icon = styled('a')`
   width: 40px;
   height: 40px;
   background-image: url(${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  margin: 12.5px 0;
-  cursor: pointer;
+  margin: 12px 0;
 `;
 
 const Div = styled('div')`
@@ -77,8 +76,18 @@ const Contacto = props => {
           coordinates={leftLocation.coords}
         />
         <Icons>
-          <Icon src={FacebookIcon} />
-          <Icon src={InstagramIcon} />
+          <Icon
+            src={FacebookIcon}
+            href="https://www.facebook.com/newmarias/"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+          <Icon
+            src={InstagramIcon}
+            href="https://www.instagram.com/new_marias/"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
         </Icons>
         <Sucursal
           name={rightLocation.name}

@@ -44,7 +44,7 @@ const SummaryRow = props => {
         <h1>({product.amount})</h1>
         <h1>{product.name}</h1>
       </ProductView>
-      <h1>${parseInt(product.price).toFixed(2)}</h1>
+      <h1>${parseInt(product.price * product.amount).toFixed(2)}</h1>
     </Container>
   );
 };

@@ -66,7 +66,7 @@ const Sucursal = props => {
           isMarkerShown
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyD6E9uE4C9Y_r7rLayrcGB9STtE-pgxXV4"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
+          containerElement={<div style={{ height: `250px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </Picture>

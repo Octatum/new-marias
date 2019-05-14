@@ -1,116 +1,66 @@
-import React, { Component } from 'react';
+import React from 'react';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 import { Router, navigate } from '@reach/router';
 import AppLayout from '../../components/AppLayout';
 import OrderSummary from '../../components/OrderSummary';
 import CustomerData from './CustomerData';
-import getInitialState from './getInitialState';
+import getCustomerDataInitialState from './getInitialState';
 import ShippingSelection from './ShippingSelection';
-import localStorageManager from '../../utilities/localStorageManager';
 import PaymentMethodSelection from './PaymentMethodSelection';
 import FinalSummary from './FinalSummary';
 
-const CUSTOMER_DATA = {
-  key: 'costumer_personal_data',
-  default: getInitialState(),
-};
+function CheckoutPage() {
+  const [customerData, setCustomerData] = useLocalStorage(
+    'costumer_personal_data',
+    getCustomerDataInitialState()
+  );
+  const [shippingData, setShippingData] = useLocalStorage(
+    'customer_shipping_data',
+    {
+      id: -1,
+      name: '',
+      price: 0,
+    }
+  );
 
-const SHIPPING_DATA = {
-  key: 'customer_shipping_data',
-  default: {
-    id: -1,
-    name: '',
-    price: 0,
-  },
-};
-
-class CheckoutPage extends Component {
-  state = this.getInitialState();
-
-  getInitialState() {
-    return {
-      customerData: localStorageManager.retrieve(
-        CUSTOMER_DATA.key,
-        CUSTOMER_DATA.default
-      ),
-      shippingData: localStorageManager.retrieve(
-        SHIPPING_DATA.key,
-        SHIPPING_DATA.default
-      ),
-    };
-  }
-
-  componentDidMount() {
-    this.setState(() => {
-      return {
-        customerData: localStorageManager.retrieve(
-          CUSTOMER_DATA.key,
-          CUSTOMER_DATA.default
-        ),
-        shippingData: localStorageManager.retrieve(
-          SHIPPING_DATA.key,
-          SHIPPING_DATA.default
-        ),
-      };
-    });
-  }
-
-  onCustomerFormSubmit = values => {
-    this.setState(
-      () => {
-        localStorageManager.set(CUSTOMER_DATA.key, values);
-        return {
-          customerData: values,
-        };
-      },
-      () => {
-        navigate('/tienda/checkout/envio');
-      }
-    );
+  const onCustomerFormSubmit = values => {
+    setCustomerData(values);
+    navigate('/tienda/checkout/envio');
   };
 
-  setShipping = shippingData => {
-    this.setState(() => {
-      localStorageManager.set(SHIPPING_DATA.key, shippingData);
-      return {
-        shippingData,
-      };
-    });
+  const setShipping = values => {
+    setShippingData(values);
   };
 
-  render() {
-    return (
-      <AppLayout>
-        <Router>
-          <OrderSummary
-            path="/tienda/checkout"
-            shippingData={this.state.shippingData}
-          >
-            <CustomerData
-              path="cliente"
-              initialValues={this.state.customerData}
-              onSubmit={this.onCustomerFormSubmit}
-            />
-            <ShippingSelection
-              path="envio"
-              customerAddress={this.state.customerData}
-              selectedShipping={this.state.shippingData}
-              setShipping={this.setShipping}
-            />
-            <PaymentMethodSelection
-              path="facturacion"
-              customerAddress={this.state.customerData}
-              selectedShipping={this.state.shippingData}
-            />
-          </OrderSummary>
-          <FinalSummary
-            path="/tienda/checkout/resumen/:pago"
-            customerAddress={this.state.customerData}
-            selectedShipping={this.state.shippingData}
+  return (
+    <AppLayout>
+      <Router>
+        <OrderSummary path="/tienda/checkout" shippingData={shippingData}>
+          <CustomerData
+            path="cliente"
+            initialValues={customerData}
+            onSubmit={onCustomerFormSubmit}
           />
-        </Router>
-      </AppLayout>
-    );
-  }
+          <ShippingSelection
+            path="envio"
+            customerAddress={customerData}
+            selectedShipping={shippingData}
+            setShipping={setShipping}
+          />
+          <PaymentMethodSelection
+            path="facturacion"
+            customerAddress={customerData}
+            selectedShipping={shippingData}
+          />
+        </OrderSummary>
+        <FinalSummary
+          path="/tienda/checkout/resumen/:pago"
+          customerAddress={customerData}
+          selectedShipping={shippingData}
+        />
+      </Router>
+    </AppLayout>
+  );
 }
 
 export default CheckoutPage;

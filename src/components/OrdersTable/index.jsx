@@ -34,7 +34,7 @@ const DesktopText = styled(Text)`
 `;
 
 const OrdersTable = () => {
-  const { products, updateQuantity, removeProduct } = useProducts();
+  const { products, updateQuantity, removeFromCart } = useProducts();
 
   const sortedProducts = products.sort(
     (a, b) => a.name.toLowerCase() < b.name.toLowerCase()
@@ -75,7 +75,7 @@ const OrdersTable = () => {
           <OrderRow
             product={product}
             updateQuantity={updateQuantity}
-            removeProduct={removeProduct}
+            removeProduct={removeFromCart}
             key={product.name}
           />
         ))}

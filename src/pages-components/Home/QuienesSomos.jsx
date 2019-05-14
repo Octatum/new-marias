@@ -29,7 +29,7 @@ const Content = styled(withTextStyle(ReactMarkdown))`
   }
 
   img {
-    max-height: 3rem;
+    max-height: 4rem;
   }
 `;
 

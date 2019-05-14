@@ -190,7 +190,7 @@ function OrderRow(props) {
       </FlexCell>
       <FlexCell flex={1}>
         <ButtonText
-          onClick={() => removeProduct(product)}
+          onClick={() => removeProduct(product.id)}
           as="button"
           alt="eliminar producto"
           align="center"

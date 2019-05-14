@@ -7,6 +7,7 @@ import Text from './Text';
 const Label = styled('label')`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const InputField = styled(Field)`

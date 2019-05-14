@@ -112,12 +112,12 @@ const shippingsOptions = [
   {
     id: 1,
     name: 'Envío 1',
-    price: 800,
+    price: 0,
   },
   {
     id: 2,
     name: 'Envío 2',
-    price: 1000,
+    price: 1,
   },
 ];
 
@@ -154,7 +154,7 @@ const ShippingSelection = props => {
               <CellItem center key={option.id}>
                 <TextFlexCell style={{ display: 'flex', alignItems: 'center' }}>
                   <ShippingOption
-                    onClick={setShipping}
+                    onClick={() => setShipping(option)}
                     selected={option.id === selectedShipping.id}
                   />
                 </TextFlexCell>

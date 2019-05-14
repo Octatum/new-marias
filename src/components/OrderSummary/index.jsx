@@ -55,7 +55,7 @@ const Total = styled.h1`
 const OrderSummary = props => {
   const { children, shippingData } = props;
   const { products } = useProducts();
-  const subTotal = products.reduce((a, p) => p.price * p.amount + a, 0);
+  const subTotal = products.reduce((a, p) => p.price * p.quantity + a, 0);
 
   return (
     <Layout>

@@ -21,7 +21,8 @@ const NameAndEmailContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   width: 100%;
   > input {
     width: 47.5%;
