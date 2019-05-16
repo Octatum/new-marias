@@ -7,6 +7,7 @@ import AppLayout from '../components/AppLayout';
 import NuestraTienda from '../pages-components/Home/NuestraTienda';
 import QuienesSomos from '../pages-components/Home/QuienesSomos';
 import Contacto from '../pages-components/Home/Contacto';
+import aboutUsImage from '../pages-components/Home/assets/about-us.png';
 
 const Home = props => {
   const {
@@ -33,16 +34,16 @@ const Home = props => {
     content: ourShopContent,
     leftLink: {
       url: '',
-      image: `https://admin.newmarias.com/${ourShopLeftImage.path}`,
+      image: ourShopLeftImage.path,
     },
     rightLink: {
       url: '',
-      image: `https://admin.newmarias.com/${ourShopRightImage.path}`,
+      image: ourShopRightImage.path,
     },
   };
 
   const aboutUsData = {
-    banner: `https://admin.newmarias.com/${whoAreWeBanner.path}`,
+    banner: aboutUsImage,
     content: whoAreWeContent,
   };
 

@@ -38,7 +38,7 @@ function AppLayout({ children }) {
   }, [cartId]);
 
   return (
-    <div scroll-behavior="smooth">
+    <div style={{ scrollBehavior: 'smooth' }}>
       <CartIdContext.Provider value={{ id: cartId, generateNewCartId }}>
         <MoltinGatewayContext.Provider value={client}>
           <ShopkitProvider clientId={process.env.GATSBY_MOLTIN_CLIENT_ID}>

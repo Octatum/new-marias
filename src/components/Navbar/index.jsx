@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
 import headerIcon from './assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
 import device from './../../utilities/device';
 import BurgerButton from './BurgerButton';
 import GatsbyLink from 'gatsby-link';
+import SmoothScroll from 'smooth-scroll';
+import 'scroll-behavior-polyfill';
+import { useLocation } from 'react-use';
 
 export const navbarIds = {
   inicio: 'inicio',
@@ -112,73 +114,73 @@ const Overlay = styled('div')`
   left: 0;
 `;
 
-class Navbar extends Component {
-  state = {
-    visible: false,
-  };
+const ScrollLink = props => {
+  const { hash, pathname } = useLocation();
+  const { to } = props;
+  const Component = to.includes(pathname) ? 'a' : GatsbyLink;
+  console.log({ hash, pathname, Component });
 
-  toggleNavbar = () => {
-    let newVisible = this.state.visible;
-    newVisible = !newVisible;
-    this.setState({
-      visible: newVisible,
-    });
-  };
+  return <Component {...props} />;
+};
 
-  closeNavbar = () => {
-    this.setState({
-      visible: false,
-    });
-  };
+function Navbar() {
+  const [visible, setVisible] = useState(false);
+  const smoothScrollRef = useRef();
 
-  render() {
-    return (
-      <Container>
-        <Logo src={headerIcon} />
-        <BurgerButton onClick={this.toggleNavbar} />
-        <Overlay
-          display={this.state.visible ? 'initial' : 'none'}
-          onClick={this.closeNavbar}
-        />
-        <List visible={this.state.visible}>
-          <li>
-            <Link to="/">Inicio</Link>
-          </li>
-          <li>
-            <Link onClick={this.backToStoreHandler} to="/tienda">
-              {' '}
-              Nuestra tienda{' '}
-            </Link>
-          </li>
-          <li>
-            <GatsbyLink to={`/#${navbarIds.quienesSomos}`}>
-              Quiénes somos
-            </GatsbyLink>
-          </li>
-          <li>
-            <GatsbyLink to={`/#${navbarIds.contacto}`}>Contacto</GatsbyLink>
-          </li>
-          <li>
-            <a
-              href="https://www.facebook.com/newmarias/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon src={facebookIcon} />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.instagram.com/new_marias/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon src={instagramIcon} />
-            </a>
-          </li>
-        </List>
-      </Container>
-    );
-  }
+  const toggleNavbar = () => setVisible(v => !v);
+  const closeNavbar = () => setVisible(false);
+
+  useEffect(() => {
+    const elements = SmoothScroll('a[href*="#"]');
+  });
+
+  return (
+    <Container>
+      <ScrollLink to="/">Funny link</ScrollLink>
+      <Logo src={headerIcon} />
+      <BurgerButton onClick={toggleNavbar} />
+      <Overlay display={visible ? 'initial' : 'none'} onClick={closeNavbar} />
+      <List visible={visible}>
+        <li>
+          <GatsbyLink style={{ scrollBehavior: 'smooth' }} to="/">
+            Inicio
+          </GatsbyLink>
+        </li>
+        <li>
+          <GatsbyLink to="/tienda"> Nuestra tienda </GatsbyLink>
+        </li>
+        <li>
+          <GatsbyLink
+            data-scroll-behavior="smooth"
+            style={{ scrollBehavior: 'smooth' }}
+            to={`/#${navbarIds.quienesSomos}`}
+          >
+            Quiénes somos
+          </GatsbyLink>
+        </li>
+        <li>
+          <GatsbyLink to={`/#${navbarIds.contacto}`}>Contacto</GatsbyLink>
+        </li>
+        <li>
+          <a
+            href="https://www.facebook.com/newmarias/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon src={facebookIcon} />
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.instagram.com/new_marias/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon src={instagramIcon} />
+          </a>
+        </li>
+      </List>
+    </Container>
+  );
 }
 export default Navbar;

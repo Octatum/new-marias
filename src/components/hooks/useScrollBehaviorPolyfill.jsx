@@ -1,14 +1,9 @@
 import { useEffect } from 'react';
+import 'scroll-behavior-polyfill';
 
 export function useScrollBehaviorPolyfill() {
   useEffect(() => {
-    async function importPolyfill() {
-      if (!('scrollBehavior' in document.documentElement.style)) {
-        await import('scroll-behavior-polyfill');
-      } else {
-        console.log('No need to import module');
-      }
-    }
+    async function importPolyfill() {}
 
     importPolyfill();
   }, []);

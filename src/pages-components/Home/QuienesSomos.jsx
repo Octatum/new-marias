@@ -7,13 +7,13 @@ import ReactMarkdown from 'react-markdown';
 import { navbarIds } from '../../components/Navbar';
 
 const Banner = styled.div`
-  height: 300px;
+  height: 320px;
   margin-bottom: 30px;
   background-color: #c94545;
   background-image: url('${({ src }) => src}');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: top center;
   ${device.tablet} {
     margin-bottom: 10px;
     height: 30vh;
@@ -70,9 +70,7 @@ const Header = styled('div')`
   }
 `;
 
-const Image = styled('img')`
-  max-height: 100%;
-`;
+const Image = styled('img')``;
 
 const BlackLine = styled('div')`
   height: 1px;
