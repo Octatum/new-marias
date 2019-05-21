@@ -35,31 +35,29 @@ function AppLayout({ children }) {
   }, [cartId]);
 
   return (
-    <div style={{ scrollBehavior: 'smooth' }}>
-      <CartIdContext.Provider value={{ id: cartId, generateNewCartId }}>
-        <MoltinGatewayContext.Provider value={client}>
-          <ShopkitProvider clientId={process.env.GATSBY_MOLTIN_CLIENT_ID}>
-            <ThemeProvider theme={theme}>
-              <React.Fragment>
-                <Helmet
-                  titleTemplate={`%s - New Marias`}
-                  meta={[
-                    {
-                      name: 'description',
-                      content: 'Artesanías Mexicanas New Marias',
-                    },
-                    { name: 'keywords', content: 'artesanias, mexico' },
-                  ]}
-                />
-                <Navbar />
-                {children}
-                <Footer />
-              </React.Fragment>
-            </ThemeProvider>
-          </ShopkitProvider>
-        </MoltinGatewayContext.Provider>
-      </CartIdContext.Provider>
-    </div>
+    <CartIdContext.Provider value={{ id: cartId, generateNewCartId }}>
+      <MoltinGatewayContext.Provider value={client}>
+        <ShopkitProvider clientId={process.env.GATSBY_MOLTIN_CLIENT_ID}>
+          <ThemeProvider theme={theme}>
+            <React.Fragment>
+              <Helmet
+                titleTemplate={`%s - New Marias`}
+                meta={[
+                  {
+                    name: 'description',
+                    content: 'Artesanías Mexicanas New Marias',
+                  },
+                  { name: 'keywords', content: 'artesanias, mexico' },
+                ]}
+              />
+              <Navbar />
+              {children}
+              <Footer />
+            </React.Fragment>
+          </ThemeProvider>
+        </ShopkitProvider>
+      </MoltinGatewayContext.Provider>
+    </CartIdContext.Provider>
   );
 }
 

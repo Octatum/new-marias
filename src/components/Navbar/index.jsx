@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import headerIcon from './assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
@@ -8,7 +8,6 @@ import BurgerButton from './BurgerButton';
 import GatsbyLink from 'gatsby-link';
 import { Link as ReactScrollLink } from 'react-scroll';
 
-import 'scroll-behavior-polyfill';
 import { useLocation } from 'react-use';
 
 export const navbarIds = {
