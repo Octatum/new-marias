@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import headerIcon from './assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
@@ -6,7 +6,8 @@ import instagramIcon from './assets/ig-icon.svg';
 import device from './../../utilities/device';
 import BurgerButton from './BurgerButton';
 import GatsbyLink from 'gatsby-link';
-import SmoothScroll from 'smooth-scroll';
+import { Link as ReactScrollLink } from 'react-scroll';
+
 import 'scroll-behavior-polyfill';
 import { useLocation } from 'react-use';
 
@@ -115,51 +116,50 @@ const Overlay = styled('div')`
 `;
 
 const ScrollLink = props => {
-  const { hash, pathname } = useLocation();
+  const { pathname } = useLocation();
   const { to } = props;
-  const Component = to.includes(pathname) ? 'a' : GatsbyLink;
-  console.log({ hash, pathname, Component });
+  const isSamePage = pathname === '/';
+  const Component = isSamePage ? ReactScrollLink : GatsbyLink;
 
-  return <Component {...props} />;
+  const extraLinkProps = {
+    to: isSamePage ? to : `/#${to}`,
+    href: to,
+    tabindex: 0,
+  };
+
+  return (
+    <Component
+      {...props}
+      {...extraLinkProps}
+      smooth
+      style={{ cursor: 'pointer' }}
+    />
+  );
 };
 
 function Navbar() {
   const [visible, setVisible] = useState(false);
-  const smoothScrollRef = useRef();
 
   const toggleNavbar = () => setVisible(v => !v);
   const closeNavbar = () => setVisible(false);
 
-  useEffect(() => {
-    const elements = SmoothScroll('a[href*="#"]');
-  });
-
   return (
     <Container>
-      <ScrollLink to="/">Funny link</ScrollLink>
       <Logo src={headerIcon} />
       <BurgerButton onClick={toggleNavbar} />
       <Overlay display={visible ? 'initial' : 'none'} onClick={closeNavbar} />
       <List visible={visible}>
         <li>
-          <GatsbyLink style={{ scrollBehavior: 'smooth' }} to="/">
-            Inicio
-          </GatsbyLink>
+          <GatsbyLink to="/">Inicio</GatsbyLink>
         </li>
         <li>
           <GatsbyLink to="/tienda"> Nuestra tienda </GatsbyLink>
         </li>
         <li>
-          <GatsbyLink
-            data-scroll-behavior="smooth"
-            style={{ scrollBehavior: 'smooth' }}
-            to={`/#${navbarIds.quienesSomos}`}
-          >
-            Quiénes somos
-          </GatsbyLink>
+          <ScrollLink to={navbarIds.quienesSomos}>Quiénes somos</ScrollLink>
         </li>
         <li>
-          <GatsbyLink to={`/#${navbarIds.contacto}`}>Contacto</GatsbyLink>
+          <ScrollLink to={navbarIds.contacto}>Contacto</ScrollLink>
         </li>
         <li>
           <a
