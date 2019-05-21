@@ -10,7 +10,6 @@ import theme from '../utilities/theme';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import './setup.css';
-import { useScrollBehaviorPolyfill } from './hooks/useScrollBehaviorPolyfill';
 
 const client = new createClient({
   client_id: process.env.GATSBY_MOLTIN_CLIENT_ID,
@@ -24,8 +23,6 @@ const useMoltinCart = createPersistedState(LOCAL_STORAGE_ID);
 
 function AppLayout({ children }) {
   const [cartId, setCartId] = useMoltinCart(null);
-
-  useScrollBehaviorPolyfill();
 
   function generateNewCartId() {
     const newCartId = createCartIdentifier();
