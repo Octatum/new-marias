@@ -128,6 +128,7 @@ exports.sourceNodes = ({
       const parent = productNodes.find(
         element => element.id === productNode.relationships.parent.data.id
       );
+      console.info(productNode.slug);
       createParentChildLink({ parent, child: productNode });
     });
 
