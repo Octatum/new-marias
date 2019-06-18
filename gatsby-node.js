@@ -1,6 +1,9 @@
 const path = require('path');
 const fetch = require('node-fetch');
 const productTemplate = path.resolve('src/templates/ProductoDetalle.jsx');
+const shopifyProductTemplate = path.resolve(
+  'src/templates/ProductoDetalle.shopify.jsx'
+);
 const productGridView = path.resolve('src/templates/ProductsByCategory.jsx');
 
 function getCleanString(string) {
@@ -11,6 +14,14 @@ exports.onCreateNode = ({ node, actions }) => {
 
   if (node.internal.type === `MoltinProduct`) {
     const mainCategory = node.categories ? node.categories[0].name : 'Otros';
+    createNodeField({
+      node,
+      name: `mainCategory`,
+      value: mainCategory,
+    });
+  }
+  if (node.internal.type === `ShopifyProduct`) {
+    const mainCategory = node.productType || 'Otros';
     createNodeField({
       node,
       name: `mainCategory`,
@@ -33,6 +44,14 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
 
+        shopifyProducts: allShopifyProduct {
+          edges {
+            node {
+              handle
+            }
+          }
+        }
+
         categories: allMoltinCategory {
           edges {
             node {
@@ -50,6 +69,16 @@ exports.createPages = ({ graphql, actions }) => {
           component: productTemplate,
           context: {
             slug: node.slug,
+          },
+        });
+      });
+
+      result.data.shopifyProducts.edges.forEach(({ node: { handle } }) => {
+        createPage({
+          path: `/tienda/producto/${handle}`,
+          component: shopifyProductTemplate,
+          context: {
+            handle,
           },
         });
       });
