@@ -63,9 +63,6 @@ export const query = graphql`
           }
           images {
             originalSrc
-            fixed(width: 125) {
-              ...GatsbyImageSharpFixed_noBase64
-            }
           }
         }
       }

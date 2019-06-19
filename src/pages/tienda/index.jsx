@@ -7,9 +7,9 @@ import CategoryDisplay from '../../components/Products/CategoryDisplay';
 const IndexPage = ({ data }) => {
   const products = data.products.edges.map(({ node }) => ({
     ...node,
-    slug: node.slug,
-    thumbnail: node.mainImage.childImageSharp.fixed,
-    price: node.price[0].amount,
+    slug: node.title,
+    thumbnail: node.images[0].localFile.childImageSharp.fixed,
+    price: node.priceRange.maxVariantPrice.amount,
   }));
   const breadcrumbItems = [
     {
@@ -30,20 +30,24 @@ export default IndexPage;
 
 export const query = graphql`
   query {
-    products: allMoltinProduct(filter: { mainImageHref: { ne: null } }) {
+    products: allShopifyProduct {
       edges {
         node {
           id
-          name
-          slug
-          description
-          price {
-            amount
+          title
+          handle
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
           }
-          mainImage {
-            childImageSharp {
-              fixed(width: 125) {
-                ...GatsbyImageSharpFixed_noBase64
+          images {
+            id
+            localFile {
+              childImageSharp {
+                fixed(width: 125) {
+                  ...GatsbyImageSharpFixed_noBase64
+                }
               }
             }
           }

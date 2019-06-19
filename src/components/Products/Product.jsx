@@ -47,7 +47,7 @@ function Product(props) {
       </CoolLink>
       <TextBlock>{props.name}</TextBlock>
       <TextBlock style={{ opacity: '0.6' }}>
-        ${parseFloat(props.price / 100).toFixed(2)}
+        ${parseFloat(props.price).toFixed(2)}
       </TextBlock>
     </Container>
   );

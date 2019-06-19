@@ -52,10 +52,10 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
 
-        categories: allMoltinCategory {
+        categories: allShopifyProductType {
           edges {
             node {
-              id
+              shopifyId
               name
             }
           }
@@ -63,15 +63,7 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       const { createPage } = actions;
-      result.data.products.edges.forEach(({ node }) => {
-        createPage({
-          path: `/tienda/producto/${node.slug}`,
-          component: productTemplate,
-          context: {
-            slug: node.slug,
-          },
-        });
-      });
+      console.log(result);
 
       result.data.shopifyProducts.edges.forEach(({ node: { handle } }) => {
         createPage({

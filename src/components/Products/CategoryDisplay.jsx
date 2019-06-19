@@ -145,7 +145,7 @@ class CategoryDisplay extends Component {
                   path={`/tienda/producto/${product.slug}`}
                   thumbnail={product.thumbnail}
                   price={product.price}
-                  name={product.name}
+                  name={product.title}
                 />
               ))}
             </ProductList>
