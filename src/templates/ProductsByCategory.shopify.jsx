@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import CategoryDisplay from '../components/Products/CategoryDisplay';
 import cleanString from '../utilities/cleanString';
+import { toUrlCase } from '../utilities/lib';
 
 function toTitleCase(str) {
   str = str.toLowerCase().split(' ');
@@ -18,13 +19,17 @@ const ProductsByCategory = props => {
     pageContext: { categoryName },
   } = props;
 
+  console.log(props);
   const productsList = data.products || {};
   const productEdges = productsList.edges || [];
   const products = productEdges.map(({ node }) => ({
     ...node,
-    thumbnail: node.mainImage.childImageSharp.fixed,
-    price: node.price[0].amount,
+    thumbnail: node.images[0].localFile.childImageSharp.fixed,
+    price: node.priceRange.minVariantPrice.amount,
+    url: node.handle,
   }));
+
+  console.info(products);
   const cleanCategoryName = cleanString(categoryName);
   const breadcrumbItems = [
     {
@@ -62,6 +67,13 @@ export const query = graphql`
             }
           }
           images {
+            localFile {
+              childImageSharp {
+                fixed(width: 125) {
+                  ...GatsbyImageSharpFixed_noBase64
+                }
+              }
+            }
             originalSrc
           }
         }

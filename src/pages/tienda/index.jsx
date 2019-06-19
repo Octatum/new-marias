@@ -10,6 +10,7 @@ const IndexPage = ({ data }) => {
     slug: node.title,
     thumbnail: node.images[0].localFile.childImageSharp.fixed,
     price: node.priceRange.maxVariantPrice.amount,
+    url: node.handle,
   }));
   const breadcrumbItems = [
     {

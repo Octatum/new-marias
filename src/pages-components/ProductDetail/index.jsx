@@ -6,7 +6,7 @@ import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';
 
 import toTitleCase from '../../utilities/toTitleCase';
-import AppLayout, { MoltinGatewayContext } from '../../components/AppLayout';
+import { MoltinGatewayContext } from '../../components/AppLayout';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
@@ -15,7 +15,6 @@ import { useProducts } from '../../components/CartContext';
 import RebassText from '../../components/RebassText';
 import Select from '../../components/Select';
 import RebassButton from '../../components/RebassButton';
-import Loading from '../../components/Loading';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -236,11 +235,6 @@ function ProductDetailContainer(props) {
     navigate('/tienda/carrito');
   }
 
-  async function getProductInventory(id) {
-    const response = await moltinClient.get(`inventories/${id}`);
-    return response;
-  }
-
   // Función usada para modificar la cantidad en el selector.
   function setAmount(event) {
     const amount = event.target.value;
@@ -259,6 +253,11 @@ function ProductDetailContainer(props) {
     if (state.id === '') return;
 
     async function getProductInventoryData() {
+      async function getProductInventory(id) {
+        const response = await moltinClient.get(`inventories/${id}`);
+        return response;
+      }
+
       const inventory = (await getProductInventory(state.id)).data;
 
       dispatch({
@@ -268,7 +267,7 @@ function ProductDetailContainer(props) {
     }
 
     getProductInventoryData();
-  }, [state.id]);
+  }, [moltinClient, state.id]);
 
   // Efecto secundario que se ejecuta cuando el usuario cambia la variación
   // que está seleccionada actualmente. En caso de que el producto no
@@ -292,7 +291,7 @@ function ProductDetailContainer(props) {
 
     dispatch({ type: actions.setIdentifiers, payload: { sku, id, name } });
     dispatch({ type: actions.setImages, payload: images });
-  }, [state.currentVariationIndex]);
+  }, [moltinProduct, productHasVariations, state.currentVariationIndex]);
 
   const breadcrumbItems = [
     {

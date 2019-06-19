@@ -255,6 +255,7 @@ function ProductDetailContainer(props) {
   useEffect(() => {
     if (state.id === '') return;
 
+    // eslint-disable-next-line no-unused-vars
     async function getProductInventoryData() {
       const inventory = (await getProductInventory(state.id)).data;
 
@@ -280,7 +281,7 @@ function ProductDetailContainer(props) {
 
     dispatch({ type: actions.setIdentifiers, payload: { id, name } });
     dispatch({ type: actions.setImages, payload: images });
-  }, [state.currentVariationIndex]);
+  }, [product, state.currentVariationIndex]);
 
   const breadcrumbItems = [
     {

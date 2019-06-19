@@ -46,35 +46,3 @@ const ProductsByCategory = props => {
 };
 
 export default ProductsByCategory;
-
-export const query = graphql`
-  query ProductsByCategoryName($categoryName: String!) {
-    products: allMoltinProduct(
-      filter: {
-        fields: { mainCategory: { eq: $categoryName } }
-        mainImageHref: { ne: null }
-      }
-    ) {
-      edges {
-        node {
-          name
-          slug
-          description
-          price {
-            amount
-          }
-          categories {
-            name
-          }
-          mainImage {
-            childImageSharp {
-              fixed(width: 125) {
-                ...GatsbyImageSharpFixed_noBase64
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;

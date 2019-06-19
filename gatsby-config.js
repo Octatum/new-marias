@@ -46,12 +46,6 @@ module.exports = {
         respectDNT: true,
       },
     },
-    {
-      resolve: `@moltin/gatsby-source-moltin`,
-      options: {
-        client_id: process.env.GATSBY_MOLTIN_CLIENT_ID,
-      },
-    },
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
   ],
