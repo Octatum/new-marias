@@ -123,15 +123,15 @@ const ScrollLink = props => {
   const extraLinkProps = {
     to: isSamePage ? to : `/#${to}`,
     href: to,
-    tabindex: 0,
+    tabIndex: 0,
   };
 
   return (
     <Component
       {...props}
       {...extraLinkProps}
-      smooth
       style={{ cursor: 'pointer' }}
+      smooth
     />
   );
 };

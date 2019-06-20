@@ -40,7 +40,7 @@ const ButtonText = styled(Text)`
 `;
 
 const Thumbnail = styled('img')`
-  max-height: 150px;
+  max-height: 100px;
   max-width: 100%;
 `;
 
@@ -122,26 +122,29 @@ const OtherFlexCell = styled(FlexCell)`
 function OrderRow(props) {
   const { product, updateQuantity, removeProduct } = props;
 
-  const { name, price, amount, thumbnail } = product;
+  const { title: name, quantity: amount, variant } = product;
+  const thumbnail = variant.image.src;
+  const price = Number(variant.price);
+  const { title: variantTitle } = variant;
   const DEFAULT_SIZE = 1.5;
 
   async function decreaseProductAmount(product) {
-    const { id, amount } = product;
+    const { id, quantity } = product;
 
-    if (amount === 1) return;
+    if (quantity === 1) return;
 
     try {
-      await updateQuantity(id, amount - 1);
+      await updateQuantity(id, quantity - 1);
     } catch (error) {
       console.log(error);
     }
   }
 
   async function increaseProductAmount(product) {
-    const { id, amount } = product;
+    const { id, quantity } = product;
 
     try {
-      await updateQuantity(id, amount + 1);
+      await updateQuantity(id, quantity + 1);
     } catch (error) {
       console.log(error);
     }
@@ -154,7 +157,8 @@ function OrderRow(props) {
       </FlexCell>
       <ResponsiveFlexCell>
         <ResponsiveText size={DEFAULT_SIZE} align="center">
-          {name}
+          {name} <br />{' '}
+          {variantTitle !== 'Default Title' && `(${variantTitle})`}
         </ResponsiveText>
         <TabletFlexCell flex={9}>
           <OtherFlexCell>

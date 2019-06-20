@@ -22,6 +22,7 @@ export const query = graphql`
     shopifyProduct(handle: { eq: $handle }) {
       title
       id
+      shopifyId
       fields {
         mainCategory
       }
@@ -37,6 +38,7 @@ export const query = graphql`
       variants {
         title
         price
+        shopifyId
         image {
           originalSrc
         }

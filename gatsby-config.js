@@ -29,11 +29,6 @@ module.exports = {
       options: {
         shopName: process.env.SHOP_NAME,
         accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-
-        // Set verbose to true to display a verbose output on `npm run develop`
-        // or `npm run build`. This prints which nodes are being fetched and how
-        // much time was required to fetch and process the data.
-        // Defaults to true.
         verbose: true,
       },
     },

@@ -87,14 +87,9 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
-exports.sourceNodes = ({
-  actions,
-  getNodesByType,
-  createNodeId,
-  createContentDigest,
-}) => {
+exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
   return new Promise(async resolve => {
-    const { createNode, createParentChildLink } = actions;
+    const { createNode } = actions;
 
     // fetch raw data from the randomuser api
     const allSingletons = await fetch(

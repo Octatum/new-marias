@@ -1,12 +1,14 @@
 import createPersistedState from 'use-persisted-state';
-import { useCartkit } from './shopkit/Cartkit';
 
 const PRODUCT_IMAGES_ID = 'product_images';
 const useProductImages = createPersistedState(PRODUCT_IMAGES_ID);
 
 export function useProducts() {
   const [productImages, setProductImages] = useProductImages({});
-  const { addToCart, updateQuantity, count, cartItems, ...rest } = useCartkit();
+  const cartItems = [];
+  const count = 0;
+  const updateQuantity = () => {};
+  const addToCart = () => {};
 
   const products = cartItems.map(item => ({
     ...item,
@@ -29,7 +31,6 @@ export function useProducts() {
   }
 
   return {
-    ...rest,
     updateQuantity,
     products,
     addProduct,

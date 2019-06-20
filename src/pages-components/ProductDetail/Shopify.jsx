@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { range, clamp } from 'lodash';
+import { range } from 'lodash';
 import styled from 'styled-components/macro';
 import GatsbyLink, { navigate } from 'gatsby-link';
 import { Flex, Box } from 'rebass';
@@ -10,10 +10,13 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
 import backButtonImg from './assets/backButton.svg';
-import { useProducts } from '../../components/CartContext';
 import RebassText from '../../components/RebassText';
 import Select from '../../components/Select';
 import RebassButton from '../../components/RebassButton';
+import {
+  useShopifyClient,
+  useShopifyFunctions,
+} from '../../components/ShopifyContext';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -207,7 +210,8 @@ function ProductDetailContainer(props) {
     disableButton: false,
   });
 
-  const { addProduct } = useProducts();
+  const shopifyClient = useShopifyClient();
+  const { addItem, getCheckout } = useShopifyFunctions();
   const { shopifyProduct: product } = props.data;
   const categoryName = product.fields.mainCategory;
   const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
@@ -220,22 +224,11 @@ function ProductDetailContainer(props) {
   const inputDisabled = !state.inventoryLoaded || !state.unitsAvailable;
 
   async function addProductToCart() {
-    let { amount, id, name } = state;
+    let { amount, id } = state;
 
-    const product = {
-      name,
-      id,
-      price: productPrice,
-      thumbnail: state.images[0].thumbnail,
-    };
-
-    await addProduct(product, amount);
-    navigate('/tienda/carrito');
-  }
-
-  async function getProductInventory(id) {
-    //const response = await moltinClient.get(`inventories/${id}`);
-    //return response;
+    await addItem({ variantId: id, quantity: Number(amount) });
+    await getCheckout();
+    // navigate('/tienda/carrito');
   }
 
   // Función usada para modificar la cantidad en el selector.
@@ -255,18 +248,24 @@ function ProductDetailContainer(props) {
   useEffect(() => {
     if (state.id === '') return;
 
+    async function getProductInventory(id) {
+      const response = await shopifyClient.product.fetch(product.shopifyId);
+      const p = response.variants.find(item => item.id === id);
+      return p;
+    }
+
     // eslint-disable-next-line no-unused-vars
     async function getProductInventoryData() {
-      const inventory = (await getProductInventory(state.id)).data;
+      const { available } = await getProductInventory(state.id);
 
       dispatch({
         type: actions.setUnitsAvailable,
-        payload: inventory.available,
+        payload: available,
       });
     }
 
-    // getProductInventoryData();
-  }, [state.id]);
+    getProductInventoryData();
+  }, [shopifyClient, state.id]);
 
   // Efecto secundario que se ejecuta cuando el usuario cambia la variación
   // que está seleccionada actualmente. En caso de que el producto no
@@ -277,7 +276,9 @@ function ProductDetailContainer(props) {
   useEffect(() => {
     // Obtener los datos del producto de la variación seleccionada
     const images = product.images;
-    const { id, name } = product;
+    const { shopifyId: id, title: name } = product.variants[
+      state.currentVariationIndex
+    ];
 
     dispatch({ type: actions.setIdentifiers, payload: { id, name } });
     dispatch({ type: actions.setImages, payload: images });
@@ -360,14 +361,14 @@ function ProductDetailContainer(props) {
                   <Select
                     name="cantidad"
                     onChange={setAmount}
-                    options={!inputDisabled ? range(1, 2) : []}
+                    options={!inputDisabled ? range(1, 11) : []}
                     disabled={inputDisabled}
                     labelText="Cantidad"
                     required
                   />
                 </Box>
               </Flex>
-              {state.inventoryLoaded && state.unitsAvailable === 0 && (
+              {state.inventoryLoaded && !state.unitsAvailable && (
                 <Box>
                   <RebassText color="red" fontSize={3} pb={3}>
                     No hay unidades disponibles

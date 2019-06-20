@@ -40,6 +40,7 @@
     "rebass": "^3.1.1",
     "rebound": "^0.1.0",
     "scroll-behavior-polyfill": "^2.0.7",
+    "shopify-buy": "^2.5.0",
     "smooth-scroll": "^16.1.0",
     "styled-components": "^4.3.1",
     "use-deep-compare-effect": "^1.2.0",
@@ -51,8 +52,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rimraf .cache && gatsby build",
-    "develop": "rimraf .cache && gatsby develop",
+    "build": "gatsby build",
+    "develop": "gatsby develop",
     "format": "prettier --write \"src/**/*.jsx\" \"src/**/*.js\" \"tests/**/*.jsx\" \"tests/**/*.js\"",
     "lint": "eslint src",
     "test": "jest"
