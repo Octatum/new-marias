@@ -228,7 +228,7 @@ function ProductDetailContainer(props) {
 
     await addItem({ variantId: id, quantity: Number(amount) });
     await getCheckout();
-    // navigate('/tienda/carrito');
+    navigate('/tienda/carrito');
   }
 
   // Función usada para modificar la cantidad en el selector.

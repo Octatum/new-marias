@@ -3,7 +3,6 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import CategoryDisplay from '../components/Products/CategoryDisplay';
 import cleanString from '../utilities/cleanString';
-import { toUrlCase } from '../utilities/lib';
 
 function toTitleCase(str) {
   str = str.toLowerCase().split(' ');
@@ -28,7 +27,6 @@ const ProductsByCategory = props => {
     url: node.handle,
   }));
 
-  console.info(products);
   const cleanCategoryName = cleanString(categoryName);
   const breadcrumbItems = [
     {

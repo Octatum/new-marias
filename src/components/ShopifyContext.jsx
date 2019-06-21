@@ -31,6 +31,7 @@ const useShopifyFunctions = () => {
   }
 
   async function addItem({ variantId, quantity }) {
+    getCheckoutId();
     const checkout = await client.checkout.addLineItems(shopifyCheckoutId, [
       { variantId, quantity },
     ]);
@@ -39,6 +40,7 @@ const useShopifyFunctions = () => {
   }
 
   async function removeItem({ variantId }) {
+    getCheckoutId();
     const checkout = await client.checkout.removeLineItems(shopifyCheckoutId, [
       variantId,
     ]);
@@ -52,12 +54,15 @@ const useShopifyFunctions = () => {
   }
 
   async function getCheckout() {
+    getCheckoutId();
     const checkout = await client.checkout.fetch(shopifyCheckoutId);
+    console.log({ checkout });
 
     return checkout;
   }
 
   async function updateItem({ id, quantity }) {
+    getCheckoutId();
     const checkout = await client.checkout.updateLineItems(shopifyCheckoutId, [
       {
         id,
