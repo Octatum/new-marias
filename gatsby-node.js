@@ -51,7 +51,6 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       const { createPage } = actions;
-      console.log(result);
 
       result.data.shopifyProducts.edges.forEach(({ node: { handle } }) => {
         createPage({
@@ -103,7 +102,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
           `https://admin.newmarias.com/api/singletons/get/${singletonName}?token=8e126ac75a4c97897cd52dfab00650`
         );
         const responseData = await res.json();
-        console.log(`Fetching data for ${singletonName}`);
+        console.info(`Fetching data for ${singletonName}`);
 
         const nodeMeta = {
           id: createNodeId(`page-data-${singletonName}`),

@@ -19,7 +19,6 @@ const ProductsByCategory = props => {
     pageContext: { categoryName },
   } = props;
 
-  console.log(props);
   const productsList = data.products || {};
   const productEdges = productsList.edges || [];
   const products = productEdges.map(({ node }) => ({

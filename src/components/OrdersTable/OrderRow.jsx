@@ -136,7 +136,7 @@ function OrderRow(props) {
     try {
       await updateQuantity(id, quantity - 1);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -146,7 +146,7 @@ function OrderRow(props) {
     try {
       await updateQuantity(id, quantity + 1);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

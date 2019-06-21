@@ -51,7 +51,6 @@ const CheckoutDetails = () => {
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
   function getValuesFromCheckout(checkout) {
-    console.log({ checkout });
     setTotalPrice(checkout.totalPrice);
     setProducts(checkout.lineItems);
     setCheckoutUrl(checkout.webUrl);
@@ -67,10 +66,8 @@ const CheckoutDetails = () => {
   }, []);
 
   async function updateProductQuantity(id, quantity) {
-    console.log({ id, quantity });
     const checkout = await updateItem({ id, quantity });
     getValuesFromCheckout(checkout);
-    console.log(checkout.lineItems.map(item => item.quantity));
   }
 
   return (
