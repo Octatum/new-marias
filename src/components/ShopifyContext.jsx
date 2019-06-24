@@ -6,8 +6,8 @@ const persistedStateId = 'shopifyCheckout';
 const useShopifyCheckout = persistedStateCreator(persistedStateId);
 
 const client = shopify.buildClient({
-  domain: `${process.env.SHOP_NAME}.myshopify.com`,
-  storefrontAccessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+  domain: `${process.env.GATSBY_SHOP_NAME}.myshopify.com`,
+  storefrontAccessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
 });
 
 const Context = createContext(null);
