@@ -164,9 +164,11 @@ const actions = {
   setVariationIndex: 'SET_VARIATION_INDEX',
   setUnitsAvailable: 'SET_UNITS_AVAILABLE',
   disableButton: 'DISABLE_BUTTON',
+  enableButton: 'ENABLE_BUTTON',
 };
 
 function reducer(state, action) {
+  console.log(action);
   switch (action.type) {
     case actions.setImages:
       return { ...state, images: action.payload };
@@ -192,8 +194,15 @@ function reducer(state, action) {
         ...state,
         disable: true,
       };
+    case actions.enableButton:
+      return {
+        ...state,
+        disable: false,
+      };
     default:
-      throw new Error("Wrong action sent to reducer 'productReducer'");
+      throw new Error(
+        `Wrong action sent to reducer 'productReducer'. Action type: ${action.type}`
+      );
   }
 }
 
@@ -211,7 +220,7 @@ function ProductDetailContainer(props) {
   });
 
   const shopifyClient = useShopifyClient();
-  const { addItem, getCheckout } = useShopifyFunctions();
+  const { addItem } = useShopifyFunctions();
   const { shopifyProduct: product } = props.data;
   const categoryName = product.fields.mainCategory;
   const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
@@ -225,10 +234,15 @@ function ProductDetailContainer(props) {
 
   async function addProductToCart() {
     let { amount, id } = state;
+    dispatch({ type: actions.disableButton });
 
-    await addItem({ variantId: id, quantity: Number(amount) });
-    await getCheckout();
-    navigate('/tienda/carrito');
+    try {
+      await addItem({ variantId: id, quantity: Number(amount) });
+      navigate('/tienda/carrito');
+    } catch (exception) {
+      console.error(exception);
+      dispatch({ type: actions.enableButton });
+    }
   }
 
   // Función usada para modificar la cantidad en el selector.

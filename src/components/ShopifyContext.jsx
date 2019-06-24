@@ -19,19 +19,9 @@ const useShopifyClient = () => {
 
 const useShopifyFunctions = () => {
   const client = useShopifyClient();
-  const [shopifyCheckoutId, setShopifyId] = useShopifyCheckout(null);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function getCheckoutId() {
-    if (shopifyCheckoutId === null) {
-      await resetCart();
-    }
-
-    return shopifyCheckoutId;
-  }
+  const [shopifyCheckoutId, setShopifyId] = useShopifyCheckout('');
 
   async function addItem({ variantId, quantity }) {
-    getCheckoutId();
     const checkout = await client.checkout.addLineItems(shopifyCheckoutId, [
       { variantId, quantity },
     ]);
@@ -39,8 +29,8 @@ const useShopifyFunctions = () => {
     return checkout;
   }
 
-  async function removeItem({ variantId }) {
-    getCheckoutId();
+  async function removeItem(variantId) {
+    console.log(variantId);
     const checkout = await client.checkout.removeLineItems(shopifyCheckoutId, [
       variantId,
     ]);
@@ -54,14 +44,12 @@ const useShopifyFunctions = () => {
   }
 
   async function getCheckout() {
-    getCheckoutId();
     const checkout = await client.checkout.fetch(shopifyCheckoutId);
 
     return checkout;
   }
 
   async function updateItem({ id, quantity }) {
-    getCheckoutId();
     const checkout = await client.checkout.updateLineItems(shopifyCheckoutId, [
       {
         id,
@@ -73,11 +61,18 @@ const useShopifyFunctions = () => {
   }
 
   useEffect(() => {
+    async function getCheckoutId() {
+      if (shopifyCheckoutId === '') {
+        await resetCart();
+      }
+
+      return shopifyCheckoutId;
+    }
+
     getCheckoutId();
-  }, []);
+  }, [resetCart, shopifyCheckoutId]);
 
   return {
-    getCheckoutId,
     addItem,
     removeItem,
     resetCart,

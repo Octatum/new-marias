@@ -63,7 +63,7 @@ const CheckoutDetails = () => {
     }
 
     getLocalCheckout();
-  }, []);
+  }, [getCheckout]);
 
   async function updateProductQuantity(id, quantity) {
     const checkout = await updateItem({ id, quantity });

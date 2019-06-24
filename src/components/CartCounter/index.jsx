@@ -37,9 +37,12 @@ const CartCounter = ({ ...props }) => {
 
   useEffect(() => {
     async function getProductQuantity() {
-      const checkout = await getCheckout();
-
-      setQuantity(checkout.lineItems.length);
+      try {
+        const checkout = await getCheckout();
+        setQuantity(checkout.lineItems.length);
+      } catch (exception) {
+        console.log(exception);
+      }
     }
 
     getProductQuantity();
