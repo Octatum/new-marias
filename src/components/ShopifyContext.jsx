@@ -56,7 +56,6 @@ const useShopifyFunctions = () => {
   async function getCheckout() {
     getCheckoutId();
     const checkout = await client.checkout.fetch(shopifyCheckoutId);
-    console.log({ checkout });
 
     return checkout;
   }
