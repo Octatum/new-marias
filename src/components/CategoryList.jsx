@@ -48,7 +48,6 @@ const CategoryLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   display: block;
-  text-transform: capitalize;
 `;
 
 const CategoryList = props => {
@@ -66,10 +65,12 @@ const CategoryList = props => {
     }
   `);
 
-  const categories = data.categories.edges.map(({ node }) => ({
-    cleanName: cleanString(node.name),
-    ...node,
-  }));
+  const categories = data.categories.edges
+    .map(({ node }) => ({
+      cleanName: cleanString(node.name),
+      ...node,
+    }))
+    .filter(category => category.cleanName !== 'otros');
   return (
     <Ul hide={hidden}>
       <TitleLi as="li" size={4} className="title">

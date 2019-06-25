@@ -16,7 +16,7 @@ const SummaryContainer = styled.div`
   flex: 2;
   display: flex;
   flex-direction: column;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   color: #626363;
   box-sizing: border-box;
   padding: 15px;

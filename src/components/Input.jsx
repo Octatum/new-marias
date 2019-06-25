@@ -13,7 +13,7 @@ const Label = styled('label')`
 const InputField = styled(Field)`
   width: 100%;
   padding-left: 1em;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   font-size: 1em;
   box-sizing: border-box;
   color: ${({ theme }) => theme.colors.darkgray};
@@ -28,7 +28,7 @@ const InputField = styled(Field)`
 
 const ErrorField = styled(ErrorMessage)`
   color: ${({ theme }) => theme.colors.red};
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   opacity: 0.8;
 `;
 

@@ -32,6 +32,17 @@ module.exports = {
         verbose: true,
       },
     },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Assistant`,
+            variants: ['300', '400', '700'],
+          },
+        ],
+      },
+    },
     'gatsby-plugin-offline',
     {
       resolve: `gatsby-plugin-google-analytics`,

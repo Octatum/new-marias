@@ -14,7 +14,7 @@ const Container = styled(GatsbyLink)`
 const Counter = styled.div`
   height: 100%;
   width: 100%;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   background-image: url(${shoppingCartImg});
   background-size: cover;
   background-repeat: no-repeat;

@@ -5,7 +5,6 @@ import GatsbyLink, { navigate } from 'gatsby-link';
 import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';
 
-import toTitleCase from '../../utilities/toTitleCase';
 import { MoltinGatewayContext } from '../../components/AppLayout';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
@@ -29,7 +28,7 @@ const Layout = styled.div`
 `;
 
 const MobileHeader = styled.div`
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({ theme }) => theme.fonts.main};
   font-size: 20px;
   color: #626363;
   display: none;
@@ -339,7 +338,7 @@ function ProductDetailContainer(props) {
           <Flex flexDirection={['column-reverse', 'column', 'column']}>
             <Box pb={[0, 3]}>
               <RebassText py={1} fontSize={[5, 6]}>
-                {toTitleCase(productName)}
+                {productName}
               </RebassText>
               <RebassText pt={1} pb={2} fontSize={[3]}>
                 Precio:{' '}

@@ -5,7 +5,7 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.pink};
   border: none;
   margin-right: 1em;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;

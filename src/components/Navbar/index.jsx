@@ -22,7 +22,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 1.2em 1.5em 0.4em 1.5em;
+  padding: 0.6rem 1.5rem 0.4rem;
   background: white;
   z-index: 1000;
   text-align: center;
@@ -56,7 +56,6 @@ const Logo = styled.img`
 
 const List = styled.ul`
   display: flex;
-  padding-top: 0.7em;
   border-top: 2px solid #d6d8db;
   list-style: none;
   margin: 0 auto;
@@ -65,9 +64,13 @@ const List = styled.ul`
 
   li {
     padding: 0 1.2em;
+    padding-top: 0.4rem;
     color: ${({ theme }) => theme.colors.darkgray};
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: ${({ theme }) => theme.fonts.main};
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-transform: uppercase;
   }
 

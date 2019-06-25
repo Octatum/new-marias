@@ -30,8 +30,8 @@ const setAlign = ({ align }) => {
   return align || 'inherit';
 };
 
-const setFontFamily = ({ theme, secondaryFont = false }) => {
-  return secondaryFont ? theme.fonts.secondary : theme.fonts.main;
+const setFontFamily = ({ theme }) => {
+  return theme.fonts.main;
 };
 
 export const withTextStyle = component => styled(component)`

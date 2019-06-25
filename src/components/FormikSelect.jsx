@@ -12,7 +12,7 @@ const Label = styled('label')`
 
 const ErrorField = styled(ErrorMessage)`
   color: ${({ theme }) => theme.colors.red};
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   opacity: 0.8;
 `;
 
@@ -21,7 +21,7 @@ const SelectField = styled('select')`
   box-sizing: border-box;
   height: 2em;
   padding-left: 1em;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   color: ${({ theme }) => theme.colors.darkgray};
   background: white;
 `;

@@ -7,7 +7,7 @@ import Button from './Button';
 import Text from './Text';
 
 const Description = styled.p`
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   font-size: 18px;
   line-height: normal;
   color: #626363;
@@ -42,7 +42,7 @@ const SelectsContainer = styled.div`
 
 const Name = styled.h1`
   width: 110%;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({theme}) => theme.fonts.main};
   font-size: 40px;
   font-weight: normal;
   font-style: normal;

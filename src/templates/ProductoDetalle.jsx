@@ -1,8 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { graphql } from 'gatsby';
 import ProductDetailContainer from '../pages-components/ProductDetail';
-import toTitleCase from '../utilities/toTitleCase';
 import AppLayout from '../components/AppLayout';
 
 function Producto(props) {
@@ -10,7 +8,7 @@ function Producto(props) {
 
   return (
     <AppLayout>
-      <Helmet title={toTitleCase(productName)} />
+      <Helmet title={productName} />
       <ProductDetailContainer {...props} />
     </AppLayout>
   );

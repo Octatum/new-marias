@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import device from '../../utilities/device';
 import Text from '../Text';
-import { useProducts } from '../CartContext';
 
 const Layout = styled('div')`
   display: flex;

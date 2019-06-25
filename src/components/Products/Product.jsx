@@ -45,7 +45,7 @@ function Product(props) {
       <CoolLink to={props.path}>
         <ProductImage fixed={props.thumbnail} />
       </CoolLink>
-      <TextBlock>{props.name}</TextBlock>
+      <TextBlock size={1.2}>{props.name}</TextBlock>
       <TextBlock style={{ opacity: '0.6' }}>
         ${parseFloat(props.price).toFixed(2)}
       </TextBlock>

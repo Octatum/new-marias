@@ -39,7 +39,7 @@ const ProductsByCategory = props => {
 
   return (
     <React.Fragment>
-      <Helmet title={toTitleCase(categoryName)} />
+      <Helmet title={categoryName} />
       <CategoryDisplay breadcrumbItems={breadcrumbItems} products={products} />
     </React.Fragment>
   );

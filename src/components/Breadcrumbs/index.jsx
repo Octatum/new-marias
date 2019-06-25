@@ -7,7 +7,7 @@ import Text from '../Text';
 
 const Container = styled.div`
   width: 100%;
-  font-family: 'Archivo Narrow', sans-serif;
+  font-family: ${({ theme }) => theme.fonts.main};
   box-sizing: border-box;
   border-bottom: 1px solid #626363;
 
@@ -29,7 +29,6 @@ const BreadcrumbItem = styled.span`
   font-size: 20px;
   font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
   text-decoration: none;
-  text-transform: capitalize;
 
   > * {
     margin-right: 1rem;

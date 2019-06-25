@@ -44,7 +44,7 @@ export const query = graphql`
         }
         availableForSale
       }
-      description
+      description: descriptionHtml
       options {
         values
       }

@@ -22,7 +22,6 @@ export default {
   },
   fontSizes: [12, 14, 18, 20, 24, 32, 40, 48, 64],
   fonts: {
-    main: "'Archivo Narrow', sans-serif",
-    secondary: "'Raleway', sans-serif",
+    main: "'Assistant', sans-serif",
   },
 };
