@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import shoppingCartImg from './assets/shoppingcart.svg';
 import GatsbyLink from 'gatsby-link';
-import { useProducts } from '../CartContext';
+import { useShopifyFunctions } from '../ShopifyContext';
 
 const Container = styled(GatsbyLink)`
   display: block;
@@ -31,15 +31,29 @@ const Counter = styled.div`
   }
 `;
 
-const CartCounter = ({ quantity, ...props }) => {
-  const { productAmount } = useProducts();
+const CartCounter = ({ ...props }) => {
+  const { getCheckout } = useShopifyFunctions();
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    async function getProductQuantity() {
+      try {
+        const checkout = await getCheckout();
+        setQuantity(checkout.lineItems.length);
+      } catch (exception) {
+        console.log(exception);
+      }
+    }
+
+    getProductQuantity();
+  }, [getCheckout]);
 
   return (
     <Container to={'/tienda/carrito'} {...props}>
       <Counter
-        quantity={productAmount}
+        quantity={quantity}
         height={10}
-        aria-label={`hay ${productAmount} productos en el carrito.`}
+        aria-label={`hay ${0} productos en el carrito.`}
       />
     </Container>
   );

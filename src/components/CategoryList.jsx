@@ -55,10 +55,10 @@ const CategoryList = props => {
   const { hidden } = props;
   const data = useStaticQuery(graphql`
     query {
-      categories: allMoltinCategory(sort: { fields: name }) {
+      categories: allShopifyProductType(sort: { fields: name }) {
         edges {
           node {
-            id
+            shopifyId
             name
           }
         }
@@ -76,7 +76,7 @@ const CategoryList = props => {
         Categorías
       </TitleLi>
       {categories.map(category => (
-        <Text as="li" key={category.id}>
+        <Text as="li" key={category.shopifyId}>
           <CategoryLink to={`/tienda/categoria/${category.cleanName}`} replace>
             {category.name.toLowerCase()}
           </CategoryLink>

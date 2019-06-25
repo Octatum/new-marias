@@ -1,16 +1,25 @@
+/* eslint-disable import/no-unused-modules */
 const path = require('path');
 const fetch = require('node-fetch');
-const productTemplate = path.resolve('src/templates/ProductoDetalle.jsx');
-const productGridView = path.resolve('src/templates/ProductsByCategory.jsx');
+const shopifyProductTemplate = path.resolve(
+  'src/templates/ProductoDetalle.shopify.jsx'
+);
+const shopifyProductGridView = path.resolve(
+  'src/templates/ProductsByCategory.shopify.jsx'
+);
 
-function getCleanString(string) {
-  return string.replace(/\W/g, '').toLowerCase();
+function toUrlCase(string) {
+  return string
+    .replace(' ', '-')
+    .replace(/\W/g, '')
+    .toLowerCase();
 }
+
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `MoltinProduct`) {
-    const mainCategory = node.categories ? node.categories[0].name : 'Otros';
+  if (node.internal.type === `ShopifyProduct`) {
+    const mainCategory = node.productType || 'Otros';
     createNodeField({
       node,
       name: `mainCategory`,
@@ -23,20 +32,18 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise(resolve => {
     graphql(`
       {
-        products: allMoltinProduct(
-          filter: { relationships: { parent: { data: { id: { eq: null } } } } }
-        ) {
+        shopifyProducts: allShopifyProduct {
           edges {
             node {
-              slug
+              handle
             }
           }
         }
 
-        categories: allMoltinCategory {
+        categories: allShopifyProductType {
           edges {
             node {
-              id
+              shopifyId
               name
             }
           }
@@ -44,21 +51,22 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       const { createPage } = actions;
-      result.data.products.edges.forEach(({ node }) => {
+
+      result.data.shopifyProducts.edges.forEach(({ node: { handle } }) => {
         createPage({
-          path: `/tienda/producto/${node.slug}`,
-          component: productTemplate,
+          path: `/tienda/producto/${handle}`,
+          component: shopifyProductTemplate,
           context: {
-            slug: node.slug,
+            handle,
           },
         });
       });
 
       result.data.categories.edges.forEach(({ node }) => {
-        const cleanName = getCleanString(node.name);
+        const cleanName = toUrlCase(node.name);
         createPage({
           path: `/tienda/categoria/${cleanName}`,
-          component: productGridView,
+          component: shopifyProductGridView,
           context: {
             categoryName: node.name,
           },
@@ -67,7 +75,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       createPage({
         path: `/tienda/categoria/otros`,
-        component: productGridView,
+        component: shopifyProductGridView,
         context: {
           categoryName: 'Otros',
         },
@@ -78,14 +86,9 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
-exports.sourceNodes = ({
-  actions,
-  getNodesByType,
-  createNodeId,
-  createContentDigest,
-}) => {
+exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
   return new Promise(async resolve => {
-    const { createNode, createParentChildLink } = actions;
+    const { createNode } = actions;
 
     // fetch raw data from the randomuser api
     const allSingletons = await fetch(
@@ -99,7 +102,7 @@ exports.sourceNodes = ({
           `https://admin.newmarias.com/api/singletons/get/${singletonName}?token=8e126ac75a4c97897cd52dfab00650`
         );
         const responseData = await res.json();
-        console.log(`Fetching data for ${singletonName}`);
+        console.info(`Fetching data for ${singletonName}`);
 
         const nodeMeta = {
           id: createNodeId(`page-data-${singletonName}`),
@@ -119,19 +122,6 @@ exports.sourceNodes = ({
         console.info(`Node created for ${singletonName}`);
       })
     );
-
-    const productNodes = getNodesByType('MoltinProduct');
-
-    productNodes.forEach(productNode => {
-      if (!productNode.relationships.parent) return;
-
-      const parent = productNodes.find(
-        element => element.id === productNode.relationships.parent.data.id
-      );
-      console.info(productNode.slug);
-      createParentChildLink({ parent, child: productNode });
-    });
-
     resolve();
   });
 };

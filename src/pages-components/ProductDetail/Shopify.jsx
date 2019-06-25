@@ -1,20 +1,22 @@
-import React, { useContext, useEffect, useReducer } from 'react';
-import { range, clamp } from 'lodash';
+import React, { useEffect, useReducer } from 'react';
+import { range } from 'lodash';
 import styled from 'styled-components/macro';
 import GatsbyLink, { navigate } from 'gatsby-link';
 import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';
 
 import toTitleCase from '../../utilities/toTitleCase';
-import { MoltinGatewayContext } from '../../components/AppLayout';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
 import backButtonImg from './assets/backButton.svg';
-import { useProducts } from '../../components/CartContext';
 import RebassText from '../../components/RebassText';
 import Select from '../../components/Select';
 import RebassButton from '../../components/RebassButton';
+import {
+  useShopifyClient,
+  useShopifyFunctions,
+} from '../../components/ShopifyContext';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -162,9 +164,11 @@ const actions = {
   setVariationIndex: 'SET_VARIATION_INDEX',
   setUnitsAvailable: 'SET_UNITS_AVAILABLE',
   disableButton: 'DISABLE_BUTTON',
+  enableButton: 'ENABLE_BUTTON',
 };
 
 function reducer(state, action) {
+  console.log(action);
   switch (action.type) {
     case actions.setImages:
       return { ...state, images: action.payload };
@@ -190,8 +194,15 @@ function reducer(state, action) {
         ...state,
         disable: true,
       };
+    case actions.enableButton:
+      return {
+        ...state,
+        disable: false,
+      };
     default:
-      throw new Error("Wrong action sent to reducer 'productReducer'");
+      throw new Error(
+        `Wrong action sent to reducer 'productReducer'. Action type: ${action.type}`
+      );
   }
 }
 
@@ -202,37 +213,36 @@ function ProductDetailContainer(props) {
     id: '',
     name: '',
     amount: 1,
-    unitsAvailable: 0,
+    unitsAvailable: false,
     inventoryLoaded: false,
     currentVariationIndex: 0,
     disableButton: false,
   });
 
-  const moltinClient = useContext(MoltinGatewayContext);
-  const { addProduct } = useProducts();
-  const { moltinProduct } = props.data;
-  const categoryName = moltinProduct.fields.mainCategory;
+  const shopifyClient = useShopifyClient();
+  const { addItem } = useShopifyFunctions();
+  const { shopifyProduct: product } = props.data;
+  const categoryName = product.fields.mainCategory;
   const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
-  const productName = moltinProduct.name.toLowerCase();
-  const productPrice = moltinProduct.price[0].amount / 100;
-  const productVariations = moltinProduct.meta.variations;
-  const productHasVariations = productVariations !== null;
-  const clampedInventoryUnits = clamp(state.unitsAvailable, 0, 10);
-  const inputDisabled = !state.inventoryLoaded || clampedInventoryUnits === 0;
+  const productName = product.title.toLowerCase();
+  const productPrice = Number(
+    product.variants[state.currentVariationIndex].price
+  );
+  const productVariations = product.variants;
+  const productHasVariations = productVariations.length > 1;
+  const inputDisabled = !state.inventoryLoaded || !state.unitsAvailable;
 
   async function addProductToCart() {
-    let { sku, amount, id, name } = state;
+    let { amount, id } = state;
+    dispatch({ type: actions.disableButton });
 
-    const product = {
-      sku,
-      name,
-      id,
-      price: productPrice,
-      thumbnail: state.images[0].thumbnail,
-    };
-
-    await addProduct(product, amount);
-    navigate('/tienda/carrito');
+    try {
+      await addItem({ variantId: id, quantity: Number(amount) });
+      navigate('/tienda/carrito');
+    } catch (exception) {
+      console.error(exception);
+      dispatch({ type: actions.enableButton });
+    }
   }
 
   // Función usada para modificar la cantidad en el selector.
@@ -252,22 +262,24 @@ function ProductDetailContainer(props) {
   useEffect(() => {
     if (state.id === '') return;
 
-    async function getProductInventoryData() {
-      async function getProductInventory(id) {
-        const response = await moltinClient.get(`inventories/${id}`);
-        return response;
-      }
+    async function getProductInventory(id) {
+      const response = await shopifyClient.product.fetch(product.shopifyId);
+      const p = response.variants.find(item => item.id === id);
+      return p;
+    }
 
-      const inventory = (await getProductInventory(state.id)).data;
+    // eslint-disable-next-line no-unused-vars
+    async function getProductInventoryData() {
+      const { available } = await getProductInventory(state.id);
 
       dispatch({
         type: actions.setUnitsAvailable,
-        payload: inventory.available,
+        payload: available,
       });
     }
 
     getProductInventoryData();
-  }, [moltinClient, state.id]);
+  }, [shopifyClient, state.id]);
 
   // Efecto secundario que se ejecuta cuando el usuario cambia la variación
   // que está seleccionada actualmente. En caso de que el producto no
@@ -276,22 +288,15 @@ function ProductDetailContainer(props) {
   // se asignan a la vista las imágenes de la variación
   // elegida.
   useEffect(() => {
-    let product = moltinProduct;
-
-    if (productHasVariations) {
-      product = moltinProduct.children[state.currentVariationIndex];
-    }
-
     // Obtener los datos del producto de la variación seleccionada
-    const images = product.files.map(({ href }) => ({
-      thumbnail: href,
-      original: href,
-    }));
-    const { sku, id, name } = product;
+    const images = product.images;
+    const { shopifyId: id, title: name } = product.variants[
+      state.currentVariationIndex
+    ];
 
-    dispatch({ type: actions.setIdentifiers, payload: { sku, id, name } });
+    dispatch({ type: actions.setIdentifiers, payload: { id, name } });
     dispatch({ type: actions.setImages, payload: images });
-  }, [moltinProduct, productHasVariations, state.currentVariationIndex]);
+  }, [product, state.currentVariationIndex]);
 
   const breadcrumbItems = [
     {
@@ -309,7 +314,10 @@ function ProductDetailContainer(props) {
 
   const imageGalleryProps = {
     thumbnailPosition: 'left',
-    items: state.images,
+    items: state.images.map(i => ({
+      original: i.originalSrc,
+      thumbnail: i.originalSrc,
+    })),
     showPlayButton: false,
     showFullscreenButton: false,
     lazyLoad: true,
@@ -353,11 +361,11 @@ function ProductDetailContainer(props) {
                     <Select
                       name="variation"
                       onChange={setVariationIndex}
-                      options={moltinProduct.children.map((child, index) => ({
-                        name: child.name,
+                      options={product.variants.map((item, index) => ({
+                        name: item.title,
                         value: index,
                       }))}
-                      labelText={productVariations[0].name}
+                      labelText={product.options[0].name}
                       required
                     />
                   </Box>
@@ -367,16 +375,14 @@ function ProductDetailContainer(props) {
                   <Select
                     name="cantidad"
                     onChange={setAmount}
-                    options={
-                      !inputDisabled ? range(1, clampedInventoryUnits + 1) : []
-                    }
+                    options={!inputDisabled ? range(1, 11) : []}
                     disabled={inputDisabled}
                     labelText="Cantidad"
                     required
                   />
                 </Box>
               </Flex>
-              {state.inventoryLoaded && state.unitsAvailable === 0 && (
+              {state.inventoryLoaded && !state.unitsAvailable && (
                 <Box>
                   <RebassText color="red" fontSize={3} pb={3}>
                     No hay unidades disponibles
@@ -401,7 +407,7 @@ function ProductDetailContainer(props) {
               </Flex>
             </Box>
             <Box pb={[2, 1]} pt={[0, 1]}>
-              <RebassText>{moltinProduct.description}</RebassText>
+              <RebassText>{product.description}</RebassText>
             </Box>
           </Flex>
         </Box>

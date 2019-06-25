@@ -24,11 +24,21 @@ module.exports = {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/tienda/checkout/*`] },
     },
+    {
+      resolve: `gatsby-source-shopify`,
+      options: {
+        shopName: process.env.GATSBY_SHOP_NAME,
+        accessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
+        verbose: true,
+      },
+    },
     'gatsby-plugin-offline',
     {
-      resolve: `@moltin/gatsby-source-moltin`,
+      resolve: `gatsby-plugin-google-analytics`,
       options: {
-        client_id: process.env.GATSBY_MOLTIN_CLIENT_ID,
+        trackingId: '',
+        anonymize: true,
+        respectDNT: true,
       },
     },
     `gatsby-plugin-sharp`,

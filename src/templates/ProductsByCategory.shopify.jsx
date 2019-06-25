@@ -22,9 +22,11 @@ const ProductsByCategory = props => {
   const productEdges = productsList.edges || [];
   const products = productEdges.map(({ node }) => ({
     ...node,
-    thumbnail: node.mainImage.childImageSharp.fixed,
-    price: node.price[0].amount,
+    thumbnail: node.images[0].localFile.childImageSharp.fixed,
+    price: node.priceRange.minVariantPrice.amount,
+    url: node.handle,
   }));
+
   const cleanCategoryName = cleanString(categoryName);
   const breadcrumbItems = [
     {
@@ -46,3 +48,33 @@ const ProductsByCategory = props => {
 };
 
 export default ProductsByCategory;
+
+export const query = graphql`
+  query ShopifyProductsByCategoryName($categoryName: String!) {
+    products: allShopifyProduct(
+      filter: { fields: { mainCategory: { eq: $categoryName } } }
+    ) {
+      edges {
+        node {
+          title
+          handle
+          priceRange {
+            minVariantPrice {
+              amount
+            }
+          }
+          images {
+            localFile {
+              childImageSharp {
+                fixed(width: 125) {
+                  ...GatsbyImageSharpFixed_noBase64
+                }
+              }
+            }
+            originalSrc
+          }
+        }
+      }
+    }
+  }
+`;
