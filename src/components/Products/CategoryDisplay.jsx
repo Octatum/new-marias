@@ -86,25 +86,25 @@ const ButtonHide = styled.div`
 
 const ProductList = styled.div`
   display: grid;
-  grid-auto-rows: auto;
-  grid-template-columns: repeat(4, minmax(10em, 20vw));
+  grid-auto-rows: 12rem;
+  grid-template-columns: repeat(4, minmax(12rem, 1fr));
   justify-content: space-between;
   grid-auto-flow: row dense;
-  grid-gap: 1em;
+  grid-gap: 1.5rem 1rem;
   padding-top: 0.5rem;
   flex: 3;
 
   ${device.laptop} {
     margin-left: 2rem;
-    grid-template-columns: repeat(3, minmax(10em, 20vw));
+    grid-template-columns: repeat(3, minmax(12rem, 1fr));
   }
 
   ${device.tablet} {
-    grid-template-columns: repeat(2, minmax(10em, 20vw));
+    grid-template-columns: repeat(2, minmax(12rem, 1fr));
   }
 
   ${device.mobile} {
-    grid-template-columns: repeat(2, minmax(min-content, 20vw));
+    grid-template-columns: repeat(2, minmax(min-content, 1fr));
     padding: 20px 10%;
     margin-left: 0;
     grid-gap: 5vw;

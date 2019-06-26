@@ -6,6 +6,7 @@ import device from './../../utilities/device';
 import Text from '../Text';
 
 const Container = styled.div`
+  justify-self: center;
   ${device.tablet} {
     display: flex;
     flex-direction: column;
@@ -40,15 +41,18 @@ const CoolLink = styled(Link)`
 `;
 
 function Product(props) {
+  const price = new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+  }).format(props.price);
+
   return (
     <Container>
       <CoolLink to={props.path}>
         <ProductImage fixed={props.thumbnail} />
       </CoolLink>
       <TextBlock size={1.2}>{props.name}</TextBlock>
-      <TextBlock style={{ opacity: '0.6' }}>
-        ${parseFloat(props.price).toFixed(2)}
-      </TextBlock>
+      <TextBlock style={{ opacity: '0.6' }}>{price}</TextBlock>
     </Container>
   );
 }
