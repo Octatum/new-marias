@@ -320,7 +320,7 @@ function ProductDetailContainer(props) {
       name: 'Todo',
     },
     {
-      to: `/tienda/categoria/${cleanCategoryName}`,
+      to: `/tienda/categoria/${cleanCategoryName.toLowerCase()}`,
       name: categoryName,
     },
     {
