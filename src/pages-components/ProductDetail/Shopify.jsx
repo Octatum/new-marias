@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import { range } from 'lodash';
 import styled from 'styled-components/macro';
 import GatsbyLink, { navigate } from 'gatsby-link';
@@ -167,7 +167,6 @@ const actions = {
 };
 
 function reducer(state, action) {
-  console.log(action);
   switch (action.type) {
     case actions.setImages:
       return { ...state, images: action.payload };
@@ -218,6 +217,8 @@ function ProductDetailContainer(props) {
     disableButton: false,
   });
 
+  const galleryRef = useRef(null);
+
   const shopifyClient = useShopifyClient();
   const { addItem } = useShopifyFunctions();
   const { shopifyProduct: product } = props.data;
@@ -257,6 +258,18 @@ function ProductDetailContainer(props) {
 
     dispatch({ type: actions.setVariationIndex, payload: index });
   }
+
+  // Efecto que cambia la imagen seleccionada actualmente en la galería por la
+  // correspondiente a la de la variación seleccionada
+  useEffect(() => {
+    if (galleryRef === null) return;
+    const index = state.images.findIndex(
+      image =>
+        image.originalSrc ===
+        productVariations[state.currentVariationIndex].image.originalSrc
+    );
+    galleryRef.current.slideToIndex(index >= 0 ? index : 0);
+  }, [state.currentVariationIndex, state.images, productVariations]);
 
   useEffect(() => {
     if (state.id === '') return;
@@ -340,7 +353,7 @@ function ProductDetailContainer(props) {
         mx="auto"
       >
         <StyledGallery p={2} width={[1, 1, 3 / 4, 0.7]}>
-          <ImageGallery {...imageGalleryProps} />
+          <ImageGallery ref={galleryRef} {...imageGalleryProps} />
         </StyledGallery>
         <Box p={2} width={[1, 1, 1 / 4, 0.3]} style={{ minWidth: 290 }}>
           <Flex flexDirection={['column-reverse', 'column', 'column']}>

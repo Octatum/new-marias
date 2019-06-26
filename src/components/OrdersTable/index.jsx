@@ -32,6 +32,14 @@ const DesktopText = styled(Text)`
   }
 `;
 
+const PropsDesktopText = ({ children, ...rest }) => {
+  return (
+    <DesktopText align="center" size={2} color="white" {...rest}>
+      {children}
+    </DesktopText>
+  );
+};
+
 const OrdersTable = ({ products, removeItem, updateItem }) => {
   const sortedProducts = products.sort(
     (a, b) => a.title.toLowerCase() < b.title.toLowerCase()
@@ -41,29 +49,19 @@ const OrdersTable = ({ products, removeItem, updateItem }) => {
     <ContentTable>
       <TableHead>
         <FlexCell>
-          <DesktopText align="center" size={2} color="white">
-            Producto
-          </DesktopText>
+          <PropsDesktopText>Producto</PropsDesktopText>
         </FlexCell>
         <FlexCell>
-          <DesktopText align="center" size={2} color="white">
-            Nombre
-          </DesktopText>
+          <PropsDesktopText>Nombre</PropsDesktopText>
         </FlexCell>
         <FlexCell>
-          <DesktopText align="center" size={2} color="white">
-            Precio
-          </DesktopText>
+          <PropsDesktopText>Precio</PropsDesktopText>
         </FlexCell>
         <FlexCell>
-          <DesktopText align="center" size={2} color="white">
-            Cantidad
-          </DesktopText>
+          <PropsDesktopText>Cantidad</PropsDesktopText>
         </FlexCell>
         <FlexCell>
-          <DesktopText align="center" size={2} color="white">
-            Total
-          </DesktopText>
+          <PropsDesktopText>Total</PropsDesktopText>
         </FlexCell>
         <FlexCell flex={1} />
       </TableHead>
