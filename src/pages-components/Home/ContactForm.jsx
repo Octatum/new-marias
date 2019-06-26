@@ -43,7 +43,7 @@ const Input = styled.input`
   border-radius: 0;
   height: 30px;
   padding-left: 20px;
-  font-family: ${({theme}) => theme.fonts.main};
+  font-family: ${({ theme }) => theme.fonts.main};
   font-size: 20px;
   ${device.mobile} {
     padding: 12px;
@@ -98,7 +98,7 @@ const TextArea = styled.textarea`
   width: 100%;
   box-sizing: border-box;
   padding: 20px;
-  font-family: ${({theme}) => theme.fonts.main};
+  font-family: ${({ theme }) => theme.fonts.main};
   font-size: 20px;
   background: none;
   resize: none;
@@ -109,6 +109,7 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
+  font-family: ${({ theme }) => theme.fonts.main};
   background-color: ${({ theme }) => theme.colors.pink};
   width: 221px;
   height: 49px;
