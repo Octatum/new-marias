@@ -79,14 +79,12 @@ const CategoryList = props => {
       {categories.map(category => (
         <Text as="li" key={category.shopifyId}>
           <CategoryLink to={`/tienda/categoria/${category.cleanName}`} replace>
-            {category.name.toLowerCase()}
+            {category.name}
           </CategoryLink>
         </Text>
       ))}
       <Text as="li">
-        <CategoryLink to={`/tienda/categoria/otros`}>
-          {'Otros'.toLowerCase()}
-        </CategoryLink>
+        <CategoryLink to={`/tienda/categoria/otros`}>{'Otros'}</CategoryLink>
       </Text>
     </Ul>
   );

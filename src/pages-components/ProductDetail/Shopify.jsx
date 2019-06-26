@@ -227,8 +227,8 @@ function ProductDetailContainer(props) {
   const { addItem } = useShopifyFunctions();
   const { shopifyProduct: product } = props.data;
   const categoryName = product.fields.mainCategory;
-  const cleanCategoryName = categoryName.replace(/\W/g, '').toLowerCase();
-  const productName = product.title.toLowerCase();
+  const cleanCategoryName = categoryName.replace(/\W/g, '');
+  const productName = product.title;
   const productPrice = Number(
     product.variants[state.currentVariationIndex].price
   );
@@ -321,7 +321,7 @@ function ProductDetailContainer(props) {
     },
     {
       to: `/tienda/categoria/${cleanCategoryName}`,
-      name: categoryName.toLowerCase(),
+      name: categoryName,
     },
     {
       name: productName,

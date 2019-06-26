@@ -54,7 +54,7 @@ const Breadcrumbs = props => {
           }
           return (
             <BreadcrumbItem alignItems="center" key={name}>
-              <TextLink {...linkProps}>{name.toLowerCase()}</TextLink>
+              <TextLink {...linkProps}>{name}</TextLink>
               <Img src={forwardButtonImg} />
             </BreadcrumbItem>
           );
