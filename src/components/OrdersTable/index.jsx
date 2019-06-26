@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import device from './../../utilities/device';
 import Text from '../Text';
 import OrderRow from './OrderRow';
-import { useProducts } from '../CartContext';
 
 const ContentTable = styled('section')`
   display: flex;

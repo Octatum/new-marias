@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 
 import OrdersTable from '../../components/OrdersTable';
-import SubtotalSummary from '../../components/SubtotalSummary';
 import device from '../../utilities/device';
 import AppLayout from '../../components/AppLayout';
 import Button from '../../components/Button';
 import { useShopifyFunctions } from '../../components/ShopifyContext';
+import Text from '../../components/Text';
 
 const Container = styled.div`
   width: 75%;
@@ -44,6 +44,13 @@ const Carrito = () => {
   );
 };
 
+const Summary = styled.div`
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
 const CheckoutDetails = () => {
   const { getCheckout, removeItem, updateItem } = useShopifyFunctions();
   const [totalPrice, setTotalPrice] = useState(0);
@@ -78,7 +85,10 @@ const CheckoutDetails = () => {
         updateItem={updateProductQuantity}
       />
 
-      <SubtotalSummary totalPrice={totalPrice} />
+      <Summary>
+        <Text>SUBTOTAL</Text>
+        <Text>${totalPrice} MXN</Text>
+      </Summary>
 
       <ButtonContainer width={115} mobileHide>
         <CustomButton color="orange" as={Link} to="/tienda">

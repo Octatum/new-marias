@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Text from './Text';
+import downArrow from './assets/ico-select.svg';
 
 const Option = styled('option')``;
 
@@ -10,13 +11,21 @@ const Label = styled('label')`
 `;
 
 const SelectField = styled('select')`
+  appearance: none;
   font-size: 18px;
   box-sizing: border-box;
   height: 2em;
   padding-left: 1em;
-  font-family: ${({theme}) => theme.fonts.main};
+  font-family: ${({ theme }) => theme.fonts.main};
+  border: 1px solid ${({ theme }) => theme.colors.slategray};
+  border-radius: 2px;
   color: ${({ theme }) => theme.colors.darkgray};
-  background: white;
+  background: white; 
+  background-image: url('${downArrow}');     
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  position: relative;
+  padding-left: 12px;
 
   :disabled {
     opacity: 0.6;
