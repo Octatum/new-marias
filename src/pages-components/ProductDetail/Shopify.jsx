@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useRef } from 'react';
 import { range } from 'lodash';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import GatsbyLink, { navigate } from 'gatsby-link';
 import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';

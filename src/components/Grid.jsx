@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import device from '../utilities/device';
 
 function setTemplates(data) {
