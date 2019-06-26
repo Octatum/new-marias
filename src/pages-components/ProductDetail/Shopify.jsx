@@ -23,6 +23,7 @@ const Layout = styled.div`
   width: 100%;
   flex-direction: column;
   padding: 2rem 3rem;
+  margin-bottom: 6rem;
 
   ${device.tablet} {
     padding: 2rem 1rem;
@@ -107,6 +108,9 @@ const StyledGallery = styled(Box)`
     ${device.tablet} {
       width: 100%;
     }
+  }
+  .image-gallery-thumbnails-wrapper.left .image-gallery-thumbnails {
+    position: initial;
   }
   .image-gallery-thumbnails-container > * {
     width: calc(100% - 8px);
