@@ -123,7 +123,10 @@ class CategoryDisplay extends Component {
   };
 
   render() {
-    const { products, breadcrumbItems } = this.props;
+    const { breadcrumbItems } = this.props;
+    const products = this.props.products.sort((pA, pB) =>
+      pA.title.localeCompare(pB.title)
+    );
 
     return (
       <AppLayout>
