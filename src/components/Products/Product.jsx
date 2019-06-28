@@ -4,6 +4,7 @@ import { Link } from 'gatsby';
 import GatsbyImage from 'gatsby-image';
 import device from './../../utilities/device';
 import Text from '../Text';
+import { formatPrice } from '../../utilities/lib';
 
 const Container = styled.div`
   justify-self: center;
@@ -41,10 +42,7 @@ const CoolLink = styled(Link)`
 `;
 
 function Product(props) {
-  const price = new Intl.NumberFormat('es-MX', {
-    style: 'currency',
-    currency: 'MXN',
-  }).format(props.price);
+  const price = formatPrice(props.price);
 
   return (
     <Container>

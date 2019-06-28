@@ -21,3 +21,10 @@ export function toTitleCase(str) {
   }
   return str.join(' ');
 }
+
+export function formatPrice(price) {
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+  }).format(price);
+}

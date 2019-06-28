@@ -1,10 +1,14 @@
 import React, { useEffect, useReducer, useRef } from 'react';
 import { range } from 'lodash';
 import styled from 'styled-components';
-import GatsbyLink, { navigate } from 'gatsby-link';
+import VisuallyHidden from '@reach/visually-hidden';
 import { Flex, Box } from 'rebass';
 import ImageGallery from 'react-image-gallery';
+import { Dialog } from '@reach/dialog';
+import '@reach/dialog/styles.css';
+import { Link } from 'gatsby';
 
+import headerLogo from '../../components/assets/header-icon.svg';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CartCounter from '../../components/CartCounter';
 import device from '../../utilities/device';
@@ -16,6 +20,7 @@ import {
   useShopifyClient,
   useShopifyFunctions,
 } from '../../components/ShopifyContext';
+import { formatPrice } from '../../utilities/lib';
 
 const Layout = styled.div`
   box-sizing: border-box;
@@ -47,7 +52,7 @@ const Par = styled('p')`
   padding-left: 1rem;
 `;
 
-const BackButton = styled(GatsbyLink)`
+const BackButton = styled(Link)`
   display: block;
   width: 13px;
   height: 29px;
@@ -168,6 +173,9 @@ const actions = {
   setUnitsAvailable: 'SET_UNITS_AVAILABLE',
   disableButton: 'DISABLE_BUTTON',
   enableButton: 'ENABLE_BUTTON',
+  hideDialog: 'HIDE_DIALOG',
+  showDialog: 'SHOW_DIALOG',
+  setCurrentCartTotal: 'SET_CURRENT_TOTAL',
 };
 
 function reducer(state, action) {
@@ -201,6 +209,21 @@ function reducer(state, action) {
         ...state,
         disable: false,
       };
+    case actions.showDialog:
+      return {
+        ...state,
+        showDialog: true,
+      };
+    case actions.setCurrentCartTotal:
+      return {
+        ...state,
+        currentCartTotal: action.payload,
+      };
+    case actions.hideDialog:
+      return {
+        ...state,
+        showDialog: false,
+      };
     default:
       throw new Error(
         `Wrong action sent to reducer 'productReducer'. Action type: ${action.type}`
@@ -219,6 +242,8 @@ function ProductDetailContainer(props) {
     inventoryLoaded: false,
     currentVariationIndex: 0,
     disableButton: false,
+    showDialog: false,
+    currentCartTotal: 0,
   });
 
   const galleryRef = useRef(null);
@@ -232,17 +257,25 @@ function ProductDetailContainer(props) {
   const productPrice = Number(
     product.variants[state.currentVariationIndex].price
   );
+  const formattedPrice = formatPrice(productPrice);
   const productVariations = product.variants;
   const productHasVariations = productVariations.length > 1;
   const inputDisabled = !state.inventoryLoaded || !state.unitsAvailable;
+  const subtotal = formatPrice(productPrice * state.amount);
+  const formattedCurrentSubtotal = formatPrice(state.currentCartTotal);
 
   async function addProductToCart() {
     let { amount, id } = state;
     dispatch({ type: actions.disableButton });
 
     try {
-      await addItem({ variantId: id, quantity: Number(amount) });
-      navigate('/tienda/carrito');
+      const checkout = await addItem({
+        variantId: id,
+        quantity: Number(amount),
+      });
+      const currentTotal = Number(checkout.subtotalPrice);
+      dispatch({ type: actions.setCurrentCartTotal, payload: currentTotal });
+      dispatch({ type: actions.showDialog });
     } catch (exception) {
       console.error(exception);
       dispatch({ type: actions.enableButton });
@@ -368,7 +401,7 @@ function ProductDetailContainer(props) {
               <RebassText pt={1} pb={2} fontSize={[3]}>
                 Precio:{' '}
                 <RebassText fontSize={[4]} as="span" color="orange">
-                  ${parseFloat(productPrice).toFixed(2)}
+                  {formattedPrice}
                 </RebassText>
               </RebassText>
               <Flex flexDirection="column">
@@ -430,6 +463,139 @@ function ProductDetailContainer(props) {
           </Flex>
         </Box>
       </Flex>
+
+      <Dialog
+        onDismiss={() => dispatch({ type: actions.hideDialog })}
+        isOpen={state.showDialog}
+        style={{ position: 'relative' }}
+      >
+        <Box
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            outline: '1px solid #626363',
+            opacity: 0.5,
+          }}
+          m={3}
+        >
+          <RebassButton
+            bg="transparent"
+            p={1}
+            onClick={() => dispatch({ type: actions.hideDialog })}
+          >
+            <VisuallyHidden>Close</VisuallyHidden>
+            <div aria-hidden style={{ width: 12, height: 12 }}>
+              <svg
+                viewBox="0 0 12 12"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="#626363"
+                fill="grey"
+                style={{ width: 12, height: 12, display: 'block' }}
+              >
+                <path d="M0 0 L12 12" stroke-width="1" />
+                <path d="M12 0 L0 12" stroke-width="1" />
+              </svg>
+            </div>
+          </RebassButton>
+        </Box>
+        <Flex flexDirection="column" alignItems="center">
+          <Box pb={[2, 3]}>
+            <Flex justifyContent="center">
+              <img
+                src={headerLogo}
+                alt="Logotipo new marias"
+                aria-hidden
+                style={{ maxWidth: '60%', display: 'block' }}
+              />
+            </Flex>
+          </Box>
+
+          <RebassText pb={3}>
+            Acabas de añadir{' '}
+            <RebassText fontWeight="bold" as="strong">
+              ({state.amount})
+            </RebassText>{' '}
+            artículo(s) a tu carrito:
+          </RebassText>
+
+          <Box pb={[3, 4]}>
+            <Flex justifyContent="center">
+              <img
+                src={
+                  productVariations[state.currentVariationIndex].image
+                    .originalSrc
+                }
+                alt="Logotipo new marias"
+                aria-hidden
+                style={{ maxWidth: 150, maxHeight: 150, display: 'block' }}
+              />
+            </Flex>
+          </Box>
+
+          <Box width={[1, 0.8, 0.6, 0.5]} pb={3}>
+            <Flex justifyContent="center">
+              <Box width={1}>
+                <Flex flexDirection="column">
+                  <Flex pb={2}>
+                    <RebassText width={0.6}>Subtotal (producto):</RebassText>
+                    <RebassText textAlign="right" width={0.4}>
+                      {' '}
+                      {subtotal}
+                    </RebassText>
+                  </Flex>
+                  <Flex>
+                    <RebassText fontWeight="bold" color="pink" width={0.6}>
+                      Total del carrito:{' '}
+                    </RebassText>
+                    <RebassText
+                      fontWeight="bold"
+                      color="pink"
+                      textAlign="right"
+                      width={0.4}
+                    >
+                      {' '}
+                      {formattedCurrentSubtotal}
+                    </RebassText>
+                  </Flex>
+                </Flex>
+              </Box>
+            </Flex>
+          </Box>
+
+          <Box width={[1, 0.8, 0.6, 0.5]}>
+            <Flex
+              justifyContent={['initial', 'space-between']}
+              flexDirection={['column', 'column', 'row', 'row']}
+            >
+              <RebassButton
+                as={Link}
+                to="/tienda/carrito"
+                px={[3, 4]}
+                py={3}
+                mb={[2, 2, 0]}
+                bg="orange"
+                style={{ textDecoration: 'none' }}
+              >
+                <RebassText fontSize={1} color="white">
+                  Ir a check-out
+                </RebassText>
+              </RebassButton>
+              <RebassButton
+                as={Link}
+                to="/tienda"
+                px={[3, 4]}
+                py={3}
+                style={{ textDecoration: 'none' }}
+              >
+                <RebassText fontSize={1} color="white">
+                  Seguir comprando
+                </RebassText>
+              </RebassButton>
+            </Flex>
+          </Box>
+        </Flex>
+      </Dialog>
     </Layout>
   );
 }

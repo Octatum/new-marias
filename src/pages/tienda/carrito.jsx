@@ -58,7 +58,7 @@ const CheckoutDetails = () => {
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
   function getValuesFromCheckout(checkout) {
-    setTotalPrice(checkout.totalPrice);
+    setTotalPrice(checkout.subtotalPrice);
     setProducts(checkout.lineItems);
     setCheckoutUrl(checkout.webUrl);
   }

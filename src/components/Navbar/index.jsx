@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import headerIcon from './assets/header-icon.svg';
+import headerIcon from '../assets/header-icon.svg';
 import facebookIcon from './assets/fb-icon.svg';
 import instagramIcon from './assets/ig-icon.svg';
 import device from './../../utilities/device';
@@ -24,7 +24,7 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 0.6rem 1.5rem 0.4rem;
   background: white;
-  z-index: 1000;
+  z-index: 5;
   text-align: center;
   top: 0;
   width: 100%;

@@ -8,13 +8,13 @@ const Container = styled(GatsbyLink)`
   display: block;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  z-index: 99;
+  z-index: 5;
 `;
 
 const Counter = styled.div`
   height: 100%;
   width: 100%;
-  font-family: ${({theme}) => theme.fonts.main};
+  font-family: ${({ theme }) => theme.fonts.main};
   background-image: url(${shoppingCartImg});
   background-size: cover;
   background-repeat: no-repeat;
