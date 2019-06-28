@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef } from 'react';
 import { range } from 'lodash';
 import styled from 'styled-components';
 import VisuallyHidden from '@reach/visually-hidden';
-import { Flex, Box } from 'rebass';
+import { Flex, Box, Image as RebassImage } from 'rebass';
 import ImageGallery from 'react-image-gallery';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
@@ -500,13 +500,14 @@ function ProductDetailContainer(props) {
           </RebassButton>
         </Box>
         <Flex flexDirection="column" alignItems="center">
-          <Box pb={[2, 3]}>
+          <Box pb={[3]}>
             <Flex justifyContent="center">
-              <img
+              <RebassImage
                 src={headerLogo}
                 alt="Logotipo new marias"
                 aria-hidden
-                style={{ maxWidth: '60%', display: 'block' }}
+                style={{ maxWidth: '60%' }}
+                borderRadius={0}
               />
             </Flex>
           </Box>
