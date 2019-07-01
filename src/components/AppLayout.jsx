@@ -9,7 +9,6 @@ import Footer from './Footer';
 import './setup.css';
 import { ShopifyClientProvider } from './ShopifyContext';
 
-export const MoltinGatewayContext = React.createContext(null);
 export const CartIdContext = React.createContext(null);
 
 function AppLayout({ children }) {
