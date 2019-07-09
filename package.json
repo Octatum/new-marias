@@ -36,7 +36,7 @@
     "react-use": "^8.4.0",
     "rebass": "^3.1.1",
     "rebound": "^0.1.0",
-    "shopify-buy": "^2.6.1",
+    "shopify-buy": "^2.6.0",
     "styled-components": "^4.3.2",
     "use-persisted-state": "^0.3.0",
     "yup": "^0.26.10"
