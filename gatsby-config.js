@@ -6,6 +6,7 @@ module.exports = {
     title: 'New Marias',
   },
   plugins: [
+    'gatsby-plugin-netlify',
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-react-helmet',
     {
