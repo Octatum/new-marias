@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import { range } from 'lodash';
 import styled from 'styled-components';
 import VisuallyHidden from '@reach/visually-hidden';
 import { Flex, Box, Image as RebassImage } from 'rebass';
@@ -424,7 +423,9 @@ function ProductDetailContainer(props) {
                   <Select
                     name="cantidad"
                     onChange={setAmount}
-                    options={!inputDisabled ? range(1, 11) : []}
+                    options={
+                      !inputDisabled ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] : []
+                    }
                     disabled={inputDisabled}
                     labelText="Cantidad"
                     required
