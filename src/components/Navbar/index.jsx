@@ -8,7 +8,7 @@ import BurgerButton from './BurgerButton';
 import GatsbyLink from 'gatsby-link';
 import { Link as ReactScrollLink } from 'react-scroll';
 
-import { useLocation } from 'react-use';
+import useLocation from 'react-use/lib/useLocation';
 
 export const navbarIds = {
   inicio: 'inicio',

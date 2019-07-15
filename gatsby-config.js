@@ -23,10 +23,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/tienda/checkout/*`] },
-    },
-    {
       resolve: `gatsby-source-shopify`,
       options: {
         shopName: process.env.GATSBY_SHOP_NAME,
