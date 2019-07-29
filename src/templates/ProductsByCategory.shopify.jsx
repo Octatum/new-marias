@@ -54,7 +54,11 @@ export const query = graphql`
             minVariantPrice {
               amount
             }
+            maxVariantPrice {
+              amount
+            }
           }
+
           images {
             localFile {
               childImageSharp {

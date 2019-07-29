@@ -42,7 +42,16 @@ const CoolLink = styled(Link)`
 `;
 
 function Product(props) {
-  const price = formatPrice(props.price);
+  const {
+    priceRange: {
+      minVariantPrice: { amount: minPrice },
+      maxVariantPrice: { amount: maxPrice },
+    },
+  } = props.product;
+  const hasPriceRange = minPrice !== maxPrice;
+
+  const minDisplayPrice = formatPrice(minPrice);
+  const maxDisplayPrice = formatPrice(maxPrice);
 
   return (
     <Container>
@@ -50,7 +59,9 @@ function Product(props) {
         <ProductImage fixed={props.thumbnail} />
       </CoolLink>
       <TextBlock size={1.2}>{props.name}</TextBlock>
-      <TextBlock style={{ opacity: '0.6' }}>{price}</TextBlock>
+      <TextBlock style={{ opacity: '0.6' }}>
+        {minDisplayPrice} {hasPriceRange && `- ${maxDisplayPrice}`}
+      </TextBlock>
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import shoppingCartImg from './assets/shoppingcart.svg';
 import GatsbyLink from 'gatsby-link';
@@ -9,52 +9,38 @@ const Container = styled(GatsbyLink)`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   z-index: 5;
-`;
-
-const Counter = styled.div`
-  height: 100%;
-  width: 100%;
-  font-family: ${({ theme }) => theme.fonts.main};
+  text-decoration: none;
   background-image: url(${shoppingCartImg});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  position: relative;
-  text-align: center;
+  padding-left: 7px;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+`;
 
-  ::after {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-60%);
-    content: "${props => props.quantity}";
-    color: #ffffff;
-  }
+const Counter = styled('div')`
+  height: 100%;
+  width: 100%;
+  font-family: ${({ theme }) => theme.fonts.main};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 `;
 
 const CartCounter = ({ ...props }) => {
-  const { getCheckout } = useShopifyFunctions();
-  const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    async function getProductQuantity() {
-      try {
-        const checkout = await getCheckout();
-        setQuantity(checkout.lineItems.length);
-      } catch (exception) {
-        console.log(exception);
-      }
-    }
-
-    getProductQuantity();
-  }, [getCheckout]);
+  const { checkout } = useShopifyFunctions();
+  const quantity = checkout.loaded && checkout.lineItems.length;
 
   return (
-    <Container to={'/tienda/carrito'} {...props}>
+    <Container to={'/tienda/carrito'} {...props} name="Ir al carrito">
       <Counter
         quantity={quantity}
-        height={10}
-        aria-label={`hay ${0} productos en el carrito.`}
-      />
+        aria-label={`hay ${quantity} productos en el carrito.`}
+      >
+        {checkout.loaded ? quantity : '...'}
+      </Counter>
     </Container>
   );
 };

@@ -89,11 +89,6 @@ const Contacto = props => {
             rel="noopener noreferrer"
           />
         </Icons>
-        <Sucursal
-          name={rightLocation.name}
-          address={rightLocation.content}
-          coordinates={rightLocation.coords}
-        />
       </Sucursales>
       <ContactForm />
     </Section>

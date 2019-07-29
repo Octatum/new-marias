@@ -174,7 +174,6 @@ const actions = {
   enableButton: 'ENABLE_BUTTON',
   hideDialog: 'HIDE_DIALOG',
   showDialog: 'SHOW_DIALOG',
-  setCurrentCartTotal: 'SET_CURRENT_TOTAL',
 };
 
 function reducer(state, action) {
@@ -213,11 +212,6 @@ function reducer(state, action) {
         ...state,
         showDialog: true,
       };
-    case actions.setCurrentCartTotal:
-      return {
-        ...state,
-        currentCartTotal: action.payload,
-      };
     case actions.hideDialog:
       return {
         ...state,
@@ -242,13 +236,12 @@ function ProductDetailContainer(props) {
     currentVariationIndex: 0,
     disableButton: false,
     showDialog: false,
-    currentCartTotal: 0,
   });
 
   const galleryRef = useRef(null);
 
   const shopifyClient = useShopifyClient();
-  const { addItem } = useShopifyFunctions();
+  const { addItem, checkout } = useShopifyFunctions();
   const { shopifyProduct: product } = props.data;
   const categoryName = product.fields.mainCategory;
   const cleanCategoryName = categoryName.replace(/\W/g, '');
@@ -261,19 +254,17 @@ function ProductDetailContainer(props) {
   const productHasVariations = productVariations.length > 1;
   const inputDisabled = !state.inventoryLoaded || !state.unitsAvailable;
   const subtotal = formatPrice(productPrice * state.amount);
-  const formattedCurrentSubtotal = formatPrice(state.currentCartTotal);
+  const formattedCurrentSubtotal = formatPrice(Number(checkout.subtotalPrice));
 
   async function addProductToCart() {
     let { amount, id } = state;
     dispatch({ type: actions.disableButton });
 
     try {
-      const checkout = await addItem({
+      await addItem({
         variantId: id,
         quantity: Number(amount),
       });
-      const currentTotal = Number(checkout.subtotalPrice);
-      dispatch({ type: actions.setCurrentCartTotal, payload: currentTotal });
       dispatch({ type: actions.showDialog });
     } catch (exception) {
       console.error(exception);

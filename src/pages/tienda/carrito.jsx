@@ -52,29 +52,15 @@ const Summary = styled.div`
 `;
 
 const CheckoutDetails = () => {
-  const { getCheckout, removeItem, updateItem } = useShopifyFunctions();
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [checkoutUrl, setCheckoutUrl] = useState(null);
-
-  function getValuesFromCheckout(checkout) {
-    setTotalPrice(checkout.subtotalPrice);
-    setProducts(checkout.lineItems);
-    setCheckoutUrl(checkout.webUrl);
-  }
-
-  useEffect(() => {
-    async function getLocalCheckout() {
-      const checkout = await getCheckout();
-      getValuesFromCheckout(checkout);
-    }
-
-    getLocalCheckout();
-  }, [getCheckout]);
+  const { removeItem, updateItem, checkout } = useShopifyFunctions();
+  const {
+    subtotalPrice: totalPrice,
+    lineItems: products,
+    webUrl: checkoutUrl,
+  } = checkout;
 
   async function updateProductQuantity(id, quantity) {
-    const checkout = await updateItem({ id, quantity });
-    getValuesFromCheckout(checkout);
+    updateItem({ id, quantity });
   }
 
   return (

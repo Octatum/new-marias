@@ -38,6 +38,9 @@ export const query = graphql`
           title
           handle
           priceRange {
+            minVariantPrice {
+              amount
+            }
             maxVariantPrice {
               amount
             }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import shopify from 'shopify-buy';
 import persistedStateCreator from 'use-persisted-state';
 
@@ -8,86 +8,105 @@ const useShopifyCheckout = persistedStateCreator(persistedStateId);
 const client = shopify.buildClient({
   domain: `${process.env.GATSBY_SHOP_NAME}.myshopify.com`,
   storefrontAccessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
-  apiVersion: '2019-04',
 });
 
-const Context = createContext(null);
+const ShopifyClientContext = createContext(null);
 
 const useShopifyClient = () => {
-  const value = useContext(Context);
-  return value;
+  const client = useContext(ShopifyClientContext);
+  return client;
 };
+
+const shopifyActions = {
+  setLoading: 'set_loading',
+  setCheckout: 'set_checkout',
+};
+
+function shopifyCheckoutReducer(_, action) {
+  console.log(action);
+  switch (action.type) {
+    case shopifyActions.setLoading:
+      return { loaded: false };
+    case shopifyActions.setCheckout:
+      return { ...action.payload, loaded: true };
+    default:
+      throw new Error(`Action of type ${action.type} does not exist.`);
+  }
+}
 
 const useShopifyFunctions = () => {
   const client = useShopifyClient();
-  const [shopifyCheckoutId, setShopifyId] = useShopifyCheckout('');
+  const [shopifyCheckoutId, setShopifyCheckoutId] = useShopifyCheckout('');
+  const [checkout, dispatch] = useReducer(shopifyCheckoutReducer, {
+    loaded: false,
+    subtotalPrice: 0,
+    lineItems: [],
+  });
 
   async function addItem({ variantId, quantity }) {
-    const checkout = await client.checkout.addLineItems(shopifyCheckoutId, [
+    const ch = await client.checkout.addLineItems(shopifyCheckoutId, [
       { variantId, quantity },
     ]);
 
-    return checkout;
+    dispatch({ type: shopifyActions.setCheckout, payload: ch });
+    return ch;
   }
 
   async function removeItem(variantId) {
-    console.log(variantId);
-    const checkout = await client.checkout.removeLineItems(shopifyCheckoutId, [
+    const ch = await client.checkout.removeLineItems(shopifyCheckoutId, [
       variantId,
     ]);
 
-    return checkout;
+    dispatch({ type: shopifyActions.setCheckout, payload: ch });
   }
 
-  async function resetCart() {
-    const checkout = await client.checkout.create();
-    setShopifyId(checkout.id);
-  }
-
-  async function getCheckout() {
-    const checkout = await client.checkout.fetch(shopifyCheckoutId);
-
-    return checkout;
+  function resetCart() {
+    setShopifyCheckoutId('');
+    dispatch({ type: shopifyActions.setLoading });
   }
 
   async function updateItem({ id, quantity }) {
-    const checkout = await client.checkout.updateLineItems(shopifyCheckoutId, [
+    const ch = await client.checkout.updateLineItems(shopifyCheckoutId, [
       {
         id,
         quantity,
       },
     ]);
 
-    return checkout;
+    dispatch({ type: shopifyActions.setCheckout, payload: ch });
   }
 
   useEffect(() => {
-    async function getCheckoutId() {
+    async function checkCartExistance() {
+      let ch = null;
       if (shopifyCheckoutId === '') {
-        await resetCart();
+        ch = await client.checkout.create();
+        setShopifyCheckoutId(ch.id);
+      } else {
+        ch = await client.checkout.fetch(shopifyCheckoutId);
       }
 
-      return shopifyCheckoutId;
+      dispatch({ type: shopifyActions.setCheckout, payload: ch });
     }
 
-    getCheckoutId();
-  }, [resetCart, shopifyCheckoutId]);
+    checkCartExistance();
+  }, [shopifyCheckoutId, setShopifyCheckoutId, client.checkout]);
 
   return {
     addItem,
     removeItem,
     resetCart,
-    getCheckout,
     updateItem,
+    checkout,
   };
 };
 
-function Provider({ children }) {
-  return <Context.Provider value={client}>{children}</Context.Provider>;
+function ShopifyClientProvider({ children }) {
+  return (
+    <ShopifyClientContext.Provider value={client}>
+      {children}
+    </ShopifyClientContext.Provider>
+  );
 }
 
-export {
-  Provider as ShopifyClientProvider,
-  useShopifyClient,
-  useShopifyFunctions,
-};
+export { ShopifyClientProvider, useShopifyClient, useShopifyFunctions };

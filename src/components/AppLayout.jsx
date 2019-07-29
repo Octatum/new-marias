@@ -9,30 +9,26 @@ import Footer from './Footer';
 import './setup.css';
 import { ShopifyClientProvider } from './ShopifyContext';
 
-export const CartIdContext = React.createContext(null);
-
 function AppLayout({ children }) {
   return (
     <ShopifyClientProvider>
-      <CartIdContext.Provider>
-        <ThemeProvider theme={theme}>
-          <React.Fragment>
-            <Helmet
-              titleTemplate={`%s - New Marias`}
-              meta={[
-                {
-                  name: 'description',
-                  content: 'Artesanías Mexicanas New Marias',
-                },
-                { name: 'keywords', content: 'artesanias, mexico' },
-              ]}
-            />
-            <Navbar />
-            {children}
-            <Footer />
-          </React.Fragment>
-        </ThemeProvider>
-      </CartIdContext.Provider>
+      <ThemeProvider theme={theme}>
+        <React.Fragment>
+          <Helmet
+            titleTemplate={`%s - New Marias`}
+            meta={[
+              {
+                name: 'description',
+                content: 'Artesanías Mexicanas New Marias',
+              },
+              { name: 'keywords', content: 'artesanias, mexico' },
+            ]}
+          />
+          <Navbar />
+          {children}
+          <Footer />
+        </React.Fragment>
+      </ThemeProvider>
     </ShopifyClientProvider>
   );
 }
