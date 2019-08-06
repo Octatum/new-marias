@@ -54,32 +54,30 @@ const CategoryList = props => {
   const { hidden } = props;
   const data = useStaticQuery(graphql`
     query {
-      categories: allShopifyProductType(sort: { fields: name }) {
-        edges {
-          node {
-            shopifyId
-            name
-          }
+      categories: allShopifyProduct(sort: { fields: productType }) {
+        group(field: productType) {
+          fieldValue
         }
       }
     }
   `);
 
-  const categories = data.categories.edges
-    .map(({ node }) => ({
-      cleanName: cleanString(node.name),
-      ...node,
+  const categories = data.categories.group
+    .map(({ fieldValue }) => ({
+      cleanName: cleanString(fieldValue),
+      fieldValue,
     }))
     .filter(category => category.cleanName !== 'otros');
+  debugger;
   return (
     <Ul hide={hidden}>
       <TitleLi as="li" size={4} className="title">
         Categorías
       </TitleLi>
       {categories.map(category => (
-        <Text as="li" key={category.shopifyId}>
+        <Text as="li" key={category.fieldValue}>
           <CategoryLink to={`/tienda/categoria/${category.cleanName}`} replace>
-            {category.name}
+            {category.fieldValue}
           </CategoryLink>
         </Text>
       ))}

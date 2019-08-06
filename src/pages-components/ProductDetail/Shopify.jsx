@@ -476,7 +476,7 @@ function ProductDetailContainer(props) {
             p={1}
             onClick={() => dispatch({ type: actions.hideDialog })}
           >
-            <VisuallyHidden>Close</VisuallyHidden>
+            <VisuallyHidden>Cerrar</VisuallyHidden>
             <div aria-hidden style={{ width: 12, height: 12 }}>
               <svg
                 viewBox="0 0 12 12"

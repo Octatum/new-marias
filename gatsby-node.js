@@ -39,13 +39,9 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-
-        categories: allShopifyProductType {
-          edges {
-            node {
-              shopifyId
-              name
-            }
+        categories: allShopifyProduct {
+          group(field: productType) {
+            fieldValue
           }
         }
       }
@@ -62,13 +58,13 @@ exports.createPages = ({ graphql, actions }) => {
         });
       });
 
-      result.data.categories.edges.forEach(({ node }) => {
-        const cleanName = toUrlCase(node.name);
+      result.data.categories.group.forEach(({ fieldValue }) => {
+        const cleanName = toUrlCase(fieldValue);
         createPage({
           path: `/tienda/categoria/${cleanName}`,
           component: shopifyProductGridView,
           context: {
-            categoryName: node.name,
+            categoryName: fieldValue,
           },
         });
       });
