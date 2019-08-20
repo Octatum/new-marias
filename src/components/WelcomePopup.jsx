@@ -1,5 +1,5 @@
 import React from 'react';
-import useLocalStorage from 'react-use/lib/useLocalStorage';
+import useSessionStorage from 'react-use/lib/useSessionStorage';
 import { Dialog } from '@reach/dialog';
 import { Box, Flex, Image as RebassImage } from 'rebass';
 import VisuallyHidden from '@reach/visually-hidden';
@@ -12,7 +12,7 @@ import GatsbyImage from 'gatsby-image';
 const popupId = 'has_seen_welcome_popup';
 
 function WelcomePopup() {
-  const [hasSeenPopup, setHasSeenPopup] = useLocalStorage(popupId, false);
+  const [hasSeenPopup, setHasSeenPopup] = useSessionStorage(popupId, false);
   const {
     file: {
       childImageSharp: { fluid },

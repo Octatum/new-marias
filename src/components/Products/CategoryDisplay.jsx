@@ -10,6 +10,7 @@ import Breadcrumbs from '../Breadcrumbs';
 import banner from './assets/banner.jpg';
 import AppLayout from '../AppLayout';
 import CartCounter from '../CartCounter';
+import WelcomePopup from '../WelcomePopup';
 
 const Banner = styled.div`
   width: 100%;
@@ -130,6 +131,7 @@ class CategoryDisplay extends Component {
 
     return (
       <AppLayout>
+        <WelcomePopup />
         <Banner />
         <Container>
           <TabletGridCell area="categories">

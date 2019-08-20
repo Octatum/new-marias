@@ -8,7 +8,6 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import './setup.css';
 import { ShopifyClientProvider } from './ShopifyContext';
-import WelcomePopup from './WelcomePopup';
 
 function AppLayout({ children }) {
   return (
@@ -25,7 +24,6 @@ function AppLayout({ children }) {
               { name: 'keywords', content: 'artesanias, mexico' },
             ]}
           />
-          <WelcomePopup />
           <Navbar />
           {children}
           <Footer />
