@@ -303,6 +303,7 @@ function ProductDetailContainer(props) {
 
     async function getProductInventory(id) {
       const response = await shopifyClient.product.fetch(product.shopifyId);
+      console.log(response);
       const p = response.variants.find(item => item.id === id);
       return p;
     }

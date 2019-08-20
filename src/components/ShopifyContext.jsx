@@ -23,7 +23,6 @@ const shopifyActions = {
 };
 
 function shopifyCheckoutReducer(_, action) {
-  console.log(action);
   switch (action.type) {
     case shopifyActions.setLoading:
       return { loaded: false };

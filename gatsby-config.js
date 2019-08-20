@@ -1,3 +1,4 @@
+const path = require(`path`);
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -10,6 +11,13 @@ module.exports = {
     'gatsby-plugin-netlify-cache',
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-react-helmet',
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `components/assets`),
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
